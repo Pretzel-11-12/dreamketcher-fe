@@ -57,7 +57,7 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="relative flex">
+        <div className="relative flex text-black">
           {userId !== 0 ? (
             <>
             <Link
