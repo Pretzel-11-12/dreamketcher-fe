@@ -1,14 +1,15 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import Header from "@/app/_component/Header";
 import Footer from "@/app/_component/Footer";
 
-type Props = { children: ReactNode, modal: ReactNode }
-export default async function AfterLoginLayout({children, modal}: Props) {
+type Props = { children: ReactNode };  // modal 제거
+
+export default function AfterLoginLayout({ children }: Props) {
   return (
     <div>
-        <Header></Header>
-        <main>{children}</main>
-        <Footer></Footer>
+      <Header />
+      <main>{children}</main>
+      <Footer />
     </div>
-  )
+  );
 }
