@@ -1,10 +1,12 @@
+"use client"
+
 import React, { useState, useEffect, useRef } from "react";
 
 const Carousel = () => {
   const images = [
-    `${process.env.PUBLIC_URL}/assets/images/intro-1.png`,
-    // `${process.env.PUBLIC_URL}/assets/images/intro-1.png`,
-    // `${process.env.PUBLIC_URL}/assets/images/intro-1.png`,
+    `/assets/images/intro-demo-1.png`,
+    `/assets/images/intro-demo-1.png`,
+    `/assets/images/intro-demo-1.png`,
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,7 +50,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full mx-auto">
+    <div className="relative w-full h-full max-w-[1024px]">
       {/* 이미지 슬라이드 */}
       <div className="overflow-hidden">
         <div
@@ -69,13 +71,13 @@ const Carousel = () => {
       {/* 좌우 전환 버튼 */}
       <button
         onClick={goToPrevious}
-        className="absolute top-1/2 left-2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70"
+        className="absolute top-1/2 left-2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 w-10 h-10 rounded-full p-2 hover:bg-opacity-70"
       >
         &#8249;
       </button>
       <button
         onClick={goToNext}
-        className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70"
+        className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 w-10 h-10 rounded-full p-2 hover:bg-opacity-70"
       >
         &#8250;
       </button>
