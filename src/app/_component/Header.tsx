@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 const Header: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -60,18 +60,16 @@ const Header: React.FC = () => {
         <div className='relative flex text-black'>
           {userId !== 0 ? (
             <>
-              <Link href='/mypage' className='px-4 py-2'>
+              <Link href='/mypage' className='px-2 py-2 text-sm'>
                 마이페이지
               </Link>
               {/* 알림 아이콘 숨김 처리 */}
-              {/* <Link
-                href='/api/auth/signin'
-                className='px-4 py-2'
-                onClick={() => signIn('google')}
-              >
+              <Link href='/login' className='px-2 py-2 text-sm'>
                 로그인
-              </Link> */}
-              <button onClick={() => signIn('google')}>로그인</button>
+              </Link>
+              <button className='text-sm' onClick={() => signOut()}>
+                로그아웃
+              </button>
             </>
           ) : (
             <Link href='/login' className='px-4 py-2'>
