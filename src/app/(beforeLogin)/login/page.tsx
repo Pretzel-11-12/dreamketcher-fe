@@ -3,6 +3,32 @@
 import { signIn } from 'next-auth/react';
 
 const LoginPage: React.FC = () => {
+  const handleGoogleLogin = async () => {
+    // signIn으로 구글 로그인 페이지로 리디렉트
+    const result = await signIn('google', { redirect: false });
+
+    if (result?.url) {
+      // 현재 URL에서 쿼리 매개변수로 전달된 code 추출
+      const authCode = new URLSearchParams(window.location.search).get('code');
+
+      if (authCode) {
+        console.log('Google Authorization Code:', authCode);
+        // 인증 코드 서버로 전송
+        await fetch('/api/v1/auth/google/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code: authCode }),
+        });
+      } else {
+        console.error('Authorization code not found in URL.');
+      }
+    } else {
+      console.error('Login failed or URL is null.');
+    }
+  };
+
   return (
     <div className='flex items-center justify-center h-screen'>
       <div className='text-center bg-white p-8 rounded-lg'>
@@ -14,7 +40,7 @@ const LoginPage: React.FC = () => {
           {/* 구글 로그인 */}
           <button
             className='flex items-center justify-center w-full'
-            onClick={() => signIn('google', { prompt: 'select_account' })}
+            onClick={handleGoogleLogin}
           >
             <img
               src='/assets/images/google-button.svg'
