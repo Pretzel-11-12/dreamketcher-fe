@@ -57,7 +57,14 @@ export default async function Detail({
             {
               id: 2,
               name: "comment 2",
-              description: `comment 2`,
+              description: `그룹명 'aespa (에스파)'는 ‘아바타 X 익스피리언스 (Avatar X Experience)’를 표현한 ‘æ’와 양면이라는 뜻의 영단어 ‘aspect’를 결합해 만든 이름이다. 그룹명을 æspa로 표기할 때도 있다.`,
+              like: 1,
+              timestamp: 1730766637666,
+            },
+            {
+              id: 3,
+              name: "comment 3",
+              description: `comment 3`,
               like: 1,
               timestamp: 1730766637666,
             },
@@ -74,7 +81,7 @@ export default async function Detail({
 
   return (
     <div className="flex flex-col gap-16 w-[800px] items-center justify-center text-md">
-      <div className="bg-[#D9D9D9] h-[1800px] w-full"></div>
+      <div className="bg-[#D9D9D9] h-[2000px] w-full"></div>
 
       <div className="bg-[#fffff] border rounded-md flex w-full h-[100px] hover:cursor-pointer">
         <div className="w-full h-full flex flex-col items-center justify-center border-r p-4 hover:bg-slate-300/20 gap-0.5">
