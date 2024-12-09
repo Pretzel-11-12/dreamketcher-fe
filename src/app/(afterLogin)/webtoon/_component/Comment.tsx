@@ -17,7 +17,7 @@ export default function Comment({
   const time = new Date(timestamp).toLocaleString();
   return (
     <div className="flex flex-col p-3 border rounded-md gap-1">
-      <div className="flex w-full">
+      <div className="flex w-full gap-2">
         <span className="mdi mdi-account-circle text-gray-500/70 text-5xl"></span>
         <div className="flex flex-col gap-1 w-full">
           <div className="flex w-full justify-between">
