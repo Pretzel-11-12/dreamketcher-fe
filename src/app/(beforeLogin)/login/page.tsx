@@ -1,32 +1,19 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-
 const LoginPage: React.FC = () => {
+  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
+  const REDIRECT_URI = 'http://localhost:3000/login/google';
+
   const handleGoogleLogin = async () => {
-    // signIn으로 구글 로그인 페이지로 리디렉트
-    const result = await signIn('google', { redirect: false });
+    const googleOAuthURL =
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${GOOGLE_CLIENT_ID}` +
+      `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+      `&response_type=code` +
+      `&scope=openid%20email%20profile` +
+      `&access_type=offline`;
 
-    if (result?.url) {
-      // 현재 URL에서 쿼리 매개변수로 전달된 code 추출
-      const authCode = new URLSearchParams(window.location.search).get('code');
-
-      if (authCode) {
-        console.log('Google Authorization Code:', authCode);
-        // 인증 코드 서버로 전송
-        await fetch('/api/v1/auth/google/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ code: authCode }),
-        });
-      } else {
-        console.error('Authorization code not found in URL.');
-      }
-    } else {
-      console.error('Login failed or URL is null.');
-    }
+    window.location.href = googleOAuthURL;
   };
 
   return (
