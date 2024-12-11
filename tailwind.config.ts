@@ -12,6 +12,7 @@ export default {
         brand: {
           yellow: "#FBA250",
           blue: "#2E4072",
+          gray: "#F2F2F2",
         },
         background: "var(--background)",
         foreground: "var(--foreground)",
