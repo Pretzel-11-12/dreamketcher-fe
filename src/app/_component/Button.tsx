@@ -1,39 +1,41 @@
 "use client";
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: "XL" | "L" | "M" | "S" | "XS";
-  variant: "bg-blue" | "bg-gray" | "bg-transparent";
+  variant: "brand-yellow" | "brand-blue" | "brand-gray" | "transparent";
   disabled?: boolean;
   containerStyles?: string;
-  children: React.ReactNode;
+  handleClick?: () => void;
 }
 const SIZE_MAP: { [k in Props["size"]]: string } = {
-  XL: "w-[360px] rounded-xl py-3 px-5 text-xl",
-  L: "w-[180px] rounded-xl py-3 px-5 text-lg",
-  M: "w-fit rounded-lg py-2 px-4 text-base",
-  S: "w-fit rounded-lg py-2 px-3 text-sm",
-  XS: "w-fit rounded-md py-2 px-3 text-xs",
+  XL: "w-full rounded-xl py-3 px-5 text-xl",
+  L: "w-full rounded-lg py-3 px-5 text-lg",
+  M: "w-full rounded-md py-2 px-4 text-md",
+  S: "w-full rounded-sm py-2 px-3 text-sm font-medium",
+  XS: "w-full rounded-xs py-2 px-3 text-xs",
 };
 const VARIANT_MAP: { [k in Props["variant"]]: string } = {
-  "bg-gray":
-    "bg-gray-500 text-white hover:bg-gray-400 disabled:bg-gray-300 disabled:cursor-not-allowed",
-  "bg-blue":
-    "bg-blue-500 text-white hover:bg-blue-400 disabled:bg-gray-300 disabled:cursor-not-allowed",
-  "bg-transparent":
-    "text-gray-500 hover:text-gray-900 disabled:cursor-not-allowed",
+  "brand-yellow":
+    "bg-brand-yellow text-white hover:bg-[#FCB06A] disabled:bg-gray-300",
+  "brand-blue":
+    "bg-brand-blue text-white hover:bg-[#4D5D87] disabled:bg-gray-300",
+  "brand-gray":
+    "bg-brand-gray text-[#3F3F3F] hover:bg-[#efefef] disabled:bg-gray-300",
+  transparent: "text-bg-brand-gray",
 };
 
-export default function Button({
-  size = "S",
-  variant = "bg-blue",
-  disabled,
-  children,
-  containerStyles,
-  ...rest
-}: Props) {
+type ButtonProps = {
+  props: Props;
+  children: ReactNode;
+};
+
+const Button: React.FC<ButtonProps> = ({ props, children }) => {
+  const { size, variant, containerStyles, disabled, handleClick, ...rest } =
+    props;
   return (
     <button
+      onClick={handleClick}
       className={`${SIZE_MAP[size]} ${VARIANT_MAP[variant]} ${containerStyles}`}
       disabled={disabled}
       {...rest}
@@ -41,4 +43,5 @@ export default function Button({
       {children}
     </button>
   );
-}
+};
+export default Button;
