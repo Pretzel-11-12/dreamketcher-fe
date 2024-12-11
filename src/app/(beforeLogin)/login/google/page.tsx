@@ -14,7 +14,7 @@ const GoogleCallbackPage: React.FC = () => {
       try {
         // GET 요청으로 authCode를 쿼리 스트링에 포함하여 서버로 전송
         const response = await fetch(
-          `http://localhost:8080/api/v1/auth/google/callback?code=${authCode}`,
+          `/api/v1/auth/google/callback?code=${authCode}`,
           {
             method: 'GET',
           }
