@@ -1,13 +1,14 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
-
+import Image from "next/image";
+import Button from "@/app/_component/Button";
 
 const Header: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
-  const userId:Number = 1;
-  const profileImage:any = null;
+  const userId: Number = 1;
+  const profileImage: any = null;
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -28,60 +29,57 @@ const Header: React.FC = () => {
   return (
     <header className="fixed w-full bg-white z-50">
       <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 md:px-0 relative">
-        <div className="flex items-center space-x-4 md:space-x-20">
-          <Link href="/" className="flex items-center space-x-2">
-            <img
-              src={`/assets/images/logo.png`}
-              alt="Logo"
-              className="h-8 w-8"
-            />
-            <span className="text-lg md:text-xl font-bold text-[#6D81D5]">
-              Dreamketcher
-            </span>
+        <div className="flex items-center space-x-10">
+          <Link
+            href="/"
+            className="flex items-center text-lg md:text-xl font-bold"
+          >
+            <span className="text-brand-yellow">Dream</span>
+            <span className="text-brand-blue">ketcher</span>
           </Link>
-        </div>
-
-        <div className="flex justify-end w-full max-w-[670px]">
-          <div className="flex flex-row w-[380px]">
-            <input
-                type="text"
-                placeholder="Search..."
-                className="w-full h-[44px] p-2 border-b border-black"
-              />
-            <button className="">
-              <img
-                src={`/assets/images/magnifier.png`}
-                alt="Search"
-                className="w-[15px] cursor-pointer object-scale-down"
-              />
+          <div className="flex text-[#888888]">
+            <button className="border-r border-r-line w-[65px] h-[36px] text-black">
+              홈
+            </button>
+            <button className="border-r border-r-line w-[65px] h-[36px]">
+              구독
+            </button>
+            <button className="border-r border-r-line w-[65px] h-[36px]">
+              보관함
             </button>
           </div>
         </div>
-        <div className="relative flex text-black">
-          {userId !== 0 ? (
-            <>
-            <Link
-              href="/login"
-              className="px-4 py-2"
-            >
-              마이페이지
-            </Link>
-              {/* 알림 아이콘 숨김 처리 */}
-              <Link
-              href="/login"
-              className="px-4 py-2"
-            >
-              로그인
-            </Link>
-            </>
-          ) : (
-            <Link
-              href="/login"
-              className="px-4 py-2"
-            >
-              로그아웃
-            </Link>
-          )}
+
+        <div className="flex justify-end w-full max-w-[600px]">
+          <div className="flex items-center w-[350px] gap-3">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
+            />
+            <div className="relative flex text-black gap-3">
+              {userId !== 0 ? (
+                <>
+                  <Image
+                    src="/assets/images/bell.png"
+                    alt="noti button"
+                    width={30}
+                    height={30}
+                  />
+                  <Image
+                    src="/assets/images/profile-default.png"
+                    alt="profile button"
+                    width={30}
+                    height={30}
+                  />
+                </>
+              ) : (
+                <Link href="/login" className="px-4 py-2">
+                  로그아웃
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </header>

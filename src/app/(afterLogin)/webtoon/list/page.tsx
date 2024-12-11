@@ -1,96 +1,115 @@
-import User, { UserInfo } from "../_component/User";
-import Comment, { CommentInfo } from "../_component/Comment";
-import Button from "@/app/_component/Button";
-import Link from "next/link";
-import List from "../_component/List";
+"use client";
 
-export default async function Detail({
-  params,
+import CategorySelector from "@/app/CategorySelector";
+import GenreSelector from "@/app/index/_component/GenreSelector";
+import WebtoonInfo, { Tag } from "./_component/WebtoonInfo";
+import EpisodeList from "./_component/EpisodeList";
+import NoticeList from "./_component/NoticeList";
+
+const categories = [
+  { name: "추천" },
+  { name: "로맨스" },
+  { name: "판타지" },
+  { name: "무협" },
+  { name: "일상" },
+  { name: "스릴러" },
+  { name: "공포" },
+  { name: "액션" },
+  { name: "스포츠" },
+  { name: "개그" },
+  { name: "소년" },
+];
+const announcements = [
+  {
+    id: 1,
+    title: "드림케쳐 서비스 오픈 안내",
+    link: "/announcements/dreamcatcher-launch",
+  },
+  {
+    id: 2,
+    title: "개인정보처리 방침에 대한 안내사항",
+    link: "/announcements/privacy-policy",
+  },
+  {
+    id: 3,
+    title: "2025년 설 연 서비스 운영 안내사항",
+    link: "/announcements/2025-new-year",
+  },
+  {
+    id: 4,
+    title: "01/03(금) 23:00 ~ 24:00 서버 점검 안내",
+    link: "/announcements/server-maintenance-0103",
+  },
+];
+
+const webtoonInfo = {
+  id: 1,
+  image: "/assets/images/webtoonthumbnail-1.jpg",
+  title: "괴담 출근",
+  writer: "바크베",
+  genre: "판타지",
+  description: `Stay in the middle, Like you a littleDon't want no riddle. 말해줘 say
+  it back, oh, say it ditto, 훌쩍 커버렸어 함께한 기억처럼 널 보는 내
+  마음은 어느새 여름 지나 가을. 기다렸지 all this time. Do you want
+  somebody? Like I want somebody?날 보고 웃었지만 Do you think about me
+  now? Yeah. All the time, yeah, all the time. I don't want to walk in
+  this 미로`,
+  interest: 6741,
+  tags: [Tag.HORROR, Tag.ROMANCE, Tag.SCARED],
+};
+
+export default function Detail({
   searchParams,
 }: {
-  params: Promise<{ params: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { titleId } = await searchParams;
+  const handleCategoryClick = () => {
+    return null;
+  };
 
-  const listItems = [
-    {
-      id: 1,
-      title: `I'm like some kind of supernova, Watch out`,
-      timestamp: 1730918078224,
-    },
-    {
-      id: 2,
-      title: `I'm like some kind of supernova, Watch out`,
-      timestamp: 1730918078224,
-    },
-    {
-      id: 3,
-      title: `I'm like some kind of supernova, Watch out`,
-      timestamp: 1730918078224,
-    },
-    {
-      id: 4,
-      title: `I'm like some kind of supernova, Watch out`,
-      timestamp: 1730918078224,
-    },
-  ];
+  const handleGenreClick = () => {
+    return null;
+  };
 
   return (
-    <div className="flex flex-col gap-16 w-full items-center justify-center pt-[100px]">
-      <div className="grid grid-cols-[1fr_20rem] w-[1100px]">
-        <div className="h-[2000px] w-full border-r flex flex-col">
-          <div className="grid grid-cols-[auto_1fr] gap-6 p-7">
-            <div className="bg-[#D9D9D9] h-[300px] w-[200px]"></div>
-            <div className="flex gap-2 flex-col">
-              <div className="text-lg">괴담 출근</div>
-              <div className="text-sm">바크베</div>
-              <div className="text-sm">
-                Stay in the middle, Like you a littleDon't want no riddle.
-                말해줘 say it back, oh, say it ditto, 훌쩍 커버렸어 함께한
-                기억처럼 널 보는 내 마음은 어느새 여름 지나 가을. 기다렸지 all
-                this time. Do you want somebody? Like I want somebody?날 보고
-                웃었지만 Do you think about me now? Yeah. All the time, yeah,
-                all the time. I don't want to walk in this 미로
-              </div>
+    <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
+      <hr className="border-line border-solid" />
+      <CategorySelector
+        selectedCategory={"전체"}
+        categories={[{ name: "전체" }, { name: "신작" }, { name: "완결" }]}
+        handleCategoryClick={handleCategoryClick}
+      />
+      <hr className="border-line border-solid" />
+      <GenreSelector
+        selectedGenre={"추천"}
+        categories={categories}
+        handleGenreClick={handleGenreClick}
+      />
+      <hr className="border-line border-solid" />
+      <div className="w-full flex justify-center">
+        <div className="flex w-[1024px]">
+          <div className="flex flex-col w-full gap-6 border-r border-r-line pt-8">
+            <WebtoonInfo webtoon={webtoonInfo} />
+            <NoticeList />
+            <EpisodeList />
+          </div>
 
-              <div className="text-sm">tags</div>
-              <div className="grid grid-cols-[1.5fr_1fr] gap-1">
-                <Button size="S" variant="bg-blue" containerStyles="w-full">
-                  <div className="flex gap-2 items-center justify-center">
-                    <span className="mdi mdi-plus text-xl"></span>
-                    관심 6,741
+          <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+            <div className="flex flex-col gap-4">
+              <p>공지사항</p>
+              <hr className="-ml-2"></hr>
+              <div className="flex flex-col gap-1">
+                {announcements.map((announcement) => (
+                  <div className="flex" key={announcement.id}>
+                    <p className="text-[#3F3F3F] text-[12px]">
+                      · {announcement.title}
+                    </p>
                   </div>
-                </Button>
-
-                <Button size="S" variant="bg-blue" containerStyles="w-full">
-                  <Link
-                    href={{
-                      pathname: "/webtoon/detail",
-                      query: { titleId: "12345", no: "1" },
-                    }}
-                  >
-                    <div className="flex gap-2 items-center justify-center">
-                      첫 화 보기
-                    </div>
-                  </Link>
-                </Button>
+                ))}
               </div>
             </div>
           </div>
-
-          <div>
-            {listItems.map((item) => (
-              <List
-                title={item.title}
-                index={item.id}
-                timestamp={item.timestamp}
-              ></List>
-            ))}
-          </div>
         </div>
-
-        <div className="h-full w-full"></div>
       </div>
     </div>
   );
