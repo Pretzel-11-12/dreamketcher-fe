@@ -20,7 +20,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
           <button
             key={Tag.name}
             className={`flex items-center justify-center w-[49px] h-[30px] text-[13px] bg-[#f2f2f2] hover:bg-[#5474CE] text-[#888888] hover:text-white rounded-[11px] transition duration-300 ${
-              selectedTag === Tag.name ? "bg-[#5474CE]" : "text-white"
+              selectedTag === Tag.name ? "bg-[#5474CE]" : "text-[#888888]"
             }`}
             onClick={() => handleTagClick(Tag.name)}
           >
