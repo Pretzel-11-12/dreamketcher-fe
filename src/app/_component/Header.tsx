@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Button from "@/app/_component/Button";
 
 const Header: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -48,23 +50,28 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-end w-full max-w-[570px]">
-          <div className="flex items-center w-[380px]">
+        <div className="flex justify-end w-full max-w-[600px]">
+          <div className="flex items-center w-[350px] gap-3">
             <input
               type="text"
               placeholder="Search..."
               className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
             />
-            <div className="relative flex text-black">
+            <div className="relative flex text-black gap-3">
               {userId !== 0 ? (
                 <>
-                  <Link href="/login" className="px-4 py-2">
-                    마이페이지
-                  </Link>
-                  {/* 알림 아이콘 숨김 처리 */}
-                  <Link href="/login" className="px-4 py-2">
-                    로그인
-                  </Link>
+                  <Image
+                    src="/assets/images/bell.png"
+                    alt="noti button"
+                    width={30}
+                    height={30}
+                  />
+                  <Image
+                    src="/assets/images/profile-default.png"
+                    alt="profile button"
+                    width={30}
+                    height={30}
+                  />
                 </>
               ) : (
                 <Link href="/login" className="px-4 py-2">
