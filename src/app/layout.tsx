@@ -5,7 +5,6 @@ import Header from './_component/Header';
 import Footer from './_component/Footer';
 
 import '@mdi/font/css/materialdesignicons.min.css';
-import AuthContext from './context/AuthContext';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -33,11 +32,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <AuthContext>
-          <Header></Header>
-          {children}
-          <Footer></Footer>
-        </AuthContext>
+        {/* <AuthContext> */}
+        <Header></Header>
+        {children}
+        <Footer></Footer>
+        {/* </AuthContext> */}
       </body>
     </html>
   );
