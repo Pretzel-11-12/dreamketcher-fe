@@ -2,7 +2,7 @@
 
 const LoginPage: React.FC = () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-  const REDIRECT_URI = 'http://localhost:8080/api/v1/auth/google/callback';
+  const REDIRECT_URI = 'http://localhost:3000/login/google';
 
   const handleGoogleLogin = async () => {
     const googleOAuthURL =
