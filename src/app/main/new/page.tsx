@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import RecentThumbnail from "@/app/main/_component/RecentThumbnail";
-import LargeThumbnailContainer from "@/app/main/_component/LargeThumbnailContainer";
 import ThumbnailContainer from "@/app/main/_component/ThumbnailContainer";
+import DetailThumbnailContainer from "@/app/main/_component/DetailThumbnailContainer";
 
 interface WebtoonThumbnailData {
   id: number;
@@ -63,24 +63,18 @@ export default function New() {
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">
-        <div className="flex flex-col w-[700px] border-r border-r-line pt-8">
-          <ThumbnailContainer title={"베스트 웹툰"} />
+        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3">
+          <ThumbnailContainer title={"베스트 신작 웹툰"} />
           <div className="flex gap-1 mt-10">
             <Image
               src="/assets/images/promotion.jpg"
               alt="Site promotion image"
-              width={340}
-              height={60}
-            />
-            <Image
-              src="/assets/images/promotion.jpg"
-              alt="Site promotion image"
-              width={340}
-              height={60}
+              layout="responsive"
+              width={693}
+              height={50}
             />
           </div>
-          <LargeThumbnailContainer title={"키워드 별 추천 작품"} />
-          <LargeThumbnailContainer title={"장르별 신작 작품"} />
+          <DetailThumbnailContainer title={"전체 신작 웹툰"} />
         </div>
         <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
           <p>최근 본 작품</p>

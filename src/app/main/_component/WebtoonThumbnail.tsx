@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface WebtoonThumbnailData {
   id: number;
@@ -17,8 +18,15 @@ type WebtoonThumbnailProps = {
 };
 
 const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({ webtoon }) => {
+  const router = useRouter();
+  function tempClickHandler() {
+    router.push(`/webtoon/list`);
+  }
   return (
-    <div className="flex w-[256px] h-[150px] cursor-pointer">
+    <div
+      className="flex w-[256px] h-[150px] cursor-pointer"
+      onClick={tempClickHandler}
+    >
       <Image
         src={webtoon.image}
         alt="Webtoon thumbnail image"
