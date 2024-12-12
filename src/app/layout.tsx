@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import Header from './_component/Header';
-import Footer from './_component/Footer';
+import Header from '@/app/_component/Header';
+import Footer from '@/app/_component/Footer';
 
 import '@mdi/font/css/materialdesignicons.min.css';
 
@@ -28,15 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='kr'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        {/* <AuthContext> */}
         <Header></Header>
         {children}
         <Footer></Footer>
-        {/* </AuthContext> */}
       </body>
     </html>
   );

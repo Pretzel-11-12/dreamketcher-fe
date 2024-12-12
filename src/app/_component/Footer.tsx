@@ -3,7 +3,7 @@ type FooterProps = {};
 const Footer: React.FC<FooterProps> = () => {
   return (
     <div className="flex items-center justify-center w-full h-[130px] bg-[#444655] text-white text-[14px] mt-auto">
-      <div className="w-[1024px] mb-[-15px]">
+      {/* <div className="w-[1024px] mb-[-15px]">
         <div className="flex flex-row start-1 gap-1 my-[-2px]">
           <img
             src={`/assets/images/team-logo.png`}
@@ -28,7 +28,8 @@ const Footer: React.FC<FooterProps> = () => {
           />
           <p>andy</p>
         </div>
-      </div>
+      </div> */}
+      <p>푸터 영역</p>
     </div>
   );
 };
