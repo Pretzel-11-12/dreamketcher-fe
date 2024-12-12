@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
-import WebtoonThumbnail from "@/app/index/_component/WebtoonThumbnail";
+import WebtoonThumbnail from "@/app/main/_component/WebtoonThumbnail";
 import LargeThumbnail from "./LargeThumbnail";
 import TagSelector from "./TagSelector";
 
@@ -92,7 +94,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} />
+              <LargeThumbnail webtoon={webtoon} w={140} h={210} />
             </div>
           ))
         ) : (

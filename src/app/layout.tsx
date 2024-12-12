@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "./_component/Header";
-import Footer from "./_component/Footer";
+import Header from "@/app/_component/Header";
+import Footer from "@/app/_component/Footer";
 
 import "@mdi/font/css/materialdesignicons.min.css";
 
