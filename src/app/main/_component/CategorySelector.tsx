@@ -1,18 +1,35 @@
 "use client";
+
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
-interface CategorySelectorProps {
-  selectedCategory: string;
-  categories: { name: string }[];
-  handleCategoryClick: (category: string) => void;
-}
+const categories: { name: string; path: string }[] = [
+  { name: "전체", path: "" },
+  { name: "신작", path: "new" },
+  { name: "완결", path: "finish" },
+];
 
-const CategorySelector: React.FC<CategorySelectorProps> = ({
-  selectedCategory,
-  categories,
-  handleCategoryClick,
-}) => {
+const CategorySelector: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  useEffect(() => {
+    if (pathname === "/main/finish") {
+      setSelectedCategory("완결");
+    } else if (pathname === "/main/new") {
+      setSelectedCategory("신작");
+    } else if (pathname === "/main/" || pathname === "/main") {
+      setSelectedCategory("전체");
+    }
+  }, [pathname]);
+
+  const handleCategoryClick = (categoryName: string, path: string) => {
+    setSelectedCategory(categoryName);
+    router.push(`/main/${path}`);
+  };
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-[1024px] h-[55px]">
       <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
@@ -24,7 +41,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                 ? "bg-brand-yellow text-white"
                 : "bg-white text-black"
             }`}
-            onClick={() => handleCategoryClick(category.name)}
+            onClick={() => handleCategoryClick(category.name, category.path)}
           >
             <span>{category.name}</span>
           </button>

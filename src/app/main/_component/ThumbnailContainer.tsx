@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
-import WebtoonThumbnail from "@/app/index/_component/WebtoonThumbnail";
+import WebtoonThumbnail from "@/app/main/_component/WebtoonThumbnail";
 
 interface WebtoonThumbnailData {
   id: number;
@@ -57,12 +59,15 @@ interface ThumbnailContainerProps {
 const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({ title }) => {
   return (
     <div className="flex flex-col text-black">
-      <div className="flex text-[17px] items-center gap-2">
-        <p>{title}</p>
-        <div className="flex text-[#888888] text-[14px]">
-          <p className="text-brand-yellow mr-1">실시간</p>
-          <p> · 오늘 · 이번주</p>
+      <div className="flex text-[17px] items-center gap-2 justify-between p-3">
+        <div className="flex items-center gap-2">
+          <p>{title}</p>
+          <div className="flex text-[#888888] text-[14px]">
+            <p className="text-brand-yellow mr-1">실시간</p>
+            <p> · 오늘 · 이번주</p>
+          </div>
         </div>
+        <p className="text-[14px] text-[#888888]">더보기</p>
       </div>
       <div className="grid grid-cols-2 mt-3 gap-y-8">
         {webtoonThumbnails.length > 0 ? (

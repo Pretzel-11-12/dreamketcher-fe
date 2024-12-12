@@ -14,19 +14,24 @@ interface webtoonData {
 
 type LargeThumbnailProps = {
   webtoon: webtoonData;
+  w: number;
+  h: number;
 };
 
-const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
+const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
   return (
-    <div className="flex flex-col w-[149px] h-[308px] cursor-pointer">
+    <div
+      className="flex flex-col cursor-pointer"
+      style={{ width: `${w}px`, height: "308px" }}
+    >
       <Image
         src={webtoon.image}
         alt="Webtoon thumbnail image"
-        width={140}
-        height={210}
+        width={w - 9}
+        height={h}
       />
       <div className="flex flex-col text-[12px]">
-        <p className="text-[16px]">{webtoon.title}</p>
+        <p className="text-[16px] break-words">{webtoon.title}</p>
         <p className="text-[#888888]">
           {webtoon.writer} · {webtoon.episodeCount}화
         </p>

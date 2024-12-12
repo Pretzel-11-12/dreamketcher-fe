@@ -1,7 +1,7 @@
 "use client";
 
-import CategorySelector from "@/app/CategorySelector";
-import GenreSelector from "@/app/index/_component/GenreSelector";
+import CategorySelector from "@/app/main/_component/CategorySelector";
+import GenreSelector from "@/app/main/_component/GenreSelector";
 import WebtoonInfo, { Tag } from "./_component/WebtoonInfo";
 import EpisodeList from "./_component/EpisodeList";
 import NoticeList from "./_component/NoticeList";
@@ -75,15 +75,13 @@ export default function Detail({
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
       <CategorySelector
-        selectedCategory={"전체"}
-        categories={[{ name: "전체" }, { name: "신작" }, { name: "완결" }]}
-        handleCategoryClick={handleCategoryClick}
+      // handleCategoryClick={handleCategoryClick}
       />
       <hr className="border-line border-solid" />
       <GenreSelector
         selectedGenre={"추천"}
         categories={categories}
-        handleGenreClick={handleGenreClick}
+        // handleGenreClick={handleGenreClick}
       />
       <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
