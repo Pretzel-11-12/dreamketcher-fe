@@ -25,12 +25,14 @@ const GoogleCallbackPage: React.FC = () => {
         }
 
         const data = await response.json();
-        console.log('Authentication successful:', data);
 
-        // TODO : 추후 토큰 저장 로직 추가
+        const accessToken = data.accessToken;
+        if (!accessToken) {
+          throw new Error('Access token is missing in the response.');
+        }
+        localStorage.setItem('accessToken', accessToken);
 
-        // 인증 후 홈페이지로 리다이렉트
-        window.location.href = '/';
+        window.location.href = '/main';
       } catch (error) {
         console.error('Error during authentication:', error);
       }
