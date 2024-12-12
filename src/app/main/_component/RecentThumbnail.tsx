@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // import Button from "@/app/_component/Button";
 
 interface webtoonData {
@@ -18,9 +19,16 @@ type RecentThumbnailProps = {
   webtoon: webtoonData;
 };
 
-const LargeThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
+const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
+  const router = useRouter();
+  function tempClickHandler() {
+    router.push(`/webtoon/list`);
+  }
   return (
-    <div className="flex flex-col w-[149px] h-[308px] cursor-pointer">
+    <div
+      className="flex flex-col w-[149px] h-[308px] cursor-pointer"
+      onClick={tempClickHandler}
+    >
       <Image
         src={webtoon.image}
         alt="Webtoon thumbnail image"
@@ -43,4 +51,4 @@ const LargeThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   );
 };
 
-export default LargeThumbnail;
+export default RecentThumbnail;
