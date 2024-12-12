@@ -3,7 +3,7 @@
 import Image from "next/image";
 import RecentThumbnail from "@/app/main/_component/RecentThumbnail";
 import ThumbnailContainer from "@/app/main/_component/ThumbnailContainer";
-import DetailThumbnailContainer from "../_component/DetailThumbnailContainer";
+import DetailThumbnailContainer from "@/app/main/_component/DetailThumbnailContainer";
 
 interface WebtoonThumbnailData {
   id: number;
