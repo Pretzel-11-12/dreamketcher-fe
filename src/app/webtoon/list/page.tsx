@@ -63,12 +63,24 @@ export default function Detail({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const handleCategoryClick = () => {
+    return null;
+  };
+
+  const handleGenreClick = () => {
+    return null;
+  };
+
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
-      <CategorySelector />
+      <CategorySelector
+      // handleCategoryClick={handleCategoryClick}
+      />
       <hr className="border-line border-solid" />
-      <GenreSelector />
+      <GenreSelector
+      // handleGenreClick={handleGenreClick}
+      />
       <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
         <div className="flex w-[1024px]">
