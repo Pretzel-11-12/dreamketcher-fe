@@ -31,7 +31,7 @@ const GoogleCallbackPage: React.FC = () => {
           throw new Error('Access token is missing in the response.');
         }
         localStorage.setItem('accessToken', accessToken);
-
+        alert('로그인에 성공했습니다.');
         window.location.href = '/main';
       } catch (error) {
         console.error('Error during authentication:', error);
