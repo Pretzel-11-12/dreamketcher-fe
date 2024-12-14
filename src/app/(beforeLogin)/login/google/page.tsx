@@ -1,8 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+import useAuthStore from '@/app/store/authStore';
+import { fetchUserInfo } from '@/app/api/auth';
 
 const GoogleCallbackPage: React.FC = () => {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const setUserInfo = useAuthStore((state) => state.setUserInfo);
+
   useEffect(() => {
     const handleGoogleCallback = async () => {
       const authCode = new URLSearchParams(window.location.search).get('code');
@@ -25,13 +30,24 @@ const GoogleCallbackPage: React.FC = () => {
         }
 
         const data = await response.json();
-
         const accessToken = data.accessToken;
+
         if (!accessToken) {
           throw new Error('Access token is missing in the response.');
         }
+        setAccessToken(accessToken);
         localStorage.setItem('accessToken', accessToken);
+
+        const userInfo = await fetchUserInfo(accessToken);
+        setUserInfo({
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          imageUrl: userInfo.imageUrl,
+        });
+
         alert('로그인에 성공했습니다.');
+
         window.location.href = '/main';
       } catch (error) {
         console.error('Error during authentication:', error);
@@ -39,7 +55,7 @@ const GoogleCallbackPage: React.FC = () => {
     };
 
     handleGoogleCallback();
-  }, []);
+  }, [[setAccessToken, setUserInfo]]);
 
   return (
     <div className='flex items-center justify-center h-screen'>
