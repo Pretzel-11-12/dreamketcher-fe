@@ -43,7 +43,13 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
               <span className="mdi mdi-check-circle-outline text-gray-500/30 text-xl" />
             )}
 
-            <span className="whitespace-nowrap">{option.label}</span>
+            <span
+              className={`whitespace-nowrap ${
+                selected === option.id && "font-semibold"
+              }`}
+            >
+              {option.label}
+            </span>
           </div>
         </label>
       ))}
