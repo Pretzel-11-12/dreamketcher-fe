@@ -50,8 +50,7 @@ export default async function Detail({
 
   return (
     <div className="flex flex-col gap-16 w-[800px] items-center justify-center text-md">
-      <div className="bg-[#D9D9D9] h-[2000px] w-full"></div>
-
+      <div className="bg-[#d9d9d985] h-[2000px] w-full"></div>
       <EpisodeButtonGroup />
       <div className="h-full w-full flex flex-col pb-32">
         <div className="text-lg font-medium pb-2">작가의 말</div>
