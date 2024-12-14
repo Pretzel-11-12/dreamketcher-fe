@@ -1,8 +1,9 @@
+'use client';
+
+import useAuthStore from '@/app/store/authStore';
+
 export default function Mypage() {
-  const profile = {
-    nickname: '린닝',
-    email: 'rinning@example.com',
-  };
+  const { name, email, imageUrl } = useAuthStore();
 
   return (
     <div className='min-h-screen bg-gray-100'>
@@ -10,7 +11,9 @@ export default function Mypage() {
         <h1 className='text-2xl font-bold text-gray-800 mb-4'>내 정보</h1>
         <div className='bg-white shadow-md rounded-lg p-6'>
           <p className='text-lg text-gray-700'>
-            <span className='font-semibold'>닉네임 : </span> {profile.nickname}
+            <span className='font-semibold'></span> {imageUrl}
+            <span className='font-semibold'>닉네임 : </span> {name}
+            <span className='font-semibold'>email : </span> {email}
           </p>
         </div>
       </div>
