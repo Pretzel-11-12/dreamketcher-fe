@@ -38,14 +38,6 @@ const GoogleCallbackPage: React.FC = () => {
         setAccessToken(accessToken);
         localStorage.setItem('accessToken', accessToken);
 
-        const userInfo = await fetchUserInfo(accessToken);
-        setUserInfo({
-          id: userInfo.id,
-          name: userInfo.name,
-          email: userInfo.email,
-          imageUrl: userInfo.imageUrl,
-        });
-
         alert('로그인에 성공했습니다.');
 
         window.location.href = '/main';
