@@ -6,9 +6,11 @@ export default function MypageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <MypageHeader />
-      <main>{children}</main>
+    <div className='flex justify-center h-screen'>
+      <div className='flex w-[1024px]'>
+        <MypageHeader />
+        <main className='flex-1 p-6 bg-white'>{children}</main>
+      </div>
     </div>
   );
 }
