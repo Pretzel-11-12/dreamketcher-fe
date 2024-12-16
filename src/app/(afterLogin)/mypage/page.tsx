@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 import { fetchUserInfo } from '@/app/api/auth';
 import useAuthStore from '@/app/store/authStore';
 
+import Image from 'next/image';
+
+import MyWork from './_component/MyWork';
+
 export default function Mypage() {
   const { name, email, imageUrl, setUserInfo } = useAuthStore();
 
@@ -31,19 +35,47 @@ export default function Mypage() {
   }, [setUserInfo]);
 
   return (
-    <div className='min-h-screen bg-gray-100'>
-      <div className='max-w-4xl mx-auto p-6'>
-        <h1 className='text-2xl font-bold text-gray-800 mb-4'>내 정보</h1>
-        <div className='bg-white shadow-md rounded-lg p-6'>
-          <img src={imageUrl || '/assets/images/person.png'} alt='프로필' />
-          <p className='text-lg text-gray-700'>
-            <span className='font-semibold'>닉네임: </span> {name}
+    <div className='min-h-screen flex flex-col pr-[20px] border-r border-r-line'>
+      <div className='max-w-4xl bg-white mt-[70px] flex'>
+        <img
+          className='w-[70px] h-[70px] rounded-full mr-6'
+          src={imageUrl || '/assets/images/profile1.png'}
+          alt='프로필'
+        />
+
+        <div className='ml-[4px]'>
+          <p className='text-[18px] font-medium text-gray-800 mt-[8px]'>
+            지나가는 나그네{name}
           </p>
-          <p className='text-lg text-gray-700'>
-            <span className='font-semibold'>이메일: </span> {email}
-          </p>
+          <div className='flex'>
+            <Image
+              src={'/assets/images/mail.svg'}
+              alt='Mail Icon'
+              width={11}
+              height={9}
+            />
+            <p className='text-[12px] text-gray-500 m-1'>
+              rhdiddl@gmail.com{email}
+            </p>
+          </div>
         </div>
       </div>
+      <p className='text-sm text-gray-700 my-4'>
+        손 내밀면 콕하고 찔릴 거야 네모 같은 우리 서로 남 탓하는 건 (예나
+        지금이나 그대로) 상처투성이야 이러다 나 죽어 네모나고 모난 우린
+        삐뚤빼뚤해 like
+      </p>
+
+      <button
+        className='px-4 py-2 w-[700px] h-[61px] mt-2 text-[18px] font-medium border rounded-md'
+        style={{
+          borderColor: '#FBA250',
+          backgroundColor: '#FFFFFF',
+        }}
+      >
+        프로필 수정
+      </button>
+      <MyWork />
     </div>
   );
 }
