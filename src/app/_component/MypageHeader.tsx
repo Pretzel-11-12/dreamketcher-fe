@@ -21,8 +21,8 @@ const MypageHeader: React.FC = () => {
         <Image
           src={
             isMypageActive
-              ? '/assets/images/activeTaskSquare.svg'
-              : '/assets/images/inactiveTaskSquare.svg'
+              ? '/assets/icon/darkProfile.svg'
+              : '/assets/icon/profile.svg'
           }
           alt='Task Icon'
           width={20}
@@ -49,8 +49,8 @@ const MypageHeader: React.FC = () => {
         <Image
           src={
             isStorageActive
-              ? '/assets/images/activeArchive.svg'
-              : '/assets/images/inactiveArchive.svg'
+              ? '/assets/icon/darkFolder.svg'
+              : '/assets/icon/folder.svg'
           }
           alt='Archive Icon'
           width={20}
