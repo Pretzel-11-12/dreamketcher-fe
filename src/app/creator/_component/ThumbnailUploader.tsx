@@ -30,7 +30,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       return;
     }
 
-    // 검증: 파일 크기 (500KB 이하)
+    // 파일 크기
     if (file.size > 500 * 1024) {
       setError('500KB 미만의 파일을 등록해주세요.');
       setPreview(null);
@@ -38,7 +38,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       return;
     }
 
-    // 이미지 크기 검증 (400x240)
+    // 이미지 크기
     const img = new Image();
     img.onload = () => {
       if (img.width !== width || img.height !== height) {
