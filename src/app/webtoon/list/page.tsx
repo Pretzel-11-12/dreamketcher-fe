@@ -1,53 +1,53 @@
-"use client";
+'use client';
 
-import CategorySelector from "@/app/main/_component/CategorySelector";
-import GenreSelector from "@/app/main/_component/GenreSelector";
-import WebtoonInfo, { Tag } from "./_component/WebtoonInfo";
-import EpisodeList from "./_component/EpisodeList";
-import NoticeList from "./_component/NoticeList";
+import CategorySelector from '@/app/main/_component/CategorySelector';
+import GenreSelector from '@/app/main/_component/GenreSelector';
+import WebtoonInfo, { Tag } from './_component/WebtoonInfo';
+import EpisodeList from './_component/EpisodeList';
+import NoticeList from './_component/NoticeList';
 
 const categories = [
-  { name: "추천" },
-  { name: "로맨스" },
-  { name: "판타지" },
-  { name: "무협" },
-  { name: "일상" },
-  { name: "스릴러" },
-  { name: "공포" },
-  { name: "액션" },
-  { name: "스포츠" },
-  { name: "개그" },
-  { name: "소년" },
+  { name: '추천' },
+  { name: '로맨스' },
+  { name: '판타지' },
+  { name: '무협' },
+  { name: '일상' },
+  { name: '스릴러' },
+  { name: '공포' },
+  { name: '액션' },
+  { name: '스포츠' },
+  { name: '개그' },
+  { name: '소년' },
 ];
 const announcements = [
   {
     id: 1,
-    title: "드림케쳐 서비스 오픈 안내",
-    link: "/announcements/dreamcatcher-launch",
+    title: '드림케쳐 서비스 오픈 안내',
+    link: '/announcements/dreamcatcher-launch',
   },
   {
     id: 2,
-    title: "개인정보처리 방침에 대한 안내사항",
-    link: "/announcements/privacy-policy",
+    title: '개인정보처리 방침에 대한 안내사항',
+    link: '/announcements/privacy-policy',
   },
   {
     id: 3,
-    title: "2025년 설 연 서비스 운영 안내사항",
-    link: "/announcements/2025-new-year",
+    title: '2025년 설 연 서비스 운영 안내사항',
+    link: '/announcements/2025-new-year',
   },
   {
     id: 4,
-    title: "01/03(금) 23:00 ~ 24:00 서버 점검 안내",
-    link: "/announcements/server-maintenance-0103",
+    title: '01/03(금) 23:00 ~ 24:00 서버 점검 안내',
+    link: '/announcements/server-maintenance-0103',
   },
 ];
 
 const webtoonInfo = {
   id: 1,
-  image: "/assets/images/webtoonthumbnail-1.jpg",
-  title: "괴담 출근",
-  writer: "바크베",
-  genre: "판타지",
+  image: '/assets/images/webtoonthumbnail-1.jpg',
+  title: '괴담 출근',
+  writer: '바크베',
+  genre: '판타지',
   description: `Stay in the middle, Like you a littleDon't want no riddle. 말해줘 say
   it back, oh, say it ditto, 훌쩍 커버렸어 함께한 기억처럼 널 보는 내
   마음은 어느새 여름 지나 가을. 기다렸지 all this time. Do you want
@@ -61,7 +61,7 @@ const webtoonInfo = {
 export default function Detail({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
