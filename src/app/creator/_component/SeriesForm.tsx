@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/app/_component/Button';
 import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
