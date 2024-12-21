@@ -1,7 +1,7 @@
-import Link from "next/link";
-import SeriesCategorySelector from "../_component/SeriesCategorySelector";
-import SeriesSideBar from "../_component/SeriesSideBar";
-import SeriesList from "../_component/SeriesList";
+import Link from 'next/link';
+import SeriesCategorySelector from '../_component/SeriesCategorySelector';
+import SeriesSideBar from '../_component/SeriesSideBar';
+import SeriesList from '../_component/SeriesList';
 
 export default function CreatorMain() {
   return (
