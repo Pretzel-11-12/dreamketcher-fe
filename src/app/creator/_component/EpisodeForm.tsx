@@ -1,6 +1,8 @@
-import Button from "@/app/_component/Button";
-import Input from "@/app/_component/Input";
-import RadioButton from "@/app/_component/RadioButton";
+'use client';
+import Button from '@/app/_component/Button';
+import Input from '@/app/_component/Input';
+import RadioButton from '@/app/_component/RadioButton';
+import ThumbnailUploader from './ThumbnailUploader';
 
 export interface EpisodeFormInfo {
   title: string;
@@ -25,12 +27,18 @@ const EpisodeForm = () => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 썸네일</div>
-        <div className="w-[200px] h-[200px] bg-slate-400/20"></div>
+        <ThumbnailUploader
+          onFileSelect={() => {}}
+          imageFormat={{ width: 400, height: 240 }}
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
-        <div className="w-[200px] h-[200px] bg-slate-400/20"></div>
+        <ThumbnailUploader
+          onFileSelect={() => {}}
+          imageFormat={{ width: 300, height: 300 }}
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -42,14 +50,14 @@ const EpisodeForm = () => {
         <div>공개 설정</div>
         <RadioButton
           options={[
-            { id: "public", label: "공개" },
-            { id: "prvate", label: "비공개" },
-            { id: "scheduled", label: "예약공개" },
+            { id: 'public', label: '공개' },
+            { id: 'prvate', label: '비공개' },
+            { id: 'scheduled', label: '예약공개' },
           ]}
         />
       </div>
 
-      <Button props={{ size: "L", variant: "brand-yellow" }}>
+      <Button props={{ size: 'L', variant: 'brand-yellow' }}>
         회차 등록하기
       </Button>
     </div>
