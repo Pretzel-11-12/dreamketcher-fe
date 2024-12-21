@@ -23,19 +23,20 @@ const Textarea: React.FC<TextareaProps> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="relative flex flex-col gap-1 text-sm text-[#C9C9C9]">
+    <div className="relative flex flex-col gap-1 text-sm">
       <textarea
         value={text}
         placeholder={placeholder}
         onChange={(e) => onChange?.(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={`px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 ${
+        className={`px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 resize-none ${
           isFocused || active ? "border-brand-yellow" : "border-brand-gray"
-        }`}
+        }placeholder:text-[#C9C9C9]`}
         style={{
           height,
           width,
+          color: text ? "#3F3F3F" : undefined,
         }}
       />
 
