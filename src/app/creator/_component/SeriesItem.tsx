@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import OptionButton from './OptionButton';
-import SeriesDeleteModal from './SeriesDeleteModal';
+import DeleteModal from './DeleteModal';
 import { useState } from 'react';
 
 const SeriesItem: React.FC<{}> = () => {
@@ -28,21 +28,25 @@ const SeriesItem: React.FC<{}> = () => {
           <OptionButton
             items={[
               {
+                text: '회차 보기',
+                onClick: () => router.push(`/creator/episode?episodeId=${245}`),
+              },
+              {
                 text: '작품 삭제',
                 onClick: () => handleOpenModal(true),
               },
               {
                 text: '작품 수정',
-                onClick: () => {
-                  router.push(`/creator/series/new?seriesId=${245}`);
-                },
+                onClick: () =>
+                  router.push(`/creator/series/new?seriesId=${245}`),
               },
             ]}
           />
         </div>
       </div>
 
-      <SeriesDeleteModal
+      <DeleteModal
+        text={`<재벌 서자의 회귀사건을..> 해당 작품을 삭제하시겠습니까?`}
         isOpen={isModalOpen}
         handleOpenModal={handleOpenModal}
       />

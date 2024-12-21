@@ -1,14 +1,15 @@
 'use client';
 import Button from '@/app/_component/Button';
 import Modal from '@/app/_component/Modal';
-import { useState } from 'react';
 
-interface SeriesDeleteModalProps {
+interface DeleteModalProps {
+  text: string;
   isOpen: boolean;
   handleOpenModal: (isOpen: boolean) => void;
 }
 
-const SeriesDeleteModal: React.FC<SeriesDeleteModalProps> = ({
+const DeleteModal: React.FC<DeleteModalProps> = ({
+  text,
   isOpen,
   handleOpenModal,
 }) => {
@@ -18,7 +19,7 @@ const SeriesDeleteModal: React.FC<SeriesDeleteModalProps> = ({
     <Modal isOpen={isOpen} onClose={closeModal}>
       <div className="bg-white rounded-lg p-5 flex gap-2 flex-col w-[384px]">
         <div className="flex flex-col gap-2 p-5">
-          <span className="text-lg font-semibold">{`<재벌 서자의 회귀사건을..> 해당 작품을 삭제하시겠습니까?`}</span>
+          <span className="text-lg font-semibold">{text}</span>
           <span className="text-xs text-gray-600">
             삭제 시 최대 30일 동안 휴지통에 보관된 후 영구 삭제됩니다.
           </span>
@@ -30,7 +31,7 @@ const SeriesDeleteModal: React.FC<SeriesDeleteModalProps> = ({
             handleClick: closeModal,
           }}
         >
-          작품 삭제
+          삭제
         </Button>
         <Button
           props={{ size: 'L', variant: 'brand-gray', handleClick: closeModal }}
@@ -42,4 +43,4 @@ const SeriesDeleteModal: React.FC<SeriesDeleteModalProps> = ({
   );
 };
 
-export default SeriesDeleteModal;
+export default DeleteModal;
