@@ -1,6 +1,10 @@
-import Link from "next/link";
+'use client';
+
+import OptionButton from './OptionButton';
+import { useRouter } from 'next/navigation';
 
 const EpisodeItem: React.FC<{}> = () => {
+  const router = useRouter();
   return (
     <div className="grid grid-cols-[repeat(8,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
       <span className="flex justify-center w-full">1</span>
@@ -15,11 +19,20 @@ const EpisodeItem: React.FC<{}> = () => {
       <span className="flex justify-center w-full">663</span>
       <span className="flex justify-center w-full">663</span>
 
-      <Link href={"/creator/episode/new"}>
-        <button>
-          <span className="mdi mdi-dots-horizontal"></span>
-        </button>
-      </Link>
+      <div className="flex w-full justify-center">
+        <OptionButton
+          items={[
+            { text: '비공개 전환', onClick: () => {} },
+            { text: '회차 삭제', onClick: () => {} },
+            {
+              text: '수정하기',
+              onClick: () => {
+                router.push(`/creator/episode/new?episodeId=${245}`);
+              },
+            },
+          ]}
+        />
+      </div>
     </div>
   );
 };
