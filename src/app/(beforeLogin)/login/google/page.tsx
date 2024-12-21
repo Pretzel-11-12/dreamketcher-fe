@@ -1,8 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+import useAuthStore from '@/app/store/authStore';
+import { fetchUserInfo } from '@/app/api/auth';
 
 const GoogleCallbackPage: React.FC = () => {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const setUserInfo = useAuthStore((state) => state.setUserInfo);
+
   useEffect(() => {
     const handleGoogleCallback = async () => {
       const authCode = new URLSearchParams(window.location.search).get('code');
@@ -25,19 +30,24 @@ const GoogleCallbackPage: React.FC = () => {
         }
 
         const data = await response.json();
-        console.log('Authentication successful:', data);
+        const accessToken = data.accessToken;
 
-        // TODO : 추후 토큰 저장 로직 추가
+        if (!accessToken) {
+          throw new Error('Access token is missing in the response.');
+        }
+        setAccessToken(accessToken);
+        localStorage.setItem('accessToken', accessToken);
 
-        // 인증 후 홈페이지로 리다이렉트
-        window.location.href = '/';
+        alert('로그인에 성공했습니다.');
+
+        window.location.href = '/main';
       } catch (error) {
         console.error('Error during authentication:', error);
       }
     };
 
     handleGoogleCallback();
-  }, []);
+  }, [[setAccessToken, setUserInfo]]);
 
   return (
     <div className='flex items-center justify-center h-screen'>
