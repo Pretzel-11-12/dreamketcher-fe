@@ -1,7 +1,9 @@
-import Button from "@/app/_component/Button";
-import Input from "@/app/_component/Input";
-import RadioButton from "@/app/_component/RadioButton";
-import Textarea from "@/app/_component/Textarea";
+import Button from '@/app/_component/Button';
+import Input from '@/app/_component/Input';
+import RadioButton from '@/app/_component/RadioButton';
+import Textarea from '@/app/_component/Textarea';
+import ThumbnailUploader from './ThumbnailUploader';
+import { useState } from 'react';
 
 export interface SeriesFormInfo {
   title: string;
@@ -10,19 +12,25 @@ export interface SeriesFormInfo {
   description: string;
   summary: string;
 }
+const options = [
+  { label: '로맨스', id: '1' },
+  { label: '판타지', id: '2' },
+  { label: '무협', id: '3' },
+  { label: '일상', id: '4' },
+  { label: '스릴러', id: '5' },
+  { label: '공포', id: '6' },
+  { label: '액션', id: '7' },
+  { label: '스포츠', id: '8' },
+  { label: '개그', id: '9' },
+  { label: '소년', id: '10' },
+];
+
 const SeriesForm = () => {
-  const options = [
-    { label: "로맨스", id: "1" },
-    { label: "판타지", id: "2" },
-    { label: "무협", id: "3" },
-    { label: "일상", id: "4" },
-    { label: "스릴러", id: "5" },
-    { label: "공포", id: "6" },
-    { label: "액션", id: "7" },
-    { label: "스포츠", id: "8" },
-    { label: "개그", id: "9" },
-    { label: "소년", id: "10" },
-  ];
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileSelect = (file: File | null) => {
+    setUploadedFile(file);
+  };
 
   return (
     <div className="flex flex-col w-full gap-12 pb-20">
@@ -40,15 +48,19 @@ const SeriesForm = () => {
         <div>이용가</div>
         <RadioButton
           options={[
-            { id: "all", label: "전체 이용가" },
-            { id: "adult", label: "성인" },
+            { id: 'all', label: '전체 이용가' },
+            { id: 'adult', label: '성인' },
           ]}
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 표지</div>
-        <div className="w-[200px] h-[200px] bg-slate-400/20"></div>
+
+        <ThumbnailUploader
+          onFileSelect={handleFileSelect}
+          imageFormat={{ width: 300, height: 300 }}
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-baseline">
@@ -71,10 +83,17 @@ const SeriesForm = () => {
         <div>작품 태그</div>
         <Input />
       </div>
-
-      <Button props={{ size: "L", variant: "brand-yellow" }}>
-        작품 등록하기
-      </Button>
+      <div className="flex w-full justify-center">
+        <Button
+          props={{
+            size: 'L',
+            variant: 'brand-yellow',
+            containerStyles: 'w-fit px-20',
+          }}
+        >
+          작품 등록하기
+        </Button>
+      </div>
     </div>
   );
 };
