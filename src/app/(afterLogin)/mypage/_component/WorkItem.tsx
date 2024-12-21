@@ -37,7 +37,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
       <div className='flex flex-col justify-between'>
         <h3 className='text-base text-gray-800 mb-1'>{title}</h3>
         <p className='text-xs text-gray-400'>
-          {writer} • {genre} • {episodes}화
+          {writer} &#183; {genre} &#183; {episodes}화
         </p>
         <div className='flex items-center mt-1'>
           <Image
