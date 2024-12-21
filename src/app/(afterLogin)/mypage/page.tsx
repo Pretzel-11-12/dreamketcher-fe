@@ -7,9 +7,30 @@ import useAuthStore from '@/app/store/authStore';
 import Image from 'next/image';
 
 import MyWork from './_component/MyWork';
+import { useRouter } from 'next/navigation';
 
 export default function Mypage() {
+  const router = useRouter();
   const { name, email, imageUrl, setUserInfo } = useAuthStore();
+
+  const tempUserInfo = {
+    name: '린닝',
+    email: 'rkddkwl@gmail.com',
+    imageUrl: '/assets/images/profile1.png',
+    bio: `Fancy, 이건 참 화려해, it's glowing and it's flashy (yeah) 알아 적당함이 뭔지, keep it classy`,
+  };
+
+  const handleEditProfile = () => {
+    // 임시 유저 데이터를 쿼리 문자열에 담아 전달
+    const query = `?name=${encodeURIComponent(
+      tempUserInfo.name
+    )}&email=${encodeURIComponent(
+      tempUserInfo.email
+    )}&imageUrl=${encodeURIComponent(
+      tempUserInfo.imageUrl
+    )}&bio=${encodeURIComponent(tempUserInfo.bio)}`;
+    router.push(`/mypage/edit${query}`);
+  };
 
   useEffect(() => {
     const handleFetchUserInfo = async () => {
@@ -72,6 +93,7 @@ export default function Mypage() {
           borderColor: '#FBA250',
           backgroundColor: '#FFFFFF',
         }}
+        onClick={handleEditProfile}
       >
         프로필 수정
       </button>
