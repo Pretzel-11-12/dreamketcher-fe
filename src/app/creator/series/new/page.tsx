@@ -11,7 +11,7 @@ export default function SeriesNew() {
   const isExist = !!seriesId;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <div
         className={`grid grid-cols-[${
           isExist ? 'auto_1fr' : '1fr'
