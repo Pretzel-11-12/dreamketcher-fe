@@ -10,6 +10,7 @@ export interface InputProps {
   height?: string;
   width?: string;
   active?: boolean;
+  containerStyles?: string;
 }
 const Input: React.FC<InputProps> = (props) => {
   const {
@@ -20,13 +21,14 @@ const Input: React.FC<InputProps> = (props) => {
     height = "40px",
     width = "100%",
     active = false,
+    containerStyles = "",
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <div
-      className="relative flex flex-col gap-1 text-sm text-[#C9C9C9]"
+      className={`relative flex flex-col gap-1 text-sm ${containerStyles}`}
       style={{
         height,
         width,
@@ -40,9 +42,9 @@ const Input: React.FC<InputProps> = (props) => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={`px-4 border rounded-md focus:outline-none transition-colors duration-200 w-full h-full ${
-          isFocused || active
-            ? "border-brand-yellow"
-            : "border-brand-gray w-full h-full"
+          isFocused || active ? "border-brand-yellow" : "border-brand-gray"
+        } ${
+          text ? "text-[#3F3F3F]" : "text-[#C9C9C9] placeholder:text-[#C9C9C9]"
         }`}
       />
 
