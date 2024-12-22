@@ -27,40 +27,40 @@ const WorkItem: React.FC<WorkItemProps> = ({
   tags,
 }) => {
   return (
-    <div className='flex bg-white pb-6 border-b border-b-line'>
+    <div className="flex bg-white pb-6 border-b border-b-line">
       <img
         src={image}
-        alt='웹툰 썸네일'
-        className='w-[100px] h-[150px] rounded-lg mr-6'
+        alt="웹툰 썸네일"
+        className="w-[100px] h-[150px] rounded-lg mr-6"
       />
 
-      <div className='flex flex-col justify-between'>
-        <h3 className='text-base text-gray-800 mb-1'>{title}</h3>
-        <p className='text-xs text-gray-400'>
+      <div className="flex flex-col justify-between">
+        <h3 className="text-base text-gray-800 mb-1">{title}</h3>
+        <p className="text-xs text-gray-400">
           {writer} &#183; {genre} &#183; {episodes}화
         </p>
-        <div className='flex items-center mt-1'>
+        <div className="flex items-center mt-1">
           <Image
-            src='/assets/images/star-1.png'
-            alt='Star PNG'
+            src="/assets/images/star-1.png"
+            alt="Star PNG"
             width={13}
             height={13}
           />
-          <p className='text-brand-yellow text-xs ml-[3px] mt-[1px]'>
+          <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
             {rating}
           </p>
-          <p className='text-[#C9C9C9] text-xs ml-[2px] mt-[1px]'>
+          <p className="text-[#C9C9C9] text-xs ml-[2px] mt-[1px]">
             ({comments})
           </p>
         </div>
 
-        <p className='text-sm text-[#3F3F3F] mt-2'>{description}</p>
+        <p className="text-sm text-[#3F3F3F] mt-2">{description}</p>
 
-        <div className='flex gap-[2px] mt-2'>
+        <div className="flex gap-[2px] mt-2">
           {tags?.map((tag, i) => (
             <div
               key={i}
-              className='bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs'
+              className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs"
             >
               {tag}
             </div>

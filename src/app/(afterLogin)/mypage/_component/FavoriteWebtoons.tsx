@@ -24,11 +24,11 @@ const favoriteWebtoons = [
 
 export default function FavoriteWebtoons() {
   if (favoriteWebtoons.length === 0) {
-    return <p className='text-gray-500'>관심웹툰이 없습니다.</p>;
+    return <p className="text-gray-500">관심웹툰이 없습니다.</p>;
   }
 
   return (
-    <div className='grid grid-cols-1 pt-4 gap-4'>
+    <div className="grid grid-cols-1 pt-4 gap-4">
       {favoriteWebtoons.map((webtoon) => (
         <FavoriteWebtoonItem key={webtoon.id} {...webtoon} />
       ))}

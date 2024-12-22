@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import Button from "@/app/_component/Button";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import Button from '@/app/_component/Button';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface FavoriteWebtoonItemProps {
   id: number;
@@ -28,7 +28,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
 
   const router = useRouter();
   function navigateToWebtoon() {
-    router.push("/webtoon/list");
+    router.push('/webtoon/list');
   }
 
   const toggleMenu = () => {
@@ -48,9 +48,9 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -81,7 +81,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
           onClick={navigateToWebtoon}
         >
           <Image
-            src={"/assets/icon/clock.svg"}
+            src={'/assets/icon/clock.svg'}
             alt="Clock Icon"
             width={12}
             height={12}
@@ -91,16 +91,16 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
         </div>
         <Link
           href={{
-            pathname: "/webtoon/detail",
-            query: { titleId: "12345", no: id },
+            pathname: '/webtoon/detail',
+            query: { titleId: '12345', no: id },
           }}
         >
           <Button
             props={{
-              size: "M",
-              variant: "brand-yellow",
+              size: 'M',
+              variant: 'brand-yellow',
               handleClick: navigateToWebtoon,
-              containerStyles: "text-xs px-5 py-3",
+              containerStyles: 'text-xs px-5 py-3',
             }}
           >
             <div className="flex gap-2 items-center justify-center">
@@ -112,7 +112,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
 
       <div className="flex absolute top-14 right-1" ref={menuRef}>
         <Image
-          src={"/assets/icon/notification.svg"}
+          src={'/assets/icon/notification.svg'}
           alt="notification Icon"
           width={24}
           height={24}
@@ -121,7 +121,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
 
         <div className="relative">
           <Image
-            src={"/assets/icon/meatballsMenu.svg"}
+            src={'/assets/icon/meatballsMenu.svg'}
             alt="meatballsMenu Icon"
             width={30}
             height={30}

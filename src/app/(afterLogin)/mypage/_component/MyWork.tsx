@@ -35,8 +35,8 @@ const MyWork: React.FC = () => {
   const workCount = currentWorks.length;
 
   return (
-    <div className='w-full'>
-      <div className='flex justify-start mt-10 mb-6 border-b border-b-line'>
+    <div className="w-full">
+      <div className="flex justify-start mt-10 mb-6 border-b border-b-line">
         {[
           { label: '연재 작품', type: 'ongoing' },
           { label: '완결 작품', type: 'completed' },
@@ -58,19 +58,19 @@ const MyWork: React.FC = () => {
       </div>
 
       {workCount === 0 ? (
-        <div className='flex flex-col items-center h-[300px]'>
-          <p className='text-gray-700 font-semibold text-lg mt-6 mb-1'>
+        <div className="flex flex-col items-center h-[300px]">
+          <p className="text-gray-700 font-semibold text-lg mt-6 mb-1">
             아직 작품이 없습니다.
           </p>
-          <p className='text-[#888888] text-sm mb-8'>
+          <p className="text-[#888888] text-sm mb-8">
             새로운 작품을 시작해보세요!
           </p>
-          <button className='w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base'>
+          <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
             새 작품 등록하기
           </button>
         </div>
       ) : (
-        <div className='space-y-4'>
+        <div className="space-y-4">
           {currentWorks.map((work, index) => (
             <WorkItem key={index} {...work} />
           ))}
