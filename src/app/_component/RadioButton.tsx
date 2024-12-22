@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 export interface RadioOption {
   label: string;
@@ -14,7 +14,7 @@ export interface RadioButtonGroupProps {
 
 const RadioButton: React.FC<RadioButtonGroupProps> = ({
   options,
-  selectedValue = "",
+  selectedValue = '',
   onChange,
 }) => {
   const [selected, setSelected] = useState<string>(selectedValue);
@@ -27,7 +27,10 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
   return (
     <div className="flex flex-wrap gap-x-10 gap-y-3 text-sm">
       {options.map((option) => (
-        <label key={option.id} className={`flex items-center gap-2`}>
+        <label
+          key={option.id}
+          className={`flex items-center gap-2 cursor-pointer`}
+        >
           <input
             type="checkbox"
             name="radio-group"
@@ -45,7 +48,7 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
 
             <span
               className={`whitespace-nowrap ${
-                selected === option.id && "font-semibold"
+                selected === option.id && 'font-semibold'
               }`}
             >
               {option.label}
