@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import WebtoonThumbnail from '@/app/main/_component/WebtoonThumbnail';
+import WebtoonThumbnail from '@/app/(default)/main/_component/WebtoonThumbnail';
 import LargeThumbnail from './LargeThumbnail';
 import TagSelector from './TagSelector';
 
