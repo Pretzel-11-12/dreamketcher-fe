@@ -46,7 +46,7 @@ const Temp = () => {
           props={{
             size: 'M',
             variant: 'brand-yellow',
-            containerStyles: 'w-[88px] h-[39px] text-xs px-2 py-3',
+            containerStyles: '!w-[88px] h-[39px] text-xs px-2 py-3',
           }}
         >
           <div
