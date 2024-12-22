@@ -1,7 +1,7 @@
 'use client';
 
-import { Suspense } from 'react';
 import Temp from './temp';
+import { Suspense } from 'react';
 
 const ProfileEditPage = () => {
   return (
