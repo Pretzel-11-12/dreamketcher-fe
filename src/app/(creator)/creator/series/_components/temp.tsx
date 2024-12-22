@@ -6,6 +6,7 @@ import EpisodeSideBar from '../../episode/_components/EpisodeSideBar';
 
 export default function Temp() {
   const searchParams = useSearchParams();
+
   const seriesId = searchParams.get('seriesId');
   const isExist = !!seriesId;
 
