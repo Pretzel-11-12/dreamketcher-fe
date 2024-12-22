@@ -12,7 +12,7 @@ export default function CommentListItem({
   timestamp,
   like,
 }: CommentInfo) {
-  const time = new Date(timestamp).toISOString().split("T")[0];
+  const time = new Date(timestamp).toISOString().split('T')[0];
   return (
     <div className="grid grid-cols-[auto_1fr] py-4 gap-2 border-b">
       <span className="mdi mdi-account-circle text-gray-600/50 text-[40px] -mt-3"></span>
