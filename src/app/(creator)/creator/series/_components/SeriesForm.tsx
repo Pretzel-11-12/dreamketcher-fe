@@ -6,6 +6,7 @@ import RadioButton from '@/app/_component/RadioButton';
 import Textarea from '@/app/_component/Textarea';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
 import { useState } from 'react';
+import TagInput from './TagInput';
 
 export interface SeriesFormInfo {
   title: string;
@@ -83,7 +84,7 @@ const SeriesForm = () => {
       <div className="pb-24">
         <div className="grid grid-cols-[10rem_1fr] items-start pb-4">
           <div>작품 태그</div>
-          <Input />
+          <TagInput />
         </div>
         <div className="flex rounded-md bg-brand-gray py-2 px-3 text-sm text-gray-500 w-full gap-2 items-center">
           <span className="mdi mdi-alert-circle-outline text-lg"></span>
