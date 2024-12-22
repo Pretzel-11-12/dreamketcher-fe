@@ -12,7 +12,7 @@ export default function CreatorMain() {
           <span className="text-lg font-semibold pl-4">내 작품</span>
           <Link
             className="w-[125px] h-[39px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px]"
-            href="/creator/series"
+            href="/creator/series/new"
           >
             작품 등록
           </Link>
