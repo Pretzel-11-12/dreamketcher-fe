@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface WorkItemProps {
   id: number;
@@ -26,16 +27,28 @@ const WorkItem: React.FC<WorkItemProps> = ({
   description,
   tags,
 }) => {
+  const router = useRouter();
+
+  function navigateToWebtoon() {
+    router.push('/webtoon/list');
+  }
+
   return (
     <div className="flex bg-white pb-6 border-b border-b-line">
       <img
         src={image}
         alt="웹툰 썸네일"
-        className="w-[100px] h-[150px] rounded-lg mr-6"
+        className="w-[100px] h-[150px] rounded-lg mr-6 cursor-pointer"
+        onClick={navigateToWebtoon}
       />
 
       <div className="flex flex-col justify-between">
-        <h3 className="text-base text-gray-800 mb-1">{title}</h3>
+        <h3
+          onClick={navigateToWebtoon}
+          className="text-base text-gray-800 mb-1 cursor-pointer"
+        >
+          {title}
+        </h3>
         <p className="text-xs text-gray-400">
           {writer} &#183; {genre} &#183; {episodes}화
         </p>

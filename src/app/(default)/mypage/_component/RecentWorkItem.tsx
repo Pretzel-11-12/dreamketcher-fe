@@ -69,16 +69,10 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
         >
           {title}
         </h3>
-        <p
-          className="text-xs text-[#888888] mt-1 cursor-pointer"
-          onClick={navigateToWebtoon}
-        >
+        <p className="text-xs text-[#888888] mt-1">
           {writer} &#183; {genre} &#183; {episodes}화
         </p>
-        <div
-          className="flex items-center mt-1 mb-4 cursor-pointer"
-          onClick={navigateToWebtoon}
-        >
+        <div className="flex items-center mt-1 mb-4">
           <Image
             src="/assets/images/star-1.png"
             alt="Star PNG"
