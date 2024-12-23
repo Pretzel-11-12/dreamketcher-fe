@@ -17,7 +17,7 @@ interface WebtoonThumbnailData {
 }
 
 interface Props {
-  params: { genre: string };
+  params: Promise<{ params: string }>;
 }
 
 const webtoonThumbnails: WebtoonThumbnailData[] = [
@@ -68,21 +68,18 @@ export default function Main({ params }: Props) {
   useEffect(() => {
     const performHealthCheck = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/health`,
-          {
-            method: 'GET',
-            credentials: 'include',
-          }
-        );
+        const response = await fetch(`/api/v1/health`, {
+          method: 'GET',
+          credentials: 'include',
+        });
 
         if (response.ok) {
-          console.log('healthy');
+          console.log(response);
         } else {
           console.log('unhealthy');
         }
       } catch (error) {
-        console.error('Health check failed:', error);
+        // console.error('Health check failed:', error);
       }
     };
     performHealthCheck();
