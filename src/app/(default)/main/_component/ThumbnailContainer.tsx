@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import WebtoonThumbnail from '@/app/(default)/main/_component/WebtoonThumbnail';
+import FilterComponent from './FilterComponent';
 
 interface WebtoonThumbnailData {
   id: number;
@@ -62,10 +63,11 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({ title }) => {
       <div className="flex text-[17px] items-center gap-2 justify-between p-3">
         <div className="flex items-center gap-2">
           <p>{title}</p>
-          <div className="flex text-[#888888] text-[14px]">
+          {/* <div className="flex text-[#888888] text-[14px]">
             <p className="text-brand-yellow mr-1">실시간</p>
             <p> · 오늘 · 이번주</p>
-          </div>
+          </div> */}
+          <FilterComponent />
         </div>
         <p className="text-[14px] text-[#888888]">더보기</p>
       </div>
