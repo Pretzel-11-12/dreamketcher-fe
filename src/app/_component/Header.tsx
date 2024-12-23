@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Button from '@/app/_component/Button';
 
 const Header: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -29,6 +28,7 @@ const Header: React.FC = () => {
   return (
     <header className="fixed w-full bg-white z-50">
       <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 md:px-0 relative">
+        <hr className="fixed left-0 w-[100vw] mt-[80px] border-line" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"
@@ -41,12 +41,7 @@ const Header: React.FC = () => {
             <button className="border-r border-r-line w-[65px] h-[36px] text-black">
               홈
             </button>
-            <button className="border-r border-r-line w-[65px] h-[36px]">
-              구독
-            </button>
-            <button className="border-r border-r-line w-[65px] h-[36px]">
-              보관함
-            </button>
+            <button className="w-[65px] h-[36px]">구독</button>
           </div>
         </div>
 
