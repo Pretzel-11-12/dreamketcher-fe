@@ -1,34 +1,52 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { fetchUserInfo } from '@/app/api/auth';
+import useAuthStore from '@/app/store/authStore';
+import ProfileModal from '@/app/modal/_component/profileModal';
 
 const Header: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
   const userId: Number = 1;
+  const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
   const profileImage: any = null;
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
+  useEffect(() => {
+    const handleFetchUserInfo = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error('Access token is missing');
+        }
 
-  const toggleAlarmModal = () => {
-    setAlarmModalOpen(!isAlarmModalOpen);
-  };
+        const userInfo = await fetchUserInfo(accessToken);
+        setUserInfo({
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          imageUrl: userInfo.imageUri,
+        });
+      } catch (err) {
+        console.error('Failed to fetch user info:', err);
+      }
+    };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const closeAlarmModal = () => {
-    setAlarmModalOpen(false);
-  };
+    handleFetchUserInfo();
+  }, [setUserInfo]);
 
   return (
     <header className="fixed w-full bg-white z-50">
       <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 md:px-0 relative">
-        <hr className="fixed left-0 w-[100vw] mt-[80px] border-line" />
+        <hr className="fixed left-0 w-[100vw] mt-[70px] border-line" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"
@@ -53,7 +71,7 @@ const Header: React.FC = () => {
               className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
             />
             <div className="relative flex text-black gap-3 items-center">
-              {userId !== 0 ? (
+              {id ? (
                 <>
                   <Image
                     src="/assets/images/bell.png"
@@ -62,21 +80,22 @@ const Header: React.FC = () => {
                     height={30}
                   />
                   <Image
-                    src="/assets/images/profile-default.png"
+                    src={'/assets/images/profile-default.png'}
                     alt="profile button"
                     width={30}
                     height={30}
+                    onClick={handleOpenModal}
                   />
-                  <Link href="/login" className="px-2 py-2 text-sm">
-                    로그인
-                  </Link>
                 </>
               ) : (
-                <Link href="/login" className="px-4 py-2 text-sm">
-                  로그아웃
+                <Link href="/login" className="px-2 py-2 text-sm">
+                  로그인
                 </Link>
               )}
             </div>
+            {isModalOpen && (
+              <ProfileModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            )}
           </div>
         </div>
       </div>
