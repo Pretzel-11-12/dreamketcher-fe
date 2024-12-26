@@ -14,7 +14,7 @@ const categories: { name: string; path: string }[] = [
 const CategorySelector: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
 
   useEffect(() => {
     if (pathname === '/main/finish') {
@@ -57,9 +57,9 @@ const CategorySelector: React.FC = () => {
             <Image
               src={'/assets/icon/studio.svg'}
               alt="Studio Icon"
-              className="mt-2"
-              width={20}
-              height={20}
+              className="m-1"
+              width={14}
+              height={14}
             />
             작업실
           </Link>
