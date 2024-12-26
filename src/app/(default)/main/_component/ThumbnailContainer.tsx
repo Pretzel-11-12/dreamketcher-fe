@@ -69,7 +69,7 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({ title }) => {
           </div> */}
           <FilterComponent />
         </div>
-        <p className="text-[14px] text-[#888888]">더보기</p>
+        {/* <p className="text-[14px] text-[#888888]">더보기</p> */}
       </div>
       <div className="grid grid-cols-2 mt-3 gap-y-8">
         {webtoonThumbnails.length > 0 ? (
