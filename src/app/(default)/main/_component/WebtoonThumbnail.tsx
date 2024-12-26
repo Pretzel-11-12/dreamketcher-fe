@@ -1,23 +1,18 @@
-"use client";
-import React, { useState, useRef } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-interface WebtoonThumbnailData {
-  id: number;
-  image: string;
-  title: string;
-  writer: string;
-  episodeCount: number;
-  averageRating: number;
-  stars: number;
-}
+'use client';
+import React, { useState, useRef } from 'react';
+import Image from 'next/image';
+import { Webtoon as IWebtoon } from '@/model/Webtoon';
+import { useRouter } from 'next/navigation';
 
 type WebtoonThumbnailProps = {
-  webtoon: WebtoonThumbnailData;
+  webtoon: IWebtoon;
+  ranking: number;
 };
 
-const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({ webtoon }) => {
+const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
+  webtoon,
+  ranking,
+}) => {
   const router = useRouter();
   function tempClickHandler() {
     router.push(`/webtoon/list`);
@@ -28,17 +23,18 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({ webtoon }) => {
       onClick={tempClickHandler}
     >
       <Image
-        src={webtoon.image}
+        // src={webtoon.thumbnail}
+        src={'/assets/images/thumbnail-2.jpg'}
         alt="Webtoon thumbnail image"
         width={100}
         height={150}
       />
       <div className="flex items-center">
-        <p className="flex justify-center m-3">1</p>
+        <p className="flex justify-center m-3">{ranking}</p>
         <div className="flex flex-col text-[12px]">
           <p className="text-[16px]">{webtoon.title}</p>
           <p className="text-[#888888]">
-            {webtoon.writer} · {webtoon.episodeCount}화
+            {webtoon.lastEpisode} · {webtoon.lastEpisode}화
           </p>
           <div className="flex items-center gap-1">
             <Image
@@ -46,10 +42,10 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({ webtoon }) => {
               alt="Star PNG"
               width={13}
               height={13}
-              style={{ height: "13px" }} // CSS로 높이 강제
+              style={{ height: '13px' }} // CSS로 높이 강제
             />
-            <p className="text-brand-yellow">{webtoon.averageRating}</p>
-            <p className="text-[#888888]">({webtoon.stars})</p>
+            <p className="text-brand-yellow">{webtoon.averageStar}</p>
+            <p className="text-[#888888]">({webtoon.numOfStars})</p>
           </div>
         </div>
       </div>

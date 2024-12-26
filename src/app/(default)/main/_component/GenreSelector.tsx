@@ -1,23 +1,34 @@
 'use client';
 
-import useGenreStore from '@/app/store/genreStore';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 const genres: { name: string; param: string }[] = [
-  { name: '추천', param: 'recommend' },
-  { name: '로맨스', param: 'romance' },
-  { name: '판타지', param: 'fantasy' },
-  { name: '무협', param: 'martial-arts' },
-  { name: '일상', param: 'daily-life' },
-  { name: '스릴러', param: 'thriller' },
-  { name: '공포', param: 'horror' },
-  { name: '액션', param: 'action' },
-  { name: '스포츠', param: 'sports' },
-  { name: '개그', param: 'comedy' },
-  { name: '소년', param: 'shounen' },
+  { name: '추천', param: 'RECOMMENDED' },
+  { name: '로맨스', param: 'PURE' },
+  { name: '판타지', param: 'FANTASY' },
+  { name: '무협', param: 'HISTORICAL' },
+  { name: '일상', param: 'DAILY' },
+  { name: '스릴러', param: 'THRILL' },
+  { name: '공포', param: 'HORROR' },
+  { name: '액션', param: 'ACTION' },
+  { name: '스포츠', param: 'SPORTS' },
+  { name: '개그', param: 'COMIC' },
+  { name: '소년', param: 'SHOUNEN' },
 ];
 
 const GenreSelector: React.FC = () => {
-  const { selectedGenre, setSelectedGenre } = useGenreStore();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const currentGenre = searchParams.get('genre') || 'recommend';
+
+  const handleGenreClick = (genre: string) => {
+    // URL의 'genre' 쿼리 파라미터를 업데이트
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('genre', genre);
+
+    // URL 변경
+    router.push(`?${newParams.toString()}`);
+  };
 
   return (
     <div className="border-b w-[100vw] border-b-line">
@@ -25,13 +36,13 @@ const GenreSelector: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
           {genres.map((genre) => (
             <button
-              key={genre.name}
+              key={genre.param}
               className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] hover:text-brand-yellow hover:border-b border-b-brand-yellow transition duration-300 ${
-                selectedGenre === genre.name
+                currentGenre === genre.param
                   ? 'text-brand-yellow border-b border-b-brand-yellow'
                   : 'text-[#888888]'
               }`}
-              onClick={() => setSelectedGenre(genre.name)}
+              onClick={() => handleGenreClick(genre.param)}
             >
               <span>{genre.name}</span>
             </button>
