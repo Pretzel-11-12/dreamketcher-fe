@@ -19,7 +19,7 @@ const genres: { name: string; param: string }[] = [
 const GenreSelector: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const currentGenre = searchParams.get('genre') || 'recommend';
+  const currentGenre = searchParams.get('genre') || 'RECOMMENDED';
 
   const handleGenreClick = (genre: string) => {
     // URL의 'genre' 쿼리 파라미터를 업데이트
