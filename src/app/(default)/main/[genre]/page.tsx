@@ -96,12 +96,14 @@ export default function Main({ params }: Props) {
               alt="Site promotion image"
               width={340}
               height={60}
+              style={{ height: 'auto' }}
             />
             <Image
               src="/assets/images/promotion-2.png"
               alt="Site promotion image"
               width={340}
               height={60}
+              style={{ height: 'auto' }}
             />
           </div>
           <LargeThumbnailContainer title={'키워드 별 추천 작품'} />
