@@ -1,46 +1,72 @@
-import Button from "@/app/_component/Button";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
+'use client';
 
-export enum Tag {
-  SCARED = "괴담",
-  ROMANCE = "로맨스",
-  HORROR = "호러",
-}
-
-interface webtoonData {
-  id: number;
-  image: string;
-  title: string;
-  writer: string;
-  genre: string;
-  description: string;
-  interest: number;
-  tags?: Tag[];
-}
+import Button from '@/app/_component/Button';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 type webtoonDataProps = {
-  webtoon: webtoonData;
+  webtoon: fetchWebtoonDetail.Model.WebtoonDetailUnit;
 };
 
 const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
-  const [isUserInterest, setInterest] = useState(false);
-  const { title, image, writer, description, tags, id, interest, genre } =
-    webtoon;
+  const [isUserInterest, setInterest] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    webtoonId,
+    webtoonTitle,
+    webtoonThumbnail,
+    webtoonStory,
+    genreNames,
+  } = webtoon;
+
+  const writer = '바크베';
+
+  const handleLikeToggle = async () => {
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      if (isUserInterest) {
+        await fetchWebtoonDetail.deleteFavoriteWebtoon({
+          param: { id: String(webtoonId) },
+        });
+      } else {
+        await fetchWebtoonDetail.postFavoriteWebtoon({
+          param: { id: String(webtoonId) },
+        });
+      }
+
+      setInterest(!isUserInterest);
+    } catch (error) {
+      console.error('요청 중 에러 발생:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-[auto_1fr] gap-4 pr-4">
-      <Image src={image} alt={title} width={200} height={300} />
+      <Image
+        src={'/assets/images/thumbnail-large-3.jpg'}
+        alt={webtoonTitle}
+        width={200}
+        height={300}
+      />
       <div className="flex flex-col gap-3 relative">
-        <div className="text-2xl font-semibold">{title}</div>
+        <div className="text-2xl font-semibold">{webtoonTitle}</div>
         <div className="flex gap-1 items-center">
           <div className="text-sm">{writer}</div>
-          <div className="text-sm text-gray-900/40">글/ 그림 | {genre}</div>
+          <div className="text-sm text-gray-900/40">
+            글/ 그림 | {genreNames[0]}
+          </div>
         </div>
-        <div className="text-sm">{description}</div>
+        <div className="text-sm">{webtoonStory}</div>
 
         <div className="text-sm flex gap-1">
-          {tags?.map((tag, i) => (
+          {genreNames?.map((tag, i) => (
             <div
               key={i}
               className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs"
@@ -52,27 +78,27 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         <div className="grid grid-cols-[1fr_1fr] gap-1 absolute w-full bottom-0">
           <Button
             props={{
-              size: "S",
-              variant: isUserInterest ? "transparent" : "brand-yellow",
-              containerStyles: "border border-brand-yellow text-brand-yellow",
-              handleClick: () => setInterest(!isUserInterest),
+              size: 'S',
+              variant: isUserInterest ? 'transparent' : 'brand-yellow',
+              containerStyles: 'border border-brand-yellow text-brand-yellow',
+              handleClick: handleLikeToggle,
             }}
           >
             <div className="flex gap-2 items-center justify-center">
               <span
                 className={`mdi ${
-                  isUserInterest ? "mdi-check" : "mdi-plus"
+                  isUserInterest ? 'mdi-check' : 'mdi-plus'
                 } text-xl`}
               ></span>
-              관심 {interest}
+              관심 6,741
             </div>
           </Button>
 
-          <Button props={{ size: "S", variant: "brand-gray" }}>
+          <Button props={{ size: 'S', variant: 'brand-gray' }}>
             <Link
               href={{
-                pathname: "/webtoon/detail",
-                query: { titleId: id, no: "1" },
+                pathname: '/webtoon/detail',
+                query: { titleId: webtoonId, no: '1' },
               }}
             >
               <div className="flex gap-2 items-center justify-center">

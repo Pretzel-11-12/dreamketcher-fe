@@ -1,0 +1,43 @@
+
+### 웹툰 상세(에피소드 목록) 조회
+GET http://43.200.18.88:8080/api/v1/webtoons/2/episode?fromFirst=false&page=0&size=20
+Content-Type: application/json; charset=UTF-8
+
+
+### 관심 웹툰 설정
+POST http://43.200.18.88:8080/api/v1/webtoons/1/favorite
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYzMzIyMywiZXhwIjoxNzM1NjQwNDIzfQ.mhL6xJVlhXYvTS7CR1yOuuXXuBf2jBMYtt_XJy-JWio
+Content-Type: application/json
+
+
+### 관심 웹툰 해제
+DELETE http://43.200.18.88:8080/api/v1/member/favorite/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYzMzIyMywiZXhwIjoxNzM1NjQwNDIzfQ.mhL6xJVlhXYvTS7CR1yOuuXXuBf2jBMYtt_XJy-JWio
+Content-Type: application/json
+
+
+
+// 에피소드
+
+### 에피소드 좋아요
+POST http://43.200.18.88:8080/api/v1/users/1/webtoons/1/episode/2/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYyMzI1OSwiZXhwIjoxNzM1NjMwNDU5fQ.mWFSc6jzuuT2dgLKOUFWjhA1WENSJrZJoHGv6uq0di4
+Content-Type: application/json
+
+### 에피소드 좋아요 해제
+DELETE http://43.200.18.88:8080/api/v1/users/1/webtoons/1/episode/1/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYyMzI1OSwiZXhwIjoxNzM1NjMwNDU5fQ.mWFSc6jzuuT2dgLKOUFWjhA1WENSJrZJoHGv6uq0di4
+Content-Type: application/json
+
+### 별점 주기
+POST http://43.200.18.88:8080/api/v1/users/1/webtoons/1/episode/1/star-score
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYyMzI1OSwiZXhwIjoxNzM1NjMwNDU5fQ.mWFSc6jzuuT2dgLKOUFWjhA1WENSJrZJoHGv6uq0di4
+Content-Type: application/json
+
+### 별점 수정
+PATCH http://43.200.18.88:8080/api/v1/users/1/webtoons/1/episode/1/star-score
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTYyMzI1OSwiZXhwIjoxNzM1NjMwNDU5fQ.mWFSc6jzuuT2dgLKOUFWjhA1WENSJrZJoHGv6uq0di4
+Content-Type: application/json
+
+
+// 댓글
