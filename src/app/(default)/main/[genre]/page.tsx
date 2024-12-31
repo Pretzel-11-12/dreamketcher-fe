@@ -89,7 +89,7 @@ export default function Main({ params }: Props) {
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">
         <div className="flex flex-col w-[700px] border-r border-r-line pt-8">
-          <ThumbnailContainer title={'베스트 웹툰'} />
+          <ThumbnailContainer type={'default'} title={'베스트 웹툰'} />
           <div className="flex gap-1 mt-10">
             <Image
               src="/assets/images/promotion.jpg"

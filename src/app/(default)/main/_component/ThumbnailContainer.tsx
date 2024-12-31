@@ -1,24 +1,36 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useQuery } from '@tanstack/react-query';
 import WebtoonSlider from './WebtoonSlider';
 import FilterComponent from './FilterComponent';
-import { getWebtoonRanking } from '../_lib/getWebtoonRanking';
+import { getWebtoonRanking } from '../../../hooks/getWebtoonRanking';
 import { useSearchParams } from 'next/navigation';
 
 interface ThumbnailContainerProps {
+  type: string;
   title: string;
 }
 
-const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({ title }) => {
+const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
+  type,
+  title,
+}) => {
   const searchParams = useSearchParams();
-  const genre = searchParams.get('genre') || 'recommend';
+  const genre = searchParams.get('genre') || 'RECOMMENDED';
+  const [selectedFilter, setSelectedFilter] = useState<string>('실시간');
+  const orderMapping: { [key: string]: string } = {
+    실시간: 'latest',
+    별점순: 'stars',
+    좋아요순: 'likes',
+  };
+
+  const order = orderMapping[selectedFilter] || 'latest';
 
   const { data, isLoading, isError } = useQuery<IWebtoon[]>({
-    queryKey: ['webtoons', 'ranking', genre],
-    queryFn: () => getWebtoonRanking(genre),
+    queryKey: ['webtoons', 'ranking', type, genre, order],
+    queryFn: () => getWebtoonRanking(type, genre, order),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
@@ -37,7 +49,12 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({ title }) => {
       <div className="flex text-[17px] items-center gap-2 justify-between p-3">
         <div className="flex items-center gap-2">
           <p>{title}</p>
-          <FilterComponent />
+          {selectedFilter && (
+            <FilterComponent
+              selectedFilter={selectedFilter}
+              setFilter={setSelectedFilter}
+            />
+          )}
         </div>
         {/* <p className="text-[14px] text-[#888888]">더보기</p> */}
       </div>

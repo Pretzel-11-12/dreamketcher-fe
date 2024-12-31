@@ -4,7 +4,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchUserInfo } from '@/app/api/auth';
 import useAuthStore from '@/app/store/authStore';
-import ProfileModal from '@/app/modal/_component/profileModal';
+import ProfileModal from '@/app/modal/_component/ProfileModal';
+
+const DEFAULT_USER_INFO = {
+  id: 0,
+  name: 'Guest',
+  email: '',
+  imageUrl: '',
+};
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,12 +29,16 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleFetchUserInfo = async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
-          throw new Error('Access token is missing');
-        }
+      const accessToken = localStorage.getItem('accessToken');
 
+      // 액세스 토큰이 없으면 비로그인 상태로 처리
+      if (!accessToken) {
+        console.log('No access token found. User is not logged in.');
+        setUserInfo(DEFAULT_USER_INFO);
+        return;
+      }
+
+      try {
         const userInfo = await fetchUserInfo(accessToken);
         setUserInfo({
           id: userInfo.id,
@@ -37,6 +48,9 @@ const Header: React.FC = () => {
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
+
+        // 서버 요청 실패 시 비로그인 상태로 처리
+        setUserInfo(DEFAULT_USER_INFO);
       }
     };
 
@@ -78,6 +92,7 @@ const Header: React.FC = () => {
                     alt="noti button"
                     width={30}
                     height={30}
+                    className="cursor-pointer"
                   />
                   <Image
                     src={'/assets/images/profile-default.png'}
@@ -85,6 +100,7 @@ const Header: React.FC = () => {
                     width={30}
                     height={30}
                     onClick={handleOpenModal}
+                    className="cursor-pointer"
                   />
                 </>
               ) : (

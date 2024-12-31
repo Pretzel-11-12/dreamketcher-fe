@@ -64,7 +64,7 @@ export default function Finish() {
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">
         <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3">
-          <ThumbnailContainer title={'베스트 완결 웹툰'} />
+          <ThumbnailContainer type={'finish'} title={'베스트 완결 웹툰'} />
           <div className="flex gap-1 mt-10">
             <Image
               src="/assets/images/promotion.jpg"
