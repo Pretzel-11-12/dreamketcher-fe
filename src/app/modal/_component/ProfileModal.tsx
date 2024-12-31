@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useAuthStore from '@/app/store/authStore';
 
@@ -10,6 +11,7 @@ interface ProfileModalProps {
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
+  const router = useRouter();
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { id, name, imageUrl } = useAuthStore();
 
@@ -17,6 +19,16 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       onClose();
     }
+  };
+
+  const handleClickMypage = () => {
+    router.push('/mypage');
+    onClose();
+  };
+
+  const handleClickLogout = () => {
+    router.push('/mypage');
+    onClose();
   };
 
   useEffect(() => {
@@ -36,27 +48,30 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex justify-end">
       <div
         ref={modalRef}
-        className="absolute mt-[85px] mr-[200px] w-[260px] bg-white rounded-[10px] overflow-y-auto border-line"
+        className="absolute mt-[85px] mr-[200px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"
       >
-        <div className="flex flex-row items-start justify-start gap-2">
+        <button
+          className="flex flex-row items-start justify-start gap-2 pl-4 pt-2 h-[50px] border-b border-b-line w-full hover:bg-gray-100"
+          onClick={handleClickMypage}
+        >
           <Image
             src="/assets/images/profile-default.png"
             alt="profile button"
             width={30}
             height={30}
           />
-          <p className="text-lg font-semibold">{name}</p>
-        </div>
-        <div className="flex flex-col items-center justify-start gap-2">
+          <p className="font-medium m-1">{name}</p>
+        </button>
+        <div className="flex flex-col items-center justify-start text-left ">
           <button
-            className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={() => alert('Go to My Page')}
+            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
+            onClick={handleClickMypage}
           >
-            마이페이지
+            작업실
           </button>
           <button
-            className="w-full py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={() => alert('Logout')}
+            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
+            onClick={handleClickLogout}
           >
             로그아웃
           </button>
