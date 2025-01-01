@@ -1,6 +1,6 @@
-import EpisodeListItem, { EpisodeListItemInfo } from "./EpisodeListItem";
-import _ from "lodash";
-import { useEffect, useState } from "react";
+import EpisodeListItem, { EpisodeListItemInfo } from './EpisodeListItem';
+import _ from 'lodash';
+import { useEffect, useState } from 'react';
 
 const listItems = [
   {
@@ -54,7 +54,7 @@ const listItems = [
 ];
 
 export default function EpisodeList({}) {
-  const [sortDirection, setSortDirection] = useState<"desc" | "asc">("desc");
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
   const [sortedListItems, setSortedListItems] = useState<EpisodeListItemInfo[]>(
     []
   );
@@ -75,25 +75,26 @@ export default function EpisodeList({}) {
         <div className="flex gap-2">
           <div
             className={`text-sm font-${
-              sortDirection === "desc" && "semibold"
+              sortDirection === 'desc' && 'semibold'
             } cursor-pointer`}
-            onClick={() => setSortDirection("desc")}
+            onClick={() => setSortDirection('desc')}
           >
             최신화부터
           </div>
 
           <div
             className={`text-sm font-${
-              sortDirection === "asc" && "semibold"
+              sortDirection === 'asc' && 'semibold'
             } cursor-pointer`}
-            onClick={() => setSortDirection("asc")}
+            onClick={() => setSortDirection('asc')}
           >
             1화부터
           </div>
         </div>
       </div>
-      {sortedListItems.map((item) => (
+      {sortedListItems.map((item, index) => (
         <EpisodeListItem
+          key={index}
           title={item.title}
           id={item.id}
           timestamp={item.timestamp}

@@ -6,17 +6,16 @@ Content-Type: application/json; charset=UTF-8
 
 ### 관심 웹툰 설정
 POST http://43.200.18.88:8080/api/v1/webtoons/1/favorite
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTY0MzMxNSwiZXhwIjoxNzM1NjUwNTE1fQ.PuGLHaWbsqVULUmn4R6w4iO-WGpbm5Be_Ult8QbaPKQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTcxOTg0MCwiZXhwIjoxNzM1NzI3MDQwfQ.BMFVlUTlp5ZZvrSOaO5nia_94T9IqVV9EKhhmYyE1Aw
 
 
 ### 관심 웹툰 해제
-DELETE http://43.200.18.88:8080/api/v1/member/favorite/4
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTY0MzMxNSwiZXhwIjoxNzM1NjUwNTE1fQ.PuGLHaWbsqVULUmn4R6w4iO-WGpbm5Be_Ult8QbaPKQ
-Content-Type: application/json
+DELETE http://43.200.18.88:8080/api/v1/member/favorite/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTcxOTg0MCwiZXhwIjoxNzM1NzI3MDQwfQ.BMFVlUTlp5ZZvrSOaO5nia_94T9IqVV9EKhhmYyE1Aw
 
 ### 관심 웹툰 
 GET http://43.200.18.88:8080/api/v1/member/favorite
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTY0MzMxNSwiZXhwIjoxNzM1NjUwNTE1fQ.PuGLHaWbsqVULUmn4R6w4iO-WGpbm5Be_Ult8QbaPKQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNTcxOTg0MCwiZXhwIjoxNzM1NzI3MDQwfQ.BMFVlUTlp5ZZvrSOaO5nia_94T9IqVV9EKhhmYyE1Aw
 Content-Type: application/json
 
 // 에피소드
