@@ -54,8 +54,6 @@ export default function Detail() {
     );
   }
 
-  console.log({ data });
-
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />

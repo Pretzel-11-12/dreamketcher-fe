@@ -1,7 +1,7 @@
-"use client";
-import React, { useState, useRef } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useState, useRef } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface webtoonData {
   id: number;
@@ -22,12 +22,12 @@ type LargeThumbnailProps = {
 const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
   const router = useRouter();
   function tempClickHandler() {
-    router.push(`/webtoon/list`);
+    router.push(`/webtoon/list?id=${webtoon.id}`);
   }
   return (
     <div
       className="flex flex-col cursor-pointer"
-      style={{ width: `${w}px`, height: "308px" }}
+      style={{ width: `${w}px`, height: '308px' }}
       onClick={tempClickHandler}
     >
       <Image
@@ -47,7 +47,7 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
             alt="Star PNG"
             width={13}
             height={13}
-            style={{ height: "13px" }} // CSS로 높이 강제
+            style={{ height: '13px' }} // CSS로 높이 강제
           />
           <p className="text-brand-yellow">{webtoon.averageRating}</p>
           <p className="text-[#888888]">({webtoon.stars})</p>

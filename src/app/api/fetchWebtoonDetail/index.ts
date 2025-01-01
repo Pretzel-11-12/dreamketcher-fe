@@ -29,6 +29,7 @@ export namespace fetchWebtoonDetail {
   }): Promise<any> {
     const { param } = arg;
     const { id } = param;
+    console.log(localStorage.getItem('accessToken'));
 
     const response = await fetch(`/api/v1/webtoons/${id}/favorite`, {
       method: 'POST',
