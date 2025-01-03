@@ -1,4 +1,12 @@
-export const fetchUserInfo = async (accessToken: string) => {
+export type Member = {
+  id: number;
+  email: string;
+  name: string;
+  imageUri: string;
+  role: string;
+};
+
+export const fetchUserInfo = async (accessToken: string): Promise<Member> => {
   try {
     const response = await fetch('/api/v1/member/me', {
       method: 'GET',
