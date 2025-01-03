@@ -26,7 +26,7 @@ const Header: React.FC = () => {
       await logout(accessToken);
       localStorage.removeItem('accessToken');
       storeLogout();
-      window.location.href = '/';
+      window.location.href = '/main';
     } catch (err) {
       console.error(err);
       alert('로그아웃에 실패하였습니다.');
