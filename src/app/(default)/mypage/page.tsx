@@ -46,29 +46,6 @@ export default function Mypage() {
 
   const emailText = data?.email || '지정된 이메일이 없습니다.';
 
-  // useEffect(() => {
-  //   const handleFetchUserInfo = async () => {
-  //     try {
-  //       const accessToken = localStorage.getItem('accessToken');
-  //       if (!accessToken) {
-  //         throw new Error('Access token is missing');
-  //       }
-
-  //       const userInfo = await fetchUserInfo(accessToken);
-  //       setUserInfo({
-  //         id: userInfo.id,
-  //         name: userInfo.name,
-  //         email: userInfo.email,
-  //         imageUrl: userInfo.imageUrl,
-  //       });
-  //     } catch (err) {
-  //       console.error('Failed to fetch user info:', err);
-  //     }
-  //   };
-
-  //   handleFetchUserInfo();
-  // }, [setUserInfo]);
-
   return (
     <div className="min-h-screen flex flex-col pr-[20px] border-r border-r-line">
       <div className="max-w-4xl bg-white mt-[70px] flex">
