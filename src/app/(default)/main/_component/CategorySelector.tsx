@@ -57,9 +57,15 @@ const CategorySelector: React.FC = () => {
             <Image
               src={'/assets/icon/studio.svg'}
               alt="Studio Icon"
+<<<<<<< HEAD
               className="m-1"
               width={14}
               height={14}
+=======
+              className="mt-2"
+              width={20}
+              height={20}
+>>>>>>> f378056 (feat: add healthCheck)
             />
             작업실
           </Link>
