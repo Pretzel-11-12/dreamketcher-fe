@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
+import { useUpdateProfile } from '@/app/hooks/useUpdateProfile';
 
 const Temp = () => {
   const router = useRouter();
@@ -14,21 +15,30 @@ const Temp = () => {
   const [name, setName] = useState(searchParams.get('name') || '');
   const [email, setEmail] = useState(searchParams.get('email') || '');
   const [bio, setBio] = useState(searchParams.get('bio') || '');
-  const [imageUrl, setImageUrl] = useState(
-    searchParams.get('imageUrl') || '/assets/images/profile1.png'
+  const [imageUri, setImageUri] = useState(
+    searchParams.get('imageUri') || '/assets/images/profile1.png'
   );
+
+  const { mutate } = useUpdateProfile();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageUrl(URL.createObjectURL(file));
+      setImageUri(URL.createObjectURL(file));
     }
   };
 
   const handleSave = () => {
-    alert('프로필 저장이 완료되었습니다.');
-    // TODO: 저장 로직 추가
-    router.push('/mypage');
+    const profileData = { name, email, bio, imageUri };
+    mutate(profileData, {
+      onSuccess: () => {
+        alert('프로필 저장이 완료되었습니다.');
+        router.push('/mypage');
+      },
+      onError: () => {
+        alert('프로필 저장에 실패했습니다.');
+      },
+    });
   };
 
   return (
@@ -60,11 +70,16 @@ const Temp = () => {
 
       <div className="relative w-24 h-24 mb-4">
         <Image
-          src={imageUrl}
+          src={imageUri}
           alt="프로필 이미지"
           width={90}
           height={90}
           className="rounded-full object-cover"
+        />
+        <img
+          className="w-[70px] h-[70px] rounded-full mr-6"
+          src={imageUri}
+          alt="프로필"
         />
         <label
           htmlFor="profileImageInput"
