@@ -2,12 +2,36 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Button from '@/app/_component/Button';
+import useAuthStore from '../store/authStore';
+import { logout } from '../api/logout';
 
 const Header: React.FC = () => {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const accessToken = localStorage.getItem('accessToken');
+
+  const storeLogout = useAuthStore((state) => state.storeLogout);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
   const userId: Number = 1;
   const profileImage: any = null;
+
+  const handleLogout = async () => {
+    if (!accessToken) {
+      alert('로그인 상태가 아닙니다.');
+      return;
+    }
+
+    try {
+      await logout(accessToken);
+      localStorage.removeItem('accessToken');
+      storeLogout();
+      window.location.href = '/main';
+    } catch (err) {
+      console.error(err);
+      alert('로그아웃에 실패하였습니다.');
+    }
+  };
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -53,7 +77,7 @@ const Header: React.FC = () => {
               className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
             />
             <div className="relative flex text-black gap-3 items-center">
-              {userId !== 0 ? (
+              {!accessToken ? (
                 <>
                   <Image
                     src="/assets/images/bell.png"
@@ -72,9 +96,9 @@ const Header: React.FC = () => {
                   </Link>
                 </>
               ) : (
-                <Link href="/login" className="px-4 py-2 text-sm">
+                <button onClick={handleLogout} className="px-2 py-2 text-sm">
                   로그아웃
-                </Link>
+                </button>
               )}
             </div>
           </div>

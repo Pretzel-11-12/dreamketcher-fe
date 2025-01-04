@@ -6,15 +6,15 @@ interface AuthState {
   id: number | null;
   name: string | null;
   email: string | null;
-  imageUrl: string | null;
+  imageUri: string | null;
   setAccessToken: (token: string) => void;
   setUserInfo: (userInfo: {
     id: number;
     name: string;
     email: string;
-    imageUrl: string;
+    imageUri: string;
   }) => void;
-  logout: () => void;
+  storeLogout: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -23,18 +23,18 @@ const useAuthStore = create<AuthState>((set) => ({
   id: null,
   name: null,
   email: null,
-  imageUrl: null,
+  imageUri: null,
   setAccessToken: (token) => set({ isLoggedIn: true, accessToken: token }),
-  setUserInfo: ({ id, name, email, imageUrl }) =>
-    set({ id, name, email, imageUrl }),
-  logout: () =>
+  setUserInfo: ({ id, name, email, imageUri }) =>
+    set({ id, name, email, imageUri }),
+  storeLogout: () =>
     set({
       isLoggedIn: false,
       accessToken: null,
       id: null,
       name: null,
       email: null,
-      imageUrl: null,
+      imageUri: null,
     }),
 }));
 

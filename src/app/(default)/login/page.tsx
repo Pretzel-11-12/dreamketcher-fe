@@ -2,7 +2,7 @@
 
 const LoginPage: React.FC = () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-  const REDIRECT_URI = 'http://localhost:3000/login/google';
+  const REDIRECT_URI = process.env.NEXT_PUBLIC_ENV_REDIRECT_URI || '';
 
   const handleGoogleLogin = async () => {
     const googleOAuthURL =
@@ -17,45 +17,45 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <div className='text-center bg-white p-8 rounded-lg'>
-        <h1 className='text-xl font-bold mb-2'>드림케쳐 로그인</h1>
-        <p className='text-xs text-gray-500 mb-12'>
+    <div className="flex items-center justify-center h-screen">
+      <div className="text-center bg-white p-8 rounded-lg">
+        <h1 className="text-xl font-bold mb-2">드림케쳐 로그인</h1>
+        <p className="text-xs text-gray-500 mb-12">
           창작자를 위한 플랫폼, 드림케쳐에 오신 것을 환영합니다
         </p>
-        <div className='space-y-2'>
+        <div className="space-y-2">
           {/* 구글 로그인 */}
           <button
-            className='flex items-center justify-center w-full'
+            className="flex items-center justify-center w-full"
             onClick={handleGoogleLogin}
           >
             <img
-              src='/assets/images/google-button.svg'
-              alt='Google Login Button'
+              src="/assets/images/google-button.svg"
+              alt="Google Login Button"
             />
           </button>
 
           {/* 네이버 로그인 */}
-          <button className='flex items-center justify-center w-full'>
+          <button className="flex items-center justify-center w-full">
             <img
-              src='/assets/images/naver-button.svg'
-              alt='Naver Login Button'
+              src="/assets/images/naver-button.svg"
+              alt="Naver Login Button"
             />
           </button>
 
           {/* 카카오 로그인 */}
-          <button className='flex items-center justify-center w-full'>
+          <button className="flex items-center justify-center w-full">
             <img
-              src='/assets/images/kakao-button.svg'
-              alt='Kakao Login Button'
+              src="/assets/images/kakao-button.svg"
+              alt="Kakao Login Button"
             />
           </button>
 
           {/* 애플 로그인 */}
-          <button className='flex items-center justify-center w-full'>
+          <button className="flex items-center justify-center w-full">
             <img
-              src='/assets/images/apple-button.svg'
-              alt='Apple Login Button'
+              src="/assets/images/apple-button.svg"
+              alt="Apple Login Button"
             />
           </button>
         </div>

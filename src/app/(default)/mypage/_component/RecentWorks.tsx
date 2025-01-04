@@ -27,9 +27,9 @@ const recentWorks = [
 export default function RecentWorks() {
   if (recentWorks.length === 0) {
     return (
-      <div className='flex flex-col items-center'>
-        <p className='text-gray-500'>아직 최근 본 작품이 없습니다.</p>
-        <button className='mt-4 bg-yellow-500 text-white px-4 py-2 rounded'>
+      <div className="flex flex-col items-center">
+        <p className="text-gray-500">아직 최근 본 작품이 없습니다.</p>
+        <button className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded">
           드림케쳐 홈에서 작품 즐기기
         </button>
       </div>
@@ -37,7 +37,7 @@ export default function RecentWorks() {
   }
 
   return (
-    <div className='grid grid-cols-1 pt-4 gap-4'>
+    <div className="grid grid-cols-1 pt-4 gap-4">
       {recentWorks.map((work) => (
         <RecentWorkItem key={work.id} {...work} />
       ))}

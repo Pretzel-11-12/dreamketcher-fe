@@ -1,34 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import Button from "@/app/_component/Button";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import Button from '@/app/_component/Button';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { FavoriteWebtoon } from '@/app/model/FavoriteWebtoon';
 
-interface FavoriteWebtoonItemProps {
-  id: number;
-  image: string;
-  title: string;
-  writer: string;
-  genre: string;
-  episodes: number;
-  updatedAt: string;
-}
-
-const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
-  id,
-  image,
+const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   title,
-  writer,
-  genre,
-  episodes,
+  thumbnail,
+  authorNickname,
   updatedAt,
+  episodeCount,
+  genres,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
 
   const router = useRouter();
   function navigateToWebtoon() {
-    router.push("/webtoon/list");
+    router.push('/webtoon/list');
   }
 
   const toggleMenu = () => {
@@ -48,16 +38,16 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
     <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
       <img
-        src={image}
+        src={thumbnail}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
         onClick={navigateToWebtoon}
@@ -69,19 +59,13 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
         >
           {title}
         </h3>
-        <p
-          className="text-xs text-[#888888] mt-1 cursor-pointer"
-          onClick={navigateToWebtoon}
-        >
-          {writer} &#183; {genre} &#183; {episodes}화
+        <p className="text-xs text-[#888888] mt-1">
+          {authorNickname} &#183; {genres} &#183; {episodeCount}화
         </p>
 
-        <div
-          className="flex mt-1 mb-4 cursor-pointer"
-          onClick={navigateToWebtoon}
-        >
+        <div className="flex mt-1 mb-4">
           <Image
-            src={"/assets/icon/clock.svg"}
+            src={'/assets/icon/clock.svg'}
             alt="Clock Icon"
             width={12}
             height={12}
@@ -91,20 +75,20 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
         </div>
         <Link
           href={{
-            pathname: "/webtoon/detail",
-            query: { titleId: "12345", no: id },
+            pathname: '/webtoon/detail',
+            query: { titleId: '12345', no: episodeCount },
           }}
         >
           <Button
             props={{
-              size: "M",
-              variant: "brand-yellow",
+              size: 'M',
+              variant: 'brand-yellow',
               handleClick: navigateToWebtoon,
-              containerStyles: "text-xs px-5 py-3",
+              containerStyles: 'text-xs px-5 py-3',
             }}
           >
             <div className="flex gap-2 items-center justify-center">
-              {episodes}화 보러가기
+              {episodeCount}화 보러가기
             </div>
           </Button>
         </Link>
@@ -112,7 +96,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
 
       <div className="flex absolute top-14 right-1" ref={menuRef}>
         <Image
-          src={"/assets/icon/notification.svg"}
+          src={'/assets/icon/notification.svg'}
           alt="notification Icon"
           width={24}
           height={24}
@@ -121,7 +105,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoonItemProps> = ({
 
         <div className="relative">
           <Image
-            src={"/assets/icon/meatballsMenu.svg"}
+            src={'/assets/icon/meatballsMenu.svg'}
             alt="meatballsMenu Icon"
             width={30}
             height={30}
