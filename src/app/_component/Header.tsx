@@ -23,7 +23,6 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
-  const userId: Number = 1;
   const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
   const profileImage: any = null;
 
