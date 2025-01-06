@@ -1,8 +1,9 @@
 'use client';
 
 import Button from '@/app/_component/Button';
+import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
-import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -17,30 +18,54 @@ type webtoonDataProps = {
 };
 
 const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
-  const [isUserInterest, setInterest] = useState(false);
-
   const {
     webtoonId,
     webtoonTitle,
     webtoonThumbnail,
+    interestCount,
     webtoonStory,
     genreNames,
     AuthorNickname,
   } = webtoon;
+  const [interest, setInterest] = useState<{
+    active: boolean;
+    count: number;
+  }>({
+    active: false,
+    count: interestCount,
+  });
+
+  const { data } = useQuery<{ webtoonId: number }[]>({
+    queryKey: [],
+    queryFn: () => fetchWebtoonDetail.favoriteWebtoons(),
+  });
+
+  const target = data?.find((fav) => fav.webtoonId === webtoonId);
+
+  useEffect(() => {
+    setInterest((i) => ({ active: !!target, count: i.count }));
+  }, [target]);
 
   const handleLikeToggle = async () => {
     try {
-      if (isUserInterest) {
+      if (interest.active) {
         await fetchWebtoonDetail.deleteFavoriteWebtoon({
           param: { id: String(webtoonId) },
         });
+
+        setInterest((i) => ({
+          active: false,
+          count: Math.max(i.count - 1, 0),
+        }));
       } else {
         await fetchWebtoonDetail.postFavoriteWebtoon({
           param: { id: String(webtoonId) },
         });
+        setInterest((i) => ({
+          active: true,
+          count: i.count + 1,
+        }));
       }
-
-      setInterest(!isUserInterest);
     } catch (error) {
       console.error('요청 중 에러 발생:', error);
     }
@@ -48,8 +73,8 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
 
   return (
     <div className="grid grid-cols-[auto_1fr] gap-4 pr-4">
-      <Image
-        src={'/assets/images/thumbnail-large-3.jpg'}
+      <DefaultImage
+        src={webtoonThumbnail}
         alt={webtoonTitle}
         width={200}
         height={300}
@@ -78,7 +103,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
           <Button
             props={{
               size: 'S',
-              variant: isUserInterest ? 'transparent' : 'brand-yellow',
+              variant: interest.active ? 'transparent' : 'brand-yellow',
               containerStyles: 'border border-brand-yellow text-brand-yellow',
               handleClick: handleLikeToggle,
             }}
@@ -86,10 +111,10 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             <div className="flex gap-2 items-center justify-center text-[16px]">
               <span
                 className={`mdi ${
-                  isUserInterest ? 'mdi-check' : 'mdi-plus'
+                  interest.active ? 'mdi-check' : 'mdi-plus'
                 } text-xl`}
               ></span>
-              관심 6,741
+              관심 {interest.count}
             </div>
           </Button>
 

@@ -58,4 +58,15 @@ export namespace fetchWebtoonDetail {
     //   throw new Error(`Failed to delete favorite for webtoon: ${id}`);
     // return response.json();
   }
+
+  export async function favoriteWebtoons(): Promise<any> {
+    const response = await fetch(`/api/v1/member/favorite`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    if (!response.ok) throw new Error(`Failed to get favorite webtoons`);
+    return response.json();
+  }
 }

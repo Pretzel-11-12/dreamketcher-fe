@@ -1,11 +1,10 @@
-@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjE2MTc1NSwiZXhwIjoxNzM2MTY4OTU1fQ.bgtrfNJWGUtTmr8R7hVR79ReIyXG4Yz3hLLM6PRWSig
-### health check
+@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjE3MzA4NywiZXhwIjoxNzM2MTgwMjg3fQ.QkCiZ-Lt6Ku1qmNWlrS-qwe1yOSog9UWluBeQMIleqQ
 GET https://api.dreamketcher.site/api/v1/health
 Content-Type: application/json; charset=UTF-8
 
 // 1. 웹툰
 ### 웹툰 상세 조회
-GET https://api.dreamketcher.site/api/v1/webtoons/1
+GET https://api.dreamketcher.site/api/v1/webtoons/1/episode?fromFirst=false&page=0&size=20
 
 ### 관심 웹툰 설정
 POST https://api.dreamketcher.site/api/v1/webtoons/100/favorite

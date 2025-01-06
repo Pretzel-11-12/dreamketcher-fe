@@ -9,6 +9,7 @@ import NoticeList from './_component/NoticeList';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import RankingWebtoons from './_component/RankingWebtoons';
 
 const announcements = [
   {
@@ -73,20 +74,8 @@ export default function Detail() {
             />
           </div>
 
-          <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
-            <div className="flex flex-col gap-4">
-              <p>공지사항</p>
-              <hr className="-ml-2"></hr>
-              <div className="flex flex-col gap-1">
-                {announcements.map((announcement) => (
-                  <div className="flex" key={announcement.id}>
-                    <p className="text-[#3F3F3F] text-[12px]">
-                      · {announcement.title}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-col w-[300px] p-3 gap-1">
+            <RankingWebtoons genre={data?.genreNames[0]} />
           </div>
         </div>
       </div>

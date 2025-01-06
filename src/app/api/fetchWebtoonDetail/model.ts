@@ -8,6 +8,7 @@ export namespace _Model {
     webtoonStory: string;
     AuthorNickname: string;
     episode_count: number;
+    interestCount: number;
     genreNames: string[];
     currentPage: number;
     totalPages: number;

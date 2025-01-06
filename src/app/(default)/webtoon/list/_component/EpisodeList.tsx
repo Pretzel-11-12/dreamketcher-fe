@@ -1,58 +1,9 @@
-import EpisodeListItem from './EpisodeListItem';
 import _ from 'lodash';
+
+import EpisodeListItem from './EpisodeListItem';
 import { useEffect, useState } from 'react';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-const listItems = [
-  {
-    id: 1,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1730918078224,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-  {
-    id: 2,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1731918078224,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-  {
-    id: 3,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1733919078224,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-  {
-    id: 4,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1733920078224,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-  {
-    id: 5,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1733920178224,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-  {
-    id: 6,
-    title: `I'm like some kind of supernova, Watch out`,
-    timestamp: 1736929144003,
-    star: 4.5,
-    like: 10,
-    views: 40,
-  },
-];
 type episodeItemsProps = {
   webtoonId?: number;
   episodeCount: number;
@@ -102,19 +53,11 @@ const EpisodeList: React.FC<episodeItemsProps> = ({
           </div>
         </div>
       </div>
-      {sortedListItems.map((item, index) => (
-        <EpisodeListItem
-          key={index}
-          thumbnail={item.thumbnail}
-          episodeId={item.episodeId}
-          title={item.title}
-          webtoonId={webtoonId}
-          publishedAt={item.publishedAt}
-          viewCount={item.viewCount}
-          likeCount={item.likeCount}
-          averageStar={item.averageStar}
-        />
-      ))}
+      <div className="min-h-20">
+        {sortedListItems.map((item, index) => (
+          <EpisodeListItem {...item} key={index} webtoonId={webtoonId} />
+        ))}
+      </div>
     </div>
   );
 };

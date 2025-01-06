@@ -1,8 +1,8 @@
 export const getWebtoonRanking = async (genre: string) => {
   const endpoint =
     genre === 'RECOMMEND'
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/ranking`
-      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/ranking?genre=${genre}`;
+      ? `/api/v1/webtoons/ranking`
+      : `/api/v1/webtoons/ranking?genre=${genre}`;
 
   const res = await fetch(endpoint, {
     next: {
