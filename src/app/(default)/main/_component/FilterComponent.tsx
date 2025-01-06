@@ -2,12 +2,18 @@
 
 import React, { useState } from 'react';
 
-export default function FilterComponent() {
-  const [selectedFilter, setSelectedFilter] = useState<string>('실시간');
+interface FilterComponentProps {
+  selectedFilter: string;
+  setFilter: (filter: string) => void;
+}
 
-  const handleClick = (filter: string) => {
-    setSelectedFilter(filter);
-    console.log(`${filter} 필터 선택됨`);
+const FilterComponent: React.FC<FilterComponentProps> = ({
+  selectedFilter,
+  setFilter,
+}) => {
+  const handleClick = (selectedFilter: string) => {
+    setFilter(selectedFilter);
+    console.log(`${selectedFilter} 필터 선택됨`);
   };
 
   return (
@@ -16,7 +22,7 @@ export default function FilterComponent() {
         <React.Fragment key={index}>
           <p
             className={`cursor-pointer ${
-              selectedFilter === filter ? 'text-brand-yellow' : 'text-[#888888]'
+              filter === selectedFilter ? 'text-brand-yellow' : 'text-[#888888]'
             }`}
             onClick={() => handleClick(filter)}
           >
@@ -28,4 +34,6 @@ export default function FilterComponent() {
       ))}
     </div>
   );
-}
+};
+
+export default FilterComponent;

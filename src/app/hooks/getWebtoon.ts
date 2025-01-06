@@ -1,0 +1,43 @@
+export const getWebtoon = async (
+  type: string,
+  genre: string,
+  order: string
+) => {
+  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons`;
+
+  const typeQuery = (() => {
+    switch (type) {
+      case 'default':
+        return '';
+      case 'new':
+        return 'new';
+      case 'finish':
+        return 'finish';
+      default:
+        throw new Error(`Unsupported type: ${type}`);
+    }
+  })();
+
+  const genreQuery = genre === 'RECOMMENDED' ? '' : `genre=${genre}`;
+
+  const orderQuery = order ? `order=${order}` : '';
+
+  const queryString = [genreQuery, orderQuery].filter(Boolean).join('&');
+
+  const endpoint = queryString
+    ? `${baseUrl}/${typeQuery}?${queryString}`
+    : `${baseUrl}/${typeQuery}`;
+  const res = await fetch(endpoint, {
+    next: {
+      tags: ['webtoons', type, genre, order],
+    },
+    credentials: 'include',
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+};
