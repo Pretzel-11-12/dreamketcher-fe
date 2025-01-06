@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface ThumbnailUploaderProps {
   imageFormat: { width: number; height: number };
@@ -14,6 +14,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const { width, height } = imageFormat;
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -56,10 +57,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
     img.src = URL.createObjectURL(file);
   };
   const handleAreaClick = () => {
-    const input = document.getElementById('file-upload') as HTMLInputElement;
-    if (input) {
-      input.click();
-    }
+    imageRef.current?.click();
   };
 
   return (
@@ -83,6 +81,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
           accept=".png, .jpg, .jpeg"
           className="hidden"
           onChange={handleFileChange}
+          ref={imageRef}
         />
 
         {preview && (

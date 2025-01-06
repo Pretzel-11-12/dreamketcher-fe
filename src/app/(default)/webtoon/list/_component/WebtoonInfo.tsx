@@ -6,13 +6,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+export enum Tag {
+  SCARED = '괴담',
+  ROMANCE = '로맨스',
+  HORROR = '호러',
+}
+
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetailUnit;
 };
 
 const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
-  const [isUserInterest, setInterest] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [isUserInterest, setInterest] = useState(false);
 
   const {
     webtoonId,
@@ -25,9 +30,6 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
   const writer = '바크베';
 
   const handleLikeToggle = async () => {
-    if (loading) return;
-
-    setLoading(true);
     try {
       if (isUserInterest) {
         await fetchWebtoonDetail.deleteFavoriteWebtoon({
@@ -42,8 +44,6 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
       setInterest(!isUserInterest);
     } catch (error) {
       console.error('요청 중 에러 발생:', error);
-    } finally {
-      setLoading(false);
     }
   };
 

@@ -29,18 +29,16 @@ export namespace fetchWebtoonDetail {
   }): Promise<any> {
     const { param } = arg;
     const { id } = param;
-    console.log(localStorage.getItem('accessToken'));
 
     const response = await fetch(`/api/v1/webtoons/${id}/favorite`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        'Content-Type': 'application/json',
       },
     });
-    if (!response.ok)
-      throw new Error(`Failed to post favorite for webtoon: ${id}`);
-    return response.json();
+    // if (!response.ok) console.log(response);
+    // throw new Error(`Failed to post favorite for webtoon: ${id} `);
+    // return response.json();
   }
 
   export async function deleteFavoriteWebtoon(arg: {
@@ -48,7 +46,7 @@ export namespace fetchWebtoonDetail {
   }): Promise<any> {
     const { param } = arg;
     const { id } = param;
-    console.log(localStorage.getItem('accessToken'));
+
     const response = await fetch(`/api/v1/member/favorite/${id}`, {
       method: 'DELETE',
       headers: {
@@ -56,8 +54,8 @@ export namespace fetchWebtoonDetail {
         'Content-Type': 'application/json',
       },
     });
-    if (!response.ok)
-      throw new Error(`Failed to delete favorite for webtoon: ${id}`);
-    return response.json();
+    // if (!response.ok)
+    //   throw new Error(`Failed to delete favorite for webtoon: ${id}`);
+    // return response.json();
   }
 }

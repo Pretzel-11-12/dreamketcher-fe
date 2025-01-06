@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 export default function Mypage() {
   const router = useRouter();
   const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
-  console.log({ id });
+
   const tempUserInfo = {
     name: '린닝',
     email: 'rkddkwl@gmail.com',
@@ -39,9 +39,9 @@ export default function Mypage() {
         if (!accessToken) {
           throw new Error('Access token is missing');
         }
-        console.log({ accessToken });
+
         const userInfo = await fetchUserInfo(accessToken);
-        console.log({ userInfo });
+
         setUserInfo({
           id: userInfo.id,
           name: userInfo.name,

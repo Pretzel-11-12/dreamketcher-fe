@@ -72,6 +72,8 @@ export default function Main({ params }: Props) {
           method: 'GET',
           credentials: 'include',
         });
+        console.log({ response });
+        console.log(localStorage.getItem('accessToken'));
 
         if (response.ok) {
           console.log(response);
