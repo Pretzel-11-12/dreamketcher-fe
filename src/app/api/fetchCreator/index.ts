@@ -1,5 +1,6 @@
 import { _Model as Model } from './model';
 
+//TODO: 요청 확인 필요. API 작업 완료 안 되었음. 2025.01.06
 export namespace fetchCreatorWebtoon {
   export async function postWebtoon(arg: {
     title: string;
@@ -40,6 +41,20 @@ export namespace fetchCreatorWebtoon {
       }
     );
     if (!response.ok) throw new Error(`Failed to edit webtoons`);
+    return response.json();
+  }
+
+  export async function deleteWebtoon(arg: {
+    webtoonId: string;
+  }): Promise<any> {
+    const { webtoonId } = arg;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    if (!response.ok) throw new Error(`Failed to delete webtoons`);
     return response.json();
   }
 
@@ -149,6 +164,21 @@ export namespace fetchCreatorEpisode {
       }
     );
     if (!response.ok) throw new Error(`Failed to edit Episode`);
+    return response.json();
+  }
+
+  export async function deleteEpisode(arg: {
+    webtoonId: string;
+    episodeId: string;
+  }): Promise<any> {
+    const { webtoonId, episodeId } = arg;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/${episodeId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    if (!response.ok) throw new Error(`Failed to delete episode`);
     return response.json();
   }
 
