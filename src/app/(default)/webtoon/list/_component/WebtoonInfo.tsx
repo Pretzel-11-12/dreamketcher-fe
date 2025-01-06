@@ -25,9 +25,8 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     webtoonThumbnail,
     webtoonStory,
     genreNames,
+    AuthorNickname,
   } = webtoon;
-
-  const writer = '바크베';
 
   const handleLikeToggle = async () => {
     try {
@@ -58,7 +57,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
       <div className="flex flex-col gap-3 relative">
         <div className="text-2xl font-semibold">{webtoonTitle}</div>
         <div className="flex gap-1 items-center">
-          <div className="text-sm">{writer}</div>
+          <div className="text-sm">{AuthorNickname}</div>
           <div className="text-sm text-gray-900/40">
             글/ 그림 | {genreNames[0]}
           </div>
@@ -84,7 +83,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               handleClick: handleLikeToggle,
             }}
           >
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex gap-2 items-center justify-center text-[16px]">
               <span
                 className={`mdi ${
                   isUserInterest ? 'mdi-check' : 'mdi-plus'
@@ -101,8 +100,8 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
                 query: { titleId: webtoonId, no: '1' },
               }}
             >
-              <div className="flex gap-2 items-center justify-center">
-                첫 화 보기
+              <div className="flex gap-2 items-center justify-center text-[16px]">
+                1화보기
               </div>
             </Link>
           </Button>

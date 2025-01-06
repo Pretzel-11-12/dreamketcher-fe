@@ -2,7 +2,7 @@
 
 import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
-import WebtoonInfo, { Tag } from './_component/WebtoonInfo';
+import WebtoonInfo from './_component/WebtoonInfo';
 import EpisodeList from './_component/EpisodeList';
 import NoticeList from './_component/NoticeList';
 
@@ -37,7 +37,7 @@ export default function Detail() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
 
-  let { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: [id],
     queryFn: () => fetchWebtoonDetail.getWebtoonDetails({ param: { id } }),
     staleTime: 60 * 1000,
@@ -49,25 +49,9 @@ export default function Detail() {
   }
 
   if (isError) {
-    // return (
-    //   <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
-    // );
-    data = {
-      webtoonId: Number(id),
-      webtoonThumbnail: '/assets/images/webtoonthumbnail-1.jpg',
-      webtoonTitle: '괴담 출근',
-      genreNames: ['판타지'],
-      webtoonStory: `Stay in the middle, Like you a littleDon't want no riddle. 말해줘 say
-      it back, oh, say it ditto, 훌쩍 커버렸어 함께한 기억처럼 널 보는 내
-      마음은 어느새 여름 지나 가을. 기다렸지 all this time. Do you want
-      somebody? Like I want somebody?날 보고 웃었지만 Do you think about me
-      now? Yeah. All the time, yeah, all the time. I don't want to walk in
-      this 미로`,
-      episode_count: 5,
-      currentPage: 0,
-      totalPages: 0,
-      episodes: [],
-    };
+    return (
+      <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
+    );
   }
 
   return (
@@ -82,7 +66,11 @@ export default function Detail() {
           <div className="flex flex-col w-full gap-6 border-r border-r-line pt-8">
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
-            <EpisodeList />
+            <EpisodeList
+              episodeItems={data?.episodes || []}
+              episodeCount={data?.episode_count || 0}
+              webtoonId={data?.webtoonId}
+            />
           </div>
 
           <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">

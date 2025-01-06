@@ -1,6 +1,7 @@
-import EpisodeListItem, { EpisodeListItemInfo } from './EpisodeListItem';
+import EpisodeListItem from './EpisodeListItem';
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 const listItems = [
   {
@@ -52,16 +53,25 @@ const listItems = [
     views: 40,
   },
 ];
+type episodeItemsProps = {
+  webtoonId?: number;
+  episodeCount: number;
+  episodeItems: fetchWebtoonDetail.Model.EpisodeUnit[];
+};
 
-export default function EpisodeList({}) {
+const EpisodeList: React.FC<episodeItemsProps> = ({
+  webtoonId,
+  episodeCount,
+  episodeItems,
+}) => {
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
-  const [sortedListItems, setSortedListItems] = useState<EpisodeListItemInfo[]>(
-    []
-  );
+  const [sortedListItems, setSortedListItems] = useState<
+    fetchWebtoonDetail.Model.EpisodeUnit[]
+  >([]);
 
   useEffect(() => {
-    const sortedItems = _(listItems)
-      .orderBy((item) => item.timestamp, sortDirection)
+    const sortedItems = _(episodeItems)
+      .orderBy((item) => item.publishedAt, sortDirection)
       .value();
 
     setSortedListItems(sortedItems);
@@ -70,7 +80,7 @@ export default function EpisodeList({}) {
   return (
     <div>
       <div className="flex justify-between px-5">
-        <div>총 {4}화</div>
+        <div>총 {episodeCount}화</div>
 
         <div className="flex gap-2">
           <div
@@ -95,14 +105,17 @@ export default function EpisodeList({}) {
       {sortedListItems.map((item, index) => (
         <EpisodeListItem
           key={index}
+          thumbnail={item.thumbnail}
+          episodeId={item.episodeId}
           title={item.title}
-          id={item.id}
-          timestamp={item.timestamp}
-          views={item.views}
-          like={item.like}
-          star={item.star}
+          webtoonId={webtoonId}
+          publishedAt={item.publishedAt}
+          viewCount={item.viewCount}
+          likeCount={item.likeCount}
+          averageStar={item.averageStar}
         />
       ))}
     </div>
   );
-}
+};
+export default EpisodeList;

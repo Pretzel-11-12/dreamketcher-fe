@@ -6,6 +6,7 @@ export namespace _Model {
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
+    AuthorNickname: string;
     episode_count: number;
     genreNames: string[];
     currentPage: number;
