@@ -4,7 +4,7 @@ Content-Type: application/json; charset=UTF-8
 
 // 1. 웹툰
 ### 웹툰 상세 조회
-GET https://api.dreamketcher.site/api/v1/webtoons/1/episode?fromFirst=false&page=0&size=20
+GET https://api.dreamketcher.site/api/v1/webtoons/5/episode?fromFirst=false&page=0&size=20
 
 ### 관심 웹툰 설정
 POST https://api.dreamketcher.site/api/v1/webtoons/100/favorite
@@ -34,7 +34,7 @@ POST https://api.dreamketcher.site/api/v1/webtoons/1/episode/1/like
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
-### 별점 생성/수정
+### 별점 생성/수정 -> 안되는데
 PUT https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/star
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json

@@ -1,6 +1,6 @@
-"use client";
-import _ from "lodash";
-import { useEffect, useState } from "react";
+'use client';
+import _ from 'lodash';
+import { useEffect, useState } from 'react';
 
 const EpisodeFooter = () => {
   const [isDisplay, setDisplay] = useState(false);
@@ -18,10 +18,17 @@ const EpisodeFooter = () => {
   };
   const throttleScroll = _.throttle(handleScroll, 300);
 
+  const handleClickComment = () => {
+    window.scrollTo({
+      top: 2300,
+      behavior: 'smooth',
+    });
+  };
+
   useEffect(() => {
-    window.addEventListener("scroll", throttleScroll);
+    window.addEventListener('scroll', throttleScroll);
     return () => {
-      window.removeEventListener("scroll", throttleScroll);
+      window.removeEventListener('scroll', throttleScroll);
     };
   }, []);
 
@@ -39,7 +46,10 @@ const EpisodeFooter = () => {
             목록
           </div>
 
-          <div className="cursor-pointer items-center flex gap-2">
+          <div
+            className="cursor-pointer items-center flex gap-2"
+            onClick={handleClickComment}
+          >
             <span className="mdi mdi-comment-processing-outline text-lg"></span>
             1,174
           </div>
