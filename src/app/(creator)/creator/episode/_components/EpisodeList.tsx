@@ -1,16 +1,16 @@
-import EpisodeItem from "./EpisodeItem";
+import EpisodeItem from './EpisodeItem';
 
 const items = [{}, {}, {}];
 const headers = [
-  "번호",
-  "썸네일",
-  "제목",
-  "연령가",
-  "게시일",
-  "조회수",
-  "댓글",
-  "좋아요",
-  "옵션",
+  '번호',
+  '썸네일',
+  '제목',
+  '연령가',
+  '게시일',
+  '조회수',
+  '댓글',
+  '좋아요',
+  '옵션',
 ];
 
 const EpisodeList: React.FC<{}> = () => {
@@ -21,8 +21,8 @@ const EpisodeList: React.FC<{}> = () => {
           <div className="flex justify-center w-full">{item}</div>
         ))}
       </div>
-      {items.map((item) => (
-        <EpisodeItem />
+      {items.map((item, index) => (
+        <EpisodeItem key={index} />
       ))}
     </>
   );

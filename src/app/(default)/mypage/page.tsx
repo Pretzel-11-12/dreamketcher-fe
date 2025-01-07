@@ -13,21 +13,14 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function Mypage() {
   const router = useRouter();
-  //const { name, email, imageUrl, setUserInfo } = useAuthStore();
-  const { data, isLoading, isError } = useQuery<Member>({
-    queryKey: ['member'],
-    queryFn: () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        throw new Error('Access token is missing');
-      }
-      return fetchUserInfo(accessToken);
-    },
-    enabled: !!localStorage.getItem('accessToken'),
-  });
+  const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {isError}</div>;
+  const tempUserInfo = {
+    name: '린닝',
+    email: 'rkddkwl@gmail.com',
+    imageUrl: '/assets/images/profile1.png',
+    bio: `Fancy, 이건 참 화려해, it's glowing and it's flashy (yeah) 알아 적당함이 뭔지, keep it classy`,
+  };
 
   const handleEditProfile = () => {
     if (!data) {
@@ -44,20 +37,42 @@ export default function Mypage() {
     router.push(`/mypage/edit${query}`);
   };
 
-  const emailText = data?.email || '지정된 이메일이 없습니다.';
+  useEffect(() => {
+    const handleFetchUserInfo = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error('Access token is missing');
+        }
+
+        const userInfo = await fetchUserInfo(accessToken);
+
+        setUserInfo({
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          imageUrl: userInfo.imageUrl,
+        });
+      } catch (err) {
+        console.error('Failed to fetch user info:', err);
+      }
+    };
+
+    handleFetchUserInfo();
+  }, [setUserInfo]);
 
   return (
     <div className="min-h-screen flex flex-col pr-[20px] border-r border-r-line">
       <div className="max-w-4xl bg-white mt-[70px] flex">
         <img
           className="w-[70px] h-[70px] rounded-full mr-6"
-          src={data?.imageUri || '/assets/images/profile1.png'}
+          src={imageUrl || '/assets/images/profile1.png'}
           alt="프로필"
         />
 
         <div className="ml-[4px]">
           <p className="text-[18px] font-medium text-gray-800 mt-[8px]">
-            {data?.name}
+            지나가는 나그네{name}
           </p>
           <div className="flex">
             <Image
@@ -66,8 +81,9 @@ export default function Mypage() {
               width={11}
               height={9}
             />
-            <p className="text-[12px] text-gray-500 m-1">{data?.email}</p>
-            <ClipboardButton textToCopy={emailText} />
+            <p className="text-[12px] text-gray-500 m-1">
+              rhdiddl@gmail.com{email}
+            </p>
           </div>
         </div>
       </div>

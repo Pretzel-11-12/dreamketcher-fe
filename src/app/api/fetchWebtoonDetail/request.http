@@ -1,0 +1,91 @@
+@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjIxNjM0MiwiZXhwIjoxNzM2MjIzNTQyfQ._bMwwyjWWSq6sw4cZB9koTeBJaskO6rYFFObrGOHDKs
+GET https://api.dreamketcher.site/api/v1/health
+Content-Type: application/json; charset=UTF-8
+
+// 1. 웹툰
+### 웹툰 상세 조회
+GET https://api.dreamketcher.site/api/v1/webtoons/5/episode?fromFirst=false&page=0&size=20
+
+### 관심 웹툰 설정
+POST https://api.dreamketcher.site/api/v1/webtoons/100/favorite
+Authorization: Bearer {{accessToken}}
+
+
+### 관심 웹툰 해제
+DELETE https://api.dreamketcher.site/api/v1/member/favorite/10
+Authorization: Bearer {{accessToken}}
+
+### 관심 웹툰 
+GET https://api.dreamketcher.site/api/v1/member/favorite
+Authorization: Bearer {{accessToken}}
+
+
+### 에피소드 리스트
+GET https://api.dreamketcher.site/api/v1/webtoons/1/episode?fromFirst=false&page=0&size=20
+
+// 2. 에피소드
+
+### 에피소드 상세 조회
+GET https://api.dreamketcher.site/api/v1/webtoons/1/episode/1
+Content-Type: application/json
+
+### 에피소드 좋아요
+POST https://api.dreamketcher.site/api/v1/webtoons/1/episode/1/like
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 별점 생성/수정 -> 안되는데
+PUT https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/star
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+	"float": "4.5"
+}
+
+
+
+// 3. 댓글
+
+### 댓글 작성
+POST https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/comments/create
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+"content": "댓글 내용"
+}
+
+### 댓글 조회 : 인증 정보 필요? 대댓글 개수 필요
+GET https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 댓글 삭제
+DELETE https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/comments/1
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 답글 작성
+POST https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/recomment/create
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+	"content": "답글 내용",
+	"parentCommentId": "1"
+}
+
+### 답글 조회
+GET https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/comments/1/recomments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+
+### 답글 삭제
+DELETE https://api.dreamketcher.site/api/v1/users/1/webtoons/1/episode/1/recomment/1
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+
+### 댓글 추천
