@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Button from '@/app/_component/Button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FavoriteWebtoon } from '@/app/model/FavoriteWebtoon';
+import { FavoriteWebtoon } from '@/model/Webtoon';
 
 const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   title,
@@ -15,7 +15,6 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
-
   const router = useRouter();
   function navigateToWebtoon() {
     router.push('/webtoon/list');
