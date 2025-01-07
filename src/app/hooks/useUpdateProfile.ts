@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { updateProfile } from '@/app/api/updateProfile'; // fetch API 함수
-import { UpdateProfileData } from '@/app/model/Profile';
+import { updateProfile } from '@/app/api/updateProfile';
+import { User } from '@/model/User';
 
 export const useUpdateProfile = () => {
-  const { mutate, data, isError, error } = useMutation({
-    mutationFn: (profileData: UpdateProfileData) => {
+  const { mutate, data } = useMutation({
+    mutationFn: (profileData: User) => {
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) {
         throw new Error('Access token is missing');
@@ -13,5 +13,5 @@ export const useUpdateProfile = () => {
     },
   });
 
-  return { mutate, data, isError, error };
+  return { mutate, data };
 };
