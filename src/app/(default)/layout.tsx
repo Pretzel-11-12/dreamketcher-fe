@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white`}
       >
         <RQProvider>
           <Header></Header>

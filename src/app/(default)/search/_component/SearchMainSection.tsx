@@ -23,8 +23,8 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
       </div>
       <SearchMainSectionHeader />
       <div className="flex flex-col gap-5">
-        {mockWebtoons?.map((webtoon) => (
-          <SearchResultThumbnail webtoon={webtoon} />
+        {webtoons?.map((webtoon) => (
+          <SearchResultThumbnail key={webtoon.id} webtoon={webtoon} />
         ))}
       </div>
     </div>
