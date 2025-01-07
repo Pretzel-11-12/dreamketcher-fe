@@ -1,17 +1,14 @@
-import { UpdateProfileData } from '../model/Profile';
+import { User } from '@/model/User';
 
-export const updateProfile = async (
-  profileData: UpdateProfileData,
-  token: string
-) => {
+export const updateProfile = async (profileData: User, token: string) => {
   const formData = new FormData();
-  formData.append('name', profileData.name);
-  formData.append('email', profileData.email);
-  formData.append('bio', profileData.bio);
-  if (profileData.imageUri) {
-    const response = await fetch(profileData.imageUri);
+  formData.append('nickname', profileData.nickname);
+  formData.append('businessEmail', profileData.businessEmail);
+  formData.append('shortIntroduction', profileData.shortIntroduction);
+  if (profileData.imageUrl) {
+    const response = await fetch(profileData.imageUrl);
     const blob = await response.blob();
-    formData.append('profileImage', blob, 'profile.jpg');
+    formData.append('imageUrl', blob, 'profile.jpg');
   }
 
   const response = await fetch('/api/v1/member/profile', {

@@ -1,12 +1,6 @@
-export type Member = {
-  id: number;
-  email: string;
-  name: string;
-  imageUri: string;
-  role: string;
-};
+import { User } from '@/model/User';
 
-export const fetchUserInfo = async (accessToken: string): Promise<Member> => {
+export const fetchUserInfo = async (accessToken: string): Promise<User> => {
   try {
     const response = await fetch('/api/v1/member/me', {
       method: 'GET',

@@ -3,20 +3,32 @@
 import { useState } from 'react';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
 import { useUpdateProfile } from '@/app/hooks/useUpdateProfile';
+import useAuthStore from '@/app/store/authStore';
 
 const Temp = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const {
+    id,
+    nickname,
+    businessEmail,
+    imageUrl,
+    shortIntroduction,
+    setUserInfo,
+  } = useAuthStore();
 
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [email, setEmail] = useState(searchParams.get('email') || '');
-  const [bio, setBio] = useState(searchParams.get('bio') || '');
-  const [imageUri, setImageUri] = useState(
-    searchParams.get('imageUri') || '/assets/images/profile1.png'
+  const [tempNickname, setTempNickname] = useState(nickname || '');
+  const [tempBusinessEmail, setTempBusinessEmail] = useState(
+    businessEmail || ''
+  );
+  const [tempShortIntroduction, setTempShortIntroduction] = useState(
+    shortIntroduction || ''
+  );
+  const [tempimageUrl, setTempimageUrl] = useState(
+    imageUrl || '/assets/images/profile-default.png'
   );
 
   const { mutate } = useUpdateProfile();
@@ -24,14 +36,29 @@ const Temp = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageUri(URL.createObjectURL(file));
+      setTempimageUrl(URL.createObjectURL(file));
     }
   };
 
   const handleSave = () => {
-    const profileData = { name, email, bio, imageUri };
-    mutate(profileData, {
+    if (id === null) {
+      alert('유효하지 않은 사용자입니다.');
+      return;
+    }
+
+    const updatedProfile = {
+      id,
+      nickname: tempNickname,
+      businessEmail: tempBusinessEmail,
+      imageUrl: tempimageUrl,
+      shortIntroduction: tempShortIntroduction,
+    };
+
+    console.log(updatedProfile);
+
+    mutate(updatedProfile, {
       onSuccess: () => {
+        setUserInfo(updatedProfile);
         alert('프로필 저장이 완료되었습니다.');
         router.push('/mypage');
       },
@@ -70,16 +97,11 @@ const Temp = () => {
 
       <div className="relative w-24 h-24 mb-4">
         <Image
-          src={imageUri}
+          src={tempimageUrl}
           alt="프로필 이미지"
           width={90}
           height={90}
-          className="rounded-full object-cover"
-        />
-        <img
-          className="w-[70px] h-[70px] rounded-full mr-6"
-          src={imageUri}
-          alt="프로필"
+          className="rounded-full object-cover border border-[#F2F2F2]"
         />
         <label
           htmlFor="profileImageInput"
@@ -104,10 +126,10 @@ const Temp = () => {
       <div className="w-full mb-10">
         <label className="text-sm font-medium mb-1 block">닉네임</label>
         <Input
-          text={name}
+          text={tempNickname}
           placeholder="닉네임을 작성해주세요."
-          subText={`${name.length}/30`}
-          onChange={(value) => value.length <= 30 && setName(value)}
+          subText={`${tempNickname.length}/30`}
+          onChange={(value) => value.length <= 30 && setTempNickname(value)}
         />
         <p className="text-[13px] text-[#C9C9C9] mt-1">
           비속어, 타인의 권리를 침해하는 닉네임의 경우, 임의로 닉네임이 변경될
@@ -118,11 +140,13 @@ const Temp = () => {
       <div className="w-full mb-10">
         <label className="text-sm font-medium mb-1 block">자기소개</label>
         <Textarea
-          text={bio}
+          text={tempShortIntroduction}
           placeholder="자기소개를 입력하세요."
-          subText={`${bio.length}/100`}
+          subText={`${tempShortIntroduction.length}/100`}
           height="200px"
-          onChange={(value) => value.length <= 100 && setBio(value)}
+          onChange={(value) =>
+            value.length <= 100 && setTempShortIntroduction(value)
+          }
         />
       </div>
 
@@ -131,10 +155,10 @@ const Temp = () => {
           비즈니스 이메일
         </label>
         <Input
-          text={email}
+          text={tempBusinessEmail}
           placeholder="비즈니스 이메일을 작성해주세요."
           containerStyles="text-xs"
-          onChange={(value) => setEmail(value)}
+          onChange={(value) => setTempBusinessEmail(value)}
         />
       </div>
     </div>

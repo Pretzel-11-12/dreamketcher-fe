@@ -8,9 +8,10 @@ import ProfileModal from '@/app/modal/_component/ProfileModal';
 
 const DEFAULT_USER_INFO = {
   id: 0,
-  name: 'Guest',
-  email: '',
-  imageUri: '',
+  nickname: '',
+  businessEmail: '',
+  imageUrl: '',
+  shortIntroduction: '',
 };
 
 const Header: React.FC = () => {
@@ -23,7 +24,7 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
-  const { id, name, email, imageUri, setUserInfo } = useAuthStore();
+  const { id, imageUrl, setUserInfo } = useAuthStore();
   const profileImage: any = null;
 
   useEffect(() => {
@@ -41,9 +42,12 @@ const Header: React.FC = () => {
         const userInfo = await fetchUserInfo(accessToken);
         setUserInfo({
           id: userInfo.id,
-          name: userInfo.name,
-          email: userInfo.email,
-          imageUri: userInfo.imageUri,
+          nickname: userInfo.nickname || '',
+          businessEmail:
+            userInfo.businessEmail || '비즈니스 이메일을 등록해주세요',
+          imageUrl: userInfo.imageUrl,
+          shortIntroduction:
+            userInfo.shortIntroduction || '한줄소개를 작성해주세요',
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
@@ -94,7 +98,7 @@ const Header: React.FC = () => {
                     className="cursor-pointer"
                   />
                   <Image
-                    src={imageUri || '/assets/images/profile-default.png'}
+                    src={imageUrl || '/assets/images/profile-default.png'}
                     alt="profile button"
                     width={30}
                     height={30}

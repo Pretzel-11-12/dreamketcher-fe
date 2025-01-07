@@ -12,7 +12,7 @@ const MypageHeader: React.FC = () => {
   const isStorageActive = pathname === '/mypage/storage';
 
   return (
-    <aside className='w-[277px] h-full flex flex-col items-start pr-[20px] border-r border-r-line mt-24'>
+    <aside className="w-[277px] h-full flex flex-col items-start pr-[20px] border-r border-r-line pt-24">
       <div
         className={`flex items-center w-full h-[50px] rounded-md px-4 py-2 ${
           isMypageActive ? 'bg-[#E4EBFF]' : ''
@@ -24,10 +24,10 @@ const MypageHeader: React.FC = () => {
               ? '/assets/icon/darkProfile.svg'
               : '/assets/icon/profile.svg'
           }
-          alt='Task Icon'
+          alt="Task Icon"
           width={20}
           height={20}
-          className='mr-2'
+          className="mr-2"
         />
         <button
           className={`text-[16px] font-medium ${
@@ -52,10 +52,10 @@ const MypageHeader: React.FC = () => {
               ? '/assets/icon/darkFolder.svg'
               : '/assets/icon/folder.svg'
           }
-          alt='Archive Icon'
+          alt="Archive Icon"
           width={20}
           height={20}
-          className='mr-2'
+          className="mr-2"
         />
         <button
           className={`text-[16px] font-medium ${
