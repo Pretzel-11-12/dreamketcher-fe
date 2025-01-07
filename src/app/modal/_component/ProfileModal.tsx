@@ -14,7 +14,7 @@ interface ProfileModalProps {
 const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const { id, name, imageUri, storeLogout } = useAuthStore();
+  const { id, nickname, imageUrl, storeLogout } = useAuthStore();
   const accessToken = localStorage.getItem('accessToken');
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -70,13 +70,13 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           onClick={handleClickMypage}
         >
           <Image
-            src={imageUri || '/assets/images/profile-default.png'}
+            src={imageUrl || '/assets/images/profile-default.png'}
             alt="profile button"
             width={30}
             height={30}
             className="rounded-full"
           />
-          <p className="font-medium m-1">{name}</p>
+          <p className="font-medium mt-[6px]">{nickname}</p>
         </button>
         <div className="flex flex-col items-center justify-start text-left ">
           <button
