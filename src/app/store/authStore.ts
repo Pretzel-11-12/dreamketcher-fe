@@ -4,37 +4,41 @@ interface AuthState {
   isLoggedIn: boolean;
   accessToken: string | null;
   id: number | null;
-  name: string | null;
-  email: string | null;
+  nickname: string | null;
+  businessEmail: string | null;
   imageUrl: string | null;
+  shortIntroduction: string | null;
   setAccessToken: (token: string) => void;
   setUserInfo: (userInfo: {
     id: number;
-    name: string;
-    email: string;
+    nickname: string;
+    businessEmail: string;
     imageUrl: string;
+    shortIntroduction: string;
   }) => void;
-  logout: () => void;
+  storeLogout: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
   accessToken: null,
   id: null,
-  name: null,
-  email: null,
+  nickname: null,
+  businessEmail: null,
   imageUrl: null,
+  shortIntroduction: null,
   setAccessToken: (token) => set({ isLoggedIn: true, accessToken: token }),
-  setUserInfo: ({ id, name, email, imageUrl }) =>
-    set({ id, name, email, imageUrl }),
-  logout: () =>
+  setUserInfo: ({ id, nickname, businessEmail, imageUrl, shortIntroduction }) =>
+    set({ id, nickname, businessEmail, imageUrl, shortIntroduction }),
+  storeLogout: () =>
     set({
       isLoggedIn: false,
       accessToken: null,
       id: null,
-      name: null,
-      email: null,
+      nickname: null,
+      businessEmail: null,
       imageUrl: null,
+      shortIntroduction: null,
     }),
 }));
 

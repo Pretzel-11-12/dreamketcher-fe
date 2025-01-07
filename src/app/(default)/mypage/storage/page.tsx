@@ -9,15 +9,15 @@ export default function StoragePage() {
   const [selectedTab, setSelectedTab] = useState('recent');
 
   const tabs = [
-    { label: '최근 본 작품', key: 'recent' },
+    { label: '최근 본 웹툰', key: 'recent' },
     { label: '관심웹툰', key: 'favorite' },
     { label: '댓글', key: 'comments' },
   ];
 
   return (
-    <div className='p-1'>
-      <h1 className='text-xl font-semibold mt-14 mb-4'>보관함</h1>
-      <div className='flex space-x-4 mb-4 border-b border-b-line'>
+    <div className="p-1">
+      <h1 className="text-xl font-semibold mt-14 mb-4">보관함</h1>
+      <div className="flex space-x-4 mb-4 border-b border-b-line">
         {tabs.map((tab) => (
           <button
             key={tab.key}
