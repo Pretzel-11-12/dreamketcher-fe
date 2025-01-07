@@ -1,11 +1,9 @@
-export interface Webtoon {
+export interface SearchResult {
   id: number;
   title: string;
-  member: string;
   thumbnail: string;
   genres: string;
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
-  decription: string;
 }
