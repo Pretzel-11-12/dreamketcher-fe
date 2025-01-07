@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function Mypage() {
   const router = useRouter();
-  const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
+  const { id, name, email, imageUri, setUserInfo } = useAuthStore();
 
   const tempUserInfo = {
     name: '린닝',
@@ -23,18 +23,7 @@ export default function Mypage() {
   };
 
   const handleEditProfile = () => {
-    if (!data) {
-      console.error('유저 데이터가 존재하지 않습니다.');
-      return;
-    }
-
-    const query = `?name=${encodeURIComponent(
-      data.name
-    )}&email=${encodeURIComponent(data.email)}&imageUri=${encodeURIComponent(
-      data.imageUri
-    )}
-    )}`;
-    router.push(`/mypage/edit${query}`);
+    router.push(`/mypage/edit`);
   };
 
   useEffect(() => {
@@ -51,7 +40,7 @@ export default function Mypage() {
           id: userInfo.id,
           name: userInfo.name,
           email: userInfo.email,
-          imageUrl: userInfo.imageUrl,
+          imageUri: userInfo.imageUri,
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
@@ -66,7 +55,7 @@ export default function Mypage() {
       <div className="max-w-4xl bg-white mt-[70px] flex">
         <img
           className="w-[70px] h-[70px] rounded-full mr-6"
-          src={imageUrl || '/assets/images/profile1.png'}
+          src={imageUri || '/assets/images/profile1.png'}
           alt="프로필"
         />
 
