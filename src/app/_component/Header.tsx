@@ -10,7 +10,7 @@ const DEFAULT_USER_INFO = {
   id: 0,
   name: 'Guest',
   email: '',
-  imageUrl: '',
+  imageUri: '',
 };
 
 const Header: React.FC = () => {
@@ -23,25 +23,8 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
-  const { id, name, email, imageUrl, setUserInfo } = useAuthStore();
+  const { id, name, email, imageUri, setUserInfo } = useAuthStore();
   const profileImage: any = null;
-
-  const handleLogout = async () => {
-    if (!accessToken) {
-      alert('로그인 상태가 아닙니다.');
-      return;
-    }
-
-    try {
-      await logout(accessToken);
-      localStorage.removeItem('accessToken');
-      storeLogout();
-      window.location.href = '/main';
-    } catch (err) {
-      console.error(err);
-      alert('로그아웃에 실패하였습니다.');
-    }
-  };
 
   useEffect(() => {
     const handleFetchUserInfo = async () => {
@@ -60,7 +43,7 @@ const Header: React.FC = () => {
           id: userInfo.id,
           name: userInfo.name,
           email: userInfo.email,
-          imageUrl: userInfo.imageUri,
+          imageUri: userInfo.imageUri,
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
@@ -111,12 +94,12 @@ const Header: React.FC = () => {
                     className="cursor-pointer"
                   />
                   <Image
-                    src={'/assets/images/profile-default.png'}
+                    src={imageUri || '/assets/images/profile-default.png'}
                     alt="profile button"
                     width={30}
                     height={30}
                     onClick={handleOpenModal}
-                    className="cursor-pointer"
+                    className="cursor-pointer rounded-full"
                   />
                 </>
               ) : (
