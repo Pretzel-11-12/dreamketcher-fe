@@ -1,58 +1,65 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Button from '@/app/_component/Button';
-import useAuthStore from '../store/authStore';
-import { logout } from '../api/logout';
+import { fetchUserInfo } from '@/app/api/auth';
+import useAuthStore from '@/app/store/authStore';
+import ProfileModal from '@/app/modal/_component/ProfileModal';
+
+const DEFAULT_USER_INFO = {
+  id: 0,
+  name: 'Guest',
+  email: '',
+  imageUri: '',
+};
 
 const Header: React.FC = () => {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const accessToken = localStorage.getItem('accessToken');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
-  const storeLogout = useAuthStore((state) => state.storeLogout);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
-  const userId: Number = 1;
+  const { id, name, email, imageUri, setUserInfo } = useAuthStore();
   const profileImage: any = null;
 
-  const handleLogout = async () => {
-    if (!accessToken) {
-      alert('로그인 상태가 아닙니다.');
-      return;
-    }
+  useEffect(() => {
+    const handleFetchUserInfo = async () => {
+      const accessToken = localStorage.getItem('accessToken');
 
-    try {
-      await logout(accessToken);
-      localStorage.removeItem('accessToken');
-      storeLogout();
-      window.location.href = '/main';
-    } catch (err) {
-      console.error(err);
-      alert('로그아웃에 실패하였습니다.');
-    }
-  };
+      // 액세스 토큰이 없으면 비로그인 상태로 처리
+      if (!accessToken) {
+        console.log('No access token found. User is not logged in.');
+        setUserInfo(DEFAULT_USER_INFO);
+        return;
+      }
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
+      try {
+        const userInfo = await fetchUserInfo(accessToken);
+        setUserInfo({
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          imageUri: userInfo.imageUri,
+        });
+      } catch (err) {
+        console.error('Failed to fetch user info:', err);
 
-  const toggleAlarmModal = () => {
-    setAlarmModalOpen(!isAlarmModalOpen);
-  };
+        // 서버 요청 실패 시 비로그인 상태로 처리
+        setUserInfo(DEFAULT_USER_INFO);
+      }
+    };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const closeAlarmModal = () => {
-    setAlarmModalOpen(false);
-  };
+    handleFetchUserInfo();
+  }, [setUserInfo]);
 
   return (
     <header className="fixed w-full bg-white z-50">
       <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 md:px-0 relative">
-        <hr className="fixed left-0 w-[100vw] mt-[80px] border-line" />
+        <hr className="fixed left-0 w-[100vw] mt-[70px] border-line" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"
@@ -77,30 +84,33 @@ const Header: React.FC = () => {
               className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
             />
             <div className="relative flex text-black gap-3 items-center">
-              {!accessToken ? (
+              {id ? (
                 <>
                   <Image
                     src="/assets/images/bell.png"
                     alt="noti button"
                     width={30}
                     height={30}
+                    className="cursor-pointer"
                   />
                   <Image
-                    src="/assets/images/profile-default.png"
+                    src={imageUri || '/assets/images/profile-default.png'}
                     alt="profile button"
                     width={30}
                     height={30}
+                    onClick={handleOpenModal}
+                    className="cursor-pointer rounded-full"
                   />
-                  <Link href="/login" className="px-2 py-2 text-sm">
-                    로그인
-                  </Link>
                 </>
               ) : (
-                <button onClick={handleLogout} className="px-2 py-2 text-sm">
-                  로그아웃
-                </button>
+                <Link href="/login" className="px-2 py-2 text-sm">
+                  로그인
+                </Link>
               )}
             </div>
+            {isModalOpen && (
+              <ProfileModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            )}
           </div>
         </div>
       </div>
