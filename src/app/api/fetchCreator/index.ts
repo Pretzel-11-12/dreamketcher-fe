@@ -1,7 +1,26 @@
-import { _Model as Model } from './model';
+import { _Model as __Model } from './model';
+import qs from 'qs';
 
-//TODO: 요청 확인 필요. API 작업 완료 안 되었음. 2025.01.06
+//TODO: getCreatorsWebtoon 제외하고 요청 확인 필요. API 작업 완료 안 되었음. 2025.01.06
 export namespace fetchCreatorWebtoon {
+  export import Model = __Model;
+
+  export async function getCreatorsWebtoon(arg?: {
+    query: { status?: string; page?: number; size?: number };
+  }): Promise<Model.CreatorWebtoons> {
+    const { query } = arg || {};
+    const queryString = query ? `?${qs.stringify(query)}` : '';
+
+    const response = await fetch(`/api/v1/member/works` + queryString, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    if (!response.ok) throw new Error(`Failed to get creators webtoons`);
+    return response.json();
+  }
+
   export async function postWebtoon(arg: {
     title: string;
     thumbnail: string;

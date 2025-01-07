@@ -1,7 +1,8 @@
-@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjE2MTc1NSwiZXhwIjoxNzM2MTY4OTU1fQ.bgtrfNJWGUtTmr8R7hVR79ReIyXG4Yz3hLLM6PRWSig
+@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjIxNjM0MiwiZXhwIjoxNzM2MjIzNTQyfQ._bMwwyjWWSq6sw4cZB9koTeBJaskO6rYFFObrGOHDKs
 
 ### 웹툰 장르별 목록 조회
-GET http://43.200.18.88:8080/api/v1/webtoons?genre=FANTASY
+GET https://api.dreamketcher.site/api/v1/member/works
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json; charset=UTF-8
 
 
@@ -13,7 +14,7 @@ Content-Type: application/json
 
 {
 	"title": "웹툰 업로드 테스트",
-	"thumbnail": "URL",
+	"thumbnail": "https://example.com/thumbnail25.jpg",
 	"prologue": "https://example.com/thumbnail20.jpg",
 	"story": "스토리 설명",
 	"description": "한줄 요약"

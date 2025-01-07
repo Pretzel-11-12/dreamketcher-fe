@@ -1,4 +1,4 @@
-@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjE3MzA4NywiZXhwIjoxNzM2MTgwMjg3fQ.QkCiZ-Lt6Ku1qmNWlrS-qwe1yOSog9UWluBeQMIleqQ
+@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjIxNjM0MiwiZXhwIjoxNzM2MjIzNTQyfQ._bMwwyjWWSq6sw4cZB9koTeBJaskO6rYFFObrGOHDKs
 GET https://api.dreamketcher.site/api/v1/health
 Content-Type: application/json; charset=UTF-8
 
