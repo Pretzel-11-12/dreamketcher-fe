@@ -48,44 +48,38 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside); // 이벤트 리스너 등록
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside); // 이벤트 리스너 제거
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className='flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line'>
+    <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
       <img
         src={image}
         alt={title}
-        className='w-[100px] h-[150px] object-cover rounded cursor-pointer'
+        className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
-      <div className='flex flex-col'>
+      <div className="flex flex-col">
         <h3
-          className='text-base font-semibold cursor-pointer'
+          className="text-base font-semibold cursor-pointer"
           onClick={navigateToWebtoon}
         >
           {title}
         </h3>
-        <p
-          className='text-xs text-[#888888] mt-1 cursor-pointer'
-          onClick={navigateToWebtoon}
-        >
+        <p className="text-xs text-[#888888] mt-1">
           {writer} &#183; {genre} &#183; {episodes}화
         </p>
-        <div
-          className='flex items-center mt-1 mb-4 cursor-pointer'
-          onClick={navigateToWebtoon}
-        >
+        <div className="flex items-center mt-1 mb-4">
           <Image
-            src='/assets/images/star-1.png'
-            alt='Star PNG'
+            src="/assets/images/star-1.png"
+            alt="Star PNG"
             width={13}
             height={13}
           />
-          <p className='text-brand-yellow text-xs ml-[3px] mt-[1px]'>
+          <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
             {rating}
           </p>
         </div>
@@ -103,31 +97,31 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
               containerStyles: 'text-xs px-5 py-3',
             }}
           >
-            <div className='flex gap-2 items-center justify-center'>
+            <div className="flex gap-2 items-center justify-center">
               {episodes}화 이어서 보기
             </div>
           </Button>
         </Link>
       </div>
 
-      <div className='ml-auto relative' ref={menuRef}>
+      <div className="ml-auto relative" ref={menuRef}>
         <Image
           src={'/assets/icon/meatballsMenu.svg'}
-          alt='meatballsMenu Icon'
+          alt="meatballsMenu Icon"
           width={30}
           height={30}
-          className='cursor-pointer px-1 py-1 rounded hover:bg-[#F2F2F2]'
+          className="cursor-pointer px-1 py-1 rounded hover:bg-[#F2F2F2]"
           onClick={toggleMenu}
         />
 
         {/* 삭제 버튼 */}
         {showMenu && (
           <div
-            className='absolute right-0 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm'
+            className="absolute right-0 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm"
             style={{ zIndex: 10 }}
           >
             <button
-              className='block w-[120px] text-left px-3 py-2 text-[13px] text-gray-800 hover:bg-gray-100'
+              className="block w-[120px] text-left px-3 py-2 text-[13px] text-gray-800 hover:bg-gray-100"
               onClick={handleDelete}
             >
               작품 삭제

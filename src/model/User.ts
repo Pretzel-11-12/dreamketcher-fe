@@ -1,7 +1,10 @@
 export type User = {
   id: number;
-  email: string;
-  name: string;
-  imageUri: string;
-  role: 'MEMBER' | 'ADMIN';
+  email?: string;
+  businessEmail: string;
+  name?: string;
+  nickname: string;
+  shortIntroduction: string;
+  imageUrl: string;
+  role?: 'MEMBER' | 'ADMIN';
 };

@@ -4,6 +4,9 @@ const withSvgr = require('next-svgr');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true, // React의 엄격 모드 활성화
+  images: {
+    domains: ['lh3.googleusercontent.com'], // 이미지 도메인 추가
+  },
   async rewrites() {
     return [
       {

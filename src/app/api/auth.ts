@@ -1,4 +1,6 @@
-export const fetchUserInfo = async (accessToken: string) => {
+import { User } from '@/model/User';
+
+export const fetchUserInfo = async (accessToken: string): Promise<User> => {
   try {
     const response = await fetch('/api/v1/member/me', {
       method: 'GET',

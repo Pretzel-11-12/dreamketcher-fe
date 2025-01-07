@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useAuthStore from '@/app/store/authStore';
+import { logout } from '@/app/api/logout';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -13,7 +14,8 @@ interface ProfileModalProps {
 const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const { id, name, imageUrl } = useAuthStore();
+  const { id, nickname, imageUrl, storeLogout } = useAuthStore();
+  const accessToken = localStorage.getItem('accessToken');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -26,8 +28,21 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const handleClickLogout = () => {
-    router.push('/mypage');
+  const handleClickLogout = async () => {
+    if (!accessToken) {
+      alert('로그인 상태가 아닙니다.');
+      return;
+    }
+
+    try {
+      await logout(accessToken);
+      localStorage.removeItem('accessToken');
+      storeLogout();
+      window.location.href = '/main';
+    } catch (err) {
+      console.error(err);
+      alert('로그아웃에 실패하였습니다.');
+    }
     onClose();
   };
 
@@ -55,12 +70,13 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           onClick={handleClickMypage}
         >
           <Image
-            src="/assets/images/profile-default.png"
+            src={imageUrl || '/assets/images/profile-default.png'}
             alt="profile button"
             width={30}
             height={30}
+            className="rounded-full"
           />
-          <p className="font-medium m-1">{name}</p>
+          <p className="font-medium mt-[6px]">{nickname}</p>
         </button>
         <div className="flex flex-col items-center justify-start text-left ">
           <button
@@ -68,6 +84,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
             onClick={handleClickMypage}
           >
             작업실
+          </button>
+          <button
+            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
+            onClick={handleClickMypage}
+          >
+            마이페이지
           </button>
           <button
             className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
