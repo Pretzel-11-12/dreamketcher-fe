@@ -3,6 +3,8 @@ import Button from '@/app/_component/Button';
 import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
+import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
+import { useState } from 'react';
 
 export interface EpisodeFormInfo {
   title: string;
@@ -13,6 +15,7 @@ export interface EpisodeFormInfo {
   private_setting: string;
 }
 const EpisodeForm = () => {
+  const [publicSetting, setPublicSetting] = useState('public');
   return (
     <div className="flex flex-col w-full gap-12 pb-20">
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -46,15 +49,20 @@ const EpisodeForm = () => {
         <Input placeholder="작가의 말을 작성해주세요." />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start pb-14">
+      <div className="grid grid-cols-[10rem_1fr] items-start pb-[300px]">
         <div>공개 설정</div>
-        <RadioButton
-          options={[
-            { id: 'public', label: '공개' },
-            { id: 'prvate', label: '비공개' },
-            { id: 'scheduled', label: '예약공개' },
-          ]}
-        />
+        <div className="flex flex-col gap-2 w-full">
+          <RadioButton
+            options={[
+              { id: 'public', label: '공개' },
+              { id: 'prvate', label: '비공개' },
+              { id: 'scheduled', label: '예약공개' },
+            ]}
+            selectedValue={publicSetting}
+            onChange={setPublicSetting}
+          />
+          {publicSetting === 'scheduled' && <DateTimeSelector />}
+        </div>
       </div>
 
       <Button props={{ size: 'L', variant: 'brand-yellow' }}>

@@ -4,8 +4,12 @@ import { useRouter } from 'next/navigation';
 import OptionButton from '../../_component/OptionButton';
 import DeleteModal from '../../_component/DeleteModal';
 import { useState } from 'react';
+import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
+import DefaultImage from '@/app/_component/DefaultImage';
 
-const SeriesItem: React.FC<{}> = () => {
+const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
+  item
+) => {
   const router = useRouter();
 
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
@@ -14,22 +18,30 @@ const SeriesItem: React.FC<{}> = () => {
     <>
       <div className="grid grid-cols-[120px_repeat(6,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
         <div className="flex flex-col gap-1 items-center">
-          <div className="bg-[#DEE5EA] w-[100px] h-[150px]" />
-          <span className="flex justify-center w-full">별종의 세계</span>
+          <DefaultImage
+            src={item.thumbnail}
+            height={150}
+            width={100}
+            alt={`${item.id}`}
+          />
+          <span className="flex justify-center w-full">{item.title}</span>
         </div>
 
-        <span className="flex justify-center w-full">245</span>
-        <span className="flex justify-center w-full">2024.12.26</span>
-        <span className="flex justify-center w-full">2024.10.26</span>
-        <span className="flex justify-center w-full">1,356</span>
-        <span className="flex justify-center w-full">663</span>
-        <span className="flex justify-center w-full">663</span>
+        <span className="flex justify-center w-full">회차수</span>
+        <span className="flex justify-center w-full">{item.updatedAt}</span>
+        <span className="flex justify-center w-full">{item.startedAt}</span>
+        <span className="flex justify-center w-full">{item.viewCount}</span>
+        <span className="flex justify-center w-full">{item.commentCount}</span>
+        <span className="flex justify-center w-full">
+          {item.interestedCount}
+        </span>
         <div className="flex w-full justify-center">
           <OptionButton
             items={[
               {
                 text: '회차 보기',
-                onClick: () => router.push(`/creator/episode?episodeId=${245}`),
+                onClick: () =>
+                  router.push(`/creator/episode?episodeId=${item.id}`),
               },
               {
                 text: '작품 삭제',
@@ -38,7 +50,7 @@ const SeriesItem: React.FC<{}> = () => {
               {
                 text: '작품 수정',
                 onClick: () =>
-                  router.push(`/creator/series/new?seriesId=${245}`),
+                  router.push(`/creator/series/new?seriesId=${item.id}`),
               },
             ]}
           />
