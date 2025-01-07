@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { fetchUserInfo } from '@/app/api/auth';
 import useAuthStore from '@/app/store/authStore';
 import ProfileModal from '@/app/modal/_component/ProfileModal';
+import SearchKeyword from './SearchKeyword';
 
 const DEFAULT_USER_INFO = {
   id: 0,
@@ -58,8 +59,8 @@ const Header: React.FC = () => {
 
   return (
     <header className="fixed w-full bg-white z-50">
-      <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 md:px-0 relative">
-        <hr className="fixed left-0 w-[100vw] mt-[70px] border-line" />
+      <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 p-0 relative">
+        <hr className="fixed left-0 w-[100vw] mt-[81px]" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"
@@ -68,21 +69,11 @@ const Header: React.FC = () => {
             <span className="text-brand-yellow">Dream</span>
             <span className="text-brand-blue">ketcher</span>
           </Link>
-          <div className="flex text-[#888888]">
-            <button className="border-r border-r-line w-[65px] h-[36px] text-black">
-              홈
-            </button>
-            <button className="w-[65px] h-[36px]">구독</button>
-          </div>
         </div>
 
         <div className="flex justify-end w-full max-w-[600px]">
           <div className="flex items-center w-fit gap-3">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-[263px] h-[34px] p-2 bg-line rounded-[100px]"
-            />
+            <SearchKeyword />
             <div className="relative flex text-black gap-3 items-center">
               {id ? (
                 <>

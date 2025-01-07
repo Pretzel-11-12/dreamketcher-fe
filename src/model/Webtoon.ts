@@ -7,5 +7,5 @@ export interface Webtoon {
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
-  decription: string;
+  description: string;
 }
