@@ -1,13 +1,12 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
 import SeriesForm from './SeriesForm';
 import EpisodeSideBar from '../../episode/_components/EpisodeSideBar';
 
-export default function Temp() {
-  const searchParams = useSearchParams();
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}
 
-  const seriesId = searchParams.get('seriesId');
+export default async function Temp({ searchParams }: PageProps) {
+  const seriesId = (await searchParams).seriesId;
   const isExist = !!seriesId;
 
   return (
@@ -17,6 +16,7 @@ export default function Temp() {
       }] mt-[80px] w-full h-full`}
     >
       {isExist && <EpisodeSideBar />}
+
       <div className="flex flex-col w-full px-8">
         <div className="text-xl font-semibold py-4 border-b">
           {isExist ? '별종의 세계 - 작품 수정' : '새 작품 등록'}

@@ -7,6 +7,7 @@ import { fetchUserInfo } from '@/app/api/auth';
 const GoogleCallbackPage: React.FC = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
+  console.log({ setUserInfo });
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
@@ -50,8 +51,8 @@ const GoogleCallbackPage: React.FC = () => {
   }, [[setAccessToken, setUserInfo]]);
 
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <p className='text-lg font-medium'>Google 로그인 처리 중...</p>
+    <div className="flex items-center justify-center h-screen">
+      <p className="text-lg font-medium">Google 로그인 처리 중...</p>
     </div>
   );
 };

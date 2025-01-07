@@ -1,6 +1,6 @@
-import EpisodeListItem from "./EpisodeListItem";
-import _ from "lodash";
-import NoticeListItem from "./NoticeListItem";
+import EpisodeListItem from './EpisodeListItem';
+import _ from 'lodash';
+import NoticeListItem from './NoticeListItem';
 
 const listItems = [
   {
@@ -15,14 +15,14 @@ const listItems = [
 
 export default function NoticeList({}) {
   const sortedListItems = _(listItems)
-    .orderBy((item) => item.id, "desc")
+    .orderBy((item) => item.id, 'desc')
     .take(2)
     .value();
 
   return (
     <div>
-      {sortedListItems.map((item) => (
-        <NoticeListItem title={item.title} index={item.id} />
+      {sortedListItems.map((item, index) => (
+        <NoticeListItem key={index} title={item.title} index={item.id} />
       ))}
     </div>
   );

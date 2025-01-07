@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 export interface TextareaProps {
   text?: string;
@@ -12,11 +12,11 @@ export interface TextareaProps {
 }
 
 const Textarea: React.FC<TextareaProps> = ({
-  text = "",
-  placeholder = "텍스트를 입력하세요",
-  subText = "",
-  height = "200px",
-  width = "100%",
+  text = '',
+  placeholder = '텍스트를 입력하세요',
+  subText = '',
+  height = '200px',
+  width = '100%',
   active = false,
   onChange,
 }) => {
@@ -31,12 +31,12 @@ const Textarea: React.FC<TextareaProps> = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={`px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 resize-none ${
-          isFocused || active ? "border-brand-yellow" : "border-brand-gray"
-        }placeholder:text-[#C9C9C9]`}
+          isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
+        } placeholder:text-[#C9C9C9]`}
         style={{
           height,
           width,
-          color: text ? "#3F3F3F" : undefined,
+          color: text ? '#3F3F3F' : undefined,
         }}
       />
 

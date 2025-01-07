@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
@@ -36,7 +37,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
   }, []);
 
   return (
-    <div className='relative inline-block text-left w-32' ref={dropdownRef}>
+    <div className="relative inline-block text-left w-32" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={`inline-flex justify-between w-[104px] h-[37px] px-4 py-2 text-sm font-medium text-gray-700
@@ -47,18 +48,18 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
         {selected
           ? options.find((option) => option.value === selected)?.label
           : 'Select'}
-        <span className='ml-2 mt-[4px]'>
+        <span className="ml-2 mt-[4px]">
           {isOpen ? (
             <Image
-              src='/assets/icon/upArrow.svg'
-              alt='Up Arrow'
+              src="/assets/icon/upArrow.svg"
+              alt="Up Arrow"
               width={13}
               height={13}
             />
           ) : (
             <Image
-              src='/assets/icon/downArrow.svg'
-              alt='Down Arrow'
+              src="/assets/icon/downArrow.svg"
+              alt="Down Arrow"
               width={13}
               height={13}
             />
@@ -68,8 +69,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
 
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className='absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md shadow-lg'>
-          <div className='py-0 '>
+        <div className="absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md shadow-lg">
+          <div className="py-0 ">
             {options.map((option) => (
               <div
                 key={option.value}
@@ -80,8 +81,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
                 <span>{option.label}</span>
                 {selected === option.value && (
                   <Image
-                    src='/assets/icon/check.svg'
-                    alt='check icon'
+                    src="/assets/icon/check.svg"
+                    alt="check icon"
                     width={13}
                     height={13}
                   />
