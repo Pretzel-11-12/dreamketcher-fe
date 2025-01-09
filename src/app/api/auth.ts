@@ -17,6 +17,7 @@ export const fetchUserInfo = async (accessToken: string): Promise<User> => {
     }
 
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error('Error fetching user info:', error);
