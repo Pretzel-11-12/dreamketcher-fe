@@ -1,5 +1,5 @@
 export const getAdminWebtoons = async () => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/admin/webtoons`;
+  const baseUrl = '/api/v1/admin/webtoons';
 
   const res = await fetch(baseUrl, {
     next: {

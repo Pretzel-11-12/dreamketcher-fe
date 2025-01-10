@@ -1,5 +1,5 @@
 export const getSearchResult = async (keyword: string) => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/search`;
+  const baseUrl = '/api/v1/webtoons/search';
 
   const endpoint = `${baseUrl}?keyword=${keyword}`;
 

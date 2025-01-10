@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
-import { getSearchResult } from '@/app/hooks/getSearchResult';
+import { getSearchResult } from '@/app/api/fetchWebtoons/getSearchResult';
 import SearchSideSection from './_component/SearchSideSection';
 import SearchMainSection from './_component/SearchMainSection';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';

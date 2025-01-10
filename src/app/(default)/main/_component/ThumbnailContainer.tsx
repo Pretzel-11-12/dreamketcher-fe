@@ -5,7 +5,7 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useQuery } from '@tanstack/react-query';
 import WebtoonSlider from './WebtoonSlider';
 import FilterComponent from './FilterComponent';
-import { getWebtoonRanking } from '../../../hooks/getWebtoonRanking';
+import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
 import { useSearchParams } from 'next/navigation';
 
 interface ThumbnailContainerProps {

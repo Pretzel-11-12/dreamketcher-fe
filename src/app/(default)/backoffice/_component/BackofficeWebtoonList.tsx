@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getWebtoon } from '@/app/hooks/getWebtoon';
+import { getWebtoon } from '@/app/api/fetchWebtoons/getWebtoon';
 
 interface Webtoon {
   id: number;

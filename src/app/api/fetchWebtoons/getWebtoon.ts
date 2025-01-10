@@ -3,7 +3,7 @@ export const getWebtoon = async (
   genre: string,
   order: string
 ) => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons`;
+  const baseUrl = '/api/v1/webtoons';
 
   const typeQuery = (() => {
     switch (type) {
