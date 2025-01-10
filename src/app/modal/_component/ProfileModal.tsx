@@ -87,12 +87,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           </button>
           <button
             className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
-            onClick={handleClickMypage}
-          >
-            마이페이지
-          </button>
-          <button
-            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
             onClick={handleClickLogout}
           >
             로그아웃
