@@ -18,7 +18,11 @@ export default function FavoriteWebtoons() {
   }
 
   if (!data || data.length === 0) {
-    return <p className="text-gray-500">관심 웹툰이 없습니다.</p>;
+    return (
+      <p className="text-center text-[#C9C9C9] mt-[50px]">
+        관심 웹툰이 없습니다.
+      </p>
+    );
   }
 
   // 총 페이지 계산
