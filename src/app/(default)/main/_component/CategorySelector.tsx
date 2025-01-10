@@ -14,14 +14,14 @@ const categories: { name: string; path: string }[] = [
 const CategorySelector: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   useEffect(() => {
     if (pathname === '/main/finish') {
       setSelectedCategory('완결');
     } else if (pathname === '/main/new') {
       setSelectedCategory('신작');
-    } else if (pathname === '/main/' || pathname === '/main') {
+    } else if (pathname === '/main' || pathname.startsWith('/main/')) {
       setSelectedCategory('전체');
     }
   }, [pathname]);
