@@ -3,7 +3,7 @@ export interface Webtoon {
   title: string;
   member: string;
   thumbnail: string;
-  genres: string;
+  genres: string[];
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
