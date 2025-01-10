@@ -7,6 +7,7 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getSearchResult } from '@/app/hooks/getSearchResult';
 import SearchSideSection from './_component/SearchSideSection';
 import SearchMainSection from './_component/SearchMainSection';
+import thumbnailData from '@/app/mocks/webtoonThumbnails';
 
 export default function Search() {
   const router = useRouter();
@@ -22,14 +23,28 @@ export default function Search() {
     gcTime: 5 * 60 * 1000,
   });
 
+  const mockdata = thumbnailData;
+  const mockKeyword = [
+    '로맨스',
+    '스릴러',
+    '공포',
+    '액션',
+    '스포츠',
+    '판타지',
+    '개그',
+  ];
+
   // if (isLoading) return <p>Loading...</p>;
   // if (isError) return <p>Error fetching search results</p>;
 
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px] pb-10">
-        <SearchMainSection webtoons={data || []} />
-        <SearchSideSection />
+        <SearchMainSection webtoons={mockdata || []} />
+        <SearchSideSection
+          searchKeywords={mockKeyword || []}
+          recommendTags={mockKeyword || []}
+        />
       </div>
     </div>
   );
