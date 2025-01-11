@@ -9,7 +9,6 @@ const LoginPage: React.FC = () => {
       ? process.env.NEXT_PUBLIC_BASE_URL_DEV!
       : process.env.NEXT_PUBLIC_BASE_URL_PROD!) + '/login/google';
 
-  console.log(Env.isDev(), REDIRECT_URI);
   const handleGoogleLogin = async () => {
     const googleOAuthURL =
       `https://accounts.google.com/o/oauth2/v2/auth?` +
