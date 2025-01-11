@@ -6,10 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import { useSearchParams } from 'next/navigation';
 
-// interface PageProps {
-//   searchParams: Promise<{ [key: string]: string | undefined }>;
-// }
-
 export default function SeriesNew() {
   const seriesId = useSearchParams().get('seriesId');
   const isExist = !!seriesId;
@@ -22,8 +18,9 @@ export default function SeriesNew() {
     gcTime: 5 * 60 * 1000,
     enabled: isExist,
   });
+  const _data = data as fetchWebtoonDetail.Model.WebtoonDetailUnit;
 
-  const item = data as unknown as SeriesFormInfo;
+  console.log(_data);
 
   return (
     <div
@@ -35,10 +32,10 @@ export default function SeriesNew() {
 
       <div className="flex flex-col w-full px-8">
         <div className="text-xl font-semibold py-4 border-b">
-          {isExist ? item?.title || '데이터 없음' : '새 작품 등록'}
+          {isExist ? data?.webtoonTitle || '데이터 없음' : '새 작품 등록'}
         </div>
         <div className="py-8">
-          <SeriesForm {...item} />
+          <SeriesForm item={_data} />
         </div>
       </div>
     </div>

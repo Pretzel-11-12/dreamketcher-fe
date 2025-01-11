@@ -35,6 +35,7 @@ const SeriesList: React.FC<{ genre?: string }> = (genre) => {
       <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
     );
   }
+
   const result = data?.result || [];
   const isEmpty = _.isEmpty(result);
 
@@ -42,7 +43,9 @@ const SeriesList: React.FC<{ genre?: string }> = (genre) => {
     <>
       <div className="grid grid-cols-[120px_repeat(6,1fr)_80px] items-center px-4 text-sm gap-5 border-y py-2 text-gray-500 border-gray-400/10 bg-brand-gray/40">
         {headers.map((item) => (
-          <div className="flex justify-center w-full">{item}</div>
+          <div key={item} className="flex justify-center w-full">
+            {item}
+          </div>
         ))}
       </div>
 

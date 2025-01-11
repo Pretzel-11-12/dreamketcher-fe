@@ -9,6 +9,7 @@ import { useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 export interface SeriesFormInfo {
   title: string;
@@ -30,13 +31,17 @@ const options = [
   { label: '소년', id: '10' },
 ];
 
-const SeriesForm = (item?: SeriesFormInfo) => {
+type SeriesFormProp = {
+  item: fetchWebtoonDetail.Model.WebtoonDetailUnit;
+};
+
+const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   const [webtoonInfo, setWebtoonInfo] = useState<SeriesFormInfo>({
-    title: item?.title || '',
-    thumbnail: item?.thumbnail || '',
-    prologue: item?.prologue || '',
-    story: item?.story || '',
-    description: item?.description || '',
+    title: item?.webtoonTitle,
+    thumbnail: item?.webtoonThumbnail,
+    prologue: '',
+    story: item?.webtoonStory,
+    description: item?.webtoonStory,
   });
   const router = useRouter();
   const isExist = !!item;
@@ -124,6 +129,7 @@ const SeriesForm = (item?: SeriesFormInfo) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>프롤로그</div>
+
         <ThumbnailUploader
           onFileSelect={handlePrologue}
           imageFormat={{ width: 480 }}

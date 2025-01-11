@@ -12,9 +12,6 @@ interface ImageProps {
 export default function DefaultImage({ alt, src, height, width }: ImageProps) {
   const [isImgError, setIsImgError] = useState<boolean>(false);
 
-  // 임시
-  const url = src.startsWith('http') || !src.startsWith('/') ? '/' + src : src;
-
   return (
     <>
       {isImgError ? (
@@ -22,7 +19,7 @@ export default function DefaultImage({ alt, src, height, width }: ImageProps) {
       ) : (
         <Image
           alt={alt}
-          src={url}
+          src={src}
           width={width}
           height={height}
           onError={(e) => {

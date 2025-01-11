@@ -41,7 +41,7 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
               {
                 text: '회차 보기',
                 onClick: () =>
-                  router.push(`/creator/episode?episodeId=${item.id}`),
+                  router.push(`/creator/episode?webtoonId=${item.id}`),
               },
               {
                 text: '작품 삭제',

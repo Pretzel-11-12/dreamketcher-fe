@@ -113,17 +113,7 @@ export namespace fetchCreatorWebtoon {
     webtoonId: string;
     episodeId: string;
     thumbnail: string;
-  }): Promise<any> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/:id/episode/:id/thumbnail`,
-      {
-        method: 'POST',
-        // body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to edit Webtoon Thumbnail`);
-    return response.json();
-  }
+  }): Promise<any> {}
 
   export async function editWebtoonPrologue(arg: {
     webtoonId: string;
@@ -132,7 +122,9 @@ export namespace fetchCreatorWebtoon {
 }
 
 export namespace fetchCreatorEpisode {
-  export async function postEpisode(arg: EpisodeFormInfo): Promise<any> {
+  export async function postEpisode(
+    arg: Omit<EpisodeFormInfo, 'id'>
+  ): Promise<any> {
     const response = await fetch(
       `/api/v1/webtoons/${arg.webtoonId}/episode/uploads`,
       {
@@ -142,8 +134,12 @@ export namespace fetchCreatorEpisode {
           thumbnail: arg.thumbnail,
           content: arg.content,
           authorNote: arg.authorNote,
-          publishedAt: arg.publishedAt,
+          publishedAt: arg.publishedAt || '2025-01-31',
         }),
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
       }
     );
     if (!response.ok) throw new Error(`Failed to post Episode`);
@@ -182,48 +178,52 @@ export namespace fetchCreatorEpisode {
     episodeId: string;
   }): Promise<any> {
     const { webtoonId, episodeId } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/${episodeId}`,
-      {
-        method: 'DELETE',
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to delete episode`);
+
+    const response = await fetch(`/api/v1/webtoons/${webtoonId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
     return response.json();
   }
 
-  // 이미지 업로드
+  // Complete
   export async function postEpisodeThumbnail(arg: {
-    memberId: string;
+    formData: FormData;
     webtoonId: string;
-    thumbnail: string;
   }): Promise<any> {
-    const { webtoonId, thumbnail } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/thumbnail`,
-      {
-        method: 'POST',
-        body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to post Episode Thumbnail`);
-    return response.json();
-  }
+    const { webtoonId, formData } = arg;
 
-  export async function postEpisodeContent(arg: {
-    memberId: string;
-    webtoonId: string;
-    thumbnail: string;
-  }): Promise<any> {
-    const { webtoonId, thumbnail } = arg;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/content`,
+      `/api/v1/webtoons/${webtoonId}/episode/thumbnail`,
       {
         method: 'POST',
-        // body: JSON.stringify(arg),
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
       }
     );
-    if (!response.ok) throw new Error(`Failed to post Episode Content`);
+
+    return await response.text();
+  }
+  // Complete
+  export async function postEpisodeContent(arg: {
+    webtoonId: string;
+    formData: FormData;
+  }): Promise<any> {
+    const { webtoonId, formData } = arg;
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/content`,
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }
+    );
     return response.json();
   }
 
@@ -231,32 +231,10 @@ export namespace fetchCreatorEpisode {
   export async function editEpisodeThumbnail(arg: {
     webtoonId: string;
     episodeId: string;
-  }): Promise<any> {
-    const { webtoonId, episodeId } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/${episodeId}/thumbnail`,
-      {
-        method: 'PUT',
-        // body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to edit Episode Thumbnail`);
-    return response.json();
-  }
+  }): Promise<any> {}
 
   export async function editEpisodeContent(arg: {
     webtoonId: string;
     episodeId: string;
-  }): Promise<any> {
-    const { webtoonId, episodeId } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}/episode/${episodeId}/content`,
-      {
-        method: 'PUT',
-        // body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to post edit Episode Content`);
-    return response.json();
-  }
+  }): Promise<any> {}
 }

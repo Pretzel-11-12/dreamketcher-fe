@@ -1,4 +1,5 @@
 'use client';
+
 import Button from '@/app/_component/Button';
 import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
@@ -9,24 +10,63 @@ import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 
 export interface EpisodeFormInfo {
+  id: string;
   webtoonId: string;
-  title: string;
-  thumbnail: string;
-  content: string[];
-  authorNote: string;
-  publishedAt: string;
+  title?: string;
+  thumbnail?: string;
+  content?: string;
+  authorNote?: string;
+  publishedAt?: string;
 }
-const EpisodeForm = (item: EpisodeFormInfo, index: number) => {
-  const [episodeInfo, setEpisodeInfo] = useState<EpisodeFormInfo>({
+const EpisodeForm = (item: EpisodeFormInfo) => {
+  const [episodeInfo, setEpisodeInfo] = useState<Omit<EpisodeFormInfo, 'id'>>({
     webtoonId: item.webtoonId || '',
     title: item.title || '',
     thumbnail: item.thumbnail || '',
-    content: item.content || '',
+    content: item?.content,
     authorNote: item.authorNote || '',
     publishedAt: item.publishedAt || '',
   });
   const isExist = !!item;
   const router = useRouter();
+
+  const handleThumbnail = async (file: File | null) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+
+      try {
+        const s3Url = await fetchCreatorEpisode.postEpisodeThumbnail({
+          webtoonId: item.webtoonId,
+          formData,
+        });
+
+        setEpisodeInfo((v) => ({
+          ...v,
+          thumbnail: s3Url,
+        }));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const handleContent = async (file: File | null) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('content', file);
+      try {
+        const s3Url = await fetchCreatorEpisode.postEpisodeContent({
+          webtoonId: episodeInfo.webtoonId,
+          formData,
+        });
+
+        setEpisodeInfo((v) => ({ ...v, content: s3Url }));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   const handleEpisode = async () => {
     try {
@@ -53,30 +93,31 @@ const EpisodeForm = (item: EpisodeFormInfo, index: number) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input text={String(index)} />
+        <Input text={item.id} />
       </div>
-
+      {}
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 썸네일</div>
         <ThumbnailUploader
           _preview={item.thumbnail}
-          onFileSelect={() => {}}
-          imageFormat={{ width: 400, height: 240 }}
+          onFileSelect={handleThumbnail}
+          imageFormat={{ width: 480, height: 623 }}
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
         <ThumbnailUploader
-          _preview={item.content?.[0]}
-          onFileSelect={() => {}}
-          imageFormat={{ width: 300, height: 300 }}
+          _preview={item.content}
+          onFileSelect={handleContent}
+          imageFormat={{ width: 480 }}
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작가의 말</div>
         <Input
+          text={episodeInfo.authorNote}
           placeholder="작가의 말을 작성해주세요."
           onChange={(authorNote) =>
             setEpisodeInfo((v) => ({ ...v, authorNote }))
