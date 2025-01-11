@@ -1,3 +1,4 @@
+import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 import Image from 'next/image';
@@ -34,12 +35,7 @@ export default function EpisodeListItem(episode: EpisodeItem) {
     >
       <div className="grid grid-cols-[auto_1fr] border-b gap-4 p-[20px] hover:bg-[#F8F8F8]">
         {thumbnail ? (
-          <Image
-            src={thumbnail}
-            alt={`${title}-${episodeId}`}
-            height={60}
-            width={100}
-          />
+          <DefaultImage alt={title} src={thumbnail} height={60} width={100} />
         ) : (
           <div className="bg-[#DEE5EA] h-[60px] w-[100px]"></div>
         )}

@@ -8,9 +8,10 @@ import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
 import { useEffect, useState } from 'react';
 import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import _ from 'lodash';
 
 export interface EpisodeFormInfo {
-  id: string;
   webtoonId: string;
   title?: string;
   thumbnail?: string;
@@ -18,25 +19,35 @@ export interface EpisodeFormInfo {
   authorNote?: string;
   publishedAt?: string;
 }
-const EpisodeForm = (item: EpisodeFormInfo) => {
-  const [episodeInfo, setEpisodeInfo] = useState<Omit<EpisodeFormInfo, 'id'>>({
-    webtoonId: '',
+
+export interface EpisodeResProps {
+  item?: fetchWebtoonDetail.Model.EpisodeDetail;
+  episodeId: string;
+  webtoonId: string;
+}
+const EpisodeForm: React.FC<EpisodeResProps> = ({
+  item,
+  webtoonId,
+  episodeId,
+}) => {
+  const [episodeInfo, setEpisodeInfo] = useState<EpisodeFormInfo>({
+    webtoonId: webtoonId,
     title: '',
     thumbnail: '',
     content: '',
     authorNote: '',
     publishedAt: '',
   });
-
+  console.log(episodeInfo);
   useEffect(() => {
     if (!!item) {
       setEpisodeInfo({
-        webtoonId: item.webtoonId || '',
+        webtoonId: webtoonId,
         title: item.title || '',
         thumbnail: item.thumbnail || '',
-        content: item?.content || '',
+        content: item?.content?.[0] || '',
         authorNote: item.authorNote || ' ',
-        publishedAt: item.publishedAt || '',
+        publishedAt: '',
       });
     }
   }, [item]);
@@ -51,10 +62,10 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
 
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeThumbnail({
-          webtoonId: episodeInfo.webtoonId,
+          webtoonId: webtoonId,
           formData,
         });
-
+        console.log(s3Url);
         setEpisodeInfo((v) => ({
           ...v,
           thumbnail: s3Url,
@@ -71,11 +82,14 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
       formData.append('content', file);
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeContent({
-          webtoonId: episodeInfo.webtoonId,
+          webtoonId: webtoonId,
           formData,
         });
-
-        setEpisodeInfo((v) => ({ ...v, content: s3Url }));
+        console.log(s3Url);
+        setEpisodeInfo((v) => ({
+          ...v,
+          content: s3Url,
+        }));
       } catch (e) {
         console.log(e);
       }
@@ -84,6 +98,7 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
 
   const handleEpisode = async () => {
     try {
+      console.log(episodeInfo);
       const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
       if (response.id) {
         alert('작품이 등록되었습니다');
@@ -107,7 +122,7 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input text={item?.id || '1'} />
+        <Input text={episodeId || '1'} />
       </div>
       {}
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -115,17 +130,19 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
         <ThumbnailUploader
           _preview={episodeInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480, height: 623 }}
+          imageFormat={{ width: 202, height: 120 }}
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
-        <ThumbnailUploader
-          _preview={episodeInfo.content}
-          onFileSelect={handleContent}
-          imageFormat={{ width: 480 }}
-        />
+        <div>
+          <ThumbnailUploader
+            _preview={episodeInfo.content}
+            onFileSelect={handleContent}
+            imageFormat={{ width: 690 }}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">

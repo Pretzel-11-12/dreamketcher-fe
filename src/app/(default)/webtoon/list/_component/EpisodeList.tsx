@@ -22,7 +22,7 @@ const EpisodeList: React.FC<episodeItemsProps> = ({
 
   useEffect(() => {
     const sortedItems = _(episodeItems)
-      .orderBy((item) => item.publishedAt, sortDirection)
+      .orderBy((item) => item.episodeId, sortDirection)
       .value();
 
     setSortedListItems(sortedItems);

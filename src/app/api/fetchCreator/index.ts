@@ -122,9 +122,7 @@ export namespace fetchCreatorWebtoon {
 }
 
 export namespace fetchCreatorEpisode {
-  export async function postEpisode(
-    arg: Omit<EpisodeFormInfo, 'id'>
-  ): Promise<any> {
+  export async function postEpisode(arg: EpisodeFormInfo): Promise<any> {
     const response = await fetch(
       `/api/v1/webtoons/${arg.webtoonId}/episode/uploads`,
       {
