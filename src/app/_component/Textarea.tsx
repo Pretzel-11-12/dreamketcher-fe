@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 export interface TextareaProps {
   text?: string;
@@ -11,23 +11,32 @@ export interface TextareaProps {
   onChange?: (value: string) => void;
 }
 
-const Textarea: React.FC<TextareaProps> = ({
-  text = '',
-  placeholder = '텍스트를 입력하세요',
-  subText = '',
-  height = '200px',
-  width = '100%',
-  active = false,
-  onChange,
-}) => {
+const Textarea: React.FC<TextareaProps> = (props) => {
+  const {
+    text = '',
+    placeholder = '텍스트를 입력하세요',
+    subText = '',
+    height = '200px',
+    width = '100%',
+    active = false,
+    onChange,
+  } = props;
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    setText(value);
+    if (onChange) onChange(value);
+  };
   const [isFocused, setIsFocused] = useState(false);
+  const [_text, setText] = useState(text);
 
   return (
     <div className="relative flex flex-col gap-1 text-sm">
       <textarea
-        value={text}
+        value={_text}
         placeholder={placeholder}
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={handleChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={`px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 resize-none ${
@@ -38,7 +47,7 @@ const Textarea: React.FC<TextareaProps> = ({
           width,
           color: text ? '#3F3F3F' : undefined,
         }}
-      />
+      ></textarea>
 
       <span className="absolute bottom-1 right-2 text-xs pointer-events-none">
         {subText}

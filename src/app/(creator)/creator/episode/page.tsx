@@ -1,9 +1,16 @@
+'use client';
 import Link from 'next/link';
 import EpisodeSideBar from './_components/EpisodeSideBar';
 import EpisodeList from './_components/EpisodeList';
 import CategoryTab from '@/app/_component/CategoryTab';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
+import { useSearchParams } from 'next/navigation';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 export default function CreatorMain() {
+  const searchParams = useSearchParams();
+
   return (
     <div className="grid grid-cols-[auto_1fr] mt-[80px] w-full h-full">
       <EpisodeSideBar />

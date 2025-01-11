@@ -69,4 +69,21 @@ export namespace fetchWebtoonDetail {
     if (!response.ok) throw new Error(`Failed to get favorite webtoons`);
     return response.json();
   }
+
+  export async function getEpisodeDetails(param: {
+    webtoonId: string;
+    episodeId: string;
+  }) {
+    const { webtoonId, episodeId } = param;
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const res = await response.json();
+
+    return { ...res, content: JSON.parse(res.content) };
+  }
 }

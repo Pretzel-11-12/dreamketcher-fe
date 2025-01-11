@@ -25,7 +25,7 @@ const SeriesList: React.FC<{ genre?: string }> = (genre) => {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-  console.log(data);
+
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
   }

@@ -1,10 +1,11 @@
+import { EpisodeFormInfo } from '@/app/(creator)/creator/episode/_components/EpisodeForm';
 import { _Model as __Model } from './model';
 import qs from 'qs';
 
-//TODO: getCreatorsWebtoon 제외하고 요청 확인 필요. API 작업 완료 안 되었음. 2025.01.06
 export namespace fetchCreatorWebtoon {
   export import Model = __Model;
 
+  // Complete
   export async function getCreatorsWebtoon(arg?: {
     query: { status?: string; page?: number; size?: number };
   }): Promise<Model.CreatorWebtoons> {
@@ -20,22 +21,22 @@ export namespace fetchCreatorWebtoon {
     if (!response.ok) throw new Error(`Failed to get creators webtoons`);
     return response.json();
   }
-
+  // Complete
   export async function postWebtoon(arg: {
     title: string;
     thumbnail: string;
     prologue: string;
     story: string;
     description: string;
-    // genre: string;
   }): Promise<Model.ResPostWebtoon> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/upload`,
-      {
-        method: 'POST',
-        body: JSON.stringify(arg),
-      }
-    );
+    const response = await fetch(`/api/v1/webtoons/upload`, {
+      method: 'POST',
+      body: JSON.stringify(arg),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+    });
     if (!response.ok) throw new Error(`Failed to post webtoons`);
     return response.json();
   }
@@ -62,7 +63,7 @@ export namespace fetchCreatorWebtoon {
     if (!response.ok) throw new Error(`Failed to edit webtoons`);
     return response.json();
   }
-
+  // Complete
   export async function deleteWebtoon(arg: {
     webtoonId: string;
   }): Promise<any> {
@@ -77,34 +78,33 @@ export namespace fetchCreatorWebtoon {
     return response.json();
   }
 
-  // 이미지 Post
+  // Complete
   export async function postWebtoonThumbnail(arg: {
-    webtoonId: string;
-    thumbnail: string;
+    formData: FormData;
   }): Promise<any> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/upload/thumbnail`,
-      {
-        method: 'POST',
-        body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to post Webtoon Thumbnail`);
-    return response.json();
-  }
+    const { formData } = arg;
+    const response = await fetch(`/api/v1/webtoons/upload/thumbnail`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
 
+    return await response.text();
+  }
+  // Complete
   export async function postWebtoonPrologue(arg: {
-    webtoonId: string;
-    prologues: string[];
+    formData: FormData;
   }): Promise<any> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/upload/prologue`,
-      {
-        method: 'POST',
-        // body: JSON.stringify(arg),
-      }
-    );
-    if (!response.ok) throw new Error(`Failed to post Webtoon Prologue`);
+    const { formData } = arg;
+    const response = await fetch(`/api/v1/webtoons/upload/prologue`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
     return response.json();
   }
 
@@ -132,17 +132,9 @@ export namespace fetchCreatorWebtoon {
 }
 
 export namespace fetchCreatorEpisode {
-  export async function postEpisode(arg: {
-    webtoonId: string;
-    title: string;
-    thumbnail: string;
-    content: string;
-    authorNote: string;
-    publishedAt: string;
-  }): Promise<any> {
+  export async function postEpisode(arg: EpisodeFormInfo): Promise<any> {
     const response = await fetch(
-      // `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${arg.webtoonId}/episode/uploads?memberId=1`,
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${arg.webtoonId}/episode/uploads`,
+      `/api/v1/webtoons/${arg.webtoonId}/episode/uploads`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -151,7 +143,6 @@ export namespace fetchCreatorEpisode {
           content: arg.content,
           authorNote: arg.authorNote,
           publishedAt: arg.publishedAt,
-          // publishedAt: '2025-01-06',
         }),
       }
     );

@@ -5,32 +5,61 @@ import RadioButton from '@/app/_component/RadioButton';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
 import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
 import { useState } from 'react';
+import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
+import { useRouter } from 'next/navigation';
 
 export interface EpisodeFormInfo {
+  webtoonId: string;
   title: string;
-  index: number;
   thumbnail: string;
-  images: string[];
-  author_note: string;
-  private_setting: string;
+  content: string[];
+  authorNote: string;
+  publishedAt: string;
 }
-const EpisodeForm = () => {
+const EpisodeForm = (item: EpisodeFormInfo, index: number) => {
+  const [episodeInfo, setEpisodeInfo] = useState<EpisodeFormInfo>({
+    webtoonId: item.webtoonId || '',
+    title: item.title || '',
+    thumbnail: item.thumbnail || '',
+    content: item.content || '',
+    authorNote: item.authorNote || '',
+    publishedAt: item.publishedAt || '',
+  });
+  const isExist = !!item;
+  const router = useRouter();
+
+  const handleEpisode = async () => {
+    try {
+      const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
+      if (response.id) {
+        alert('작품이 등록되었습니다');
+        router.push(`/creator/series`);
+      }
+    } catch (e) {}
+  };
+
   const [publicSetting, setPublicSetting] = useState('public');
   return (
     <div className="flex flex-col w-full gap-12 pb-20">
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 제목</div>
-        <Input placeholder="제목을 입력해주세요." subText="0/30" />
+        <Input
+          placeholder="제목을 입력해주세요."
+          subText="0/30"
+          text={episodeInfo.title}
+          onChange={(title) => setEpisodeInfo((v) => ({ ...v, title }))}
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input placeholder="1" />
+        <Input text={String(index)} />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 썸네일</div>
         <ThumbnailUploader
+          _preview={item.thumbnail}
           onFileSelect={() => {}}
           imageFormat={{ width: 400, height: 240 }}
         />
@@ -39,6 +68,7 @@ const EpisodeForm = () => {
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
         <ThumbnailUploader
+          _preview={item.content?.[0]}
           onFileSelect={() => {}}
           imageFormat={{ width: 300, height: 300 }}
         />
@@ -46,7 +76,12 @@ const EpisodeForm = () => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작가의 말</div>
-        <Input placeholder="작가의 말을 작성해주세요." />
+        <Input
+          placeholder="작가의 말을 작성해주세요."
+          onChange={(authorNote) =>
+            setEpisodeInfo((v) => ({ ...v, authorNote }))
+          }
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start pb-[300px]">
@@ -65,7 +100,13 @@ const EpisodeForm = () => {
         </div>
       </div>
 
-      <Button props={{ size: 'L', variant: 'brand-yellow' }}>
+      <Button
+        props={{
+          size: 'L',
+          variant: 'brand-yellow',
+          handleClick: handleEpisode,
+        }}
+      >
         회차 등록하기
       </Button>
     </div>

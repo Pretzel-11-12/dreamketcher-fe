@@ -58,6 +58,7 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
       </div>
 
       <DeleteModal
+        webtoonId={String(item.id)}
         text={`<재벌 서자의 회귀사건을..> 해당 작품을 삭제하시겠습니까?`}
         isOpen={isModalOpen}
         handleOpenModal={handleOpenModal}

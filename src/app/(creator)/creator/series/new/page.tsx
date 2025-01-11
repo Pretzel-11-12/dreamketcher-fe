@@ -1,13 +1,29 @@
-import SeriesForm from '../_components/SeriesForm';
+'use client';
+
+import SeriesForm, { SeriesFormInfo } from '../_components/SeriesForm';
 import EpisodeSideBar from '../../episode/_components/EpisodeSideBar';
+import { useQuery } from '@tanstack/react-query';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import { useSearchParams } from 'next/navigation';
 
-interface PageProps {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-}
+// interface PageProps {
+//   searchParams: Promise<{ [key: string]: string | undefined }>;
+// }
 
-export default async function SeriesNew({ searchParams }: PageProps) {
-  const seriesId = (await searchParams).seriesId;
+export default function SeriesNew() {
+  const seriesId = useSearchParams().get('seriesId');
   const isExist = !!seriesId;
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [seriesId],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoonDetails({ param: { id: seriesId! } }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    enabled: isExist,
+  });
+
+  const item = data as unknown as SeriesFormInfo;
 
   return (
     <div
@@ -19,10 +35,10 @@ export default async function SeriesNew({ searchParams }: PageProps) {
 
       <div className="flex flex-col w-full px-8">
         <div className="text-xl font-semibold py-4 border-b">
-          {isExist ? '별종의 세계 - 작품 수정' : '새 작품 등록'}
+          {isExist ? item?.title || '데이터 없음' : '새 작품 등록'}
         </div>
         <div className="py-8">
-          <SeriesForm />
+          <SeriesForm {...item} />
         </div>
       </div>
     </div>

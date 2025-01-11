@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import RankingWebtoons from './_component/RankingWebtoons';
+import useAuthStore from '@/app/store/authStore';
 
 const announcements = [
   {
@@ -35,6 +36,7 @@ const announcements = [
 ];
 
 export default function Detail() {
+  console.log(useAuthStore.getState());
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
 

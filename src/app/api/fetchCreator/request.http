@@ -1,5 +1,4 @@
-@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjIxNjM0MiwiZXhwIjoxNzM2MjIzNTQyfQ._bMwwyjWWSq6sw4cZB9koTeBJaskO6rYFFObrGOHDKs
-
+@accessToken = eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJfaWQiOjEsInN1YiI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTczNjU4MDQ4NCwiZXhwIjoxNzM2NTg3Njg0fQ.b9nDR5rbswUUo3nxKekKJnzGWlOaoyM1BYbUa_C0T6w
 ### 웹툰 장르별 목록 조회
 GET https://api.dreamketcher.site/api/v1/member/works
 Authorization: Bearer {{accessToken}}
@@ -22,14 +21,44 @@ Content-Type: application/json
 
 
 ### 에피소드 등록
-PUT https://api.dreamketcher.site/api/v1/webtoons/1/episode/1
+PUT https://api.dreamketcher.site/api/v1/webtoons/1/episode/1/uploads
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
-  "title": "string",
-  "thumbnail": "string",
-  "content": "string",
-  "authorNote": "string",
+  "title": "test1",
+  "thumbnail": "https://example.com/thumbnail25.jpg",
+  "content":  "https://example.com/thumbnail25.jpg",
+  "authorNote": "test1",
   "publishedAt": "2025-01-06"
+}
+
+### 에피소드 썸네일
+PUT https://api.dreamketcher.site/api/v1/webtoons/1/episode/1/thumbnail
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+	"memberId" : "1",
+	"webtoonId" : "1",
+	"thumbnail" : "사진 파일_jpg"
+}
+
+### 에피소드 컨텐츠 등록
+PUT https://api.dreamketcher.site/api/v1/webtoons/1/episode/1/content
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+	"memberId": "1",
+	"prologue": [
+    {
+      "filename": "prologue1.jpg",
+      "content": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBA..."
+    },
+    {
+      "filename": "prologue2.png",
+      "content": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNby..."
+    }
+  ]
 }
