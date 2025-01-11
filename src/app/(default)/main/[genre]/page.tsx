@@ -65,28 +65,6 @@ const announcements = [
 ];
 
 export default function Main({ params }: Props) {
-  useEffect(() => {
-    const performHealthCheck = async () => {
-      try {
-        const response = await fetch(`/api/v1/health`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        console.log({ response });
-        console.log(localStorage.getItem('accessToken'));
-
-        if (response.ok) {
-          console.log(response);
-        } else {
-          console.log('unhealthy');
-        }
-      } catch (error) {
-        // console.error('Health check failed:', error);
-      }
-    };
-    performHealthCheck();
-  }, []);
-  // const user: User = await getUserServer({ queryKey: ["users", params.username] });
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">

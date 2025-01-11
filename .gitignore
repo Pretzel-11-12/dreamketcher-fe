@@ -5,6 +5,7 @@ node_modules
 # Ignore .env files
 .env
 .env.*
+.env.local
 
 
 # Ignore .DS_Store files

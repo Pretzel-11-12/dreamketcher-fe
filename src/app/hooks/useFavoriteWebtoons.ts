@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getFavoriteWebtoons } from '@/app/api/getFavoriteWebtoons'; // fetch API 함수
-import { FavoriteWebtoon } from '../model/FavoriteWebtoon';
+import { FavoriteWebtoon } from '@/model/Webtoon';
 
 export const useFavoriteWebtoons = () => {
   const { data, isLoading, isError, error } = useQuery<FavoriteWebtoon[]>({

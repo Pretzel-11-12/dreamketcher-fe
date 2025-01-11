@@ -28,6 +28,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleClickCreatorPage = () => {
+    router.push('/creator/series');
+    onClose();
+  };
+
   const handleClickLogout = async () => {
     if (!accessToken) {
       alert('로그인 상태가 아닙니다.');
@@ -81,7 +86,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
         <div className="flex flex-col items-center justify-start text-left ">
           <button
             className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
-            onClick={handleClickMypage}
+            onClick={handleClickCreatorPage}
           >
             작업실
           </button>

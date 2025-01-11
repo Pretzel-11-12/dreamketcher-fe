@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
@@ -14,8 +14,9 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   ranking,
 }) => {
   const router = useRouter();
+
   function tempClickHandler() {
-    router.push(`/webtoon/list`);
+    router.push(`/webtoon/list?id=${webtoon.id}`);
   }
   return (
     <div

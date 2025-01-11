@@ -3,7 +3,7 @@ export const getWebtoonRanking = async (
   genre: string,
   order: string
 ) => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/ranking`;
+  const baseUrl = '/api/v1/webtoons/ranking';
 
   const typeQuery = (() => {
     switch (type) {
@@ -43,6 +43,5 @@ export const getWebtoonRanking = async (
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-
   return res.json();
 };
