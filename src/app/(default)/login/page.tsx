@@ -4,10 +4,12 @@ import { Env } from '@/app/util/environment';
 
 const LoginPage: React.FC = () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-  const REDIRECT_URI = Env.isDev()
-    ? process.env.NEXT_PUBLIC_BASE_URL_DEV!
-    : process.env.NEXT_PUBLIC_BASE_URL_PROD! + '/login/google';
+  const REDIRECT_URI =
+    (Env.isDev()
+      ? process.env.NEXT_PUBLIC_BASE_URL_DEV!
+      : process.env.NEXT_PUBLIC_BASE_URL_PROD!) + '/login/google';
 
+  console.log(Env.isDev(), REDIRECT_URI);
   const handleGoogleLogin = async () => {
     const googleOAuthURL =
       `https://accounts.google.com/o/oauth2/v2/auth?` +
