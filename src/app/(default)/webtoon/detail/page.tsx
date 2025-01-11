@@ -1,7 +1,7 @@
 'use client';
 
 import WriterInfoItem, { UserInfo } from './_component/WriterInfoItem';
-import CommentListItem, { CommentInfo } from './_component/CommentListItem';
+import CommentItemGroup, { CommentInfo } from './_component/CommentItemGroup';
 import EpisodeButtonGroup from './_component/EpisodeButtonGroup';
 import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
@@ -14,16 +14,6 @@ import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useState } from 'react';
-
-const episodeData = {
-  title: '',
-  images: [],
-  writerInfo: {
-    name: '바크베',
-    description: '안녕하새우',
-  },
-  detail: { like: 38, interest: 1147, star: 4.85 },
-};
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -81,8 +71,8 @@ export default function Detail() {
               <div className="p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-[16px] font-medium pb-2">작가의 말</div>
                 <WriterInfoItem
-                  name={episodeData.writerInfo?.name}
-                  description={episodeData.writerInfo?.description}
+                  name={'작가 정보가 없음'}
+                  description={data?.authorNote || ''}
                 />
               </div>
 
@@ -118,10 +108,10 @@ export default function Detail() {
 
               <div className="flex flex-col gap-2">
                 {result?.map((comment) => (
-                  <CommentListItem
+                  <CommentItemGroup
                     id={comment.id}
-                    name={comment.nickname}
-                    description={comment.content}
+                    nickname={comment.nickname}
+                    content={comment.content}
                     like={0}
                     timestamp={0}
                   />

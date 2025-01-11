@@ -7,4 +7,12 @@ export namespace _Model {
     content: string;
     childCommentCount: number;
   }
+
+  export interface ResReCommentUnit {
+    id: number;
+    nickname: string;
+    content: string;
+    parentCommentId: number;
+    commentOrder: number;
+  }
 }
