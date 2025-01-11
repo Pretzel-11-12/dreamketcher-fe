@@ -5,7 +5,7 @@ import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
 import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 
@@ -20,13 +20,27 @@ export interface EpisodeFormInfo {
 }
 const EpisodeForm = (item: EpisodeFormInfo) => {
   const [episodeInfo, setEpisodeInfo] = useState<Omit<EpisodeFormInfo, 'id'>>({
-    webtoonId: item.webtoonId || '',
-    title: item.title || '',
-    thumbnail: item.thumbnail || '',
-    content: item?.content,
-    authorNote: item.authorNote || '',
-    publishedAt: item.publishedAt || '',
+    webtoonId: '',
+    title: '',
+    thumbnail: '',
+    content: '',
+    authorNote: '',
+    publishedAt: '',
   });
+
+  useEffect(() => {
+    if (!!item) {
+      setEpisodeInfo({
+        webtoonId: item.webtoonId || '',
+        title: item.title || '',
+        thumbnail: item.thumbnail || '',
+        content: item?.content || '',
+        authorNote: item.authorNote || ' ',
+        publishedAt: item.publishedAt || '',
+      });
+    }
+  }, [item]);
+
   const isExist = !!item;
   const router = useRouter();
 
@@ -37,7 +51,7 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
 
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeThumbnail({
-          webtoonId: item.webtoonId,
+          webtoonId: episodeInfo.webtoonId,
           formData,
         });
 
@@ -93,13 +107,13 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input text={item.id} />
+        <Input text={item?.id || '1'} />
       </div>
       {}
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 썸네일</div>
         <ThumbnailUploader
-          _preview={item.thumbnail}
+          _preview={episodeInfo.thumbnail}
           onFileSelect={handleThumbnail}
           imageFormat={{ width: 480, height: 623 }}
         />
@@ -108,7 +122,7 @@ const EpisodeForm = (item: EpisodeFormInfo) => {
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
         <ThumbnailUploader
-          _preview={item.content}
+          _preview={episodeInfo.content}
           onFileSelect={handleContent}
           imageFormat={{ width: 480 }}
         />

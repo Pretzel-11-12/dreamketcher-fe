@@ -7,6 +7,7 @@ import CategoryTab from '@/app/_component/CategoryTab';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import { useEffect } from 'react';
 
 export default function CreatorMain() {
   const searchParams = useSearchParams();
@@ -21,10 +22,13 @@ export default function CreatorMain() {
   });
 
   const episodes = data?.episodes || [];
-  const webtoonInfo = {
-    title: data?.webtoonTitle!,
-    id: String(data?.webtoonId)!,
-  };
+  const webtoonInfo = { title: '', id: webtoonId };
+
+  useEffect(() => {
+    webtoonInfo.title = data?.webtoonTitle || '';
+  }, [data]);
+
+  console.log({ episodes, webtoonInfo });
 
   return (
     <div className="grid grid-cols-[auto_1fr] mt-[80px] w-full h-full">
@@ -66,9 +70,7 @@ export default function CreatorMain() {
         </div>
 
         <div className="w-full h-0.1 border-b mt-[-5px]" />
-        {episodes && webtoonInfo && (
-          <EpisodeList items={episodes} webtoonInfo={webtoonInfo!} />
-        )}
+        {<EpisodeList items={episodes} webtoonInfo={webtoonInfo!} />}
       </div>
     </div>
   );

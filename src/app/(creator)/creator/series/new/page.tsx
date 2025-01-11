@@ -20,7 +20,7 @@ export default function SeriesNew() {
   });
   const _data = data as fetchWebtoonDetail.Model.WebtoonDetailUnit;
 
-  console.log(_data);
+  console.log({ _data });
 
   return (
     <div

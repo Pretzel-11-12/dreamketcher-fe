@@ -5,7 +5,7 @@ import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
 import Textarea from '@/app/_component/Textarea';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
@@ -37,14 +37,25 @@ type SeriesFormProp = {
 
 const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   const [webtoonInfo, setWebtoonInfo] = useState<SeriesFormInfo>({
-    title: item?.webtoonTitle,
-    thumbnail: item?.webtoonThumbnail,
+    title: '',
+    thumbnail: '',
     prologue: '',
-    story: item?.webtoonStory,
-    description: item?.webtoonStory,
+    story: '',
+    description: '',
   });
   const router = useRouter();
-  const isExist = !!item;
+
+  useEffect(() => {
+    if (!!item) {
+      setWebtoonInfo({
+        title: item.webtoonTitle,
+        thumbnail: item.webtoonThumbnail,
+        prologue: '데이터가 없삼요',
+        story: item.webtoonStory,
+        description: '데이터가 없삼요',
+      });
+    }
+  }, [item]);
 
   const handleThumbnail = async (file: File | null) => {
     if (file) {
@@ -86,6 +97,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     try {
       const response = await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
       if (response.id) {
+        console.log(response.id);
         alert('작품이 등록되었습니다');
         router.push(`/creator/series`);
       }
@@ -122,6 +134,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 표지</div>
         <ThumbnailUploader
+          _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
           imageFormat={{ width: 480, height: 623 }}
         />
@@ -131,6 +144,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <div>프롤로그</div>
 
         <ThumbnailUploader
+          _preview={webtoonInfo.prologue}
           onFileSelect={handlePrologue}
           imageFormat={{ width: 480 }}
         />
@@ -139,20 +153,22 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       <div className="grid grid-cols-[10rem_1fr] items-baseline">
         <div>작품 설명</div>
         <Textarea
+          text={webtoonInfo.description}
           placeholder="작품 설명에 필요한 내용을 작성해주세요."
           subText="0/30"
-          onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
+          onChange={(description) =>
+            setWebtoonInfo((v) => ({ ...v, description: description }))
+          }
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 한줄 설명</div>
         <Input
+          text={webtoonInfo.story}
           placeholder="작품에 대한 설명을 한줄로 적어주세요."
           subText="0/400"
-          onChange={(description) =>
-            setWebtoonInfo((v) => ({ ...v, description: description }))
-          }
+          onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
         />
       </div>
       <div className="pb-24">

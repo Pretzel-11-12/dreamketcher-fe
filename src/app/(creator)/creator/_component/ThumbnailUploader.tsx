@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ThumbnailUploaderProps {
   _preview?: string;
@@ -14,11 +14,13 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
 }) => {
   const [visibleButton, setVisibleButton] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | null>(
-    _preview ? _preview : null
-  );
+  const [preview, setPreview] = useState<string | null>(null);
   const { width, height } = imageFormat;
   const imageRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (_preview) setPreview(_preview);
+  }, [_preview]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -71,7 +73,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
   const handleAreaClick = () => {
     imageRef.current?.click();
   };
-  console.log(preview, 'preview');
+
   return (
     <div className="flex flex-col w-fit h-fit text-xs">
       <div
