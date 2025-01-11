@@ -1,6 +1,5 @@
 import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
-import { Env } from '@/app/util/environment';
 
 export default function MainLayout({
   children,
