@@ -25,7 +25,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
     >
       <Image
         // src={webtoon.thumbnail}
-        src={'/assets/images/thumbnail-2.jpg'}
+        src={'/assets/images/thumbnail-4.jpg'}
         alt="Webtoon thumbnail image"
         width={100}
         height={150}
