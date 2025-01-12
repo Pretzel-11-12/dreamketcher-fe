@@ -17,7 +17,7 @@ export default function Detail() {
   const id = searchParams.get('id')!;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [id],
+    queryKey: [id, 'episode'],
     queryFn: () => fetchWebtoonDetail.getWebtoonDetails({ param: { id } }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -32,7 +32,8 @@ export default function Detail() {
       <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
     );
   }
-  console.log(data);
+  console.log({ data });
+
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />

@@ -14,6 +14,7 @@ import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -59,7 +60,15 @@ export default function Detail() {
         <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
           <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
             {data?.content.map((c, i) => (
-              <DefaultImage key={`${i}`} src={c} alt="" />
+              <Image
+                key={`${i}`}
+                alt={''}
+                src={c}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
             ))}
             <EpisodeButtonGroup webtoonId={webtoonId} episodeId={episodeId} />
           </div>

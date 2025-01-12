@@ -1,16 +1,14 @@
 import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
-
-import Image from 'next/image';
 import Link from 'next/link';
 
-interface EpisodeItem extends fetchWebtoonDetail.Model.EpisodeUnit {
+interface EpisodeItemProp {
+  items: fetchWebtoonDetail.Model.EpisodeUnit;
   webtoonId?: number;
 }
 
-export default function EpisodeListItem(episode: EpisodeItem) {
+const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
   const {
-    webtoonId,
     episodeId,
     title,
     thumbnail,
@@ -18,7 +16,7 @@ export default function EpisodeListItem(episode: EpisodeItem) {
     viewCount,
     likeCount,
     averageStar,
-  } = episode;
+  } = items;
 
   const time = new Date(publishedAt).getTime();
   const now = new Date().setHours(0, 0, 0, 0);
@@ -66,4 +64,6 @@ export default function EpisodeListItem(episode: EpisodeItem) {
       </div>
     </Link>
   );
-}
+};
+
+export default EpisodeListItem;

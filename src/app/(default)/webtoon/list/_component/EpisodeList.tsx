@@ -26,7 +26,7 @@ const EpisodeList: React.FC<episodeItemsProps> = ({
       .value();
 
     setSortedListItems(sortedItems);
-  }, [sortDirection]);
+  }, [sortDirection, episodeItems]);
 
   return (
     <div>
@@ -55,7 +55,7 @@ const EpisodeList: React.FC<episodeItemsProps> = ({
       </div>
       <div className="min-h-20">
         {sortedListItems.map((item, index) => (
-          <EpisodeListItem {...item} key={index} webtoonId={webtoonId} />
+          <EpisodeListItem items={item} key={index} webtoonId={webtoonId} />
         ))}
       </div>
     </div>

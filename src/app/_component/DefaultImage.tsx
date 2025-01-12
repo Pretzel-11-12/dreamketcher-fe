@@ -5,22 +5,17 @@ import { useEffect, useState } from 'react';
 interface ImageProps {
   alt: string;
   src: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
 }
 
-export default function DefaultImage({
-  alt,
-  src,
-  height = 300,
-  width = 300,
-}: ImageProps) {
+export default function DefaultImage({ alt, src, height, width }: ImageProps) {
   const [isImgError, setIsImgError] = useState<boolean>(false);
   const [url, setURL] = useState<string>('');
 
   // 임시
   useEffect(() => {
-    if (!src.startsWith('https://s3.ap-northeast-2.amazonaws.com')) {
+    if (!src.startsWith('https://s3.ap-northeast-2.amazonaws.com/')) {
       setIsImgError(true);
     } else {
       setURL(src);
@@ -35,10 +30,8 @@ export default function DefaultImage({
         <Image
           alt={alt}
           src={url}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{ width: '100%', height: 'auto' }}
+          width={width}
+          height={height}
           onError={(e) => {
             setIsImgError(true);
             console.log(e, 'error 에러예욤');
