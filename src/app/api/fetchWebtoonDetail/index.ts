@@ -59,7 +59,7 @@ export namespace fetchWebtoonDetail {
     // return response.json();
   }
 
-  export async function favoriteWebtoons(): Promise<any> {
+  export async function favoriteWebtoons() {
     const response = await fetch(`/api/v1/member/favorite`, {
       method: 'GET',
       headers: {
@@ -67,6 +67,64 @@ export namespace fetchWebtoonDetail {
       },
     });
     if (!response.ok) throw new Error(`Failed to get favorite webtoons`);
+    return response.json();
+  }
+
+  export async function getEpisodeDetails(param: {
+    webtoonId: string;
+    episodeId: string;
+  }): Promise<Model.EpisodeDetail> {
+    const { webtoonId, episodeId } = param;
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const res = await response.json();
+
+    return { ...res, content: JSON.parse(res.content) };
+  }
+
+  export async function favoriteEpisode(param: {
+    webtoonId: string;
+    episodeId: string;
+  }) {
+    const { webtoonId, episodeId } = param;
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/like`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
+
+  export async function putStars(param: {
+    webtoonId: string;
+    episodeId: string;
+    star: number;
+  }) {
+    const { webtoonId, episodeId, star } = param;
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/stars`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+
+        body: JSON.stringify({
+          point: star,
+        }),
+      }
+    );
+
     return response.json();
   }
 }

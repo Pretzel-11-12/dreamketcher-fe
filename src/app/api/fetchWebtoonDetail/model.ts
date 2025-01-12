@@ -24,4 +24,14 @@ export namespace _Model {
     likeCount: number;
     averageStar: number;
   }
+
+  export interface EpisodeDetail {
+    authorNote: string;
+    content: string[];
+    id: number;
+    no: number;
+    thumbnail: string;
+    title: string;
+    viewCount: number;
+  }
 }

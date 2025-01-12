@@ -10,36 +10,14 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import RankingWebtoons from './_component/RankingWebtoons';
-
-const announcements = [
-  {
-    id: 1,
-    title: '드림케쳐 서비스 오픈 안내',
-    link: '/announcements/dreamcatcher-launch',
-  },
-  {
-    id: 2,
-    title: '개인정보처리 방침에 대한 안내사항',
-    link: '/announcements/privacy-policy',
-  },
-  {
-    id: 3,
-    title: '2025년 설 연 서비스 운영 안내사항',
-    link: '/announcements/2025-new-year',
-  },
-  {
-    id: 4,
-    title: '01/03(금) 23:00 ~ 24:00 서버 점검 안내',
-    link: '/announcements/server-maintenance-0103',
-  },
-];
+import useAuthStore from '@/app/store/authStore';
 
 export default function Detail() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [id],
+    queryKey: [id, 'episode'],
     queryFn: () => fetchWebtoonDetail.getWebtoonDetails({ param: { id } }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -54,6 +32,7 @@ export default function Detail() {
       <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
     );
   }
+  console.log({ data });
 
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">

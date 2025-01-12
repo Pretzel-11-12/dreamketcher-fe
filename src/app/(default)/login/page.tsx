@@ -1,8 +1,13 @@
 'use client';
 
+import { Env } from '@/app/util/environment';
+
 const LoginPage: React.FC = () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-  const REDIRECT_URI = process.env.NEXT_PUBLIC_ENV_REDIRECT_URI || '';
+  const REDIRECT_URI =
+    (Env.isDev()
+      ? process.env.NEXT_PUBLIC_BASE_URL_DEV!
+      : process.env.NEXT_PUBLIC_BASE_URL_PROD!) + '/login/google';
 
   const handleGoogleLogin = async () => {
     const googleOAuthURL =

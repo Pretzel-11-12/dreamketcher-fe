@@ -24,7 +24,10 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
 
       <div className="flex flex-col gap-[3px]">
         {ranking?.map((item, index) => (
-          <Link href={`/webtoon/list?id=2`}>
+          <Link
+            href={{ pathname: `/webtoon/list`, query: { id: item.id } }}
+            key={index}
+          >
             <div
               className="grid grid-cols-[10px_1fr] gap-2 hover:text-[#888888] cursor-pointer text-[#3F3F3F]"
               key={item.title}

@@ -3,26 +3,41 @@
 import { useState } from 'react';
 import DeleteModal from '../../_component/DeleteModal';
 import OptionButton from '../../_component/OptionButton';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
+import DefaultImage from '@/app/_component/DefaultImage';
 
-const EpisodeItem: React.FC<{}> = () => {
+type EpisodeItemProps = {
+  item: fetchWebtoonDetail.Model.EpisodeUnit;
+  webtoonInfo: { title: string; id: string };
+};
+
+const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
+  const searchParams = useSearchParams();
+  const webtoonId = searchParams.get('webtoonId')!;
+
   const router = useRouter();
 
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
   return (
     <>
       <div className="grid grid-cols-[repeat(8,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
-        <span className="flex justify-center w-full">1</span>
-        <div className="flex flex-col gap-1 items-center">
-          <div className="bg-[#DEE5EA] w-[120px] h-[100px]" />
+        <span className="flex justify-center w-full">{item.episodeId}</span>
+        <div className="rounded-md overflow-hidden">
+          <DefaultImage
+            src={item.thumbnail}
+            width={120}
+            height={100}
+            alt={item.title}
+          />
         </div>
 
-        <span className="flex justify-center w-full">별종의 세계</span>
-        <span className="flex justify-center w-full">전체</span>
-        <span className="flex justify-center w-full">2024.12.26</span>
-        <span className="flex justify-center w-full">1,356</span>
-        <span className="flex justify-center w-full">663</span>
-        <span className="flex justify-center w-full">663</span>
+        <span className="flex justify-center w-full">{item.title}</span>
+        <span className="flex justify-center w-full">데이터 없음</span>
+        <span className="flex justify-center w-full">{item.publishedAt}</span>
+        <span className="flex justify-center w-full">{item.viewCount}</span>
+        <span className="flex justify-center w-full">{item.averageStar}</span>
+        <span className="flex justify-center w-full">{item.likeCount}</span>
 
         <div className="flex w-full justify-center">
           <OptionButton
@@ -32,7 +47,9 @@ const EpisodeItem: React.FC<{}> = () => {
               {
                 text: '수정하기',
                 onClick: () => {
-                  router.push(`/creator/episode/new?episodeId=${245}`);
+                  router.push(
+                    `/creator/episode/new?episodeId=${item.episodeId}&webtoonId=${webtoonInfo.id}`
+                  );
                 },
               },
             ]}
@@ -41,7 +58,9 @@ const EpisodeItem: React.FC<{}> = () => {
       </div>
 
       <DeleteModal
-        text={`<1화 - Look at me go...> 해당 회차를 삭제하시겠습니까?`}
+        episodeId={String(item.episodeId)}
+        webtoonId={webtoonId}
+        text={`<${item.episodeId}화 - ${webtoonInfo.title}> 해당 회차를 삭제하시겠습니까?`}
         isOpen={isModalOpen}
         handleOpenModal={handleOpenModal}
       />

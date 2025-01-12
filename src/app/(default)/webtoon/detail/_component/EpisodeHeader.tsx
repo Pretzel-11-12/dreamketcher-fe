@@ -1,8 +1,17 @@
-"use client";
-import _ from "lodash";
-import { useEffect, useState } from "react";
+'use client';
+import _ from 'lodash';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-const EpisodeHeader = () => {
+type EpisodeHeaderProps = {
+  item: {
+    webtoonTitle?: string;
+    webtoonId: string;
+    episodeTitle?: string;
+    episodeNo?: number;
+  };
+};
+const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item }) => {
   const [isDisplay, setDisplay] = useState(true);
 
   const handleScroll = () => {
@@ -16,9 +25,9 @@ const EpisodeHeader = () => {
   const throttleScroll = _.throttle(handleScroll, 300);
 
   useEffect(() => {
-    window.addEventListener("scroll", throttleScroll);
+    window.addEventListener('scroll', throttleScroll);
     return () => {
-      window.removeEventListener("scroll", throttleScroll);
+      window.removeEventListener('scroll', throttleScroll);
     };
   }, []);
 
@@ -30,8 +39,16 @@ const EpisodeHeader = () => {
       onMouseLeave={() => window.scrollY >= 300 && setDisplay(false)}
     >
       <div className="w-[800px] flex items-center text-md gap-3">
-        <span className="mdi mdi-chevron-left"></span>
-        괴담출근 136화 - I'm like some kind of supernova, Watch out
+        <Link
+          href={{
+            pathname: '/webtoon/list',
+            query: { id: item.webtoonId },
+          }}
+        >
+          <span className="mdi mdi-chevron-left text-2xl" />
+        </Link>
+        {item.webtoonTitle}
+        {item.episodeNo}화 - {item.episodeTitle}
       </div>
     </div>
   );

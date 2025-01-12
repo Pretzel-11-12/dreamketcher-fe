@@ -1,19 +1,48 @@
 'use client';
 import Button from '@/app/_component/Button';
 import Modal from '@/app/_component/Modal';
+import {
+  fetchCreatorEpisode,
+  fetchCreatorWebtoon,
+} from '@/app/api/fetchCreator';
 
 interface DeleteModalProps {
+  webtoonId: string;
+  episodeId?: string;
   text: string;
   isOpen: boolean;
   handleOpenModal: (isOpen: boolean) => void;
 }
 
 const DeleteModal: React.FC<DeleteModalProps> = ({
+  webtoonId,
+  episodeId,
   text,
   isOpen,
   handleOpenModal,
 }) => {
   const closeModal = () => handleOpenModal(false);
+  const handleClickDelete = async () => {
+    try {
+      if (episodeId) {
+        const response = await fetchCreatorEpisode.deleteEpisode({
+          webtoonId,
+          episodeId,
+        });
+        if (response.code === 'INTERNAL_SERVER_ERROR') {
+          throw Error(response.message);
+        }
+      } else {
+        const response = await fetchCreatorWebtoon.deleteWebtoon({ webtoonId });
+      }
+
+      alert('삭제 성공');
+      closeModal();
+    } catch (e) {
+      alert(`삭제 실패 ${e}`);
+      console.log(e);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
@@ -28,7 +57,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           props={{
             size: 'L',
             variant: 'brand-yellow',
-            handleClick: closeModal,
+            handleClick: handleClickDelete,
           }}
         >
           삭제

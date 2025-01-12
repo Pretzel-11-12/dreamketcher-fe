@@ -1,12 +1,14 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ThumbnailUploaderProps {
-  imageFormat: { width: number; height: number };
+  _preview?: string;
+  imageFormat: { width: number; height?: number };
   onFileSelect: (file: File | null) => void;
 }
 
 const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
+  _preview,
   imageFormat,
   onFileSelect,
 }) => {
@@ -15,6 +17,10 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
   const [preview, setPreview] = useState<string | null>(null);
   const { width, height } = imageFormat;
   const imageRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (_preview) setPreview(_preview);
+  }, [_preview]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -42,8 +48,14 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
     // 이미지 크기
     const img = new Image();
     img.onload = () => {
-      if (img.width !== width || img.height !== height) {
-        setError(`${width} x ${height} 사이즈 이미지를 등록해주세요.`);
+      if (img.width !== width) {
+        if (!height) {
+          setError(`가로 ${width} 사이즈 이미지를 등록해주세요.`);
+        } else {
+          img.height !== height &&
+            setError(`${width} x ${height} 사이즈 이미지를 등록해주세요.`);
+        }
+
         setPreview(null);
         onFileSelect(null);
         return;
@@ -53,7 +65,9 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       setError(null);
       setPreview(URL.createObjectURL(file));
       onFileSelect(file);
+      console.log(file);
     };
+
     img.src = URL.createObjectURL(file);
   };
   const handleAreaClick = () => {
@@ -67,7 +81,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
         onMouseEnter={() => setVisibleButton(true)}
         onMouseLeave={() => setVisibleButton(false)}
         onClick={handleAreaClick}
-        style={{ height: `200px`, width: `300px` }}
+        style={{ minHeight: '20rem', width: `${width}px` }}
       >
         {(!preview || visibleButton) && (
           <div className="absolute bg-white text-gray-500 border px-3 py-2 rounded">
@@ -99,7 +113,9 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
         표지파일형식 : *.png, *.jpg, *.jpeg
       </p>
       <p className="text-gray-500/60">
-        파일 크기 : {width}(가로)*{height}(세로) / 500KB 이하
+        파일 크기 :{' '}
+        {height ? `${width}(가로)*${height}(세로)` : `${width}(가로)`} / 500KB
+        이하
       </p>
 
       {error && <p className="text-red-500 mt-1">{error}</p>}

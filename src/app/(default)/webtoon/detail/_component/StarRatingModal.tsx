@@ -2,13 +2,18 @@
 import React, { useState } from 'react';
 import Button from '@/app/_component/Button';
 import Modal from '@/app/_component/Modal';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 interface StarRatingModalProps {
+  webtoonId: string;
+  episodeId: string;
   isOpen: boolean;
   handleOpenModal: (isOpen: boolean) => void;
 }
 
 const StarRatingModal: React.FC<StarRatingModalProps> = ({
+  webtoonId,
+  episodeId,
   isOpen,
   handleOpenModal,
 }) => {
@@ -45,7 +50,14 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
           props={{
             size: 'L',
             variant: 'brand-yellow',
-            handleClick: closeModal,
+            handleClick: async () => {
+              const response = await fetchWebtoonDetail.putStars({
+                webtoonId,
+                episodeId,
+                star: rating,
+              });
+              () => closeModal();
+            },
           }}
         >
           확인

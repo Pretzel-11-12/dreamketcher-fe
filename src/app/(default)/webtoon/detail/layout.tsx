@@ -9,14 +9,11 @@ export default function DetailLayout({ children }: Props) {
   return (
     <>
       <div className="pt-[80px] pb-10">
-        <EpisodeHeader />
         <QuickMenu />
 
-        <div className="pt-[100px] w-full flex flex-col items-center bg-white text-black">
+        <div className="w-full flex flex-col items-center bg-white text-black">
           {children}
         </div>
-
-        <EpisodeFooter />
       </div>
     </>
   );

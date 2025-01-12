@@ -2,14 +2,21 @@
 import { useState } from 'react';
 import EpisodeButton, { EpisodeButtonItemInfo } from './EposideButton';
 import StarRatingModal from './StarRatingModal';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-const EpisodeButtonGroup = () => {
+type EpisodeButtonGroupProp = {
+  webtoonId: string;
+  episodeId: string;
+};
+const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
+  const { webtoonId, episodeId } = items;
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
 
   const episodeButtonItems: EpisodeButtonItemInfo[] = [
     {
       text: '좋아요',
-      handleClick: () => {},
+      handleClick: async () =>
+        await fetchWebtoonDetail.favoriteEpisode({ webtoonId, episodeId }),
       icon: { src: '/assets/icon/like.svg', size: 34 },
       subText: '30',
     },
@@ -42,6 +49,7 @@ const EpisodeButtonGroup = () => {
       <div className="bg-[#fffff] border rounded-md flex w-full h-[100px] hover:cursor-pointer">
         {episodeButtonItems.map((item, i) => (
           <EpisodeButton
+            key={item.text}
             text={item.text}
             subText={item.subText}
             handleClick={item.handleClick}
@@ -52,7 +60,12 @@ const EpisodeButtonGroup = () => {
         ))}
       </div>
 
-      <StarRatingModal isOpen={isModalOpen} handleOpenModal={handleOpenModal} />
+      <StarRatingModal
+        isOpen={isModalOpen}
+        handleOpenModal={handleOpenModal}
+        webtoonId={webtoonId}
+        episodeId={episodeId}
+      />
     </>
   );
 };

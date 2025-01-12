@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ImageProps {
   alt: string;
@@ -11,13 +11,20 @@ interface ImageProps {
 
 export default function DefaultImage({ alt, src, height, width }: ImageProps) {
   const [isImgError, setIsImgError] = useState<boolean>(false);
+  const [url, setURL] = useState<string>('');
 
   // 임시
-  const url = src.startsWith('http') || !src.startsWith('/') ? '/' + src : src;
+  useEffect(() => {
+    if (!src.startsWith('https://s3.ap-northeast-2.amazonaws.com/')) {
+      setIsImgError(true);
+    } else {
+      setURL(src);
+    }
+  }, [src]);
 
   return (
     <>
-      {isImgError ? (
+      {!url ? (
         <div className={`bg-[#DEE5EA] h-[${height}px] w-[${width}px]`}></div>
       ) : (
         <Image
