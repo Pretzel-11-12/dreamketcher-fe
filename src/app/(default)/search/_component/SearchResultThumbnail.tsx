@@ -23,8 +23,8 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
       onClick={tempClickHandler}
     >
       <Image
-        src={webtoon.thumbnail}
-        // src={'/assets/images/thumbnail-2.jpg'}
+        // src={webtoon.thumbnail}
+        src={'/assets/images/thumbnail-4.jpg'}
         alt="Webtoon thumbnail image"
         width={100}
         height={150}

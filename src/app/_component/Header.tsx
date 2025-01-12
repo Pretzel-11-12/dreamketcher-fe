@@ -51,10 +51,16 @@ const Header: React.FC = () => {
             userInfo.shortIntroduction || '한줄소개를 작성해주세요',
         });
       } catch (err) {
-        console.error('Failed to fetch user info:', err);
-
-        // 서버 요청 실패 시 비로그인 상태로 처리
-        setUserInfo(DEFAULT_USER_INFO);
+        // 에러가 FetchError 객체일 경우에만 상태 코드 확인
+        if (err instanceof Response && err.status === 401) {
+          console.warn(
+            'Unauthorized access. Setting user to default (not logged in).'
+          );
+          setUserInfo(DEFAULT_USER_INFO);
+        } else {
+          // 401 외의 에러는 그대로 처리
+          console.error('Failed to fetch user info:', err);
+        }
       }
     };
 

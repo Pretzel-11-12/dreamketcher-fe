@@ -5,6 +5,7 @@ import Footer from '@/app/_component/Footer';
 import '@mdi/font/css/materialdesignicons.min.css';
 import RQProvider from '@/app/_component/RQProvider';
 import Header from './_component/Header';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Dreamketcher',
@@ -23,7 +24,7 @@ export default function RootLayout({
           <Header />
           <div className="flex w-full justify-center">
             <div className="bg-white text-black max-w-[1200px] w-full">
-              {children}
+              <Suspense>{children}</Suspense>
             </div>
           </div>
           <Footer />

@@ -18,6 +18,5 @@ export const getSearchResult = async (keyword: string) => {
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  console.log(res.json());
   return res.json();
 };
