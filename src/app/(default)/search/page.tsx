@@ -40,7 +40,7 @@ export default function Search() {
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px] pb-10">
-        <SearchMainSection webtoons={mockdata || []} />
+        <SearchMainSection webtoons={data || []} />
         <SearchSideSection
           searchKeywords={mockKeyword || []}
           recommendTags={mockKeyword || []}
