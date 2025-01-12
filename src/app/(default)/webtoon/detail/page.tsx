@@ -1,7 +1,7 @@
 'use client';
-
-import WriterInfoItem, { UserInfo } from './_component/WriterInfoItem';
-import CommentItemGroup, { CommentInfo } from './_component/CommentItemGroup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import WriterInfoItem from './_component/WriterInfoItem';
+import CommentItemGroup from './_component/CommentItemGroup';
 import EpisodeButtonGroup from './_component/EpisodeButtonGroup';
 import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
@@ -9,12 +9,12 @@ import Dropdown from '@/app/_component/Dropdown';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
-import DefaultImage from '@/app/_component/DefaultImage';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useState } from 'react';
 import Image from 'next/image';
+
 import _ from 'lodash';
 
 const dropdownOptions = [
@@ -37,7 +37,7 @@ export default function Detail() {
   });
 
   const { data: comments } = useQuery({
-    queryKey: [webtoonId, episodeId, 'comments'],
+    queryKey: ['comments'],
     queryFn: () =>
       fetchComment.getComments({
         param: { webtoonId, episodeId },
@@ -51,7 +51,24 @@ export default function Detail() {
     totalElements: 0,
     result: [],
   };
-  console.log(data);
+  const queryClient = useQueryClient();
+
+  const mutationWebtoon = useMutation({
+    mutationFn: (arg: {
+      webtoonId: string;
+      episodeId: string;
+      content: string;
+    }) =>
+      fetchComment.postComment({
+        param: {
+          webtoonId: arg.webtoonId,
+          episodeId: arg.episodeId,
+          content: arg.content,
+        },
+      }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['comments'] }),
+    onError: (e) => console.log(e),
+  });
   return (
     <>
       <EpisodeHeader
@@ -112,10 +129,14 @@ export default function Detail() {
                     props={{
                       variant: 'brand-yellow',
                       size: 'S',
-                      onClick: () =>
-                        fetchComment.postComment({
-                          param: { webtoonId, episodeId, content: newComment },
-                        }),
+                      onClick: () => {
+                        mutationWebtoon.mutate({
+                          webtoonId,
+                          episodeId,
+                          content: newComment,
+                        });
+                        setNewComment('');
+                      },
                     }}
                   >
                     댓글 남기기

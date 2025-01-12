@@ -2,7 +2,7 @@
 import _ from 'lodash';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
@@ -18,15 +18,7 @@ import Pagination from '@/app/_component/Pagination';
 export default function Detail() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
-  const [items, setItems] = useState<fetchWebtoonDetail.Model.EpisodeUnit[]>(
-    []
-  );
-  const [currentItems, setCurrentItems] = useState<
-    fetchWebtoonDetail.Model.EpisodeUnit[]
-  >([]);
 
-  const itemsPerPage = 10;
-  const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
 
@@ -36,7 +28,7 @@ export default function Detail() {
       fetchWebtoonDetail.getWebtoonDetails({
         param: { id },
         query: {
-          fromFirst: sortDirection === 'desc',
+          fromFirst: sortDirection === 'asc',
           page: currentPage - 1,
           size: 30,
         },
@@ -44,26 +36,6 @@ export default function Detail() {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-
-  useEffect(() => {
-    if (data) {
-      setItems([]);
-      setCurrentPage(1);
-    }
-  }, [sortDirection]);
-
-  useEffect(() => {
-    if (data) {
-      setItems((v) => [...v, ...data.episodes]);
-      setTotalPage(Math.ceil(data.episode_count / itemsPerPage));
-    }
-  }, [id, data]);
-
-  useEffect(() => {
-    setCurrentItems(items.slice(startIndex, startIndex + itemsPerPage));
-  }, [items, startIndex, currentPage, sortDirection]);
 
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
@@ -112,7 +84,7 @@ export default function Detail() {
                 </div>
               </div>
               <div className="min-h-20">
-                {currentItems?.map((item, index) => (
+                {data?.episodes?.map((item, index) => (
                   <EpisodeListItem
                     items={item}
                     key={index}
@@ -121,11 +93,11 @@ export default function Detail() {
                 ))}
               </div>
 
-              <Pagination
+              {/* <Pagination
                 currentPage={currentPage}
                 totalPages={totalPage}
                 onPageChange={setCurrentPage}
-              />
+              /> */}
             </div>
           </div>
 
