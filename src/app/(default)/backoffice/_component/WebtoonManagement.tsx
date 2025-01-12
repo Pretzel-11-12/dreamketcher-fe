@@ -3,6 +3,7 @@ import React from 'react';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getAdminWebtoonApproval } from '@/app/api/fetchBackofficeData/putAdminWebtoonApproval';
 import { getAdminWebtoonStatus } from '@/app/api/fetchBackofficeData/putAdminWebtoonStatus';
+import { ApprovalPayload as IPayload } from '@/model/WebtoonApprove';
 
 type WebtoonManagementProps = {
   webtoon: IWebtoon;
@@ -11,15 +12,10 @@ type WebtoonManagementProps = {
 const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
   const handleApprove = async () => {
     try {
-      const payload: {
-        webtoonIds: number[];
-        approval: 'APPROVAL' | 'APPROVAL_DENIED';
-        reason: string;
-        detailReason: string;
-      } = {
+      const payload: IPayload = {
         webtoonIds: [webtoon.id],
         approval: 'APPROVAL',
-        reason: '',
+        reason: 'COPYRIGHT',
         detailReason: '',
       };
       const result = await getAdminWebtoonApproval(payload);
@@ -33,16 +29,11 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
 
   const handleReject = async () => {
     try {
-      const payload: {
-        webtoonIds: number[];
-        approval: 'APPROVAL' | 'APPROVAL_DENIED';
-        reason: string;
-        detailReason: string;
-      } = {
+      const payload: IPayload = {
         webtoonIds: [webtoon.id],
         approval: 'APPROVAL_DENIED',
-        reason: '',
-        detailReason: '.',
+        reason: 'COPYRIGHT',
+        detailReason: '',
       };
       const result = await getAdminWebtoonApproval(payload);
       console.log('Rejection Success:', result);
