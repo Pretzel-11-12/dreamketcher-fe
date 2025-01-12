@@ -7,9 +7,10 @@ import ThumbnailUploader from '../../_component/ThumbnailUploader';
 import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
 import { useEffect, useState } from 'react';
 import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
+import moment from 'moment';
 
 export interface EpisodeFormInfo {
   webtoonId: string;
@@ -25,6 +26,7 @@ export interface EpisodeResProps {
   episodeId: string;
   webtoonId: string;
 }
+
 const EpisodeForm: React.FC<EpisodeResProps> = ({
   item,
   webtoonId,
@@ -36,9 +38,12 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     thumbnail: '',
     content: '',
     authorNote: '',
-    publishedAt: '',
+    publishedAt: '2025-01-13',
   });
-  console.log(episodeInfo);
+
+  const searchParams = useSearchParams();
+  const no = searchParams.get('no')!;
+
   useEffect(() => {
     if (!!item) {
       setEpisodeInfo({
@@ -47,7 +52,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         thumbnail: item.thumbnail || '',
         content: item?.content?.[0] || '',
         authorNote: item.authorNote || ' ',
-        publishedAt: '',
+        publishedAt: '2025-01-13',
       });
     }
   }, [item]);
@@ -65,7 +70,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
           webtoonId: webtoonId,
           formData,
         });
-        console.log(s3Url);
+
         setEpisodeInfo((v) => ({
           ...v,
           thumbnail: s3Url,
@@ -85,7 +90,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
           webtoonId: webtoonId,
           formData,
         });
-        console.log(s3Url);
+
         setEpisodeInfo((v) => ({
           ...v,
           content: s3Url,
@@ -98,11 +103,10 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
   const handleEpisode = async () => {
     try {
-      console.log(episodeInfo);
       const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
       if (response.id) {
         alert('작품이 등록되었습니다');
-        router.push(`/creator/series`);
+        router.push(`/creator/episode?webtoonId=${webtoonId}`);
       }
     } catch (e) {}
   };
@@ -122,7 +126,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input text={episodeId || '1'} />
+        <Input text={no} disable />
       </div>
       {}
       <div className="grid grid-cols-[10rem_1fr] items-start">

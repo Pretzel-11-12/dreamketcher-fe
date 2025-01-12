@@ -15,6 +15,7 @@ import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useState } from 'react';
 import Image from 'next/image';
+import _ from 'lodash';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -40,7 +41,7 @@ export default function Detail() {
     queryFn: () =>
       fetchComment.getComments({
         param: { webtoonId, episodeId },
-        query: { size: 20, page: 1, order: 'DESC' },
+        query: { size: 20, page: 0, order: 'DESC' },
       }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -50,7 +51,7 @@ export default function Detail() {
     totalElements: 0,
     result: [],
   };
-
+  console.log(data);
   return (
     <>
       <EpisodeHeader
@@ -59,17 +60,28 @@ export default function Detail() {
       <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
         <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
           <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
-            {data?.content.map((c, i) => (
+            {_.isString(data?.content) ? (
               <Image
-                key={`${i}`}
                 alt={''}
-                src={c}
+                src={data?.content}
                 width={0}
                 height={0}
                 sizes="100vw"
                 style={{ width: '100%', height: 'auto' }}
               />
-            ))}
+            ) : (
+              data?.content.map((c, i) => (
+                <Image
+                  key={`${i}`}
+                  alt={''}
+                  src={c}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              ))
+            )}
             <EpisodeButtonGroup webtoonId={webtoonId} episodeId={episodeId} />
           </div>
         </div>

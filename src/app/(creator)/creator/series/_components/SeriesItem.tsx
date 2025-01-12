@@ -27,10 +27,12 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           <span className="flex justify-center w-full">{item.title}</span>
         </div>
 
-        <span className="flex justify-center w-full">회차수</span>
+        <span className="flex justify-center w-full">{item.episodeCount}</span>
         <span className="flex justify-center w-full">{item.updatedAt}</span>
-        <span className="flex justify-center w-full">{item.startedAt}</span>
-        <span className="flex justify-center w-full">{item.viewCount}</span>
+        <span className="flex justify-center w-full">
+          {item.startedAt || '-'}
+        </span>
+        <span className="flex justify-center w-full">{item.likeCount}</span>
         <span className="flex justify-center w-full">{item.commentCount}</span>
         <span className="flex justify-center w-full">
           {item.interestedCount}
@@ -50,7 +52,7 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
               {
                 text: '작품 수정',
                 onClick: () =>
-                  router.push(`/creator/series/new?seriesId=${item.id}`),
+                  router.push(`/creator/series/new?webtoonId=${item.id}`),
               },
             ]}
           />
@@ -59,7 +61,7 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
 
       <DeleteModal
         webtoonId={String(item.id)}
-        text={`<재벌 서자의 회귀사건을..> 해당 작품을 삭제하시겠습니까?`}
+        text={`<${item.title}> 해당 작품을 삭제하시겠습니까?`}
         isOpen={isModalOpen}
         handleOpenModal={handleOpenModal}
       />

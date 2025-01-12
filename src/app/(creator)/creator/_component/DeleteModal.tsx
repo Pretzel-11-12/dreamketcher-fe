@@ -5,6 +5,7 @@ import {
   fetchCreatorEpisode,
   fetchCreatorWebtoon,
 } from '@/app/api/fetchCreator';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface DeleteModalProps {
   webtoonId: string;
@@ -21,21 +22,35 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   isOpen,
   handleOpenModal,
 }) => {
+  const queryClient = useQueryClient();
+
+  const mutationWebtoon = useMutation({
+    mutationFn: (id: string) =>
+      fetchCreatorWebtoon.deleteWebtoon({ webtoonId: id }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['creator-webtoon'] }),
+    onError: (e) => console.log(e),
+  });
+
+  const mutationEpisode = useMutation({
+    mutationFn: (arg: { webtoonId: string; episodeId: string }) =>
+      fetchCreatorEpisode.deleteEpisode({
+        webtoonId: arg.webtoonId,
+        episodeId: arg.episodeId,
+      }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['creator-episode'] }),
+    onError: (e) => console.log(e),
+  });
+
   const closeModal = () => handleOpenModal(false);
   const handleClickDelete = async () => {
     try {
       if (episodeId) {
-        const response = await fetchCreatorEpisode.deleteEpisode({
-          webtoonId,
-          episodeId,
-        });
-        if (response.code === 'INTERNAL_SERVER_ERROR') {
-          throw Error(response.message);
-        }
+        mutationEpisode.mutate({ webtoonId, episodeId });
       } else {
-        const response = await fetchCreatorWebtoon.deleteWebtoon({ webtoonId });
+        mutationWebtoon.mutate(webtoonId);
       }
-
       alert('삭제 성공');
       closeModal();
     } catch (e) {

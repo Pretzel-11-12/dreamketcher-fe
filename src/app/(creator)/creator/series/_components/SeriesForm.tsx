@@ -99,7 +99,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       if (response.id) {
         console.log(response.id);
         alert('작품이 등록되었습니다');
-        router.push(`/creator/series`);
+        router.push(`/creator/series?status=NEW`);
       }
     } catch (e) {}
   };

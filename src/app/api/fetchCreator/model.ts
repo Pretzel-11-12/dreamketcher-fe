@@ -19,14 +19,14 @@ export namespace _Model {
   }
 
   export interface CreatorWebtoonUnit {
-    id: number;
-    no: number;
-    title: string;
-    thumbnail: string;
-    updatedAt: string;
-    startedAt: string;
-    viewCount: number;
     commentCount: number;
+    episodeCount: number;
+    id: number;
     interestedCount: number;
+    likeCount: number;
+    startedAt: string;
+    thumbnail: string;
+    title: string;
+    updatedAt: string;
   }
 }

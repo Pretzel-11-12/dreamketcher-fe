@@ -21,7 +21,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
   return (
     <>
-      <div className="grid grid-cols-[repeat(8,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
+      <div className="grid grid-cols-[repeat(7,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
         <span className="flex justify-center w-full">{item.episodeId}</span>
         <div className="rounded-md overflow-hidden">
           <DefaultImage
@@ -33,7 +33,6 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
         </div>
 
         <span className="flex justify-center w-full">{item.title}</span>
-        <span className="flex justify-center w-full">데이터 없음</span>
         <span className="flex justify-center w-full">{item.publishedAt}</span>
         <span className="flex justify-center w-full">{item.viewCount}</span>
         <span className="flex justify-center w-full">{item.averageStar}</span>

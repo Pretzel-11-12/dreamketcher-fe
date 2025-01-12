@@ -22,17 +22,23 @@ export default function CreatorMain() {
   });
 
   const episodes = data?.episodes || [];
-  const webtoonInfo = { title: '', id: webtoonId };
+  let webtoonInfo = {
+    title: data?.webtoonTitle || '',
+    id: webtoonId,
+    thumbnail: data?.webtoonThumbnail || '',
+  };
 
-  useEffect(() => {
-    webtoonInfo.title = data?.webtoonTitle || '';
-  }, [data]);
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
 
-  console.log({ episodes, webtoonInfo });
+  if (isError) {
+    return <p>오류 발생</p>;
+  }
 
   return (
     <div className="grid grid-cols-[auto_1fr] mt-[80px] w-full h-full">
-      <EpisodeSideBar />
+      <EpisodeSideBar webtoonInfo={webtoonInfo} />
       <div className="flex flex-col">
         <div className="flex items-center justify-between pt-2 px-3">
           <span className="text-lg font-semibold pl-4">
@@ -40,7 +46,10 @@ export default function CreatorMain() {
           </span>
           <Link
             className="w-[125px] h-[39px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px]"
-            href="/creator/episode/new"
+            href={{
+              pathname: '/creator/episode/new',
+              query: { webtoonId, no: episodes.length + 1 },
+            }}
           >
             신규 회차 등록
           </Link>
@@ -70,7 +79,7 @@ export default function CreatorMain() {
         </div>
 
         <div className="w-full h-0.1 border-b mt-[-5px]" />
-        {<EpisodeList items={episodes} webtoonInfo={webtoonInfo!} />}
+        {<EpisodeList items={episodes} webtoonInfo={webtoonInfo} />}
       </div>
     </div>
   );

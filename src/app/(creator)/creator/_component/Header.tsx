@@ -76,7 +76,7 @@ const Header: React.FC = () => {
             onClick={handleGoBack}
           />
 
-          <Link href="/creator/series">
+          <Link href="/creator/series?status=IN_SERIES">
             <Image
               src="/assets/images/studio.png"
               alt="profile button"
