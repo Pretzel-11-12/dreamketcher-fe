@@ -59,8 +59,11 @@ export namespace fetchWebtoonDetail {
     // return response.json();
   }
 
-  export async function favoriteWebtoons() {
-    const response = await fetch(`/api/v1/member/favorite`, {
+  export async function favoriteWebtoon(arg: { param: { id: string } }) {
+    const { param } = arg;
+    const { id } = param;
+
+    const response = await fetch(`/api/v1/member/favorite/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

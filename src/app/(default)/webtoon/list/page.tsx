@@ -1,27 +1,69 @@
 'use client';
+import _ from 'lodash';
+
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
 import WebtoonInfo from './_component/WebtoonInfo';
-import EpisodeList from './_component/EpisodeList';
 import NoticeList from './_component/NoticeList';
-
-import { useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import RankingWebtoons from './_component/RankingWebtoons';
-import useAuthStore from '@/app/store/authStore';
+import EpisodeListItem from './_component/EpisodeListItem';
+import Pagination from '@/app/_component/Pagination';
 
 export default function Detail() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id')!;
+  const [items, setItems] = useState<fetchWebtoonDetail.Model.EpisodeUnit[]>(
+    []
+  );
+  const [currentItems, setCurrentItems] = useState<
+    fetchWebtoonDetail.Model.EpisodeUnit[]
+  >([]);
+
+  const itemsPerPage = 10;
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [id, 'episode'],
-    queryFn: () => fetchWebtoonDetail.getWebtoonDetails({ param: { id } }),
+    queryKey: [id, sortDirection, 'episode'],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoonDetails({
+        param: { id },
+        query: {
+          fromFirst: sortDirection === 'desc',
+          page: currentPage - 1,
+          size: 30,
+        },
+      }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  useEffect(() => {
+    if (data) {
+      setItems([]);
+      setCurrentPage(1);
+    }
+  }, [sortDirection]);
+
+  useEffect(() => {
+    if (data) {
+      setItems((v) => [...v, ...data.episodes]);
+      setTotalPage(Math.ceil(data.episode_count / itemsPerPage));
+    }
+  }, [id, data]);
+
+  useEffect(() => {
+    setCurrentItems(items.slice(startIndex, startIndex + itemsPerPage));
+  }, [items, startIndex, currentPage, sortDirection]);
 
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
@@ -32,7 +74,6 @@ export default function Detail() {
       <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
     );
   }
-  console.log({ data });
 
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
@@ -46,11 +87,46 @@ export default function Detail() {
           <div className="flex flex-col w-full gap-6 border-r border-r-line pt-8">
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
-            <EpisodeList
-              episodeItems={data?.episodes || []}
-              episodeCount={data?.episode_count || 0}
-              webtoonId={data?.webtoonId}
-            />
+            <div>
+              <div className="flex justify-between px-5">
+                <div>총 {data?.episode_count}화</div>
+
+                <div className="flex gap-2">
+                  <div
+                    className={`text-sm font-${
+                      sortDirection === 'desc' && 'semibold'
+                    } cursor-pointer`}
+                    onClick={() => setSortDirection('desc')}
+                  >
+                    최신화부터
+                  </div>
+
+                  <div
+                    className={`text-sm font-${
+                      sortDirection === 'asc' && 'semibold'
+                    } cursor-pointer`}
+                    onClick={() => setSortDirection('asc')}
+                  >
+                    1화부터
+                  </div>
+                </div>
+              </div>
+              <div className="min-h-20">
+                {currentItems?.map((item, index) => (
+                  <EpisodeListItem
+                    items={item}
+                    key={index}
+                    webtoonId={Number(id)}
+                  />
+                ))}
+              </div>
+
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPage}
+                onPageChange={setCurrentPage}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col w-[300px] p-3 gap-1">
