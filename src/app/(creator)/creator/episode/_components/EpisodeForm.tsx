@@ -38,7 +38,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     thumbnail: '',
     content: '',
     authorNote: '',
-    publishedAt: '2025-01-13',
+    publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
   });
 
   const searchParams = useSearchParams();
@@ -52,7 +52,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         thumbnail: item.thumbnail || '',
         content: item?.content?.[0] || '',
         authorNote: item.authorNote || ' ',
-        publishedAt: '2025-01-13',
+        publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
       });
     }
   }, [item]);
@@ -172,7 +172,13 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
             selectedValue={publicSetting}
             onChange={setPublicSetting}
           />
-          {publicSetting === 'scheduled' && <DateTimeSelector />}
+          {publicSetting === 'scheduled' && (
+            <DateTimeSelector
+              onChange={(time) => {
+                setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
+              }}
+            />
+          )}
         </div>
       </div>
 

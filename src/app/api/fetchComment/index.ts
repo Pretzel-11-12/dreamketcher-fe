@@ -92,7 +92,7 @@ export namespace fetchComment {
     const { webtoonId, episodeId, content, commentId } = param;
 
     const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}create`,
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/create`,
       {
         method: 'POST',
         headers: {

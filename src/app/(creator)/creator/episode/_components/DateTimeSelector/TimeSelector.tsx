@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import { useState } from 'react';
 
-const TimeSelector: React.FC<{}> = () => {
+type TimeSelectorType = {
+  onChange: (value: string) => void;
+};
+
+const TimeSelector: React.FC<TimeSelectorType> = ({ onChange }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [value, setValue] = useState<string>('09:00');
 
@@ -11,6 +15,7 @@ const TimeSelector: React.FC<{}> = () => {
 
   const onChangeTime = (value: string) => {
     setValue(value);
+    onChange(value);
     setVisible(false);
   };
 

@@ -13,11 +13,9 @@ export default function CreatorMain() {
   const webtoonId = searchParams.get('webtoonId')!;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [webtoonId],
+    queryKey: ['creator-episode', webtoonId],
     queryFn: () =>
       fetchWebtoonDetail.getWebtoonDetails({ param: { id: webtoonId } }),
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
   });
 
   const episodes = data?.episodes || [];

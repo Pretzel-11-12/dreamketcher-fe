@@ -11,7 +11,7 @@ export default function EpisodeNew() {
   const episodeId = searchParams.get('episodeId')!;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['creator-episode'],
+    queryKey: [webtoonId, episodeId],
     queryFn: () =>
       fetchWebtoonDetail.getEpisodeDetails({
         webtoonId,

@@ -16,6 +16,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import _ from 'lodash';
+import { da } from '@faker-js/faker';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -35,9 +36,8 @@ export default function Detail() {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-
   const { data: comments } = useQuery({
-    queryKey: ['comments'],
+    queryKey: [webtoonId, episodeId, 'comments'],
     queryFn: () =>
       fetchComment.getComments({
         param: { webtoonId, episodeId },
@@ -66,9 +66,13 @@ export default function Detail() {
           content: arg.content,
         },
       }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['comments'] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [webtoonId, episodeId, 'comments'],
+      }),
     onError: (e) => console.log(e),
   });
+
   return (
     <>
       <EpisodeHeader
@@ -99,7 +103,12 @@ export default function Detail() {
                 />
               ))
             )}
-            <EpisodeButtonGroup webtoonId={webtoonId} episodeId={episodeId} />
+            <EpisodeButtonGroup
+              webtoonId={webtoonId}
+              episodeId={episodeId}
+              likeCount={data?.likeCount || 0}
+              averageStar={data?.averageStar || 0}
+            />
           </div>
         </div>
 
@@ -109,7 +118,8 @@ export default function Detail() {
               <div className="p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-[16px] font-medium pb-2">작가의 말</div>
                 <WriterInfoItem
-                  name={'작가 정보가 없음'}
+                  authorImage={data?.authorImage || ''}
+                  name={data?.authorName || ''}
                   description={data?.authorNote || ''}
                 />
               </div>
@@ -121,6 +131,7 @@ export default function Detail() {
                 <Textarea
                   placeholder="댓글을 입력해주세요"
                   height="130px"
+                  text={newComment}
                   onChange={(value) => setNewComment(value)}
                 />
 
@@ -135,7 +146,7 @@ export default function Detail() {
                           episodeId,
                           content: newComment,
                         });
-                        setNewComment('');
+                        setNewComment(' ');
                       },
                     }}
                   >
@@ -150,13 +161,7 @@ export default function Detail() {
 
               <div className="flex flex-col gap-2">
                 {result?.map((comment) => (
-                  <CommentItemGroup
-                    id={comment.id}
-                    nickname={comment.nickname}
-                    content={comment.content}
-                    like={0}
-                    timestamp={0}
-                  />
+                  <CommentItemGroup item={comment} key={comment.id} />
                 ))}
               </div>
             </div>

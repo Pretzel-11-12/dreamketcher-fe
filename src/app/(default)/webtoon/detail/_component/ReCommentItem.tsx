@@ -1,18 +1,28 @@
-import { fetchComment } from '@/app/api/fetchComment';
-import Image from 'next/image';
 import 'moment/locale/ko';
 import moment from 'moment';
+import Image from 'next/image';
 
-type CommentInfoType = {
-  info: fetchComment.Model.ResCommentUnit;
-  handleClick: () => void;
+export interface CommentInfo {
+  id: number;
+  nickname: string;
+  content: string;
+  createdAt: string;
+}
+
+type ReCommentInfoType = {
+  info: CommentInfo;
+  isLast: boolean;
 };
-const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
+const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
   moment.locale('ko');
   const timeAgo = moment(info.createdAt).fromNow();
-
   return (
-    <div className="grid grid-cols-[auto_1fr] py-4 gap-2 border-b border-gray-500/10">
+    <div
+      className={`grid grid-cols-[auto_auto_1fr] py-4 gap-2 ${
+        !isLast && 'border-b'
+      }`}
+    >
+      <div className="w-4 h-4 border-l border-b rounded-sm" />
       <span className="mdi mdi-account-circle text-gray-600/50 text-[40px] -mt-3"></span>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
@@ -21,14 +31,8 @@ const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
         </div>
 
         <div className="text-[13px]">{info.content}</div>
+
         <div className="flex gap-2">
-          <div
-            className="text-xs flex items-center gap-1.5 cursor-pointer"
-            onClick={handleClick}
-          >
-            <span className="mdi mdi-comment-processing-outline text-sm text-gray-400" />
-            답글
-          </div>
           <div className="text-xs flex items-center gap-0.5 cursor-pointer">
             <Image
               src="/assets/icon/like.svg"
@@ -44,4 +48,4 @@ const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
   );
 };
 
-export default CommentItem;
+export default ReCommentItem;

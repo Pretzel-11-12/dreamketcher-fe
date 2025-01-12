@@ -39,7 +39,9 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         episodeId: arg.episodeId,
       }),
     onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['creator-episode'] }),
+      queryClient.invalidateQueries({
+        queryKey: ['creator-episode'],
+      }),
     onError: (e) => console.log(e),
   });
 

@@ -30,7 +30,7 @@ const SeriesList = () => {
         query: { status: status },
       }),
   });
-  console.log(data);
+
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
   }

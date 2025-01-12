@@ -115,16 +115,12 @@ export namespace fetchWebtoonDetail {
   }) {
     const { webtoonId, episodeId, star } = param;
     const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/stars`,
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/star?point=${star}`,
       {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-
-        body: JSON.stringify({
-          point: star,
-        }),
       }
     );
 

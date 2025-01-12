@@ -65,7 +65,6 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       setError(null);
       setPreview(URL.createObjectURL(file));
       onFileSelect(file);
-      console.log(file);
     };
 
     img.src = URL.createObjectURL(file);
