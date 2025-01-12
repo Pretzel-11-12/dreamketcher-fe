@@ -13,12 +13,12 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
     try {
       const payload: {
         webtoonIds: number[];
-        approval: 'APPROVED' | 'APPROVAL_DENIED';
+        approval: 'APPROVAL' | 'APPROVAL_DENIED';
         reason: string;
         detailReason: string;
       } = {
         webtoonIds: [webtoon.id],
-        approval: 'APPROVED',
+        approval: 'APPROVAL',
         reason: '',
         detailReason: '',
       };
@@ -35,7 +35,7 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
     try {
       const payload: {
         webtoonIds: number[];
-        approval: 'APPROVED' | 'APPROVAL_DENIED';
+        approval: 'APPROVAL' | 'APPROVAL_DENIED';
         reason: string;
         detailReason: string;
       } = {

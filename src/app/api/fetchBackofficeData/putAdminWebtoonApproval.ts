@@ -1,6 +1,6 @@
 export const getAdminWebtoonApproval = async (payload: {
   webtoonIds: number[];
-  approval: 'APPROVAL_DENIED' | 'APPROVED';
+  approval: 'APPROVAL_DENIED' | 'APPROVAL';
   reason: string;
   detailReason: string;
 }) => {
