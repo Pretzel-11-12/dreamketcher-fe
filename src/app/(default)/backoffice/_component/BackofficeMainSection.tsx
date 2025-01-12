@@ -20,9 +20,13 @@ const BackofficeMainSection: React.FC<BackofficeMainSectionProps> = ({
         <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>
       </div>
       <div className="flex flex-col gap-5">
-        {webtoons?.map((webtoon) => (
-          <WebtoonManagement key={webtoon.id} webtoon={webtoon} />
-        ))}
+        {Array.isArray(webtoons) ? (
+          webtoons.map((webtoon) => (
+            <WebtoonManagement key={webtoon.id} webtoon={webtoon} />
+          ))
+        ) : (
+          <p>데이터가 없습니다.</p>
+        )}
       </div>
     </div>
   );
