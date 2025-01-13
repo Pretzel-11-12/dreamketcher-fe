@@ -19,7 +19,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
   const router = useRouter();
   function navigateToWebtoon() {
-    router.push('/webtoon/list');
+    router.push(`/webtoon/list?id=${webtoonId}`);
   }
 
   const toggleMenu = () => {
@@ -60,10 +60,14 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
 
   return (
     <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
-      <img
+      {/* <img
         src={thumbnail}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
+        onClick={navigateToWebtoon}
+      /> */}
+      <div
+        className="w-[100px] h-[150px] bg-[#d9d9d9] rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
       <div className="flex flex-col">
@@ -92,14 +96,13 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
         <Link
           href={{
             pathname: '/webtoon/detail',
-            query: { titleId: '12345', no: episodeCount },
+            query: { titleId: webtoonId, no: episodeCount },
           }}
         >
           <Button
             props={{
               size: 'M',
               variant: 'brand-yellow',
-              handleClick: navigateToWebtoon,
               containerStyles: 'text-xs px-5 py-3',
             }}
           >
