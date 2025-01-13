@@ -44,11 +44,9 @@ const Header: React.FC = () => {
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
-          businessEmail:
-            userInfo.businessEmail || '비즈니스 이메일을 등록해주세요',
+          businessEmail: userInfo.businessEmail || '',
           imageUrl: userInfo.imageUrl,
-          shortIntroduction:
-            userInfo.shortIntroduction || '한줄소개를 작성해주세요',
+          shortIntroduction: userInfo.shortIntroduction || '',
         });
       } catch (err) {
         // 에러가 FetchError 객체일 경우에만 상태 코드 확인
