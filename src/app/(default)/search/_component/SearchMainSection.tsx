@@ -24,7 +24,11 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
       <SearchMainSectionHeader />
       <div className="flex flex-col gap-5">
         {webtoons?.map((webtoon) => (
-          <SearchResultThumbnail key={webtoon.id} webtoon={webtoon} />
+          <SearchResultThumbnail
+            key={webtoon.id}
+            webtoon={webtoon}
+            keyword={keyword}
+          />
         ))}
       </div>
     </div>
