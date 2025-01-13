@@ -27,11 +27,15 @@ export namespace _Model {
 
   export interface EpisodeDetail {
     authorNote: string;
+    authorName: string;
+    authorImage: string;
     content: string[];
     id: number;
     no: number;
     thumbnail: string;
     title: string;
     viewCount: number;
+    likeCount: number;
+    averageStar: number;
   }
 }

@@ -1,12 +1,25 @@
-import CategoryTab, { CategoryItemProps } from "@/app/_component/CategoryTab";
+'use client';
+
+import CategoryTab, { CategoryItemProps } from '@/app/_component/CategoryTab';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const categories: CategoryItemProps[] = [
-  { id: "ing", label: "연재중", subLabel: "(0)" },
-  { id: "done", label: "완결", subLabel: "(0)" },
-  { id: "rest", label: "휴재", subLabel: "(0)" },
-  { id: "practice", label: "습작", subLabel: "(0)" },
-  { id: "trash", label: "휴지통", subLabel: "(0)" },
+  { id: 'IN_SERIES', label: '연재중' },
+  { id: 'FINISH', label: '완결' },
+  { id: 'NEW', label: '신작' },
 ];
 export default function SeriesCategorySelector() {
-  return <CategoryTab items={categories} selectedId={categories[0].id} />;
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status')!;
+
+  return (
+    <CategoryTab
+      items={categories}
+      selectedId={status}
+      handleCategoryClick={(value) => {
+        router.push(`/creator/series?status=${value}`);
+      }}
+    />
+  );
 }

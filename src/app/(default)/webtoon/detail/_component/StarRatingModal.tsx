@@ -56,7 +56,9 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
                 episodeId,
                 star: rating,
               });
-              () => closeModal();
+
+              alert('별점주기 성공');
+              closeModal();
             },
           }}
         >

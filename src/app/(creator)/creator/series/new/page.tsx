@@ -7,20 +7,24 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import { useSearchParams } from 'next/navigation';
 
 export default function SeriesNew() {
-  const seriesId = useSearchParams().get('seriesId');
-  const isExist = !!seriesId;
+  const webtoonId = useSearchParams().get('webtoonId');
+  const isExist = !!webtoonId;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [seriesId],
+    queryKey: [webtoonId],
     queryFn: () =>
-      fetchWebtoonDetail.getWebtoonDetails({ param: { id: seriesId! } }),
+      fetchWebtoonDetail.getWebtoonDetails({ param: { id: webtoonId! } }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
     enabled: isExist,
   });
   const _data = data as fetchWebtoonDetail.Model.WebtoonDetailUnit;
 
-  console.log({ _data });
+  const webtoonInfo = {
+    title: data?.webtoonTitle || '',
+    id: webtoonId!,
+    thumbnail: data?.webtoonThumbnail || '',
+  };
 
   return (
     <div
@@ -28,7 +32,7 @@ export default function SeriesNew() {
         isExist ? 'auto_1fr' : '1fr'
       }] mt-[80px] w-full h-full`}
     >
-      {isExist && <EpisodeSideBar />}
+      {isExist && <EpisodeSideBar webtoonInfo={webtoonInfo} />}
 
       <div className="flex flex-col w-full px-8">
         <div className="text-xl font-semibold py-4 border-b">

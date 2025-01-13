@@ -59,8 +59,11 @@ export namespace fetchWebtoonDetail {
     // return response.json();
   }
 
-  export async function favoriteWebtoons() {
-    const response = await fetch(`/api/v1/member/favorite`, {
+  export async function favoriteWebtoon(arg: { param: { id: string } }) {
+    const { param } = arg;
+    const { id } = param;
+
+    const response = await fetch(`/api/v1/member/favorite/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -112,16 +115,12 @@ export namespace fetchWebtoonDetail {
   }) {
     const { webtoonId, episodeId, star } = param;
     const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/stars`,
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/star?point=${star}`,
       {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-
-        body: JSON.stringify({
-          point: star,
-        }),
       }
     );
 

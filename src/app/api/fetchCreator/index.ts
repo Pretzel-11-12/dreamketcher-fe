@@ -7,7 +7,11 @@ export namespace fetchCreatorWebtoon {
 
   // Complete
   export async function getCreatorsWebtoon(arg?: {
-    query: { status?: string; page?: number; size?: number };
+    query: {
+      status?: 'IN_SERIES' | 'FINISH' | 'NEW';
+      page?: number;
+      size?: number;
+    };
   }): Promise<Model.CreatorWebtoons> {
     const { query } = arg || {};
     const queryString = query ? `?${qs.stringify(query)}` : '';
@@ -53,29 +57,28 @@ export namespace fetchCreatorWebtoon {
     };
   }): Promise<any> {
     const { webtoonId, body } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch(`/api/v1/webtoons/${webtoonId}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
     if (!response.ok) throw new Error(`Failed to edit webtoons`);
     return response.json();
   }
   // Complete
+
   export async function deleteWebtoon(arg: {
     webtoonId: string;
   }): Promise<any> {
     const { webtoonId } = arg;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${webtoonId}`,
-      {
-        method: 'DELETE',
-      }
-    );
+
+    const response = await fetch(`/api/v1/webtoons/${webtoonId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
     if (!response.ok) throw new Error(`Failed to delete webtoons`);
-    return response.json();
+    return response;
   }
 
   // Complete
@@ -132,7 +135,7 @@ export namespace fetchCreatorEpisode {
           thumbnail: arg.thumbnail,
           content: arg.content,
           authorNote: arg.authorNote,
-          publishedAt: arg.publishedAt || '2025-01-31',
+          publishedAt: arg.publishedAt,
         }),
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -154,7 +157,7 @@ export namespace fetchCreatorEpisode {
     publishedAt: string;
   }): Promise<any> {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/webtoons/${arg.webtoonId}/episode/${arg.episodeId}`,
+      `/api/v1/webtoons/${arg.webtoonId}/episode/${arg.episodeId}`,
       {
         method: 'PUT',
         body: JSON.stringify({
@@ -177,13 +180,16 @@ export namespace fetchCreatorEpisode {
   }): Promise<any> {
     const { webtoonId, episodeId } = arg;
 
-    const response = await fetch(`/api/v1/webtoons/${webtoonId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-    return response.json();
+    const response = await fetch(
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }
+    );
+    return response;
   }
 
   // Complete
