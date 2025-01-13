@@ -21,5 +21,5 @@ export const getAdminWebtoonStatus = async (payload: {
     throw new Error('Failed to fetch data');
   }
 
-  return res.json();
+  return res;
 };

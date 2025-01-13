@@ -6,33 +6,54 @@ import { useRouter } from 'next/navigation';
 
 type SearchResultThumbnailProps = {
   webtoon: IWebtoon;
+  keyword: string; // 검색 키워드 추가
 };
 
 const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
   webtoon,
+  keyword,
 }) => {
   const router = useRouter();
   const temporalTags = ['무협/사극', '사이다', '세계관', '성장'];
 
-  function tempClickHandler() {
+  const tempClickHandler = () => {
     router.push(`/webtoon/list?id=${webtoon.id}`);
-  }
+  };
+
+  // 텍스트 강조 함수
+  const highlightKeyword = (text: string, keyword: string) => {
+    if (!text) return ''; // text가 undefined일 경우 빈 문자열 반환
+    if (!keyword) return text; // 키워드가 없으면 원본 텍스트 반환
+
+    const parts = text.split(new RegExp(`(${keyword})`, 'gi')); // 키워드로 분리
+    return parts.map((part, index) =>
+      part.toLowerCase() === keyword.toLowerCase() ? (
+        <span key={index} className="font-bold">
+          {part}
+        </span>
+      ) : (
+        <span key={index}>{part}</span>
+      )
+    );
+  };
+
   return (
     <div
       className="flex w-full h-[190px] cursor-pointer gap-4"
       onClick={tempClickHandler}
     >
       <Image
-        // src={webtoon.thumbnail}
         src={'/assets/images/thumbnail-4.jpg'}
         alt="Webtoon thumbnail image"
         width={100}
         height={150}
       />
       <div className="flex flex-col text-xs gap-2 justify-center">
-        <p className="text-lg">{webtoon.title}</p>
+        <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
         <p className="text-[#888888]">
-          {webtoon.member} · {webtoon.genres[0]} · {webtoon.lastEpisode}화
+          {highlightKeyword(webtoon.member, keyword)} ·{' '}
+          {highlightKeyword(webtoon.genres[0], keyword)} · {webtoon.lastEpisode}
+          화
         </p>
         <div className="flex items-center gap-1">
           <Image
@@ -45,11 +66,13 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           <p className="text-brand-yellow">{webtoon.averageStar}</p>
           <p className="text-[#888888]">({webtoon.numOfStars})</p>
         </div>
-        <p className="text-sm">{webtoon.description}</p>
+        <p className="text-sm">
+          {highlightKeyword(webtoon.description, keyword)}
+        </p>
         <div className="flex flex-wrap">
           {temporalTags.slice(0, 3).map((tag, index) => (
             <div className="bg-gray-100 m-1 p-1 rounded-[4px]" key={index}>
-              {tag}
+              {highlightKeyword(tag, keyword)}
             </div>
           ))}
           {temporalTags.length > 3 && (

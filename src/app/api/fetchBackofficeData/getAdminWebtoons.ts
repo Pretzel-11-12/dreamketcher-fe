@@ -13,5 +13,6 @@ export const getAdminWebtoons = async () => {
     throw new Error('Failed to fetch data');
   }
 
-  return res.json();
+  const data = await res.json(); // 전체 데이터를 비동기로 파싱
+  return data.content; // content 부분만 반환
 };

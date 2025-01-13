@@ -1,6 +1,6 @@
 export const getAdminWebtoonApproval = async (payload: {
   webtoonIds: number[];
-  approval: 'APPROVAL_DENIED' | 'APPROVED';
+  approval: 'APPROVAL_DENIED' | 'APPROVAL';
   reason: string;
   detailReason: string;
 }) => {
@@ -23,5 +23,5 @@ export const getAdminWebtoonApproval = async (payload: {
     throw new Error('Failed to fetch data');
   }
 
-  return res.json();
+  return res;
 };

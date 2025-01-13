@@ -7,11 +7,18 @@ import WebtoonSlider from './WebtoonSlider';
 import FilterComponent from './FilterComponent';
 import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
 import { useSearchParams } from 'next/navigation';
+import SliderDropdown from './SliderDropdown';
 
 interface ThumbnailContainerProps {
   type: string;
   title: string;
 }
+
+const dropdownOptions = [
+  { label: '실시간', value: 'latest' },
+  { label: '별점순', value: 'stars' },
+  { label: '좋아요순', value: 'likes' },
+];
 
 const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
   type,
@@ -49,14 +56,8 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
       <div className="flex text-[17px] items-center gap-2 justify-between p-3">
         <div className="flex items-center gap-2">
           <p>{title}</p>
-          {selectedFilter && (
-            <FilterComponent
-              selectedFilter={selectedFilter}
-              setFilter={setSelectedFilter}
-            />
-          )}
+          <SliderDropdown options={dropdownOptions} defaultOption="latest" />
         </div>
-        {/* <p className="text-[14px] text-[#888888]">더보기</p> */}
       </div>
       <WebtoonSlider webtoons={data || []} />
     </div>

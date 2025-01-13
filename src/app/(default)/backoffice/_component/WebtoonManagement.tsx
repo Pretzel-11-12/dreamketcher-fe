@@ -3,6 +3,7 @@ import React from 'react';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getAdminWebtoonApproval } from '@/app/api/fetchBackofficeData/putAdminWebtoonApproval';
 import { getAdminWebtoonStatus } from '@/app/api/fetchBackofficeData/putAdminWebtoonStatus';
+import { ApprovalPayload as IPayload } from '@/model/WebtoonApprove';
 
 type WebtoonManagementProps = {
   webtoon: IWebtoon;
@@ -11,15 +12,10 @@ type WebtoonManagementProps = {
 const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
   const handleApprove = async () => {
     try {
-      const payload: {
-        webtoonIds: number[];
-        approval: 'APPROVED' | 'APPROVAL_DENIED';
-        reason: string;
-        detailReason: string;
-      } = {
+      const payload: IPayload = {
         webtoonIds: [webtoon.id],
-        approval: 'APPROVED',
-        reason: '',
+        approval: 'APPROVAL',
+        reason: 'COPYRIGHT',
         detailReason: '',
       };
       const result = await getAdminWebtoonApproval(payload);
@@ -33,16 +29,11 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
 
   const handleReject = async () => {
     try {
-      const payload: {
-        webtoonIds: number[];
-        approval: 'APPROVED' | 'APPROVAL_DENIED';
-        reason: string;
-        detailReason: string;
-      } = {
+      const payload: IPayload = {
         webtoonIds: [webtoon.id],
         approval: 'APPROVAL_DENIED',
-        reason: '',
-        detailReason: '.',
+        reason: 'COPYRIGHT',
+        detailReason: '',
       };
       const result = await getAdminWebtoonApproval(payload);
       console.log('Rejection Success:', result);
@@ -75,9 +66,9 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
     <div className="flex w-full h-[60px] cursor-pointer items-center border p-4 gap-1">
       <p className="w-[50px]">{webtoon.id}</p>
       <p className="w-[200px]">{webtoon.title}</p>
-      <p className="w-[150px]">
+      {/* <p className="w-[150px]">
         {webtoon.genres.map((genre) => `#${genre}`).join(', ')}
-      </p>
+      </p> */}
       <p className="w-[150px]">{webtoon.member}</p>
       <p className="w-[150px]">웹툰 상태(임시)</p>
       <button
