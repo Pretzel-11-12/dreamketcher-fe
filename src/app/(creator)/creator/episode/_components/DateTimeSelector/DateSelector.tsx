@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import './calendar.css';
+import moment from 'moment';
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+type DateSelectorType = {
+  onChange: (value: string) => void;
+};
 
-const DateSelector: React.FC<{}> = () => {
+const DateSelector: React.FC<DateSelectorType> = ({ onChange }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [value, setValue] = useState<Value>(new Date());
+  const [value, setValue] = useState<Date>(new Date());
 
-  const onChangeCalendar = (value: Value) => {
+  const onChangeCalendar = (value: any) => {
     setValue(value);
+    onChange(moment(value).format('YYYY-MM-DD'));
     setVisible(false);
   };
 
@@ -20,9 +23,7 @@ const DateSelector: React.FC<{}> = () => {
         onClick={() => setVisible(!visible)}
         className="text-sm bg-white border border-brand-yellow rounded-md p-2 flex justify-center font-normal cursor-pointer w-[180px]"
       >
-        <span>
-          {value ? new Date(String(value)).toLocaleDateString() : '-'}
-        </span>
+        <span>{value ? moment(value).format('YYYY-MM-DD') : '-'}</span>
       </div>
       {visible && (
         <Calendar

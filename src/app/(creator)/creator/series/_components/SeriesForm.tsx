@@ -97,9 +97,8 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     try {
       const response = await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
       if (response.id) {
-        console.log(response.id);
         alert('작품이 등록되었습니다');
-        router.push(`/creator/series`);
+        router.push(`/creator/series?status=NEW`);
       }
     } catch (e) {}
   };
@@ -153,22 +152,22 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       <div className="grid grid-cols-[10rem_1fr] items-baseline">
         <div>작품 설명</div>
         <Textarea
-          text={webtoonInfo.description}
+          text={webtoonInfo.story}
           placeholder="작품 설명에 필요한 내용을 작성해주세요."
           subText="0/30"
-          onChange={(description) =>
-            setWebtoonInfo((v) => ({ ...v, description: description }))
-          }
+          onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
         />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 한줄 설명</div>
         <Input
-          text={webtoonInfo.story}
+          text={webtoonInfo.description}
           placeholder="작품에 대한 설명을 한줄로 적어주세요."
           subText="0/400"
-          onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
+          onChange={(description) =>
+            setWebtoonInfo((v) => ({ ...v, description: description }))
+          }
         />
       </div>
       <div className="pb-24">

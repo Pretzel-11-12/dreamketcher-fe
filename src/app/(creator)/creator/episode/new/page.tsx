@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import EpisodeForm, { EpisodeFormInfo } from '../_components/EpisodeForm';
+import EpisodeForm from '../_components/EpisodeForm';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
@@ -17,8 +17,6 @@ export default function EpisodeNew() {
         webtoonId,
         episodeId,
       }),
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
   });
 
   return (

@@ -1,90 +1,113 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchComment } from '@/app/api/fetchComment';
 import Image from 'next/image';
 import CommentItem from './CommentItem';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
+import Button from '@/app/_component/Button';
+import Textarea from '@/app/_component/Textarea';
+import ReCommentItem from './ReCommentItem';
 
-export interface CommentInfo {
-  id: number;
-  nickname: string;
-  content: string;
-  timestamp: number;
-  like: number;
+export interface CommentsInfo {
+  item: fetchComment.Model.ResCommentUnit;
 }
-export default function CommentItemGroup({
-  id,
-  nickname,
-  content,
-  timestamp,
-  like,
-}: CommentInfo) {
+const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
 
   const [enableRecomments, setEnableRecomments] = useState(false);
-  const [recomments, setRecomments] = useState([]);
+  const [newReComment, setNewReComment] = useState('');
 
-  const { data } = useQuery({
-    queryKey: [webtoonId, episodeId, 'recomments'],
+  const { data: recomments } = useQuery({
+    queryKey: [item.id, 'recomments'],
     queryFn: () =>
       fetchComment.getReComments({
-        param: { webtoonId, episodeId, commentId: id },
-        query: { size: 20, page: 1, order: 'DESC' },
+        param: { webtoonId, episodeId, commentId: item.id },
+        query: { size: 20, page: 0, order: 'DESC' },
       }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
     enabled: enableRecomments,
   });
+
+  const queryClient = useQueryClient();
+  const mutationWebtoon = useMutation({
+    mutationFn: (arg: {
+      webtoonId: string;
+      episodeId: string;
+      commentId: string;
+      content: string;
+    }) =>
+      fetchComment.postReComment({
+        param: {
+          webtoonId: arg.webtoonId,
+          episodeId: arg.episodeId,
+          commentId: arg.commentId,
+          content: arg.content,
+        },
+      }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [item.id, 'recomments'],
+      }),
+    onError: (e) => console.log(e),
+  });
+
   return (
     <div>
       <CommentItem
-        info={{ id, content, nickname, timestamp, like }}
-        children={
-          <div className="flex gap-2">
-            <div className="text-xs flex items-center gap-1.5 cursor-pointer">
-              <span className="mdi mdi-comment-processing-outline text-sm text-gray-400" />
-              답글
-            </div>
-            <div className="text-xs flex items-center gap-0.5 cursor-pointer">
-              <Image
-                src="/assets/icon/like.svg"
-                alt="like"
-                width={20}
-                height={20}
+        info={item}
+        handleClick={() => setEnableRecomments(!enableRecomments)}
+      />
+      <div>
+        {enableRecomments && (
+          <div className="px-4 bg-[#F9F9F9] pb-4">
+            {recomments?.result?.map((d, i) => (
+              <ReCommentItem
+                key={d.id}
+                isLast={recomments.totalElements === i + 1}
+                info={{
+                  id: d.id,
+                  content: d.content,
+                  nickname: d.nickname,
+                  createdAt: d.createdAt,
+                }}
               />
-              좋아요 (아직 API 없음)
+            ))}
+            <div className="relative px-10 pt-4">
+              <Textarea
+                placeholder="대댓글을 입력해주세요"
+                height="130px"
+                text={newReComment}
+                onChange={(value) => setNewReComment(value)}
+              />
+
+              <div className="absolute bottom-4 right-14">
+                <Button
+                  props={{
+                    variant: 'brand-yellow',
+                    size: 'S',
+                    onClick: () => {
+                      mutationWebtoon.mutate({
+                        webtoonId,
+                        episodeId,
+                        content: newReComment,
+                        commentId: String(item.id),
+                      });
+                      setNewReComment(' ');
+                    },
+                  }}
+                >
+                  대댓글 남기기
+                </Button>
+              </div>
             </div>
           </div>
-        }
-      />
-
-      {data &&
-        data.result?.map((d) => (
-          <CommentItem
-            info={{
-              id: d.id,
-              content: d.content,
-              nickname: d.nickname,
-              timestamp: 0,
-              like: 0,
-            }}
-            children={
-              <div className="flex gap-2">
-                <div className="text-xs flex items-center gap-0.5 cursor-pointer">
-                  <Image
-                    src="/assets/icon/like.svg"
-                    alt="like"
-                    width={20}
-                    height={20}
-                  />
-                  좋아요 (아직 API 없음)
-                </div>
-              </div>
-            }
-          />
-        ))}
+        )}
+      </div>
     </div>
   );
-}
+};
+export default CommentItemGroup;

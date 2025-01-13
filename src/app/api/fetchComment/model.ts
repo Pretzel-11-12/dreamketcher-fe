@@ -6,6 +6,7 @@ export namespace _Model {
     nickname: string;
     content: string;
     childCommentCount: number;
+    createdAt: string;
   }
 
   export interface ResReCommentUnit {
@@ -14,5 +15,6 @@ export namespace _Model {
     content: string;
     parentCommentId: number;
     commentOrder: number;
+    createdAt: string;
   }
 }

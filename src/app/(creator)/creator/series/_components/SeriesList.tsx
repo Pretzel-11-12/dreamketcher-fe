@@ -6,24 +6,29 @@ import Button from '@/app/_component/Button';
 import Link from 'next/link';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 
 const headers = [
   '작품',
   '회차 수',
   '업데이트',
   '연재 시작일',
-  '조회수',
+  '좋아요 수',
   '총 댓글',
   '관심웹툰',
   '옵션',
 ];
 
-const SeriesList: React.FC<{ genre?: string }> = (genre) => {
+const SeriesList = () => {
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status')! as 'IN_SERIES' | 'FINISH' | 'NEW';
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: [genre],
-    queryFn: () => fetchCreatorWebtoon.getCreatorsWebtoon(),
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
+    queryKey: ['creator-webtoon', status],
+    queryFn: () =>
+      fetchCreatorWebtoon.getCreatorsWebtoon({
+        query: { status: status },
+      }),
   });
 
   if (isLoading) {

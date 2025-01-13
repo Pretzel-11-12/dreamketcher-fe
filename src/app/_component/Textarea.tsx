@@ -25,16 +25,14 @@ const Textarea: React.FC<TextareaProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
-    setText(value);
     if (onChange) onChange(value);
   };
   const [isFocused, setIsFocused] = useState(false);
-  const [_text, setText] = useState(text);
 
   return (
     <div className="relative flex flex-col gap-1 text-sm">
       <textarea
-        value={_text}
+        value={text}
         placeholder={placeholder}
         onChange={handleChange}
         onFocus={() => setIsFocused(true)}

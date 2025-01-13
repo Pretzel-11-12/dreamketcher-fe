@@ -1,7 +1,7 @@
 'use client';
-
-import WriterInfoItem, { UserInfo } from './_component/WriterInfoItem';
-import CommentItemGroup, { CommentInfo } from './_component/CommentItemGroup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import WriterInfoItem from './_component/WriterInfoItem';
+import CommentItemGroup from './_component/CommentItemGroup';
 import EpisodeButtonGroup from './_component/EpisodeButtonGroup';
 import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
@@ -9,12 +9,14 @@ import Dropdown from '@/app/_component/Dropdown';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
-import DefaultImage from '@/app/_component/DefaultImage';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useState } from 'react';
 import Image from 'next/image';
+
+import _ from 'lodash';
+import { da } from '@faker-js/faker';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -34,13 +36,12 @@ export default function Detail() {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-
   const { data: comments } = useQuery({
     queryKey: [webtoonId, episodeId, 'comments'],
     queryFn: () =>
       fetchComment.getComments({
         param: { webtoonId, episodeId },
-        query: { size: 20, page: 1, order: 'DESC' },
+        query: { size: 20, page: 0, order: 'DESC' },
       }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -50,6 +51,27 @@ export default function Detail() {
     totalElements: 0,
     result: [],
   };
+  const queryClient = useQueryClient();
+
+  const mutationWebtoon = useMutation({
+    mutationFn: (arg: {
+      webtoonId: string;
+      episodeId: string;
+      content: string;
+    }) =>
+      fetchComment.postComment({
+        param: {
+          webtoonId: arg.webtoonId,
+          episodeId: arg.episodeId,
+          content: arg.content,
+        },
+      }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [webtoonId, episodeId, 'comments'],
+      }),
+    onError: (e) => console.log(e),
+  });
 
   return (
     <>
@@ -59,18 +81,34 @@ export default function Detail() {
       <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
         <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
           <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
-            {data?.content.map((c, i) => (
+            {_.isString(data?.content) ? (
               <Image
-                key={`${i}`}
                 alt={''}
-                src={c}
+                src={data?.content}
                 width={0}
                 height={0}
                 sizes="100vw"
                 style={{ width: '100%', height: 'auto' }}
               />
-            ))}
-            <EpisodeButtonGroup webtoonId={webtoonId} episodeId={episodeId} />
+            ) : (
+              data?.content.map((c, i) => (
+                <Image
+                  key={`${i}`}
+                  alt={''}
+                  src={c}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              ))
+            )}
+            <EpisodeButtonGroup
+              webtoonId={webtoonId}
+              episodeId={episodeId}
+              likeCount={data?.likeCount || 0}
+              averageStar={data?.averageStar || 0}
+            />
           </div>
         </div>
 
@@ -80,7 +118,8 @@ export default function Detail() {
               <div className="p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-[16px] font-medium pb-2">작가의 말</div>
                 <WriterInfoItem
-                  name={'작가 정보가 없음'}
+                  authorImage={data?.authorImage || ''}
+                  name={data?.authorName || ''}
                   description={data?.authorNote || ''}
                 />
               </div>
@@ -92,6 +131,7 @@ export default function Detail() {
                 <Textarea
                   placeholder="댓글을 입력해주세요"
                   height="130px"
+                  text={newComment}
                   onChange={(value) => setNewComment(value)}
                 />
 
@@ -100,10 +140,14 @@ export default function Detail() {
                     props={{
                       variant: 'brand-yellow',
                       size: 'S',
-                      onClick: () =>
-                        fetchComment.postComment({
-                          param: { webtoonId, episodeId, content: newComment },
-                        }),
+                      onClick: () => {
+                        mutationWebtoon.mutate({
+                          webtoonId,
+                          episodeId,
+                          content: newComment,
+                        });
+                        setNewComment(' ');
+                      },
                     }}
                   >
                     댓글 남기기
@@ -117,13 +161,7 @@ export default function Detail() {
 
               <div className="flex flex-col gap-2">
                 {result?.map((comment) => (
-                  <CommentItemGroup
-                    id={comment.id}
-                    nickname={comment.nickname}
-                    content={comment.content}
-                    like={0}
-                    timestamp={0}
-                  />
+                  <CommentItemGroup item={comment} key={comment.id} />
                 ))}
               </div>
             </div>

@@ -7,6 +7,8 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 type EpisodeButtonGroupProp = {
   webtoonId: string;
   episodeId: string;
+  likeCount: number;
+  averageStar: number;
 };
 const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
   const { webtoonId, episodeId } = items;
@@ -18,7 +20,7 @@ const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
       handleClick: async () =>
         await fetchWebtoonDetail.favoriteEpisode({ webtoonId, episodeId }),
       icon: { src: '/assets/icon/like.svg', size: 34 },
-      subText: '30',
+      subText: String(items.likeCount),
     },
     {
       text: '관심웹툰',
@@ -30,7 +32,7 @@ const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
       text: '별점주기',
       handleClick: () => handleOpenModal(true),
       icon: { src: '/assets/icon/star.svg', size: 15, iconWithText: '4.95' },
-      subText: '852명 참여',
+      subText: String(items.averageStar),
     },
     {
       text: '신고하기',

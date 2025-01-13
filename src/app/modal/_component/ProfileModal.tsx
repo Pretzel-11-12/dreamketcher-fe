@@ -29,7 +29,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleClickCreatorPage = () => {
-    router.push('/creator/series');
+    router.push('/creator/series?status=IN_SERIES');
     onClose();
   };
 

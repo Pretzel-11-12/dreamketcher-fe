@@ -27,6 +27,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     genreNames,
     AuthorNickname,
   } = webtoon;
+
   const [interest, setInterest] = useState<{
     active: boolean;
     count: number;
@@ -35,16 +36,15 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     count: interestCount,
   });
 
-  const { data } = useQuery<{ webtoonId: number }[]>({
-    queryKey: [],
-    queryFn: () => fetchWebtoonDetail.favoriteWebtoons(),
+  const { data: isFavotire } = useQuery<{ webtoonId: number }[]>({
+    queryKey: [webtoonId],
+    queryFn: () =>
+      fetchWebtoonDetail.favoriteWebtoon({ param: { id: String(webtoonId) } }),
   });
 
-  const target = data?.find((fav) => fav.webtoonId === webtoonId);
-
   useEffect(() => {
-    setInterest((i) => ({ active: !!target, count: i.count }));
-  }, [target]);
+    setInterest((i) => ({ active: !!isFavotire, count: i.count }));
+  }, [isFavotire]);
 
   const handleLikeToggle = async () => {
     try {
