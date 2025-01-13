@@ -4,8 +4,10 @@ import Button from '@/app/_component/Button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FavoriteWebtoon } from '@/model/Webtoon';
+import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
 const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
+  webtoonId,
   title,
   thumbnail,
   authorNickname,
@@ -24,9 +26,13 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
     setShowMenu((prev) => !prev);
   };
 
-  const handleDelete = () => {
-    alert(`작품 '${title}'이 삭제되었습니다.`);
-    // TODO : 삭제 로직 추가
+  const handleDelete = async () => {
+    await fetchWebtoonDetail.deleteFavoriteWebtoon({
+      param: { id: String(webtoonId) },
+    });
+
+    alert(`작품 '${title}'이 관심웹툰에서 삭제되었습니다.`);
+    window.location.reload();
   };
 
   // 다른 영역 클릭 시 메뉴 닫기
@@ -42,6 +48,15 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}.${month}.${day}`;
+  };
 
   return (
     <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
@@ -59,7 +74,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
           {title}
         </h3>
         <p className="text-xs text-[#888888] mt-1">
-          {authorNickname} &#183; {genres} &#183; {episodeCount}화
+          {authorNickname} {genres} &#183; {episodeCount}화
         </p>
 
         <div className="flex mt-1 mb-4">
@@ -70,7 +85,9 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
             height={12}
             className="mr-2"
           />
-          <p className="text-xs text-[#888888]">{updatedAt} 업데이트</p>
+          <p className="text-xs text-[#888888]">
+            {formatDate(updatedAt)} 업데이트
+          </p>
         </div>
         <Link
           href={{
