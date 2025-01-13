@@ -19,3 +19,33 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.slider-container {
+  position: relative !important; /* 부모 요소의 위치 기준 설정 */
+}
+
+.slick-prev,
+.slick-next {
+  background-color: #0a0a0a; /* 배경색 */
+  border-radius: 50%; /* 원형 */
+  width: 40px; /* 버튼 크기 */
+  height: 40px;
+  z-index: 10; /* 슬라이더 위에 표시 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: #ddd; /* hover 효과 */
+}
+
+.slick-prev {
+  left: -50px; /* 왼쪽 위치 */
+}
+
+.slick-next {
+  right: -50px; /* 오른쪽 위치 */
+  position: absolute !important; /* 명시적으로 절대 위치 지정 */
+  top: 100%; /* 슬라이더의 세로 가운데 */
+  transform: translateY(-50%); /* 세로 가운데 정렬 */
+}
