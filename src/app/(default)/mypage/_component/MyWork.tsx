@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import WorkItem from './WorkItem';
 import { Tag } from '../../webtoon/list/_component/WebtoonInfo';
+import Link from 'next/link';
 
 const works = {
   ongoing: [
@@ -38,12 +39,12 @@ const MyWork: React.FC = () => {
     <div className="w-full">
       <div className="flex justify-start mt-10 mb-6 border-b border-b-line">
         {[
-          { label: '연재 웹툰', type: 'ongoing' },
-          { label: '완결 웹툰', type: 'completed' },
+          { label: '내 연재 웹툰', type: 'ongoing' },
+          { label: '내 완결 웹툰', type: 'completed' },
         ].map((tab) => (
           <button
             key={tab.type}
-            className={`w-[100px] h-[48px] text-[16px] text-center border-b-2 transition duration-300 ${
+            className={`w-[130px] h-[48px] text-center border-b-2 transition duration-300 ${
               selectedWorkType === tab.type
                 ? 'text-brand-yellow border-b-brand-yellow'
                 : 'text-gray-500 border-b-transparent'
@@ -65,9 +66,11 @@ const MyWork: React.FC = () => {
           <p className="text-[#888888] text-sm mb-8">
             새로운 웹툰을 시작해보세요!
           </p>
-          <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
-            새 웹툰 등록하기
-          </button>
+          <Link href={'/creator/series/new'}>
+            <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
+              새 웹툰 등록하기
+            </button>
+          </Link>
         </div>
       ) : (
         <div className="space-y-4">
