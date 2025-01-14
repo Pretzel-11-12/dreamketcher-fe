@@ -78,7 +78,7 @@ const Temp = () => {
         >
           ✕
         </button>
-        <h2 className="text-xl font-semibold">프로필 수정</h2>
+        <h2 className="text-xl font-semibold text-[#282828]">프로필 수정</h2>
         <Button
           props={{
             size: 'M',
