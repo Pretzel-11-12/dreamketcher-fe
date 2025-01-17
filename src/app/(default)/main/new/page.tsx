@@ -64,14 +64,21 @@ export default function New() {
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">
         <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3">
-          <ThumbnailContainer type={'new'} title={'베스트 신작 웹툰'} />
+          <ThumbnailContainer type={'new'} title={'베스트 신작 웹툰'} />{' '}
           <div className="flex gap-1 mt-10">
             <Image
-              src="/assets/images/promotion.jpg"
+              src="/assets/images/promotion-3.png"
               alt="Site promotion image"
-              layout="responsive"
-              width={693}
-              height={50}
+              width={340}
+              height={60}
+              style={{ height: 'auto' }}
+            />
+            <Image
+              src="/assets/images/promotion-4.png"
+              alt="Site promotion image"
+              width={340}
+              height={60}
+              style={{ height: 'auto' }}
             />
           </div>
           <DetailThumbnailContainer title={'전체 신작 웹툰'} />
