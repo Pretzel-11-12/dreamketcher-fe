@@ -106,8 +106,11 @@ const Header: React.FC = () => {
                 />
               </>
             ) : (
-              <Link href="/login" className="px-2 py-2 text-sm">
-                로그인
+              <Link
+                className="w-[110px] h-[34px] flex items-center justify-center bg-brand-blue text-white text-sm rounded-[5px]"
+                href="/login"
+              >
+                로그인/회원가입
               </Link>
             )}
           </div>

@@ -89,7 +89,7 @@ export default function Main({ params }: Props) {
           <LargeThumbnailContainer title={'키워드 별 추천 작품'} />
           <LargeThumbnailContainer title={'장르별 신작 작품'} />
         </div>
-        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-[24px]">
           <p>최근 본 작품</p>
           <div className="flex mt-3 mb-14">
             {webtoonThumbnails &&

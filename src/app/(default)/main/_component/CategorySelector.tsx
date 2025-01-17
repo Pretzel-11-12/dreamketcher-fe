@@ -38,11 +38,12 @@ const CategorySelector: React.FC = () => {
           {categories.map((category) => (
             <button
               key={category.name}
-              className={`flex items-center justify-center w-[125px] h-[55px] text-[16px] hover:bg-brand-yellow hover:text-white transition duration-300 ${
+              className={`flex items-center justify-center w-[125px] h-[55px] text-[16px] transition duration-300 ${
                 selectedCategory === category.name
                   ? 'bg-brand-yellow text-white'
                   : 'bg-white text-black'
-              }`}
+              }
+              `}
               onClick={() => handleCategoryClick(category.name, category.path)}
             >
               <span>{category.name}</span>
@@ -55,11 +56,10 @@ const CategorySelector: React.FC = () => {
             href="/creator/series?status=IN_SERIES"
           >
             <Image
-              src={'/assets/icon/studio.svg'}
+              src={'/assets/icon/studio.png'}
               alt="Studio Icon"
-              className="m-1"
-              width={14}
-              height={14}
+              width={20}
+              height={20}
             />
             작업실
           </Link>
