@@ -6,7 +6,7 @@ export namespace fetchCreatorWebtoon {
   export import Model = __Model;
 
   // Complete
-  export async function getCreatorsWebtoon(arg?: {
+  export async function getCreatorsWebtoons(arg?: {
     query: {
       status?: 'IN_SERIES' | 'FINISH' | 'NEW';
       page?: number;
@@ -24,6 +24,24 @@ export namespace fetchCreatorWebtoon {
     });
     if (!response.ok) throw new Error(`Failed to get creators webtoons`);
     return response.json();
+  }
+
+  export async function getCreatorsWebtoonDetail(arg: {
+    param: { id: string };
+  }): Promise<Model.CreatorWebtoonDetail> {
+    const { param } = arg;
+    const { id } = param;
+
+    const response = await fetch(`/api/v1/webtoons/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+
+    if (!response.ok) throw new Error(`Failed to get creators webtoon`);
+    const res: Model.CreatorWebtoonDetail = await response.json();
+    return { ...res, prologue: JSON.parse(res.prologue) };
   }
   // Complete
   export async function postWebtoon(arg: {

@@ -9,15 +9,10 @@ import { useEffect, useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
-import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-export interface SeriesFormInfo {
-  title: string;
-  thumbnail: string;
-  prologue: string;
-  description: string;
-  story: string;
-}
+export interface SeriesFormInfo
+  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id'> {}
+
 const options = [
   { label: '로맨스', id: '1' },
   { label: '판타지', id: '2' },
@@ -32,7 +27,7 @@ const options = [
 ];
 
 type SeriesFormProp = {
-  item: fetchWebtoonDetail.Model.WebtoonDetailUnit;
+  item?: fetchCreatorWebtoon.Model.CreatorWebtoonDetail;
 };
 
 const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
@@ -42,18 +37,13 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     prologue: '',
     story: '',
     description: '',
+    genreNames: [],
   });
   const router = useRouter();
 
   useEffect(() => {
     if (!!item) {
-      setWebtoonInfo({
-        title: item.webtoonTitle,
-        thumbnail: item.webtoonThumbnail,
-        prologue: '데이터가 없삼요',
-        story: item.webtoonStory,
-        description: '데이터가 없삼요',
-      });
+      setWebtoonInfo(item);
     }
   }, [item]);
 
@@ -143,7 +133,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <div>프롤로그</div>
 
         <ThumbnailUploader
-          _preview={webtoonInfo.prologue}
+          _preview={webtoonInfo.prologue[0]}
           onFileSelect={handlePrologue}
           imageFormat={{ width: 480 }}
         />

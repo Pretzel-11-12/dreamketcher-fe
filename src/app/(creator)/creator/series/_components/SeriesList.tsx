@@ -26,7 +26,7 @@ const SeriesList = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['creator-webtoon', status],
     queryFn: () =>
-      fetchCreatorWebtoon.getCreatorsWebtoon({
+      fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: status },
       }),
   });

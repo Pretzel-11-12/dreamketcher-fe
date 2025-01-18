@@ -5,7 +5,7 @@ export const useCreatorsWebtoon = (status: 'IN_SERIES' | 'FINISH' | 'NEW') => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['creatorsWebtoon', status],
     queryFn: () => {
-      return fetchCreatorWebtoon.getCreatorsWebtoon({
+      return fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status, page: 1, size: 10 },
       });
     },

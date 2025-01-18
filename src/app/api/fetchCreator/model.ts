@@ -29,4 +29,14 @@ export namespace _Model {
     title: string;
     updatedAt: string;
   }
+
+  export interface CreatorWebtoonDetail {
+    id: number;
+    title: string;
+    thumbnail: string;
+    prologue: string;
+    story: string;
+    description: string;
+    genreNames: string[];
+  }
 }
