@@ -105,7 +105,7 @@ const Temp = () => {
         />
         <label
           htmlFor="profileImageInput"
-          className="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer shadow-md"
+          className="absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#F2F2F2]"
         >
           <Image
             src="/assets/icon/camera.svg"
