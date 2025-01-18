@@ -101,7 +101,7 @@ const Temp = () => {
           alt="프로필 이미지"
           width={90}
           height={90}
-          className="rounded-full object-cover border border-[#F2F2F2]"
+          className="rounded-full object-cover border border-[#F2F2F2] w-[90px] h-[90px]"
         />
         <label
           htmlFor="profileImageInput"
