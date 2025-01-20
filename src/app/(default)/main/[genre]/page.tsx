@@ -72,7 +72,7 @@ export default function Main({ params }: Props) {
           <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
           <div className="flex gap-1 mt-10">
             <Image
-              src="/assets/images/promotion.jpg"
+              src="/assets/images/promotion-1.png"
               alt="Site promotion image"
               width={340}
               height={60}

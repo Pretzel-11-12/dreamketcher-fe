@@ -67,7 +67,7 @@ export default function Finish() {
           <ThumbnailContainer type={'finish'} title={'베스트 완결 웹툰'} />
           <div className="flex gap-1 mt-10">
             <Image
-              src="/assets/images/promotion.jpg"
+              src="/assets/images/promotion-1.png"
               alt="Site promotion image"
               layout="responsive"
               width={693}
