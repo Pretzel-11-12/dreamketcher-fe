@@ -37,7 +37,7 @@ const GenreSelector: React.FC = () => {
           {genres.map((genre) => (
             <button
               key={genre.param}
-              className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] hover:text-brand-yellow hover:border-b border-b-brand-yellow transition duration-300 ${
+              className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] border-b-brand-yellow transition duration-300 ${
                 currentGenre === genre.param
                   ? 'text-brand-yellow border-b border-b-brand-yellow'
                   : 'text-[#888888]'
