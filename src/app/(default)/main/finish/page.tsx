@@ -4,6 +4,8 @@ import Image from 'next/image';
 import RecentThumbnail from '@/app/(default)/main/_component/RecentThumbnail';
 import ThumbnailContainer from '@/app/(default)/main/_component/ThumbnailContainer';
 import DetailThumbnailContainer from '@/app/(default)/main/_component/DetailThumbnailContainer';
+import Pagination from '@/app/_component/Pagination';
+import { useState } from 'react';
 
 interface WebtoonThumbnailData {
   id: number;
@@ -60,10 +62,12 @@ const announcements = [
 ];
 
 export default function Finish() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1024px]">
-        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3">
+        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3  pb-32">
           <ThumbnailContainer type={'finish'} title={'베스트 완결 웹툰'} />
           <div className="flex gap-1 mt-10">
             <Image
@@ -75,6 +79,11 @@ export default function Finish() {
             />
           </div>
           <DetailThumbnailContainer title={'전체 완결 웹툰'} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={10}
+            onPageChange={setCurrentPage}
+          />
         </div>
         <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
           <p>최근 본 작품</p>
