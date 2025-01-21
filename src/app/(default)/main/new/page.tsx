@@ -71,14 +71,14 @@ export default function New() {
               alt="Site promotion image"
               width={340}
               height={60}
-              style={{ height: 'auto' }}
+              layout="intrinsic"
             />
             <Image
               src="/assets/images/promotion-4.png"
               alt="Site promotion image"
               width={340}
               height={60}
-              style={{ height: 'auto' }}
+              layout="intrinsic"
             />
           </div>
           <DetailThumbnailContainer title={'전체 신작 웹툰'} />
