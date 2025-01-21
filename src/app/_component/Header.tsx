@@ -67,7 +67,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="fixed w-full bg-white z-50">
-      <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto px-4 p-0 relative">
+      <div className="flex items-center justify-between w-full max-w-[1024px] h-[80px] mx-auto relative">
         <hr className="fixed left-0 w-[100vw] mt-[81px]" />
         <div className="flex items-center space-x-10">
           <Link
@@ -102,8 +102,11 @@ const Header: React.FC = () => {
                   />
                 </>
               ) : (
-                <Link href="/login" className="px-2 py-2 text-sm">
-                  로그인
+                <Link
+                  className="w-[110px] h-[34px] flex items-center justify-center bg-brand-blue text-white text-sm rounded-[5px]"
+                  href="/login"
+                >
+                  로그인/회원가입
                 </Link>
               )}
             </div>

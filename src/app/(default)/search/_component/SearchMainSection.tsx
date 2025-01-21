@@ -23,13 +23,27 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
       </div>
       <SearchMainSectionHeader />
       <div className="flex flex-col gap-5">
-        {webtoons?.map((webtoon) => (
-          <SearchResultThumbnail
-            key={webtoon.id}
-            webtoon={webtoon}
-            keyword={keyword}
-          />
-        ))}
+        {webtoons.length > 0 ? (
+          webtoons.map((webtoon) => (
+            <SearchResultThumbnail
+              key={webtoon.id}
+              webtoon={webtoon}
+              keyword={keyword}
+            />
+          ))
+        ) : (
+          <div className="flex flex-col items-center text-gray-500 text-sm mt-10 gap-2">
+            <div>
+              <p className="text-black text-base mb-3">
+                '{keyword}'에 대한 검색 결과가 없습니다.
+              </p>
+              <div className="flex flex-col mx-1">
+                <p>· 띄어쓰기나 철자를 확인해보세요</p>
+                <p>· 다른 검색어로 검색해보세요</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

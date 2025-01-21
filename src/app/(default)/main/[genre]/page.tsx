@@ -72,24 +72,24 @@ export default function Main({ params }: Props) {
           <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
           <div className="flex gap-1 mt-10">
             <Image
-              src="/assets/images/promotion.jpg"
+              src="/assets/images/promotion-1.png"
               alt="Site promotion image"
               width={340}
               height={60}
-              style={{ height: 'auto' }}
+              layout="intrinsic"
             />
             <Image
               src="/assets/images/promotion-2.png"
               alt="Site promotion image"
               width={340}
               height={60}
-              style={{ height: 'auto' }}
+              layout="intrinsic"
             />
           </div>
           <LargeThumbnailContainer title={'키워드 별 추천 작품'} />
           <LargeThumbnailContainer title={'장르별 신작 작품'} />
         </div>
-        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-[24px]">
           <p>최근 본 작품</p>
           <div className="flex mt-3 mb-14">
             {webtoonThumbnails &&
