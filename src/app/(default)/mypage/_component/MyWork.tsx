@@ -1,11 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import WorkItem from './WorkItem';
 import { Tag } from '../../webtoon/list/_component/WebtoonInfo';
 import Link from 'next/link';
 
-const works = {
+// works 객체의 타입 정의
+interface Work {
+  id: number;
+  image: string;
+  title: string;
+  writer: string;
+  genre: string;
+  episodes: number;
+  rating: number;
+  comments: number;
+  description: string;
+  interest: number;
+  tags: Tag[];
+}
+
+const works: Record<'ongoing' | 'completed', Work[]> = {
   ongoing: [
     {
       id: 1,
@@ -28,19 +43,30 @@ const works = {
 };
 
 const MyWork: React.FC = () => {
-  const [selectedWorkType, setSelectedWorkType] = useState<
-    'ongoing' | 'completed'
-  >('ongoing');
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
+  // Query 파라미터에서 label 값 가져오기
+  const selectedLabel = searchParams.get('label') ?? 'in_series';
+  const selectedWorkType: 'ongoing' | 'completed' =
+    selectedLabel === 'finish' ? 'completed' : 'ongoing';
+
+  // 현재 선택된 작업 목록
   const currentWorks = works[selectedWorkType];
   const workCount = currentWorks.length;
+
+  // 탭 클릭 시 URL 변경
+  const handleTabClick = (type: 'ongoing' | 'completed') => {
+    const query = type === 'ongoing' ? 'in_series' : 'finish';
+    router.push(`/mypage?label=${query}`);
+  };
 
   return (
     <div className="w-full">
       <div className="flex justify-start mt-10 mb-6 border-b border-b-line">
         {[
-          { label: '내 연재 웹툰', type: 'ongoing' },
-          { label: '내 완결 웹툰', type: 'completed' },
+          { label: '내 연재 웹툰', type: 'ongoing' as const },
+          { label: '내 완결 웹툰', type: 'completed' as const },
         ].map((tab) => (
           <button
             key={tab.type}
@@ -49,11 +75,9 @@ const MyWork: React.FC = () => {
                 ? 'text-brand-yellow border-b-brand-yellow'
                 : 'text-gray-500 border-b-transparent'
             }`}
-            onClick={() =>
-              setSelectedWorkType(tab.type as 'ongoing' | 'completed')
-            }
+            onClick={() => handleTabClick(tab.type)}
           >
-            {tab.label}({works[tab.type as 'ongoing' | 'completed'].length})
+            {tab.label}({works[tab.type].length})
           </button>
         ))}
       </div>
