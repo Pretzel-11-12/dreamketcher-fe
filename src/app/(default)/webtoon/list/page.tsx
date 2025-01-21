@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
+import ListCategorySelector from './_component/ListCategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
 import WebtoonInfo from './_component/WebtoonInfo';
 import NoticeList from './_component/NoticeList';
@@ -50,7 +50,7 @@ export default function Detail() {
   return (
     <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
-      <CategorySelector />
+      <ListCategorySelector selectedCategory="전체" />
       <hr className="border-line border-solid" />
       <GenreSelector />
       <hr className="border-line border-solid" />
