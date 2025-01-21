@@ -7,7 +7,7 @@ const QuickMenu = () => {
   };
 
   return (
-    <div className="fixed flex z-50 right-10 top-1/2 transform -translate-y-1/2">
+    <div className="fixed flex z-50 right-10 top-[80%] transform -translate-y-1/2">
       <div
         className="cursor-pointer rounded-full border bg-[#F9F9F9] w-10 h-10 flex items-center justify-center"
         onClick={handleClickTop}
