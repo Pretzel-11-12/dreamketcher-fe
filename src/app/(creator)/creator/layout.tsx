@@ -18,18 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="kr">
-      <body className={`antialiased flex flex-col min-h-screen`}>
-        <RQProvider>
-          <Header />
-          <div className="flex w-full justify-center">
-            <div className="bg-white text-black max-w-[1200px] w-full">
-              <Suspense>{children}</Suspense>
-            </div>
+    <div className={`antialiased flex flex-col min-h-screen`}>
+      <RQProvider>
+        <Header />
+        <div className="flex w-full justify-center">
+          <div className="bg-white text-black max-w-[1200px] w-full">
+            <Suspense>{children}</Suspense>
           </div>
-          <Footer />
-        </RQProvider>
-      </body>
-    </html>
+        </div>
+        <Footer />
+      </RQProvider>
+    </div>
   );
 }

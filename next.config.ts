@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
       'example.com',
     ], // 이미지 도메인 추가
   },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource',
+    });
+    return config;
+  },
   async rewrites() {
     return [
       {

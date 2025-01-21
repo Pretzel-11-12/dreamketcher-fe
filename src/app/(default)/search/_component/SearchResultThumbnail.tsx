@@ -38,50 +38,54 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
   };
 
   return (
-    <div
-      className="flex w-full h-[190px] cursor-pointer gap-4"
-      onClick={tempClickHandler}
-    >
-      <Image
-        src={'/assets/images/thumbnail-4.jpg'}
-        alt="Webtoon thumbnail image"
-        width={100}
-        height={150}
-      />
-      <div className="flex flex-col text-xs gap-2 justify-center">
-        <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
-        <p className="text-[#888888]">
-          {highlightKeyword(webtoon.member, keyword)} ·{' '}
-          {highlightKeyword(webtoon.genres[0], keyword)} · {webtoon.lastEpisode}
-          화
-        </p>
-        <div className="flex items-center gap-1">
-          <Image
-            src="/assets/images/star-1.png"
-            alt="Star PNG"
-            width={13}
-            height={13}
-            style={{ height: '13px' }} // CSS로 높이 강제
-          />
-          <p className="text-brand-yellow">{webtoon.averageStar}</p>
-          <p className="text-[#888888]">({webtoon.numOfStars})</p>
-        </div>
-        <p className="text-sm">
-          {highlightKeyword(webtoon.description, keyword)}
-        </p>
-        <div className="flex flex-wrap">
-          {temporalTags.slice(0, 3).map((tag, index) => (
-            <div className="bg-gray-100 m-1 p-1 rounded-[4px]" key={index}>
-              {highlightKeyword(tag, keyword)}
-            </div>
-          ))}
-          {temporalTags.length > 3 && (
-            <div className="m-1 p-1" key="extra">
-              외 {temporalTags.length - 3}개
-            </div>
-          )}
+    <div className="flex flex-col gap-5">
+      <div
+        className="flex w-full h-[150px] cursor-pointer gap-5"
+        onClick={tempClickHandler}
+      >
+        <Image
+          src={'/assets/images/searchThumbnail.png'}
+          // src={webtoon.thumbnail}
+          alt="Webtoon thumbnail image"
+          width={100}
+          height={150}
+        />
+        <div className="flex flex-col text-xs gap-2 justify-center">
+          <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
+          <p className="text-[#888888]">
+            {highlightKeyword(webtoon.member, keyword)} ·{' '}
+            {highlightKeyword(webtoon.genres[0], keyword)} ·{' '}
+            {webtoon.lastEpisode}화
+          </p>
+          <div className="flex items-center gap-1">
+            <Image
+              src="/assets/images/star-1.png"
+              alt="Star PNG"
+              width={13}
+              height={13}
+              style={{ height: '13px' }} // CSS로 높이 강제
+            />
+            <p className="text-brand-yellow">{webtoon.averageStar}</p>
+            <p className="text-[#888888]">({webtoon.numOfStars})</p>
+          </div>
+          <p className="text-sm">
+            {highlightKeyword(webtoon.description, keyword)}
+          </p>
+          <div className="flex flex-wrap">
+            {temporalTags.slice(0, 3).map((tag, index) => (
+              <div className="bg-gray-100 m-1 p-1 rounded-[4px]" key={index}>
+                {highlightKeyword(tag, keyword)}
+              </div>
+            ))}
+            {temporalTags.length > 3 && (
+              <div className="m-1 p-1" key="extra">
+                외 {temporalTags.length - 3}개
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      <hr className=""></hr>
     </div>
   );
 };
