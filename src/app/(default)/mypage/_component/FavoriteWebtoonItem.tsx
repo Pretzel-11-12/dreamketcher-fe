@@ -13,7 +13,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   authorNickname,
   updatedAt,
   episodeCount,
-  genres,
+  genre,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
@@ -78,7 +78,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
           {title}
         </h3>
         <p className="text-xs text-[#888888] mt-1">
-          {authorNickname} {genres} &#183; {episodeCount}화
+          {authorNickname} {genre} &#183; {episodeCount}화
         </p>
 
         <div className="flex mt-1 mb-4">
