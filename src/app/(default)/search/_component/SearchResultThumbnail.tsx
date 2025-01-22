@@ -54,8 +54,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
           <p className="text-[#888888]">
             {highlightKeyword(webtoon.member, keyword)} ·{' '}
-            {highlightKeyword(webtoon.genres[0], keyword)} ·{' '}
-            {webtoon.lastEpisode}화
+            {highlightKeyword(webtoon.genre, keyword)} · {webtoon.lastEpisode}화
           </p>
           <div className="flex items-center gap-1">
             <Image
