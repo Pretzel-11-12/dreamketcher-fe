@@ -24,7 +24,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     webtoonThumbnail,
     interestCount,
     webtoonStory,
-    genreNames,
+    genreName,
     AuthorNickname,
   } = webtoon;
 
@@ -84,21 +84,14 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         <div className="text-2xl font-semibold">{webtoonTitle}</div>
         <div className="flex gap-1 items-center">
           <div className="text-sm">{AuthorNickname}</div>
-          <div className="text-sm text-gray-900/40">
-            글/ 그림 | {genreNames[0]}
-          </div>
+          <div className="text-sm text-gray-900/40">글/ 그림 | {genreName}</div>
         </div>
         <div className="text-sm">{webtoonStory}</div>
 
         <div className="text-sm flex gap-1">
-          {genreNames?.map((tag, i) => (
-            <div
-              key={i}
-              className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs"
-            >
-              {tag}
-            </div>
-          ))}
+          <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
+            {genreName}
+          </div>
         </div>
         <div className="grid grid-cols-[1fr_1fr] gap-1 absolute w-full bottom-0">
           <Button

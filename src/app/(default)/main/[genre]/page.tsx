@@ -67,7 +67,7 @@ const announcements = [
 export default function Main({ params }: Props) {
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1024px]">
+      <div className="flex w-[1200px]">
         <div className="flex flex-col w-[700px] border-r border-r-line pt-6">
           <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
           <div className="flex gap-1 mt-10">
