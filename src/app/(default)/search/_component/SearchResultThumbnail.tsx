@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
+import DefaultImage from '@/app/_component/DefaultImage';
 
 type SearchResultThumbnailProps = {
   webtoon: IWebtoon;
@@ -43,12 +44,11 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
         className="flex w-full h-[150px] cursor-pointer gap-5"
         onClick={tempClickHandler}
       >
-        <Image
-          src={'/assets/images/searchThumbnail.png'}
-          // src={webtoon.thumbnail}
-          alt="Webtoon thumbnail image"
-          width={100}
+        <DefaultImage
+          alt={'Search webtoon thumbnail'}
+          src={webtoon.thumbnail}
           height={150}
+          width={120}
         />
         <div className="flex flex-col text-xs gap-2 justify-center">
           <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>

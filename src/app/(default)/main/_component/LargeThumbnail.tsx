@@ -30,7 +30,7 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
       <div className="flex flex-col text-[12px]">
         <p className="text-[16px] break-words">{webtoon.title}</p>
         <p className="text-[#888888]">
-          {webtoon.member} · {webtoon.genres}
+          {webtoon.member} · {webtoon.genre}
         </p>
         <div className="flex items-center gap-1">
           <Image
