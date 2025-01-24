@@ -32,16 +32,18 @@ export default function Mypage() {
           <p className="text-[18px] font-medium text-gray-800 mt-[8px]">
             {nickname}
           </p>
-          <div className="flex">
-            <Image
-              src={'/assets/images/mail.svg'}
-              alt="Mail Icon"
-              width={11}
-              height={9}
-            />
-            <p className="text-[12px] text-gray-500 m-1">{businessEmail}</p>
-            <ClipboardButton textToCopy={emailText} />
-          </div>
+          {businessEmail && (
+            <div className="flex">
+              <Image
+                src={'/assets/images/mail.svg'}
+                alt="Mail Icon"
+                width={11}
+                height={9}
+              />
+              <p className="text-[12px] text-gray-500 m-1">{businessEmail}</p>
+              <ClipboardButton textToCopy={emailText} />
+            </div>
+          )}
         </div>
       </div>
       <p className="text-sm text-gray-700 my-4">{shortIntroduction}</p>

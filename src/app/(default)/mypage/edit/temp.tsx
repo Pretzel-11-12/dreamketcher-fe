@@ -101,11 +101,11 @@ const Temp = () => {
           alt="프로필 이미지"
           width={90}
           height={90}
-          className="rounded-full object-cover border border-[#F2F2F2]"
+          className="rounded-full object-cover border border-[#F2F2F2] w-[90px] h-[90px]"
         />
         <label
           htmlFor="profileImageInput"
-          className="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer shadow-md"
+          className="absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#F2F2F2]"
         >
           <Image
             src="/assets/icon/camera.svg"
