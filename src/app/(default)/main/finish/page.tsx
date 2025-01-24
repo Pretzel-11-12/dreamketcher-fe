@@ -66,16 +66,23 @@ export default function Finish() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1024px]">
-        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3  pb-32">
+      <div className="flex w-[1200px]">
+        <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-3  pb-32">
           <ThumbnailContainer type={'finish'} title={'베스트 완결 웹툰'} />
           <div className="flex gap-1 mt-10">
             <Image
               src="/assets/images/promotion-1.png"
               alt="Site promotion image"
-              layout="responsive"
-              width={693}
-              height={50}
+              width={430}
+              height={90}
+              layout="intrinsic"
+            />
+            <Image
+              src="/assets/images/promotion-2.png"
+              alt="Site promotion image"
+              width={430}
+              height={90}
+              layout="intrinsic"
             />
           </div>
           <DetailThumbnailContainer title={'전체 완결 웹툰'} />
@@ -85,7 +92,7 @@ export default function Finish() {
             onPageChange={setCurrentPage}
           />
         </div>
-        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+        <div className="flex flex-col w-[282px] pt-8 gap-1 ml-2">
           <p>최근 본 작품</p>
           <div className="flex mt-3 mb-14">
             {webtoonThumbnails &&

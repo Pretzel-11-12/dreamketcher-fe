@@ -18,14 +18,14 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
   return (
     <div
       className="flex flex-col cursor-pointer"
-      style={{ width: `${w}px`, height: '308px' }}
+      style={{ width: `${w}px`, height: `${h}px` }}
       onClick={tempClickHandler}
     >
       <Image
         src={webtoon.thumbnail}
         alt="Webtoon thumbnail image"
-        width={w - 9}
-        height={h}
+        width={w}
+        height={225}
       />
       <div className="flex flex-col text-[12px]">
         <p className="text-[16px] break-words">{webtoon.title}</p>

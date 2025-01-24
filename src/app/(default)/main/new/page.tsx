@@ -66,22 +66,22 @@ export default function New() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1024px]">
-        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3 pb-32">
+      <div className="flex w-[1200px]">
+        <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-3 pb-32">
           <ThumbnailContainer type={'new'} title={'베스트 신작 웹툰'} />{' '}
           <div className="flex gap-1 mt-10">
             <Image
               src="/assets/images/promotion-3.png"
               alt="Site promotion image"
-              width={340}
-              height={60}
+              width={430}
+              height={90}
               layout="intrinsic"
             />
             <Image
               src="/assets/images/promotion-4.png"
               alt="Site promotion image"
-              width={340}
-              height={60}
+              width={430}
+              height={90}
               layout="intrinsic"
             />
           </div>
@@ -92,7 +92,7 @@ export default function New() {
             onPageChange={setCurrentPage}
           />
         </div>
-        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+        <div className="flex flex-col w-[282px] pt-8 gap-1 ml-2">
           <p>최근 본 작품</p>
           <div className="flex mt-3 mb-14">
             {webtoonThumbnails &&

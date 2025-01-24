@@ -93,11 +93,11 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         ]}
         handleTagClick={setTag}
       />
-      <div className="flex mt-3 overflow-hidden">
+      <div className="flex mt-3 overflow-hidden gap-[8px]">
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} w={140} h={210} />
+              <LargeThumbnail webtoon={webtoon} w={150} h={287} />
             </div>
           ))
         ) : (
