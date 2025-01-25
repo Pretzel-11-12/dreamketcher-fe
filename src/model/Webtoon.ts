@@ -10,6 +10,18 @@ export interface Webtoon {
   description: string;
 }
 
+export interface MyWebtoon {
+  id: number;
+  title: string;
+  thumbnail: string;
+  author: string;
+  description: string;
+  episodeCount: number;
+  avgStar: number;
+  numOfStars: number;
+  genre: string;
+}
+
 export interface FavoriteWebtoon {
   interestedWebtoonId: number;
   webtoonId: number;
