@@ -66,7 +66,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 w-100vw flex">
-      <div className="flex items-start justify-end mx-auto w-[1024px]">
+      <div className="flex items-start justify-end mx-auto w-[1200px]">
         <div
           ref={modalRef}
           className="mt-[85px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"

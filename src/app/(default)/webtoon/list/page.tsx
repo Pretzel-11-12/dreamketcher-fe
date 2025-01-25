@@ -103,7 +103,7 @@ export default function Detail() {
           </div>
 
           <div className="flex flex-col w-[300px] p-3 gap-1">
-            <RankingWebtoons genre={data?.genreNames[0]} />
+            <RankingWebtoons genre={data?.genreName} />
           </div>
         </div>
       </div>

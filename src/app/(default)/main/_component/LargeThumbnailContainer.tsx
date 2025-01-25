@@ -12,7 +12,7 @@ const webtoonThumbnails: IWebtoon[] = [
     thumbnail: '/assets/images/thumbnail-large-3.jpg',
     title: 'D등급 학생',
     member: 'Jane Doe',
-    genres: ['일상'],
+    genre: '일상',
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
@@ -23,7 +23,7 @@ const webtoonThumbnails: IWebtoon[] = [
     thumbnail: '/assets/images/thumbnail-large-4.jpg',
     title: 'Mystic Adventures',
     member: 'John Smith',
-    genres: ['일상'],
+    genre: '일상',
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
@@ -34,7 +34,7 @@ const webtoonThumbnails: IWebtoon[] = [
     thumbnail: '/assets/images/thumbnail-large-5.jpg',
     title: 'Mystic Adventures',
     member: 'John Smith',
-    genres: ['일상'],
+    genre: '일상',
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
@@ -45,7 +45,7 @@ const webtoonThumbnails: IWebtoon[] = [
     thumbnail: '/assets/images/thumbnail-large-6.jpg',
     title: 'Mystic Adventures',
     member: 'John Smith',
-    genres: ['일상'],
+    genre: '일상',
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
@@ -56,7 +56,7 @@ const webtoonThumbnails: IWebtoon[] = [
     thumbnail: '/assets/images/thumbnail-large-7.jpg',
     title: 'Mystic Adventures',
     member: 'John Smith',
-    genres: ['일상'],
+    genre: '일상',
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
@@ -93,11 +93,11 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         ]}
         handleTagClick={setTag}
       />
-      <div className="flex mt-3 overflow-hidden">
+      <div className="flex mt-3 overflow-hidden gap-[8px]">
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} w={140} h={210} />
+              <LargeThumbnail webtoon={webtoon} w={150} h={287} />
             </div>
           ))
         ) : (

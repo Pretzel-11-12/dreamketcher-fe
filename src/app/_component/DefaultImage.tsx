@@ -27,13 +27,15 @@ export default function DefaultImage({
     } else {
       setURL(src);
     }
+    console.log('url' + url);
   }, [src]);
 
   return (
     <>
       {!url ? (
         <div
-          className={`bg-[#DEE5EA] h-[${height}px] w-[${width}px] ${rounded}`}
+          className={`bg-[#DEE5EA] ${rounded}`}
+          style={{ height: `${height}px`, width: `${width}px` }}
         ></div>
       ) : (
         <div className={`border border-[#f2f2f2] overflow-hidden ${rounded}`}>

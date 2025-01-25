@@ -18,7 +18,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
       {tags.map((tag) => (
         <button
           key={tag.name}
-          className={`flex items-center justify-center w-[49px] h-[30px] text-[13px] rounded-[11px] transition duration-300 ${
+          className={`flex items-center justify-center w-[49px] h-[26px] text-[13px] rounded-[11px] transition duration-300 ${
             selectedTag === tag.name
               ? 'bg-[#5474CE] text-white'
               : 'bg-[#f2f2f2] text-[#888888] hover:bg-[#5474CE] hover:text-white'

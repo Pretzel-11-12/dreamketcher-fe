@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
+import DefaultImage from '@/app/_component/DefaultImage';
 
 type WebtoonThumbnailProps = {
   webtoon: IWebtoon;
@@ -27,14 +28,21 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         // src={webtoon.thumbnail}
         src={'/assets/images/thumbnail-4.jpg'}
         alt="Webtoon thumbnail image"
-        width={150}
         height={240}
+        width={150}
       />
+
+      {/* <DefaultImage
+        alt={'Main webtoon thumbnail'}
+        src={webtoon.thumbnail}
+        height={240}
+        width={150}
+      /> */}
       <div className="flex items-center">
         <div className="flex flex-col text-[12px]">
           <p className="text-[14px]">{webtoon.title}</p>
           <p className="text-[#888888]">
-            {webtoon.member} · {webtoon.genres[0]}
+            {webtoon.member} · {webtoon.genre}
           </p>
           <div className="flex items-center gap-1">
             <Image

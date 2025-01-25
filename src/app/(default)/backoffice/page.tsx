@@ -22,7 +22,7 @@ export default function Backoffice() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1024px] pb-10">
+      <div className="flex w-[1200px] pb-10">
         <BackofficeMainSection webtoons={data || []} />
       </div>
     </div>
