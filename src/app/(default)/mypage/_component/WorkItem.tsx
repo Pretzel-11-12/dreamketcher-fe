@@ -1,31 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { MyWebtoon } from '@/model/Webtoon';
 
-interface WorkItemProps {
-  id: number;
-  image: string;
-  title: string;
-  writer: string;
-  genre: string;
-  episodes: number;
-  rating: number;
-  comments: number;
-  description: string;
-  tags: string[];
-}
-
-const WorkItem: React.FC<WorkItemProps> = ({
+const WorkItem: React.FC<MyWebtoon> = ({
   id,
-  image,
+  thumbnail,
   title,
-  writer,
+  author,
   genre,
-  episodes,
-  rating,
-  comments,
+  episodeCount,
+  avgStar,
+  numOfStars,
   description,
-  tags,
+  //tags,
 }) => {
   const router = useRouter();
 
@@ -36,7 +24,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
   return (
     <div className="flex bg-white pb-6 border-b border-b-line">
       <img
-        src={image}
+        src={thumbnail}
         alt="웹툰 썸네일"
         className="w-[100px] h-[150px] rounded-lg mr-6 cursor-pointer"
         onClick={navigateToWebtoon}
@@ -50,7 +38,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
           {title}
         </h3>
         <p className="text-xs text-gray-400">
-          {writer} &#183; {genre} &#183; {episodes}화
+          {author} &#183; {genre} &#183; {episodeCount}화
         </p>
         <div className="flex items-center mt-1">
           <Image
@@ -60,16 +48,16 @@ const WorkItem: React.FC<WorkItemProps> = ({
             height={13}
           />
           <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
-            {rating}
+            {avgStar}
           </p>
           <p className="text-[#C9C9C9] text-xs ml-[2px] mt-[1px]">
-            ({comments})
+            ({numOfStars})
           </p>
         </div>
 
         <p className="text-sm text-[#3F3F3F] mt-2">{description}</p>
 
-        <div className="flex gap-[2px] mt-2">
+        {/* <div className="flex gap-[2px] mt-2">
           {tags?.map((tag, i) => (
             <div
               key={i}
@@ -78,7 +66,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
               {tag}
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
