@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import WorkItem from './WorkItem';
-import { Tag } from '../../webtoon/list/_component/WebtoonInfo';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
@@ -19,27 +18,6 @@ export interface Webtoon {
   genre: string;
 }
 
-const works: Record<'ongoing' | 'completed', Webtoon[]> = {
-  ongoing: [
-    {
-      id: 1,
-      thumbnail: '/assets/images/webtoonthumbnail-1.jpg',
-      title: '괴담 출근',
-      author: '바크베',
-      genre: '판타지',
-      episodeCount: 36,
-      avgStar: 4.6,
-      numOfStars: 305,
-      description: `Wait a minute, 이게 뭐지? (뭐지?)
-      내 심장이 lub-dub, 자꾸만 뛰어 (뛰어)
-      저 멀리서도, oh (oh), my (my) gosh (gosh)
-      끌어당겨, you're my crush, 초능력처럼`,
-      // tags: [Tag.HORROR, Tag.ROMANCE, Tag.SCARED],
-    },
-  ],
-  completed: [],
-};
-
 const MyWork: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,10 +25,6 @@ const MyWork: React.FC = () => {
   // Query 파라미터에서 label 값 가져오기
   const selectedLabel = searchParams.get('label') ?? 'in_series';
   const status = selectedLabel === 'finish' ? 'FINISH' : 'IN_SERIES';
-
-  // 현재 선택된 작업 목록
-  // const currentWorks = works[selectedWorkType];
-  // const workCount = currentWorks.length;
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['creatorsWebtoon', status],
@@ -74,7 +48,7 @@ const MyWork: React.FC = () => {
     }
   };
 
-  const works = data?.result || []; // API 응답 데이터 사용
+  const works = data?.result || [];
   const workCount = works.length;
 
   return (
