@@ -18,8 +18,8 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
   const timeAgo = moment(info.createdAt).fromNow();
   return (
     <div
-      className={`grid grid-cols-[auto_auto_1fr] py-4 gap-2 ${
-        !isLast && 'border-b'
+      className={`grid grid-cols-[auto_auto_1fr] py-5 gap-2 ${
+        !isLast && 'border-b border-[#F2F2F2]'
       }`}
     >
       <div className="w-4 h-4 border-l border-b rounded-sm" />
@@ -32,13 +32,13 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
 
         <div className="text-[13px]">{info.content}</div>
 
-        <div className="flex gap-2">
-          <div className="text-xs flex items-center gap-0.5 cursor-pointer">
+        <div className="flex gap-2 text-[#888888]">
+          <div className="text-xs flex items-center gap-1 cursor-pointer">
             <Image
-              src="/assets/icon/like.svg"
+              src="/assets/icon/inactiveLike.svg"
               alt="like"
-              width={20}
-              height={20}
+              width={13}
+              height={13}
             />
             좋아요
           </div>
