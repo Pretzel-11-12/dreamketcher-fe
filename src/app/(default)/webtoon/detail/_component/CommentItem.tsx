@@ -21,22 +21,36 @@ const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
         </div>
 
         <div className="text-[13px]">{info.content}</div>
-        <div className="flex gap-2">
+        <div className="flex gap-4 text-[#888888]">
           <div
-            className="text-xs flex items-center gap-1.5 cursor-pointer"
+            className="text-xs flex items-center gap-1 cursor-pointer"
             onClick={handleClick}
           >
-            <span className="mdi mdi-comment-processing-outline text-sm text-gray-400" />
+            <Image
+              src="/assets/icon/inactiveMessage.svg"
+              alt="like"
+              width={13}
+              height={13}
+            />
             답글
           </div>
-          <div className="text-xs flex items-center gap-0.5 cursor-pointer">
+          <div className="text-xs flex items-center gap-1 cursor-pointer">
             <Image
-              src="/assets/icon/like.svg"
+              src="/assets/icon/inactiveLike.svg"
               alt="like"
-              width={20}
-              height={20}
+              width={13}
+              height={13}
             />
             좋아요
+          </div>
+          <div className="text-xs flex items-center gap-1 cursor-pointer">
+            <Image
+              src="/assets/icon/inactiveDislike.svg"
+              alt="like"
+              width={13}
+              height={13}
+            />
+            싫어요
           </div>
         </div>
       </div>
