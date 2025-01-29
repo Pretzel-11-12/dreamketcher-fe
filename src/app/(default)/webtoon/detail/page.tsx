@@ -167,12 +167,19 @@ export default function Detail() {
             </div>
             <Button
               props={{
-                size: 'L',
+                size: 'S',
                 variant: 'brand-yellow',
-                containerStyles: 'w-fit px-20',
+                containerStyles:
+                  '!w-[143px] h-[40px] flex items-center justify-center gap-2',
               }}
             >
-              다음화 보기
+              댓글 더보기
+              <Image
+                src="/assets/icon/downArrow-white.svg"
+                alt="Down Arrow"
+                width={20}
+                height={20}
+              />
             </Button>
           </div>
         </div>
