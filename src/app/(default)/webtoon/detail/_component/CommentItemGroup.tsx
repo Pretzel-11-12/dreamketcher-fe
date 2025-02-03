@@ -76,15 +76,16 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
                 }}
               />
             ))}
-            <div className="relative px-10 pt-4">
+            <div className="relative px-10 pt-5 border-t border-[#F2F2F2]">
               <Textarea
                 placeholder="대댓글을 입력해주세요"
+                width="638px"
                 height="130px"
                 text={newReComment}
                 onChange={(value) => setNewReComment(value)}
               />
 
-              <div className="absolute bottom-4 right-14">
+              <div className="absolute bottom-4 right-7">
                 <Button
                   props={{
                     variant: 'brand-yellow',
