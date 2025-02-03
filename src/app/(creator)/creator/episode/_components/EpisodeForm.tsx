@@ -16,7 +16,7 @@ export interface EpisodeFormInfo {
   webtoonId: string;
   title?: string;
   thumbnail?: string;
-  content?: string;
+  content?: string[];
   authorNote?: string;
   publishedAt?: string;
 }
@@ -36,13 +36,14 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     webtoonId: webtoonId,
     title: '',
     thumbnail: '',
-    content: '',
+    content: [],
     authorNote: '',
     publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
   });
 
   const searchParams = useSearchParams();
   const no = searchParams.get('no')!;
+  const [status, setStatus] = useState<'edit' | 'new'>('new');
 
   useEffect(() => {
     if (!!item) {
@@ -50,10 +51,11 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         webtoonId: webtoonId,
         title: item.title || '',
         thumbnail: item.thumbnail || '',
-        content: item?.content?.[0] || '',
+        content: item?.content || '',
         authorNote: item.authorNote || ' ',
         publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
       });
+      setStatus('edit');
     }
   }, [item]);
 
@@ -103,10 +105,20 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
   const handleEpisode = async () => {
     try {
-      const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
-      if (response.id) {
-        alert('작품이 등록되었습니다');
+      if (status === 'edit') {
+        await fetchCreatorEpisode.editEpisode({
+          item: episodeInfo,
+          episodeId,
+        });
+
+        alert('에피소드가 수정 되었습니다');
         router.push(`/creator/episode?webtoonId=${webtoonId}`);
+      } else {
+        const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
+        if (response.id) {
+          alert('작품이 등록되었습니다');
+          router.push(`/creator/episode?webtoonId=${webtoonId}`);
+        }
       }
     } catch (e) {}
   };
@@ -142,7 +154,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <div>원고 등록</div>
         <div>
           <ThumbnailUploader
-            _preview={episodeInfo.content}
+            _preview={episodeInfo.content?.[0]}
             onFileSelect={handleContent}
             imageFormat={{ width: 690 }}
           />

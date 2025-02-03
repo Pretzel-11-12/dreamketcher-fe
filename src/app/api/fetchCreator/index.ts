@@ -64,7 +64,7 @@ export namespace fetchCreatorWebtoon {
   }
 
   export async function editWebtoon(arg: {
-    webtoonId: string;
+    webtoonId: number;
     body: {
       title: string;
       thumbnail: string;
@@ -78,9 +78,11 @@ export namespace fetchCreatorWebtoon {
     const response = await fetch(`/api/v1/webtoons/${webtoonId}`, {
       method: 'PUT',
       body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
     });
-    if (!response.ok) throw new Error(`Failed to edit webtoons`);
-    return response.json();
   }
   // Complete
 
@@ -131,10 +133,19 @@ export namespace fetchCreatorWebtoon {
 
   // 이미지 Put (edit)
   export async function editWebtoonThumbnail(arg: {
-    webtoonId: string;
-    episodeId: string;
-    thumbnail: string;
-  }): Promise<any> {}
+    webtoonId: number;
+    formData: FormData;
+  }): Promise<any> {
+    const { formData, webtoonId } = arg;
+    const response = await fetch(`/api/v1/webtoons/${webtoonId}/thumbnail`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    return response.json();
+  }
 
   export async function editWebtoonPrologue(arg: {
     webtoonId: string;
@@ -162,34 +173,35 @@ export namespace fetchCreatorEpisode {
       }
     );
     if (!response.ok) throw new Error(`Failed to post Episode`);
-    return response.json();
+
+    const res = await response.json();
+    return { ...res, content: JSON.parse(res.content) };
   }
 
   export async function editEpisode(arg: {
-    webtoonId: string;
+    item: EpisodeFormInfo;
     episodeId: string;
-    title: string;
-    thumbnail: string;
-    content: string;
-    authorNote: string;
-    publishedAt: string;
   }): Promise<any> {
+    const { item, episodeId } = arg;
     const response = await fetch(
-      `/api/v1/webtoons/${arg.webtoonId}/episode/${arg.episodeId}`,
+      `/api/v1/webtoons/${item.webtoonId}/episode/${episodeId}`,
       {
         method: 'PUT',
         body: JSON.stringify({
-          title: arg.title,
-          thumbnail: arg.thumbnail,
-          content: arg.content,
-          authorNote: arg.authorNote,
-          publishedAt: arg.publishedAt,
-          // publishedAt: '2025-01-06',
+          title: item.title,
+          thumbnail: item.thumbnail,
+          content: item.content,
+          authorNote: item.authorNote,
+          publishedAt: item.publishedAt,
         }),
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
       }
     );
-    if (!response.ok) throw new Error(`Failed to edit Episode`);
-    return response.json();
+
+    return response;
   }
 
   export async function deleteEpisode(arg: {

@@ -39,28 +39,45 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     description: '',
     genreNames: [],
   });
+  const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
 
   useEffect(() => {
     if (!!item) {
       setWebtoonInfo(item);
+      setStatus('edit');
     }
   }, [item]);
 
   const handleThumbnail = async (file: File | null) => {
     if (file) {
+      const isEdit = status === 'edit';
+
       const formData = new FormData();
-      formData.append('image', file);
 
       try {
-        const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({
-          formData,
-        });
+        if (isEdit && item) {
+          formData.append('newThumbnail', file);
+          formData.append('oldThumbnail', item.thumbnail);
+          formData.append('folderName', `/webtoon/${item.id}/thumbnail`);
 
-        setWebtoonInfo((v) => ({
-          ...v,
-          thumbnail: s3Url,
-        }));
+          const s3Url = await fetchCreatorWebtoon.editWebtoonThumbnail({
+            formData,
+            webtoonId: item.id,
+          });
+
+          console.log(s3Url);
+        } else {
+          formData.append('image', file);
+          const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({
+            formData,
+          });
+
+          setWebtoonInfo((v) => ({
+            ...v,
+            thumbnail: s3Url,
+          }));
+        }
       } catch (e) {
         console.log(e);
       }
@@ -84,13 +101,21 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   };
 
   const handleWebtoon = async () => {
+    const isEdit = status === 'edit';
     try {
-      const response = await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
-      if (response.id) {
-        alert('작품이 등록되었습니다');
-        router.push(`/creator/series?status=NEW`);
+      if (isEdit) {
+        await fetchCreatorWebtoon.editWebtoon({
+          webtoonId: item?.id!,
+          body: webtoonInfo,
+        });
+      } else {
+        await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
       }
-    } catch (e) {}
+      alert(isEdit ? '작품이 수정되었습니다' : '작품이 등록되었습니다');
+      router.push(`/creator/series?status=NEW`);
+    } catch (e) {
+      alert(isEdit ? '작품 수정 실패하였습니다' : '작품 등록 실패하였습니다');
+    }
   };
 
   return (

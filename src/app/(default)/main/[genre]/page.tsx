@@ -70,20 +70,22 @@ export default function Main({ params }: Props) {
       <div className="flex w-[1024px]">
         <div className="flex flex-col w-[700px] border-r border-r-line pt-6">
           <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
-          <div className="flex gap-1 mt-10">
+          <div className="grid gap-1 mt-10 grid-cols-[1fr_1fr]">
             <Image
               src="/assets/images/promotion.jpg"
               alt="Site promotion image"
-              width={340}
-              height={60}
-              style={{ height: 'auto' }}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }}
             />
             <Image
               src="/assets/images/promotion-2.png"
               alt="Site promotion image"
-              width={340}
-              height={60}
-              style={{ height: 'auto' }}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
           <LargeThumbnailContainer title={'키워드 별 추천 작품'} />

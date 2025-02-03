@@ -62,12 +62,12 @@ const SeriesList = () => {
           <span className="text-md pb-8 text-gray-500">
             새로운 작품을 시작해보세요!
           </span>
-          <Link href={'/creator/series/new'}>
+          <Link href={'/creator/series/new'} className="w-[320px] h-[60px]">
             <Button
               props={{
                 size: 'M',
                 variant: 'brand-yellow',
-                containerStyles: 'px-20 py-[10px]',
+                containerStyles: 'h-full',
               }}
             >
               새 작품 등록하기

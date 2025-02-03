@@ -9,7 +9,7 @@ const SeriesSideBar: React.FC<{}> = () => {
   return (
     <div className="flex flex-col gap-2 w-[220px] border-r h-full items-center min-h-[1200px] pt-4">
       <img
-        className="w-[100px] h-[100px] rounded-full border border-[#F2F2F2]"
+        className="w-[90px] h-[90px] rounded-full border border-[#F2F2F2]"
         src={imageUrl || '/assets/images/profile-default.png'}
         alt="프로필"
       />
