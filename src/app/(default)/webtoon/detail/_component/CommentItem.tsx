@@ -52,6 +52,20 @@ const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
             />
             싫어요
           </div>
+          <div className="flex gap-2 ml-auto">
+            <Image
+              src="/assets/icon/trash.svg"
+              alt="trash"
+              width={20}
+              height={20}
+            />
+            <Image
+              src="/assets/icon/report.svg"
+              alt="report"
+              width={26}
+              height={26}
+            />
+          </div>
         </div>
       </div>
     </div>
