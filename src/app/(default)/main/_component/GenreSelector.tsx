@@ -32,12 +32,12 @@ const GenreSelector: React.FC = () => {
 
   return (
     <div className="border-b w-[100vw] border-b-line">
-      <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-[1024px] h-[48px]">
+      <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-[1200px] h-[48px]">
         <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
           {genres.map((genre) => (
             <button
               key={genre.param}
-              className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] hover:text-brand-yellow hover:border-b border-b-brand-yellow transition duration-300 ${
+              className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] border-b-brand-yellow transition duration-300 ${
                 currentGenre === genre.param
                   ? 'text-brand-yellow border-b border-b-brand-yellow'
                   : 'text-[#888888]'

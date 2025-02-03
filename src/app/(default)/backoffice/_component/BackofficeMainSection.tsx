@@ -14,7 +14,7 @@ const BackofficeMainSection: React.FC<BackofficeMainSectionProps> = ({
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   return (
-    <div className="flex flex-col w-[1024px] pt-8">
+    <div className="flex flex-col w-[1200px] pt-8">
       <div className="flex items-center justify-center mb-10">
         <p className="text-lg">작품 관리</p>
         <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>

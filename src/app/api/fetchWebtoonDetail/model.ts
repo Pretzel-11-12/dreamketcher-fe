@@ -9,7 +9,7 @@ export namespace _Model {
     AuthorNickname: string;
     episode_count: number;
     interestCount: number;
-    genreNames: string[];
+    genreName: string;
     currentPage: number;
     totalPages: number;
     episodes: EpisodeUnit[];

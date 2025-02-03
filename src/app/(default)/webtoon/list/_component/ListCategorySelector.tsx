@@ -2,8 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+
+interface ListCategorySelectorProps {
+  selectedCategory: '전체' | '신작' | '완결'; // props로 받을 카테고리
+}
 
 const categories: { name: string; path: string }[] = [
   { name: '전체', path: '' },
@@ -11,23 +15,12 @@ const categories: { name: string; path: string }[] = [
   { name: '완결', path: 'finish' },
 ];
 
-const CategorySelector: React.FC = () => {
+const ListCategorySelector: React.FC<ListCategorySelectorProps> = ({
+  selectedCategory,
+}) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-
-  useEffect(() => {
-    if (pathname === '/main/finish') {
-      setSelectedCategory('완결');
-    } else if (pathname === '/main/new') {
-      setSelectedCategory('신작');
-    } else if (pathname === '/main' || pathname.startsWith('/main/')) {
-      setSelectedCategory('전체');
-    }
-  }, [pathname]);
 
   const handleCategoryClick = (categoryName: string, path: string) => {
-    setSelectedCategory(categoryName);
     router.push(`/main/${path}`);
   };
 
@@ -69,4 +62,4 @@ const CategorySelector: React.FC = () => {
   );
 };
 
-export default CategorySelector;
+export default ListCategorySelector;

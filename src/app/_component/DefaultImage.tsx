@@ -7,9 +7,16 @@ interface ImageProps {
   src: string;
   width: number;
   height: number;
+  rounded?: string;
 }
 
-export default function DefaultImage({ alt, src, height, width }: ImageProps) {
+export default function DefaultImage({
+  alt,
+  src,
+  height,
+  width,
+  rounded = 'rounded-[5px]',
+}: ImageProps) {
   const [isImgError, setIsImgError] = useState<boolean>(false);
   const [url, setURL] = useState<string>('');
 
@@ -20,23 +27,30 @@ export default function DefaultImage({ alt, src, height, width }: ImageProps) {
     } else {
       setURL(src);
     }
+    console.log('url' + url);
   }, [src]);
 
   return (
     <>
       {!url ? (
-        <div className={`bg-[#DEE5EA] h-[${height}px] w-[${width}px]`}></div>
+        <div
+          className={`bg-[#DEE5EA] ${rounded}`}
+          style={{ height: `${height}px`, width: `${width}px` }}
+        ></div>
       ) : (
-        <Image
-          alt={alt}
-          src={url}
-          width={width}
-          height={height}
-          onError={(e) => {
-            setIsImgError(true);
-            console.log(e, 'error 에러예욤');
-          }}
-        />
+        <div className={`border border-[#f2f2f2] overflow-hidden ${rounded}`}>
+          <Image
+            alt={alt}
+            src={url}
+            width={width}
+            height={height}
+            className={rounded}
+            onError={(e) => {
+              setIsImgError(true);
+              console.log(e, 'error 에러예욤');
+            }}
+          />
+        </div>
       )}
     </>
   );

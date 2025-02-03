@@ -3,7 +3,7 @@ export interface Webtoon {
   title: string;
   member: string;
   thumbnail: string;
-  genres: string[];
+  genre: string;
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
@@ -19,5 +19,5 @@ export interface FavoriteWebtoon {
   updatedAt: string;
   episodeCount: number;
   description: string;
-  genres: string[];
+  genre: string;
 }

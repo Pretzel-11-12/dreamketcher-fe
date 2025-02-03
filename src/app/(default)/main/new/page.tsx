@@ -4,6 +4,8 @@ import Image from 'next/image';
 import RecentThumbnail from '@/app/(default)/main/_component/RecentThumbnail';
 import ThumbnailContainer from '@/app/(default)/main/_component/ThumbnailContainer';
 import DetailThumbnailContainer from '@/app/(default)/main/_component/DetailThumbnailContainer';
+import Pagination from '@/app/_component/Pagination';
+import { useState } from 'react';
 
 interface WebtoonThumbnailData {
   id: number;
@@ -60,23 +62,37 @@ const announcements = [
 ];
 
 export default function New() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1024px]">
-        <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-3">
-          <ThumbnailContainer type={'new'} title={'베스트 신작 웹툰'} />
+      <div className="flex w-[1200px]">
+        <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-3 pb-32">
+          <ThumbnailContainer type={'new'} title={'베스트 신작 웹툰'} />{' '}
           <div className="flex gap-1 mt-10">
             <Image
-              src="/assets/images/promotion.jpg"
+              src="/assets/images/promotion-3.png"
               alt="Site promotion image"
-              layout="responsive"
-              width={693}
-              height={50}
+              width={430}
+              height={90}
+              layout="intrinsic"
+            />
+            <Image
+              src="/assets/images/promotion-4.png"
+              alt="Site promotion image"
+              width={430}
+              height={90}
+              layout="intrinsic"
             />
           </div>
           <DetailThumbnailContainer title={'전체 신작 웹툰'} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={10}
+            onPageChange={setCurrentPage}
+          />
         </div>
-        <div className="flex flex-col w-[346px] pt-8 gap-1 ml-2">
+        <div className="flex flex-col w-[282px] pt-8 gap-1 ml-2">
           <p>최근 본 작품</p>
           <div className="flex mt-3 mb-14">
             {webtoonThumbnails &&

@@ -65,37 +65,45 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <div
-        ref={modalRef}
-        className="absolute mt-[85px] mr-[200px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"
-      >
-        <button
-          className="flex flex-row items-start justify-start gap-2 pl-4 pt-2 h-[50px] border-b border-b-line w-full hover:bg-gray-100"
-          onClick={handleClickMypage}
+    <div className="fixed inset-0 z-50 w-100vw flex">
+      <div className="flex items-start justify-end mx-auto w-[1200px]">
+        <div
+          ref={modalRef}
+          className="mt-[85px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"
         >
-          <Image
-            src={imageUrl || '/assets/images/profile-default.png'}
-            alt="profile button"
-            width={30}
-            height={30}
-            className="rounded-full"
-          />
-          <p className="font-medium mt-[6px]">{nickname}</p>
-        </button>
-        <div className="flex flex-col items-center justify-start text-left ">
           <button
-            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
-            onClick={handleClickCreatorPage}
+            className="flex flex-row items-start justify-start gap-2 pl-4 pt-2 h-[50px] border-b border-b-line w-full hover:bg-gray-100"
+            onClick={handleClickMypage}
           >
-            작업실
+            <Image
+              src={imageUrl || '/assets/images/profile-default.png'}
+              alt="profile button"
+              width={30}
+              height={30}
+              className="rounded-full"
+            />
+            <p className="font-medium mt-[6px]">{nickname}</p>
           </button>
-          <button
-            className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
-            onClick={handleClickLogout}
-          >
-            로그아웃
-          </button>
+          <div className="flex flex-col items-center justify-start text-left ">
+            <button
+              className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
+              onClick={handleClickCreatorPage}
+            >
+              작업실
+            </button>
+            <button className="w-full h-[50px] text-left pl-4 hover:bg-gray-100">
+              설정
+            </button>
+            <button className="w-full h-[50px] text-left pl-4 hover:bg-gray-100">
+              고객센터
+            </button>
+            <button
+              className="w-full h-[50px] text-left pl-4 hover:bg-gray-100"
+              onClick={handleClickLogout}
+            >
+              로그아웃
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ const MypageHeader: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isMypageActive = pathname === '/mypage';
+  const isMypageActive = pathname === '/mypage' || pathname === '/mypage/edit';
   const isStorageActive = pathname === '/mypage/storage';
 
   return (

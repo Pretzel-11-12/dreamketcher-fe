@@ -45,22 +45,30 @@ const WebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
   return (
     <div className="mt-3">
       <Slider {...settings}>
-        {webtoons.map((webtoon, index) => (
-          <div key={index} className="px-2">
-            <WebtoonThumbnail webtoon={webtoon} ranking={index + 1} />
+        {webtoons.length > 0 ? (
+          webtoons.map((webtoon, index) => (
+            <div key={index} className="px-2">
+              <WebtoonThumbnail webtoon={webtoon} ranking={index + 1} />
+            </div>
+          ))
+        ) : (
+          <div className="flex justify-center h-[311px]">
+            <p className="text-center text-red">데이터가 없습니다.</p>
           </div>
-        ))}
+        )}
       </Slider>
       {/* 하단 진행 바 */}
-      <div className="left-0 w-full h-[2px] bg-gray-200 relative">
-        <div
-          className="h-full bg-black transition-all duration-200 absolute"
-          style={{
-            width: `${(1 / Math.ceil(webtoons.length / 4)) * 100}%`, // 한 그룹(4개 단위)의 너비
-            left: `${(currentGroup / Math.ceil(webtoons.length / 4)) * 100}%`, // 현재 그룹의 시작 위치
-          }}
-        />
-      </div>
+      {webtoons.length > 4 && (
+        <div className="left-0 w-full h-[2px] bg-gray-200 relative">
+          <div
+            className="h-full bg-black transition-all duration-200 absolute"
+            style={{
+              width: `${(1 / Math.ceil(webtoons.length / 4)) * 100}%`, // 한 그룹(4개 단위)의 너비
+              left: `${(currentGroup / Math.ceil(webtoons.length / 4)) * 100}%`, // 현재 그룹의 시작 위치
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
