@@ -5,10 +5,9 @@ import qs from 'qs';
 export namespace fetchCreatorWebtoon {
   export import Model = __Model;
 
-  // Complete
   export async function getCreatorsWebtoons(arg?: {
     query: {
-      status?: 'IN_SERIES' | 'FINISH' | 'NEW';
+      status?: 'IN_SERIES' | 'FINISH' | 'NEW' | 'REST' | 'PRE_SERIES';
       page?: number;
       size?: number;
     };

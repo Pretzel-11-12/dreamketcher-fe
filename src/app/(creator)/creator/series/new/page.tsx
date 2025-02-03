@@ -1,9 +1,8 @@
 'use client';
 
-import SeriesForm, { SeriesFormInfo } from '../_components/SeriesForm';
+import SeriesForm from '../_components/SeriesForm';
 import EpisodeSideBar from '../../episode/_components/EpisodeSideBar';
 import { useQuery } from '@tanstack/react-query';
-import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import { useSearchParams } from 'next/navigation';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 
@@ -36,11 +35,13 @@ export default function SeriesNew() {
     >
       {isExist && <EpisodeSideBar webtoonInfo={webtoonInfo} />}
 
-      <div className="flex flex-col w-full px-8">
-        <div className="text-xl font-semibold py-4 border-b">
+      <div className="flex flex-col w-full">
+        <div
+          className={`${isExist && 'px-6'} text-xl font-medium py-4 border-b`}
+        >
           {isExist ? data?.title || '데이터 없음' : '새 작품 등록'}
         </div>
-        <div className="py-8">
+        <div className={`${isExist && 'px-8'} py-8`}>
           <SeriesForm item={data} />
         </div>
       </div>

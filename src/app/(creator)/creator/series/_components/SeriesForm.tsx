@@ -119,12 +119,13 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-12 pb-20">
+    <div className="flex flex-col w-full gap-12 pb-20 text-[16px]">
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품제목</div>
         <Input
+          maxLength={30}
           placeholder="제목을 입력해주세요."
-          subText="0/30"
+          subText={`${webtoonInfo.title.length}/30`}
           text={webtoonInfo.title}
           onChange={(title) => setWebtoonInfo((v) => ({ ...v, title: title }))}
         />
@@ -132,7 +133,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>장르</div>
-        <RadioButton options={options} />
+        <RadioButton options={options} selectedValue={'1'} />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -142,6 +143,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
             { id: 'all', label: '전체 이용가' },
             { id: 'adult', label: '성인' },
           ]}
+          selectedValue={'all'}
         />
       </div>
 
@@ -150,7 +152,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480, height: 623 }}
+          imageFormat={{ width: 480, height: 720 }}
         />
       </div>
 
@@ -169,22 +171,12 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <Textarea
           text={webtoonInfo.story}
           placeholder="작품 설명에 필요한 내용을 작성해주세요."
-          subText="0/30"
+          subText={`${webtoonInfo.story.length}/400`}
+          maxLength={400}
           onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>작품 한줄 설명</div>
-        <Input
-          text={webtoonInfo.description}
-          placeholder="작품에 대한 설명을 한줄로 적어주세요."
-          subText="0/400"
-          onChange={(description) =>
-            setWebtoonInfo((v) => ({ ...v, description: description }))
-          }
-        />
-      </div>
       <div className="pb-24">
         <div className="grid grid-cols-[10rem_1fr] items-start pb-4">
           <div>작품 태그</div>
@@ -198,17 +190,18 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full justify-center">
-        <Button
-          props={{
-            size: 'L',
-            variant: 'brand-yellow',
-            containerStyles: 'w-[300px]',
-            handleClick: handleWebtoon,
-          }}
-        >
-          작품 등록하기
-        </Button>
+      <div className="flex justify-center">
+        <div className="w-[380px]">
+          <Button
+            props={{
+              size: 'L',
+              variant: 'brand-yellow',
+              handleClick: handleWebtoon,
+            }}
+          >
+            {!!item ? '작품 수정하기' : '작품 등록하기'}
+          </Button>
+        </div>
       </div>
     </div>
   );

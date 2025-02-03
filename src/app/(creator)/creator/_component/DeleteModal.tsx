@@ -63,10 +63,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <div className="bg-white rounded-lg p-5 flex gap-2 flex-col w-[384px]">
-        <div className="flex flex-col gap-2 p-5">
-          <span className="text-lg font-semibold">{text}</span>
-          <span className="text-xs text-gray-600">
+      <div className="bg-white rounded-lg p-[15px] flex gap-2 flex-col w-[384px]">
+        <div className="flex flex-col gap-[16px] p-[20px]">
+          <span className="text-[20px] font-medium">{text}</span>
+          <span className="text-[13px] text-[#888888] pb-[15px]">
             삭제 시 최대 30일 동안 휴지통에 보관된 후 영구 삭제됩니다.
           </span>
         </div>
@@ -77,7 +77,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             handleClick: handleClickDelete,
           }}
         >
-          삭제
+          {episodeId ? '회차' : '작품'} 삭제
         </Button>
         <Button
           props={{ size: 'L', variant: 'brand-gray', handleClick: closeModal }}

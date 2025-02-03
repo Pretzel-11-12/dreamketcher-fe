@@ -14,8 +14,12 @@ export namespace _Model {
   }
 
   export interface CreatorWebtoons {
-    result: CreatorWebtoonUnit[];
-    totalElements: number;
+    content: { result: CreatorWebtoonUnit[]; totalElements: number };
+    finishCount: number;
+    inSeriesCount: number;
+    newCount: number;
+    preSeriesCount: number;
+    restCount: number;
   }
 
   export interface CreatorWebtoonUnit {

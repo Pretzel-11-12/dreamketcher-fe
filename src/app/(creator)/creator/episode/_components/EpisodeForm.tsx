@@ -146,7 +146,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <ThumbnailUploader
           _preview={episodeInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 202, height: 120 }}
+          imageFormat={{ width: 200, height: 120 }}
         />
       </div>
 
