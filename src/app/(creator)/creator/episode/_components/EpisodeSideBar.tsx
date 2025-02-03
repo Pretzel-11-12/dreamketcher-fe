@@ -2,6 +2,7 @@
 import DefaultImage from '@/app/_component/DefaultImage';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 type EpisodeListProps = {
   webtoonInfo: { title: string; id: string; thumbnail: string };
 };
@@ -31,7 +32,10 @@ const EpisodeSideBar: React.FC<EpisodeListProps> = ({ webtoonInfo }) => {
             }`}
           >
             <div className="flex items-center justify-center gap-2 w-full h-full">
-              <span className="mdi mdi-list-box"></span>
+              <img
+                src="/assets/images/task-square.svg"
+                alt="Google Login Button"
+              />
               회차 리스트
             </div>
           </button>
@@ -50,7 +54,10 @@ const EpisodeSideBar: React.FC<EpisodeListProps> = ({ webtoonInfo }) => {
             }`}
           >
             <div className="flex items-center justify-center gap-2 w-full h-full">
-              <span className="mdi mdi-information"></span>
+              <img
+                src="/assets/images/info-circle.svg"
+                alt="Google Login Button"
+              />
               작품 정보
             </div>
           </button>

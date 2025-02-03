@@ -42,7 +42,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   });
 
   const searchParams = useSearchParams();
-  const no = searchParams.get('no')!;
+  const no = searchParams.get('episodeId')!;
   const [status, setStatus] = useState<'edit' | 'new'>('new');
 
   useEffect(() => {
@@ -122,6 +122,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     } catch (e) {}
   };
+  console.log({ no });
 
   const [publicSetting, setPublicSetting] = useState('public');
   return (
@@ -130,7 +131,8 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <div>회차 제목</div>
         <Input
           placeholder="제목을 입력해주세요."
-          subText="0/30"
+          maxLength={30}
+          subText={`${episodeInfo.title?.length}/30`}
           text={episodeInfo.title}
           onChange={(title) => setEpisodeInfo((v) => ({ ...v, title }))}
         />
