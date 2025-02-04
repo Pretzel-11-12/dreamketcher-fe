@@ -16,6 +16,9 @@ type ReCommentInfoType = {
 const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
   moment.locale('ko');
   const timeAgo = moment(info.createdAt).fromNow();
+
+  const deleteReCommentClick = () => {};
+
   return (
     <div
       className={`grid grid-cols-[auto_auto_1fr] py-5 gap-2 ${
@@ -48,12 +51,15 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
               alt="trash"
               width={20}
               height={20}
+              onClick={deleteReCommentClick}
+              className="cursor-pointer"
             />
             <Image
               src="/assets/icon/report.svg"
               alt="report"
               width={26}
               height={26}
+              className="cursor-pointer"
             />
           </div>
         </div>
