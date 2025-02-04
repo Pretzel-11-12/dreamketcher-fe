@@ -60,6 +60,7 @@ const CategorySelector: React.FC = () => {
               alt="Studio Icon"
               width={20}
               height={20}
+              className="mr-[5px]"
             />
             작업실
           </Link>
