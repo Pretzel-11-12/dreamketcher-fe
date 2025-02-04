@@ -22,13 +22,17 @@ type RecentThumbnailProps = {
 
 const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
-  function tempClickHandler() {
-    router.push(`/webtoon/list`);
-  }
+
+  const handleThumbnailClick = () => {
+    router.push(
+      `/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`
+    );
+  };
+
   return (
     <div
       className="flex flex-col w-[149px] h-[308px] cursor-pointer"
-      onClick={tempClickHandler}
+      onClick={handleThumbnailClick}
     >
       <Image
         src={webtoon.image}
