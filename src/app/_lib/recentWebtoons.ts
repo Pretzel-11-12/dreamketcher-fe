@@ -10,11 +10,9 @@ export interface RecentWebtoon {
 }
 
 const RECENT_WEBTOONS_KEY = 'recent_webtoons';
-const MAX_RECENT_WEBTOONS = 3;
+const MAX_RECENT_WEBTOONS = 2;
 
-export const addRecentWebtoon = (
-  webtoon: Omit<RecentWebtoon, 'lastViewedAt'>
-) => {
+export const addRecentWebtoon = (webtoon: RecentWebtoon) => {
   const recentWebtoons = getRecentWebtoons();
 
   // 이미 존재하는 웹툰이면 제거
@@ -24,7 +22,7 @@ export const addRecentWebtoon = (
   const newWebtoons = [
     { ...webtoon, lastViewedAt: Date.now() },
     ...filtered,
-  ].slice(0, MAX_RECENT_WEBTOONS); // 최대 3개만 유지
+  ].slice(0, MAX_RECENT_WEBTOONS); // 최대 2개만 유지
 
   localStorage.setItem(RECENT_WEBTOONS_KEY, JSON.stringify(newWebtoons));
   return newWebtoons;

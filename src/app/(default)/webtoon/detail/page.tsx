@@ -85,6 +85,7 @@ export default function Detail() {
         episodeCount: parseInt(episodeId),
         averageRating: data.averageStar || 0,
         stars: data.likeCount || 0,
+        lastViewedAt: parseInt(episodeId),
       });
     }
   }, [data, webtoonId, episodeId]);
