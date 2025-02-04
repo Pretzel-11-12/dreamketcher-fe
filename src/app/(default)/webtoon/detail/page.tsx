@@ -113,7 +113,7 @@ export default function Detail() {
         </div>
 
         <div className="w-full flex items-center justify-center bg-white pt-14 shadow-[0_-4px_10px_rgba(0,0,0,0.04)]">
-          <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
+          <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
             <div className="h-full w-full flex flex-col pb-18 gap-1">
               <div className="p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-[16px] font-medium pb-2">작가의 말</div>
@@ -155,7 +155,7 @@ export default function Detail() {
                 </div>
               </div>
 
-              <div className="pt-8">
+              <div className="pt-8 mb-5">
                 <Dropdown options={dropdownOptions} defaultOption="like" />
               </div>
 
