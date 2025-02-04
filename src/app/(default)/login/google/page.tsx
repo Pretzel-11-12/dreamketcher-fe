@@ -8,6 +8,8 @@ const GoogleCallbackPage: React.FC = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
 
+  
+
   useEffect(() => {
     const handleGoogleCallback = async () => {
       const authCode = new URLSearchParams(window.location.search).get('code');

@@ -63,7 +63,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
         {tags.map((tag) => (
           <div
             key={tag}
-            className="flex items-center gap-1 text-white bg-brand-yellow rounded-md px-[6px] py-[3px] text-xs"
+            className="flex items-center gap-1 text-white bg-[#5474CE] border-[#4C68B4] border rounded-[3px] px-[6px] py-[1px] text-[13px]"
           >
             <span>{tag}</span>
             <button

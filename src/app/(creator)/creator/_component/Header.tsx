@@ -68,19 +68,28 @@ const Header: React.FC = () => {
   }, [setUserInfo]);
 
   return (
-    <header className="fixed w-full bg-white z-50">
-      <div className="flex items-center justify-between w-full max-w-[1200px] h-[80px] mx-auto px-4 md:px-0 relative">
+    <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
+      <div className="flex items-center justify-between w-full max-w-[1200px] h-[70px] mx-auto px-4 md:px-0 relative">
         <div className="flex items-center gap-3">
           <span
             className="mdi mdi-chevron-left text-2xl text-gray-600 cursor-pointer"
             onClick={handleGoBack}
           />
 
+          <Link href="/main/default">
+            <Image
+              src="/assets/images/d-text.png"
+              alt="profile button"
+              width={30}
+              height={30}
+            />
+          </Link>
+
           <Link href="/creator/series?status=IN_SERIES">
             <Image
-              src="/assets/images/studio.png"
+              src="/assets/images/studio-text.png"
               alt="profile button"
-              width={120}
+              width={65}
               height={30}
             />
           </Link>

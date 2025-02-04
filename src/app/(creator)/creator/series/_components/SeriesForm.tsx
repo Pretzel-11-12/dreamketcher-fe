@@ -9,15 +9,10 @@ import { useEffect, useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
-import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-export interface SeriesFormInfo {
-  title: string;
-  thumbnail: string;
-  prologue: string;
-  description: string;
-  story: string;
-}
+export interface SeriesFormInfo
+  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id'> {}
+
 const options = [
   { label: '로맨스', id: '1' },
   { label: '판타지', id: '2' },
@@ -32,7 +27,7 @@ const options = [
 ];
 
 type SeriesFormProp = {
-  item: fetchWebtoonDetail.Model.WebtoonDetailUnit;
+  item?: fetchCreatorWebtoon.Model.CreatorWebtoonDetail;
 };
 
 const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
@@ -42,35 +37,47 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     prologue: '',
     story: '',
     description: '',
+    genreNames: [],
   });
+  const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
 
   useEffect(() => {
     if (!!item) {
-      setWebtoonInfo({
-        title: item.webtoonTitle,
-        thumbnail: item.webtoonThumbnail,
-        prologue: '데이터가 없삼요',
-        story: item.webtoonStory,
-        description: '데이터가 없삼요',
-      });
+      setWebtoonInfo(item);
+      setStatus('edit');
     }
   }, [item]);
 
   const handleThumbnail = async (file: File | null) => {
     if (file) {
+      const isEdit = status === 'edit';
+
       const formData = new FormData();
-      formData.append('image', file);
 
       try {
-        const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({
-          formData,
-        });
+        if (isEdit && item) {
+          formData.append('newThumbnail', file);
+          formData.append('oldThumbnail', item.thumbnail);
+          formData.append('folderName', `/webtoon/${item.id}/thumbnail`);
 
-        setWebtoonInfo((v) => ({
-          ...v,
-          thumbnail: s3Url,
-        }));
+          const s3Url = await fetchCreatorWebtoon.editWebtoonThumbnail({
+            formData,
+            webtoonId: item.id,
+          });
+
+          console.log(s3Url);
+        } else {
+          formData.append('image', file);
+          const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({
+            formData,
+          });
+
+          setWebtoonInfo((v) => ({
+            ...v,
+            thumbnail: s3Url,
+          }));
+        }
       } catch (e) {
         console.log(e);
       }
@@ -94,22 +101,31 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   };
 
   const handleWebtoon = async () => {
+    const isEdit = status === 'edit';
     try {
-      const response = await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
-      if (response.id) {
-        alert('작품이 등록되었습니다');
-        router.push(`/creator/series?status=NEW`);
+      if (isEdit) {
+        await fetchCreatorWebtoon.editWebtoon({
+          webtoonId: item?.id!,
+          body: webtoonInfo,
+        });
+      } else {
+        await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
       }
-    } catch (e) {}
+      alert(isEdit ? '작품이 수정되었습니다' : '작품이 등록되었습니다');
+      router.push(`/creator/series?status=NEW`);
+    } catch (e) {
+      alert(isEdit ? '작품 수정 실패하였습니다' : '작품 등록 실패하였습니다');
+    }
   };
 
   return (
-    <div className="flex flex-col w-full gap-12 pb-20">
+    <div className="flex flex-col w-full gap-12 pb-20 text-[16px]">
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품제목</div>
         <Input
+          maxLength={30}
           placeholder="제목을 입력해주세요."
-          subText="0/30"
+          subText={`${webtoonInfo.title.length}/30`}
           text={webtoonInfo.title}
           onChange={(title) => setWebtoonInfo((v) => ({ ...v, title: title }))}
         />
@@ -117,7 +133,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>장르</div>
-        <RadioButton options={options} />
+        <RadioButton options={options} selectedValue={'1'} />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -127,6 +143,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
             { id: 'all', label: '전체 이용가' },
             { id: 'adult', label: '성인' },
           ]}
+          selectedValue={'all'}
         />
       </div>
 
@@ -135,7 +152,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480, height: 623 }}
+          imageFormat={{ width: 480, height: 720 }}
         />
       </div>
 
@@ -143,7 +160,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <div>프롤로그</div>
 
         <ThumbnailUploader
-          _preview={webtoonInfo.prologue}
+          _preview={webtoonInfo.prologue[0]}
           onFileSelect={handlePrologue}
           imageFormat={{ width: 480 }}
         />
@@ -154,22 +171,12 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <Textarea
           text={webtoonInfo.story}
           placeholder="작품 설명에 필요한 내용을 작성해주세요."
-          subText="0/30"
+          subText={`${webtoonInfo.story.length}/400`}
+          maxLength={400}
           onChange={(story) => setWebtoonInfo((v) => ({ ...v, story: story }))}
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>작품 한줄 설명</div>
-        <Input
-          text={webtoonInfo.description}
-          placeholder="작품에 대한 설명을 한줄로 적어주세요."
-          subText="0/400"
-          onChange={(description) =>
-            setWebtoonInfo((v) => ({ ...v, description: description }))
-          }
-        />
-      </div>
       <div className="pb-24">
         <div className="grid grid-cols-[10rem_1fr] items-start pb-4">
           <div>작품 태그</div>
@@ -183,17 +190,18 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full justify-center">
-        <Button
-          props={{
-            size: 'L',
-            variant: 'brand-yellow',
-            containerStyles: 'w-[300px]',
-            handleClick: handleWebtoon,
-          }}
-        >
-          작품 등록하기
-        </Button>
+      <div className="flex justify-center">
+        <div className="w-[380px]">
+          <Button
+            props={{
+              size: 'L',
+              variant: 'brand-yellow',
+              handleClick: handleWebtoon,
+            }}
+          >
+            {!!item ? '작품 수정하기' : '작품 등록하기'}
+          </Button>
+        </div>
       </div>
     </div>
   );
