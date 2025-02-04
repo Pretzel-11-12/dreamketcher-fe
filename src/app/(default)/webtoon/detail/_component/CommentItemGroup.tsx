@@ -59,6 +59,8 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
     <div>
       <CommentItem
         info={item}
+        webtoonId={webtoonId}
+        episodeId={episodeId}
         handleClick={() => setEnableRecomments(!enableRecomments)}
       />
       <div>
