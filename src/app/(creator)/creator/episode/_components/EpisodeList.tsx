@@ -18,6 +18,7 @@ type EpisodeListProps = {
   items: fetchWebtoonDetail.Model.EpisodeUnit[];
   webtoonInfo: { title: string; id: string; thumbnail: string };
 };
+
 const EpisodeList: React.FC<EpisodeListProps> = ({ items, webtoonInfo }) => {
   return (
     <>
@@ -51,7 +52,12 @@ const EpisodeList: React.FC<EpisodeListProps> = ({ items, webtoonInfo }) => {
         </div>
       ) : (
         items.map((item, index) => (
-          <EpisodeItem key={index} item={item} webtoonInfo={webtoonInfo} />
+          <EpisodeItem
+            key={index}
+            item={item}
+            webtoonInfo={webtoonInfo}
+            index={items.length - index}
+          />
         ))
       )}
     </>
