@@ -112,7 +112,7 @@ export namespace fetchComment {
       episodeId: string;
       commentId: string;
     };
-  }): Promise<{ id: number }> {
+  }): Promise<{ id: number } | null> {
     const { param } = arg;
     const { webtoonId, episodeId, commentId } = param;
 
@@ -127,7 +127,11 @@ export namespace fetchComment {
       }
     );
 
-    return response.json();
+    if (response.status === 204) {
+      return null; // 204일 경우 본문이 없으므로 null 반환
+    }
+
+    return response.json(); // 204가 아닐 경우 JSON 응답 반환
   }
 
   export async function deleteReComment(arg: {

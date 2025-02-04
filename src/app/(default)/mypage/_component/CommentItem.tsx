@@ -48,7 +48,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           <div className="flex items-center text-xs gap-3 mt-2">
             <div className="flex items-center gap-1">
               <Image
-                src={'/assets/icon/message.svg'}
+                src={'/assets/icon/inactiveMessage.svg'}
                 alt="Message Icon"
                 width={11}
                 height={11}
@@ -57,7 +57,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </div>
             <div className="flex items-center gap-1">
               <Image
-                src={'/assets/icon/like2.svg'}
+                src={'/assets/icon/inactiveLike.svg'}
                 alt="Like Icon"
                 width={11}
                 height={11}
@@ -66,7 +66,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </div>
             <div className="flex items-center gap-1">
               <Image
-                src={'/assets/icon/dislike.svg'}
+                src={'/assets/icon/inactiveDislike.svg'}
                 alt="Dislike Icon"
                 width={11}
                 height={11}
