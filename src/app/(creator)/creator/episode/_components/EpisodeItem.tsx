@@ -8,11 +8,16 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import DefaultImage from '@/app/_component/DefaultImage';
 
 type EpisodeItemProps = {
+  index: number;
   item: fetchWebtoonDetail.Model.EpisodeUnit;
   webtoonInfo: { title: string; id: string };
 };
 
-const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
+const EpisodeItem: React.FC<EpisodeItemProps> = ({
+  index,
+  item,
+  webtoonInfo,
+}) => {
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('webtoonId')!;
 
@@ -22,7 +27,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
   return (
     <>
       <div className="grid grid-cols-[repeat(7,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
-        <span className="flex justify-center w-full">{item.episodeId}</span>
+        <span className="flex justify-center w-full">{index}</span>
         <div className="rounded-md overflow-hidden">
           <DefaultImage
             src={item.thumbnail}
@@ -59,7 +64,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ item, webtoonInfo }) => {
       <DeleteModal
         episodeId={String(item.episodeId)}
         webtoonId={webtoonId}
-        text={`<${item.episodeId}화 - ${webtoonInfo.title}> 해당 회차를 삭제하시겠습니까?`}
+        text={`<${item.title}> 해당 회차를 삭제하시겠습니까?`}
         isOpen={isModalOpen}
         handleOpenModal={handleOpenModal}
       />

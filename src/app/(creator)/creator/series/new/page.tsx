@@ -1,10 +1,10 @@
 'use client';
 
-import SeriesForm, { SeriesFormInfo } from '../_components/SeriesForm';
+import SeriesForm from '../_components/SeriesForm';
 import EpisodeSideBar from '../../episode/_components/EpisodeSideBar';
 import { useQuery } from '@tanstack/react-query';
-import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import { useSearchParams } from 'next/navigation';
+import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 
 export default function SeriesNew() {
   const webtoonId = useSearchParams().get('webtoonId');
@@ -13,17 +13,18 @@ export default function SeriesNew() {
   const { data, isLoading, isError } = useQuery({
     queryKey: [webtoonId],
     queryFn: () =>
-      fetchWebtoonDetail.getWebtoonDetails({ param: { id: webtoonId! } }),
+      fetchCreatorWebtoon.getCreatorsWebtoonDetail({
+        param: { id: webtoonId! },
+      }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
     enabled: isExist,
   });
-  const _data = data as fetchWebtoonDetail.Model.WebtoonDetailUnit;
 
   const webtoonInfo = {
-    title: data?.webtoonTitle || '',
+    title: data?.title || '',
     id: webtoonId!,
-    thumbnail: data?.webtoonThumbnail || '',
+    thumbnail: data?.thumbnail || '',
   };
 
   return (
@@ -34,12 +35,14 @@ export default function SeriesNew() {
     >
       {isExist && <EpisodeSideBar webtoonInfo={webtoonInfo} />}
 
-      <div className="flex flex-col w-full px-8">
-        <div className="text-xl font-semibold py-4 border-b">
-          {isExist ? data?.webtoonTitle || '데이터 없음' : '새 작품 등록'}
+      <div className="flex flex-col w-full">
+        <div
+          className={`${isExist && 'px-6'} text-xl font-medium py-4 border-b`}
+        >
+          {isExist ? data?.title || '데이터 없음' : '새 작품 등록'}
         </div>
-        <div className="py-8">
-          <SeriesForm item={_data} />
+        <div className={`${isExist && 'px-8'} py-8`}>
+          <SeriesForm item={data} />
         </div>
       </div>
     </div>

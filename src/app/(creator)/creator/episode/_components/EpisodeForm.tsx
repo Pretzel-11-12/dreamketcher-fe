@@ -16,7 +16,7 @@ export interface EpisodeFormInfo {
   webtoonId: string;
   title?: string;
   thumbnail?: string;
-  content?: string;
+  content?: string[];
   authorNote?: string;
   publishedAt?: string;
 }
@@ -36,13 +36,14 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     webtoonId: webtoonId,
     title: '',
     thumbnail: '',
-    content: '',
+    content: [],
     authorNote: '',
     publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
   });
 
   const searchParams = useSearchParams();
-  const no = searchParams.get('no')!;
+  const no = searchParams.get('episodeId')!;
+  const [status, setStatus] = useState<'edit' | 'new'>('new');
 
   useEffect(() => {
     if (!!item) {
@@ -50,10 +51,11 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         webtoonId: webtoonId,
         title: item.title || '',
         thumbnail: item.thumbnail || '',
-        content: item?.content?.[0] || '',
+        content: item?.content || '',
         authorNote: item.authorNote || ' ',
         publishedAt: moment(new Date()).format('YYYY-MM-DDTHH:mm:ss'),
       });
+      setStatus('edit');
     }
   }, [item]);
 
@@ -103,13 +105,24 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
   const handleEpisode = async () => {
     try {
-      const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
-      if (response.id) {
-        alert('작품이 등록되었습니다');
+      if (status === 'edit') {
+        await fetchCreatorEpisode.editEpisode({
+          item: episodeInfo,
+          episodeId,
+        });
+
+        alert('에피소드가 수정 되었습니다');
         router.push(`/creator/episode?webtoonId=${webtoonId}`);
+      } else {
+        const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
+        if (response.id) {
+          alert('작품이 등록되었습니다');
+          router.push(`/creator/episode?webtoonId=${webtoonId}`);
+        }
       }
     } catch (e) {}
   };
+  console.log({ no });
 
   const [publicSetting, setPublicSetting] = useState('public');
   return (
@@ -118,7 +131,8 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <div>회차 제목</div>
         <Input
           placeholder="제목을 입력해주세요."
-          subText="0/30"
+          maxLength={30}
+          subText={`${episodeInfo.title?.length}/30`}
           text={episodeInfo.title}
           onChange={(title) => setEpisodeInfo((v) => ({ ...v, title }))}
         />
@@ -134,7 +148,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <ThumbnailUploader
           _preview={episodeInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 202, height: 120 }}
+          imageFormat={{ width: 200, height: 120 }}
         />
       </div>
 
@@ -142,7 +156,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         <div>원고 등록</div>
         <div>
           <ThumbnailUploader
-            _preview={episodeInfo.content}
+            _preview={episodeInfo.content?.[0]}
             onFileSelect={handleContent}
             imageFormat={{ width: 690 }}
           />

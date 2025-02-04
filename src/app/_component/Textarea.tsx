@@ -9,6 +9,7 @@ export interface TextareaProps {
   width?: string;
   active?: boolean;
   onChange?: (value: string) => void;
+  maxLength?: number;
 }
 
 const Textarea: React.FC<TextareaProps> = (props) => {
@@ -19,6 +20,7 @@ const Textarea: React.FC<TextareaProps> = (props) => {
     height = '200px',
     width = '100%',
     active = false,
+    maxLength,
     onChange,
   } = props;
 
@@ -27,29 +29,48 @@ const Textarea: React.FC<TextareaProps> = (props) => {
 
     if (onChange) onChange(value);
   };
+
+  const handleOnInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+
+    if (maxLength && value.length > maxLength) {
+      (e.currentTarget as HTMLTextAreaElement).value = value.slice(
+        0,
+        maxLength
+      );
+    }
+  };
+
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="relative flex flex-col gap-1 text-sm">
+    <div
+      className={`flex flex-col w-full text-sm px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 ${
+        isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
+      } ${text ? 'text-[#3F3F3F]' : 'text-[#C9C9C9] placeholder:text-[#C9C9C9]'}
+      
+ `}
+      style={{
+        height,
+        width,
+        color: text ? '#3F3F3F' : undefined,
+      }}
+    >
       <textarea
         value={text}
+        onInput={(e) => maxLength && handleOnInput(e)}
         placeholder={placeholder}
         onChange={handleChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={`px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 resize-none ${
-          isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
-        } placeholder:text-[#C9C9C9]`}
-        style={{
-          height,
-          width,
-          color: text ? '#3F3F3F' : undefined,
-        }}
+        className={`outline-none flex-1 resize-none`}
       ></textarea>
 
-      <span className="absolute bottom-1 right-2 text-xs pointer-events-none">
-        {subText}
-      </span>
+      <div className="text-xs pointer-events-none w-full flex justify-end">
+        <span>{subText}</span>
+      </div>
     </div>
   );
 };

@@ -16,8 +16,11 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
 
   return (
     <>
-      <div className="grid grid-cols-[120px_repeat(6,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
-        <div className="flex flex-col gap-1 items-center">
+      <div className="grid grid-cols-[100px_repeat(6,1fr)_80px] gap-5 items-center border-b py-[20px] pl-[45px] w-full text-gray-600 text-sm border-gray-400/20">
+        <div
+          className="flex flex-col gap-[12px] items-center cursor-pointer"
+          onClick={() => router.push(`/creator/episode?webtoonId=${item.id}`)}
+        >
           <DefaultImage
             src={item.thumbnail}
             height={150}
@@ -41,16 +44,11 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           <OptionButton
             items={[
               {
-                text: '회차 보기',
-                onClick: () =>
-                  router.push(`/creator/episode?webtoonId=${item.id}`),
-              },
-              {
                 text: '작품 삭제',
                 onClick: () => handleOpenModal(true),
               },
               {
-                text: '작품 수정',
+                text: '작품 정보 수정',
                 onClick: () =>
                   router.push(`/creator/series/new?webtoonId=${item.id}`),
               },
