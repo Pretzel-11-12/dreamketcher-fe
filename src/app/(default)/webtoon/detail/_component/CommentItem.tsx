@@ -2,14 +2,34 @@ import { fetchComment } from '@/app/api/fetchComment';
 import Image from 'next/image';
 import 'moment/locale/ko';
 import moment from 'moment';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type CommentInfoType = {
   info: fetchComment.Model.ResCommentUnit;
+  webtoonId: string;
+  episodeId: string;
   handleClick: () => void;
 };
-const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
+const CommentItem: React.FC<CommentInfoType> = ({
+  info,
+  webtoonId,
+  episodeId,
+  handleClick,
+}) => {
   moment.locale('ko');
   const timeAgo = moment(info.createdAt).fromNow();
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteCommentMutate, isError } = useMutation({
+    mutationFn: fetchComment.deleteComment,
+    onSuccess: () =>
+      // 성공 시 기존 댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [webtoonId, episodeId, 'comments'],
+      }),
+    onError: (e) => console.log(e),
+  });
 
   return (
     <div className="grid grid-cols-[auto_1fr] py-4 gap-2 border-b border-gray-500/10">
@@ -58,12 +78,19 @@ const CommentItem: React.FC<CommentInfoType> = ({ info, handleClick }) => {
               alt="trash"
               width={20}
               height={20}
+              onClick={() =>
+                deleteCommentMutate({
+                  param: { webtoonId, episodeId, commentId: String(info.id) },
+                })
+              }
+              className="cursor-pointer"
             />
             <Image
               src="/assets/icon/report.svg"
               alt="report"
               width={26}
               height={26}
+              className="cursor-pointer"
             />
           </div>
         </div>
