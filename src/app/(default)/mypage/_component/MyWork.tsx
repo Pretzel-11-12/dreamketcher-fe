@@ -2,45 +2,21 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import WorkItem from './WorkItem';
-import { Tag } from '../../webtoon/list/_component/WebtoonInfo';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 
-// works 객체의 타입 정의
-interface Work {
+export interface Webtoon {
   id: number;
-  image: string;
   title: string;
-  writer: string;
-  genre: string;
-  episodes: number;
-  rating: number;
-  comments: number;
+  thumbnail: string;
+  author: string;
   description: string;
-  interest: number;
-  tags: Tag[];
+  episodeCount: number;
+  avgStar: number;
+  numOfStars: number;
+  genre: string;
 }
-
-const works: Record<'ongoing' | 'completed', Work[]> = {
-  ongoing: [
-    {
-      id: 1,
-      image: '/assets/images/webtoonthumbnail-1.jpg',
-      title: '괴담 출근',
-      writer: '바크베',
-      genre: '판타지',
-      episodes: 36,
-      rating: 4.6,
-      comments: 305,
-      description: `Wait a minute, 이게 뭐지? (뭐지?)
-      내 심장이 lub-dub, 자꾸만 뛰어 (뛰어)
-      저 멀리서도, oh (oh), my (my) gosh (gosh)
-      끌어당겨, you're my crush, 초능력처럼`,
-      interest: 6741,
-      tags: [Tag.HORROR, Tag.ROMANCE, Tag.SCARED],
-    },
-  ],
-  completed: [],
-};
 
 const MyWork: React.FC = () => {
   const router = useRouter();
@@ -48,18 +24,32 @@ const MyWork: React.FC = () => {
 
   // Query 파라미터에서 label 값 가져오기
   const selectedLabel = searchParams.get('label') ?? 'in_series';
-  const selectedWorkType: 'ongoing' | 'completed' =
-    selectedLabel === 'finish' ? 'completed' : 'ongoing';
+  const status = selectedLabel === 'finish' ? 'FINISH' : 'IN_SERIES';
 
-  // 현재 선택된 작업 목록
-  const currentWorks = works[selectedWorkType];
-  const workCount = currentWorks.length;
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['creatorsWebtoon', status],
+    queryFn: () =>
+      fetchCreatorWebtoon.getCreatorsWebtoon({
+        query: { status, page: 1, size: 10 },
+      }),
+  });
 
   // 탭 클릭 시 URL 변경
   const handleTabClick = (type: 'ongoing' | 'completed') => {
     const query = type === 'ongoing' ? 'in_series' : 'finish';
     router.push(`/mypage?label=${query}`);
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    if (isError) {
+      return <p>Error loading works.</p>;
+    }
   };
+
+  const works = data?.result || [];
+  const workCount = works.length;
 
   return (
     <div className="w-full">
@@ -71,13 +61,14 @@ const MyWork: React.FC = () => {
           <button
             key={tab.type}
             className={`w-[130px] h-[48px] text-center border-b-2 transition duration-300 ${
-              selectedWorkType === tab.type
+              (status === 'IN_SERIES' && tab.type === 'ongoing') ||
+              (status === 'FINISH' && tab.type === 'completed')
                 ? 'text-brand-yellow border-b-brand-yellow'
                 : 'text-gray-500 border-b-transparent'
             }`}
             onClick={() => handleTabClick(tab.type)}
           >
-            {tab.label}({works[tab.type].length})
+            {tab.label} ({workCount})
           </button>
         ))}
       </div>
@@ -98,8 +89,8 @@ const MyWork: React.FC = () => {
         </div>
       ) : (
         <div className="space-y-4">
-          {currentWorks.map((work, index) => (
-            <WorkItem key={index} {...work} />
+          {works.map((work) => (
+            <WorkItem key={work.id} {...work} />
           ))}
         </div>
       )}

@@ -32,6 +32,11 @@ export namespace _Model {
     thumbnail: string;
     title: string;
     updatedAt: string;
+    author: string;
+    avgStar: number;
+    numOfStars: number;
+    description: string;
+    genre: string;
   }
 
   export interface CreatorWebtoonDetail {
