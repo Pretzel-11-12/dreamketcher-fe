@@ -13,8 +13,8 @@ export const useCreatorsWebtoon = (status: 'IN_SERIES' | 'FINISH' | 'NEW') => {
   });
 
   return {
-    data: data?.result || [],
-    total: data?.totalElements || 0,
+    data: data?.content.result || [],
+    total: data?.content.totalElements || 0,
     isLoading,
     isError,
     error,
