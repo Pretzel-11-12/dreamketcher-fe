@@ -29,7 +29,7 @@ const MyWork: React.FC = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['creatorsWebtoon', status],
     queryFn: () =>
-      fetchCreatorWebtoon.getCreatorsWebtoon({
+      fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status, page: 1, size: 10 },
       }),
   });
@@ -48,7 +48,7 @@ const MyWork: React.FC = () => {
     }
   };
 
-  const works = data?.result || [];
+  const works = data?.content.result || [];
   const workCount = works.length;
 
   return (
