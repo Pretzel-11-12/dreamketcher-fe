@@ -36,7 +36,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     thumbnail: '',
     prologue: '',
     story: '',
-    description: '',
+    description: '-',
     genreNames: [],
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
