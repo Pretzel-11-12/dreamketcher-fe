@@ -37,3 +37,6 @@ abbr {
 .react-calendar__navigation__label {
   @apply pointer-events-none;
 }
+button:disabled {
+  @apply text-gray-300;
+}

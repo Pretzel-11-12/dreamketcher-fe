@@ -65,6 +65,7 @@ export default function CreatorMain() {
 
         <div className="pl-4 transform scale-[0.8] origin-left">
           <CategoryTab
+            activeColor="[#3F3F3F]"
             items={[
               { id: '1', label: '발행', subLabel: '(0)' },
               { id: '2', label: '임시저장', subLabel: '(0)' },

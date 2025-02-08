@@ -97,23 +97,14 @@ const Header: React.FC = () => {
         <div className="flex justify-end w-full max-w-[600px]">
           <div className="relative flex text-black gap-3 items-center">
             {id ? (
-              <>
-                <Image
-                  src="/assets/images/bell.png"
-                  alt="noti button"
-                  width={30}
-                  height={30}
-                  className="cursor-pointer"
-                />
-                <Image
-                  src={imageUrl || '/assets/images/profile-default.png'}
-                  alt="profile button"
-                  width={30}
-                  height={30}
-                  onClick={handleOpenModal}
-                  className="cursor-pointer rounded-full"
-                />
-              </>
+              <Image
+                src={imageUrl || '/assets/images/profile-default.png'}
+                alt="profile button"
+                width={30}
+                height={30}
+                onClick={handleOpenModal}
+                className="cursor-pointer rounded-full w-[30px] h-[30px]"
+              />
             ) : (
               <Link
                 className="w-[110px] h-[34px] flex items-center justify-center bg-brand-blue text-white text-sm rounded-[5px]"

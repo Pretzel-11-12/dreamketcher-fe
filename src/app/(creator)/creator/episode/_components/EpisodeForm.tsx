@@ -140,9 +140,15 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 번호</div>
-        <Input text={no} disable />
+
+        <div className="flex flex-col gap-2">
+          <Input text={no} disable width="101px" />
+          <span className="text-xs text-[#C9C9C9]">
+            회차번호는 순차적으로 자동 지정되므로 수정이 불가합니다
+          </span>
+        </div>
       </div>
-      {}
+
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>회차 썸네일</div>
         <ThumbnailUploader
