@@ -33,3 +33,14 @@ export interface FavoriteWebtoon {
   description: string;
   genre: string;
 }
+
+export interface RecentWatchedWebtoon {
+  id: number;
+  image: string;
+  title: string;
+  writer: string;
+  episodeCount: number;
+  averageRating: number;
+  stars: number;
+  lastViewedAt: number;
+}

@@ -21,23 +21,18 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   }
   return (
     <div
-      className="flex flex-col w-[150px] h-[311px] cursor-pointer gap-2"
+      className="flex flex-col w-[166px] h-[311px] cursor-pointer gap-2"
       onClick={tempClickHandler}
     >
-      <Image
-        // src={webtoon.thumbnail}
-        src={'/assets/images/thumbnail-4.jpg'}
-        alt="Webtoon thumbnail image"
-        height={240}
-        width={150}
-      />
-
-      {/* <DefaultImage
-        alt={'Main webtoon thumbnail'}
-        src={webtoon.thumbnail}
-        height={240}
-        width={150}
-      /> */}
+      <div className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden">
+        <Image
+          src={webtoon.thumbnail}
+          alt="Webtoon thumbnail image"
+          fill
+          className="object-cover"
+          sizes="166px"
+        />
+      </div>
       <div className="flex items-center">
         <div className="flex flex-col text-[12px]">
           <p className="text-[14px]">{webtoon.title}</p>

@@ -20,9 +20,11 @@ export default function SideSection({ announcements }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col w-[282px] pt-8 gap-1 ml-[24px]">
-      <p>최근 본 웹툰</p>
-      <div className="flex mt-3 mb-14">
+    <div className="flex flex-col gap-[15px] w-[282px] pt-[50px] ml-[24px]">
+      <div className="h-[37px] flex items-center">
+        <p className="text-[16px]">최근 본 웹툰</p>
+      </div>
+      <div className="flex mb-14">
         {recentWebtoons.length > 0 ? (
           recentWebtoons.map((webtoon) => (
             <div key={webtoon.id}>

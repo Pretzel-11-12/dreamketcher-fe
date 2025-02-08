@@ -3,21 +3,10 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-// import Button from "@/app/_component/Button";
-
-interface webtoonData {
-  id: number;
-  image: string;
-  title: string;
-  writer: string;
-  episodeCount: number;
-  averageRating: number;
-  stars: number;
-  lastViewedAt: number; // 마지막으로 본 에피소드 번호
-}
+import { RecentWatchedWebtoon } from '@/model/Webtoon';
 
 type RecentThumbnailProps = {
-  webtoon: webtoonData;
+  webtoon: RecentWatchedWebtoon;
 };
 
 const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
@@ -31,15 +20,18 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
 
   return (
     <div
-      className="flex flex-col w-[149px] h-[308px] cursor-pointer"
+      className="flex flex-col w-[138px] h-[304px] cursor-pointer"
       onClick={handleThumbnailClick}
     >
-      <Image
-        src={webtoon.image}
-        alt="Webtoon thumbnail image"
-        width={140}
-        height={210}
-      />
+      <div className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden">
+        <Image
+          src={webtoon.image}
+          alt="Webtoon thumbnail image"
+          fill
+          className="object-cover"
+          sizes="138px"
+        />
+      </div>
       <div className="flex flex-col text-[12px]">
         <p className="text-[16px]">{webtoon.title}</p>
         <p className="text-[#888888] mb-2">

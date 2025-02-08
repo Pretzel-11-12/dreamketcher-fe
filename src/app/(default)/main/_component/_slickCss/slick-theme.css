@@ -172,3 +172,13 @@
   opacity: 0.75;
   color: black;
 }
+
+/* 슬라이더 트랙 왼쪽 정렬 */
+.slick-track {
+  margin-left: 0 !important;
+}
+
+/* 슬라이더 목록 왼쪽 정렬 */
+.slick-list {
+  margin-left: 0 !important;
+}
