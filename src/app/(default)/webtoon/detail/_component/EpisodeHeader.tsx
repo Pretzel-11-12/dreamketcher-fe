@@ -33,7 +33,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item }) => {
 
   return (
     <div
-      className="w-full h-[50px] bg-[#F9F9F9] fixed border-b flex items-center justify-center transition-opacity duration-300 z-50"
+      className="w-full h-[50px] bg-[#F9F9F9] fixed border-b flex items-center justify-center transition-opacity duration-300 z-30"
       style={isDisplay ? { opacity: 1 } : { opacity: 0 }}
       onMouseEnter={() => setDisplay(true)}
       onMouseLeave={() => window.scrollY >= 300 && setDisplay(false)}
