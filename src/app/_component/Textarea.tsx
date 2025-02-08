@@ -47,7 +47,7 @@ const Textarea: React.FC<TextareaProps> = (props) => {
 
   return (
     <div
-      className={`flex flex-col w-full text-sm px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 ${
+      className={`flex flex-col w-full text-sm px-4 py-3 border rounded-md focus:outline-none transition-colors duration-200 bg-white ${
         isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
       } ${text ? 'text-[#3F3F3F]' : 'text-[#C9C9C9] placeholder:text-[#C9C9C9]'}
       

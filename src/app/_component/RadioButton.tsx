@@ -25,7 +25,7 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
+    <div className="flex flex-wrap gap-x-14 gap-y-3 text-[15px]">
       {options.map((option) => (
         <label
           key={option.id}

@@ -96,7 +96,7 @@ export default function Detail() {
         item={{ webtoonId, episodeTitle: data?.title, episodeNo: data?.no }}
       />
       <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
-        <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
+        <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px]">
           <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
             {_.isString(data?.content) ? (
               <Image

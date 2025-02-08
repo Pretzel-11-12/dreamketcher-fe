@@ -122,7 +122,6 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     } catch (e) {}
   };
-  console.log({ no });
 
   const [publicSetting, setPublicSetting] = useState('public');
   return (
