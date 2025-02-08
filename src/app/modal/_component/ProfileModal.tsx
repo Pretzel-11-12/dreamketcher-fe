@@ -80,7 +80,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
               alt="profile button"
               width={30}
               height={30}
-              className="rounded-full"
+              className="rounded-full w-[30px] h-[30px]"
             />
             <p className="font-medium mt-[6px]">{nickname}</p>
           </button>

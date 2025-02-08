@@ -19,7 +19,7 @@ const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
       text: '좋아요',
       handleClick: async () =>
         await fetchWebtoonDetail.favoriteEpisode({ webtoonId, episodeId }),
-      icon: { src: '/assets/icon/like.svg', size: 34 },
+      icon: { src: '/assets/icon/inactiveLike.svg', size: 20 },
       subText: String(items.likeCount),
     },
     {

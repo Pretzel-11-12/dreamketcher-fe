@@ -12,8 +12,9 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { addRecentWebtoon } from '@/app/_lib/recentWebtoons';
 
 import _ from 'lodash';
 import { da } from '@faker-js/faker';
@@ -73,6 +74,22 @@ export default function Detail() {
     onError: (e) => console.log(e),
   });
 
+  // 웹툰 데이터가 로드되면 최근 본 웹툰에 추가
+  useEffect(() => {
+    if (data) {
+      addRecentWebtoon({
+        id: parseInt(webtoonId),
+        image: data.thumbnail || '',
+        title: data.title || '',
+        writer: data.authorName || '',
+        episodeCount: parseInt(episodeId),
+        averageRating: data.averageStar || 0,
+        stars: data.likeCount || 0,
+        lastViewedAt: parseInt(episodeId),
+      });
+    }
+  }, [data, webtoonId, episodeId]);
+
   return (
     <>
       <EpisodeHeader
@@ -113,7 +130,7 @@ export default function Detail() {
         </div>
 
         <div className="w-full flex items-center justify-center bg-white pt-14 shadow-[0_-4px_10px_rgba(0,0,0,0.04)]">
-          <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
+          <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
             <div className="h-full w-full flex flex-col pb-18 gap-1">
               <div className="p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-[16px] font-medium pb-2">작가의 말</div>
@@ -155,7 +172,7 @@ export default function Detail() {
                 </div>
               </div>
 
-              <div className="pt-8">
+              <div className="pt-8 mb-5">
                 <Dropdown options={dropdownOptions} defaultOption="like" />
               </div>
 
@@ -167,12 +184,19 @@ export default function Detail() {
             </div>
             <Button
               props={{
-                size: 'L',
+                size: 'S',
                 variant: 'brand-yellow',
-                containerStyles: 'w-fit px-20',
+                containerStyles:
+                  '!w-[143px] h-[40px] flex items-center justify-center gap-2',
               }}
             >
-              다음화 보기
+              댓글 더보기
+              <Image
+                src="/assets/icon/downArrow-white.svg"
+                alt="Down Arrow"
+                width={20}
+                height={20}
+              />
             </Button>
           </div>
         </div>

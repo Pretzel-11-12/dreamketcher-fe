@@ -21,7 +21,7 @@ const SearchKeyword: React.FC = () => {
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="웹툰명 또는 작가명을 입력해주세요."
         className="w-[263px] h-[34px] p-4 bg-line rounded-[100px] text-[13px] text-black
-         focus:bg-white focus:outline-brand-yellow transition duration-300"
+         focus:bg-white focus:outline-brand-yellow focus:outline-offset-[-2px] transition duration-300"
       />
       <button
         onClick={handleSearch}
