@@ -1,6 +1,8 @@
 import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
 import QuickMenu from '@/app/(default)/main/_component/QuickMenu';
+import SideSection from './_component/SideSection';
+import { announcements } from '@/app/mocks/SideData';
 
 export default function MainLayout({
   children,
@@ -15,7 +17,12 @@ export default function MainLayout({
       <hr className="border-line border-solid" />
       <GenreSelector />
       <hr className="border-line border-solid" />
-      {children}
+      <div className="w-full flex justify-center">
+        <div className="flex w-[1200px]">
+          {children}
+          <SideSection announcements={announcements} />
+        </div>
+      </div>
     </div>
   );
 }

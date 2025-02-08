@@ -1,8 +1,8 @@
-"use client";
-import React, { useState, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+'use client';
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 // import Button from "@/app/_component/Button";
 
 interface webtoonData {
@@ -13,6 +13,7 @@ interface webtoonData {
   episodeCount: number;
   averageRating: number;
   stars: number;
+  lastViewedAt: number; // 마지막으로 본 에피소드 번호
 }
 
 type RecentThumbnailProps = {
@@ -21,13 +22,17 @@ type RecentThumbnailProps = {
 
 const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
-  function tempClickHandler() {
-    router.push(`/webtoon/list`);
-  }
+
+  const handleThumbnailClick = () => {
+    router.push(
+      `/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`
+    );
+  };
+
   return (
     <div
       className="flex flex-col w-[149px] h-[308px] cursor-pointer"
-      onClick={tempClickHandler}
+      onClick={handleThumbnailClick}
     >
       <Image
         src={webtoon.image}
@@ -43,9 +48,9 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
       </div>
       <Link
         className="w-[140px] h-[43px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
-        href="/uploadPage"
+        href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.lastViewedAt}`}
       >
-        36화 이어읽기
+        {webtoon.episodeCount}화 이어읽기
       </Link>
     </div>
   );

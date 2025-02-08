@@ -12,8 +12,9 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { addRecentWebtoon } from '@/app/_lib/recentWebtoons';
 
 import _ from 'lodash';
 import { da } from '@faker-js/faker';
@@ -72,6 +73,22 @@ export default function Detail() {
       }),
     onError: (e) => console.log(e),
   });
+
+  // 웹툰 데이터가 로드되면 최근 본 웹툰에 추가
+  useEffect(() => {
+    if (data) {
+      addRecentWebtoon({
+        id: parseInt(webtoonId),
+        image: data.thumbnail || '',
+        title: data.title || '',
+        writer: data.authorName || '',
+        episodeCount: parseInt(episodeId),
+        averageRating: data.averageStar || 0,
+        stars: data.likeCount || 0,
+        lastViewedAt: parseInt(episodeId),
+      });
+    }
+  }, [data, webtoonId, episodeId]);
 
   return (
     <>
