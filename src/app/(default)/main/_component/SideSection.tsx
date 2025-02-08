@@ -21,7 +21,7 @@ export default function SideSection({ announcements }: Props) {
 
   return (
     <div className="flex flex-col w-[282px] pt-8 gap-1 ml-[24px]">
-      <p>최근 본 작품</p>
+      <p>최근 본 웹툰</p>
       <div className="flex mt-3 mb-14">
         {recentWebtoons.length > 0 ? (
           recentWebtoons.map((webtoon) => (
@@ -30,7 +30,7 @@ export default function SideSection({ announcements }: Props) {
             </div>
           ))
         ) : (
-          <p className="text-gray-400 text-sm">최근 본 작품이 없습니다.</p>
+          <p className="text-gray-400 text-sm">최근 본 웹툰이 없습니다.</p>
         )}
       </div>
       <div className="flex flex-col gap-4">

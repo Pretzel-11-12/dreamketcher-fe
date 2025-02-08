@@ -5,7 +5,6 @@ import Slider from 'react-slick';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import WebtoonThumbnail from './WebtoonThumbnail';
 import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
 import './_slickCss/slick-theme.css';
 
 interface WebtoonSliderProps {
