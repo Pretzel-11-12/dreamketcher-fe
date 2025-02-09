@@ -11,17 +11,19 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 
 export interface SeriesFormInfo
-  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id'> {}
+  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id' | 'genre'> {
+  genreId: string;
+}
 
 const options = [
-  { label: '로맨스', id: '1' },
-  { label: '판타지', id: '2' },
-  { label: '무협', id: '3' },
-  { label: '일상', id: '4' },
-  { label: '스릴러', id: '5' },
-  { label: '액션', id: '6' },
-  { label: '스포츠', id: '7' },
-  { label: '개그', id: '8' },
+  { label: '로맨스', id: '1', subId: 'PURE' },
+  { label: '판타지', id: '2', subId: 'FANTASY' },
+  { label: '무협', id: '3', subId: 'HISTORICAL' },
+  { label: '일상', id: '4', subId: 'DAILY' },
+  { label: '스릴러', id: '5', subId: 'THRILL' },
+  { label: '액션', id: '6', subId: 'ACTION' },
+  { label: '스포츠', id: '7', subId: 'SPORTS' },
+  { label: '개그', id: '8', subId: 'COMIC' },
 ];
 
 type SeriesFormProp = {
@@ -35,14 +37,16 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     prologue: '',
     story: '',
     description: '-',
-    genre_id: '1',
+    genreId: '1',
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
 
   useEffect(() => {
     if (!!item) {
-      setWebtoonInfo(item);
+      const genreId = options.find((v) => v.subId === item.genre)?.id || '1';
+
+      setWebtoonInfo({ ...item, genreId: genreId });
       setStatus('edit');
     }
   }, [item]);
@@ -131,10 +135,12 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>장르</div>
+
         <RadioButton
+          key={webtoonInfo.genreId}
           options={options}
-          selectedValue={'1'}
-          onChange={(id) => setWebtoonInfo((v) => ({ ...v, genre_id: id }))}
+          selectedValue={webtoonInfo.genreId}
+          onChange={(id) => setWebtoonInfo((v) => ({ ...v, genreId: id }))}
         />
       </div>
 

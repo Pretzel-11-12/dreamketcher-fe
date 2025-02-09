@@ -46,6 +46,6 @@ export namespace _Model {
     prologue: string;
     story: string;
     description: string;
-    genre_id: string;
+    genre: string;
   }
 }
