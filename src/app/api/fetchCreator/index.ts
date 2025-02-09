@@ -173,8 +173,7 @@ export namespace fetchCreatorEpisode {
     );
     if (!response.ok) throw new Error(`Failed to post Episode`);
 
-    const res = await response.json();
-    return { ...res, content: JSON.parse(res.content) };
+    return await response.json();
   }
 
   export async function editEpisode(arg: {

@@ -3,7 +3,7 @@ import type { NextConfig } from 'next';
 const withSvgr = require('next-svgr');
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true, // React의 엄격 모드 활성화
+  reactStrictMode: false, // React의 엄격 모드 활성화
   images: {
     domains: [
       'lh3.googleusercontent.com',

@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
 import moment from 'moment';
+import EpisodeUploader from '../../_component/EpisodeUploader';
 
 export interface EpisodeFormInfo {
   webtoonId: string;
@@ -42,7 +43,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   });
 
   const searchParams = useSearchParams();
-  const no = searchParams.get('episodeId')!;
+  const no = searchParams.get('no') || String(item?.no);
   const [status, setStatus] = useState<'edit' | 'new'>('new');
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   const router = useRouter();
 
   const handleThumbnail = async (file: File | null) => {
+    console.log(file);
     if (file) {
       const formData = new FormData();
       formData.append('thumbnail', file);
@@ -82,21 +84,18 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     }
   };
-
-  const handleContent = async (file: File | null) => {
+  const getContentURL = async (file: File | null) => {
     if (file) {
       const formData = new FormData();
       formData.append('content', file);
+
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeContent({
           webtoonId: webtoonId,
           formData,
         });
 
-        setEpisodeInfo((v) => ({
-          ...v,
-          content: s3Url,
-        }));
+        return s3Url[0];
       } catch (e) {
         console.log(e);
       }
@@ -104,6 +103,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   };
 
   const handleEpisode = async () => {
+    console.log({ status });
     try {
       if (status === 'edit') {
         await fetchCreatorEpisode.editEpisode({
@@ -115,6 +115,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         router.push(`/creator/episode?webtoonId=${webtoonId}`);
       } else {
         const response = await fetchCreatorEpisode.postEpisode(episodeInfo);
+
         if (response.id) {
           alert('작품이 등록되었습니다');
           router.push(`/creator/episode?webtoonId=${webtoonId}`);
@@ -160,10 +161,12 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>원고 등록</div>
         <div>
-          <ThumbnailUploader
-            _preview={episodeInfo.content?.[0]}
-            onFileSelect={handleContent}
-            imageFormat={{ width: 690 }}
+          <EpisodeUploader
+            images={episodeInfo.content || []}
+            onChange={(images) =>
+              setEpisodeInfo((v) => ({ ...v, content: images }))
+            }
+            getContentURL={getContentURL}
           />
         </div>
       </div>
