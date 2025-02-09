@@ -21,7 +21,7 @@ export default function Mypage() {
 
   return (
     <div className="min-h-screen flex flex-col pr-[20px] border-r border-r-line">
-      <div className="max-w-4xl bg-white mt-[70px] flex">
+      <div className="max-w-4xl bg-white mt-[105px] flex">
         <img
           className="w-[70px] h-[70px] rounded-full mr-6 border border-[#F2F2F2]"
           src={imageUrl || '/assets/images/profile-default.png'}
@@ -46,10 +46,10 @@ export default function Mypage() {
           )}
         </div>
       </div>
-      <p className="text-sm text-gray-700 my-4">{shortIntroduction}</p>
+      <p className="text-sm text-gray-700 mt-[19px]">{shortIntroduction}</p>
 
       <button
-        className="px-4 py-2 w-[700px] h-[61px] mt-2 text-[18px] font-medium border rounded-md"
+        className="px-4 py-2 w-[870px] h-[61px] mt-[30px] text-[18px] font-medium border rounded-md"
         style={{
           borderColor: '#FBA250',
           backgroundColor: '#FFFFFF',
