@@ -9,7 +9,7 @@ export const fetchUserInfo = async (accessToken: string): Promise<User> => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
+
     if (!response.ok) {
       throw new Error(
         `Failed to fetch user info: ${response.status} ${response.statusText}`

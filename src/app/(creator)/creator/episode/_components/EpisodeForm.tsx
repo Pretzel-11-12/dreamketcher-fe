@@ -11,7 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
 import moment from 'moment';
-import EpisodeUploader from '../../_component/EpisodeUploader';
+import EpisodeUploader from './EpisodeUploader';
 
 export interface EpisodeFormInfo {
   webtoonId: string;

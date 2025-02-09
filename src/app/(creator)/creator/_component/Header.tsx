@@ -30,18 +30,17 @@ const Header: React.FC = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
+
   const { id, imageUrl, setUserInfo } = useAuthStore();
-  const profileImage: any = null;
 
   useEffect(() => {
     const handleFetchUserInfo = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      // 액세스 토큰이 없으면 비로그인 상태로 처리
       if (!accessToken) {
         console.log('No access token found. User is not logged in.');
         setUserInfo(DEFAULT_USER_INFO);
+        router.push('/login');
         return;
       }
 
@@ -58,6 +57,7 @@ const Header: React.FC = () => {
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
+        router.push('/login');
 
         // 서버 요청 실패 시 비로그인 상태로 처리
         setUserInfo(DEFAULT_USER_INFO);

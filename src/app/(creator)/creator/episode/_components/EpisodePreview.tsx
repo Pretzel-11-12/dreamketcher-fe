@@ -58,6 +58,7 @@ const EpisodePreview: React.FC<EpisodeUploaderProps> = ({
           <div className="flex flex-col w-full overflow-y-scroll h-full gap-2 px-5">
             {images.map((v) => (
               <img
+                key={v}
                 src={v}
                 alt="Preview"
                 className="w-full h-full object-contain"
