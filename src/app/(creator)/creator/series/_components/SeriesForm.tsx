@@ -39,7 +39,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
-  console.log(webtoonInfo);
+
   useEffect(() => {
     if (!!item) {
       setWebtoonInfo(item);

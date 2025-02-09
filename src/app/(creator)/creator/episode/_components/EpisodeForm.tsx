@@ -64,7 +64,6 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   const router = useRouter();
 
   const handleThumbnail = async (file: File | null) => {
-    console.log(file);
     if (file) {
       const formData = new FormData();
       formData.append('thumbnail', file);

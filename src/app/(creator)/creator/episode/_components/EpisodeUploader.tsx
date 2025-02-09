@@ -70,6 +70,7 @@ const EpisodeUploader: React.FC<EpisodeUploaderProps> = ({
 
   const onDrop = async (acceptedFiles: File[]) => {
     let error = false;
+
     await Promise.all(
       acceptedFiles.map(async (file) => {
         if (!validTypes.includes(file.type)) {
@@ -78,9 +79,9 @@ const EpisodeUploader: React.FC<EpisodeUploaderProps> = ({
           return;
         }
 
-        if (file.size > 1000 * 1024) {
+        if (file.size > 5000 * 1024) {
           error = true;
-          setError('1MB 미만의 파일을 등록해주세요.');
+          setError('5MB 미만의 파일을 등록해주세요.');
           return;
         }
 

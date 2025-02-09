@@ -100,7 +100,7 @@ export default function Detail() {
           <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
             {_.isString(data?.content) ? (
               <Image
-                alt={''}
+                alt={data.title}
                 src={data?.content}
                 width={0}
                 height={0}
@@ -108,9 +108,9 @@ export default function Detail() {
                 style={{ width: '100%', height: 'auto' }}
               />
             ) : (
-              data?.content.map((c, i) => (
+              data?.content.map((c) => (
                 <Image
-                  key={`${i}`}
+                  key={c}
                   alt={''}
                   src={c}
                   width={0}
