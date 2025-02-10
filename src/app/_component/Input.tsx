@@ -41,10 +41,10 @@ const Input: React.FC<InputProps> = (props) => {
 
   return (
     <div
-      className={`flex items-center w-full gap-1 text-sm ${containerStyles} px-4 border rounded-md bg-white focus:outline-none transition-colors duration-200 w-full h-full ${
+      className={`flex items-center w-full gap-1 text-sm ${containerStyles} px-4 border rounded-md focus:outline-none transition-colors duration-200 w-full h-full ${
         isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
       } ${text ? 'text-[#3F3F3F]' : 'text-[#C9C9C9] placeholder:text-[#C9C9C9]'}
-`}
+   `}
       style={{
         height,
         width,
