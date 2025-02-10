@@ -48,10 +48,15 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
           content: arg.content,
         },
       }),
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [item.id, 'recomments'],
-      }),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [webtoonId, episodeId, 'comments'],
+      });
+    },
     onError: (e) => console.log(e),
   });
 
