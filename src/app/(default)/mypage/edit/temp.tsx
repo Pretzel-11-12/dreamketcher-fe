@@ -46,6 +46,11 @@ const Temp = () => {
       return;
     }
 
+    if (!tempNickname.trim()) {
+      alert('닉네임을 입력해주세요.');
+      return;
+    }
+
     const updatedProfile = {
       id,
       nickname: tempNickname,
