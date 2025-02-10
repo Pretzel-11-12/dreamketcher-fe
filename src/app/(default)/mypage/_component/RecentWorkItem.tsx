@@ -12,6 +12,7 @@ interface RecentWorkItemProps {
   genre: string;
   episodes: number;
   rating: number;
+  ratingCount: number;
 }
 
 const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
@@ -22,6 +23,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   genre,
   episodes,
   rating,
+  ratingCount,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 영역 참조
@@ -81,6 +83,9 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
           />
           <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
             {rating}
+          </p>
+          <p className="text-[#C9C9C9] text-xs ml-[3px] mt-[1px]">
+            ({ratingCount})
           </p>
         </div>
         <Link
