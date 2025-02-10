@@ -59,8 +59,6 @@ const Temp = () => {
       shortIntroduction: tempShortIntroduction,
     };
 
-    console.log(updatedProfile);
-
     mutate(updatedProfile, {
       onSuccess: () => {
         setUserInfo(updatedProfile);
