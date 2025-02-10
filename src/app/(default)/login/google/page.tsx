@@ -2,13 +2,10 @@
 
 import { useEffect } from 'react';
 import useAuthStore from '@/app/store/authStore';
-import { fetchUserInfo } from '@/app/api/auth';
 
 const GoogleCallbackPage: React.FC = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
-
-  
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
