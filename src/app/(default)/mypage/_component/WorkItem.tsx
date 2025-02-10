@@ -12,7 +12,7 @@ const WorkItem: React.FC<MyWebtoon> = ({
   episodeCount,
   avgStar,
   numOfStars,
-  description,
+  story,
   //tags,
 }) => {
   const router = useRouter();
@@ -55,7 +55,7 @@ const WorkItem: React.FC<MyWebtoon> = ({
           </p>
         </div>
 
-        <p className="text-sm text-[#3F3F3F] mt-2">{description}</p>
+        <p className="text-sm text-[#3F3F3F] mt-2">{story}</p>
 
         {/* <div className="flex gap-[2px] mt-2">
           {tags?.map((tag, i) => (

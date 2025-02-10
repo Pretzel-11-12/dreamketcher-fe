@@ -142,7 +142,7 @@ export default function Detail() {
                 <WriterInfoItem
                   authorImage={data?.authorImage || ''}
                   name={data?.authorName || ''}
-                  description={data?.authorNote || ''}
+                  story={data?.authorNote || ''}
                 />
               </div>
 
