@@ -74,19 +74,29 @@ const MyWork: React.FC = () => {
       </div>
 
       {workCount === 0 ? (
-        <div className="flex flex-col items-center h-[300px]">
-          <p className="text-gray-700 font-semibold text-lg mt-6 mb-1">
-            아직 웹툰이 없습니다.
-          </p>
-          <p className="text-[#888888] text-sm mb-8">
-            새로운 웹툰을 시작해보세요!
-          </p>
-          <Link href={'/creator/series/new'}>
-            <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
-              새 웹툰 등록하기
-            </button>
-          </Link>
-        </div>
+        status === 'FINISH' ? (
+          // 내 완결 웹툰 탭에서 데이터가 없을 때
+          <div className="flex justify-center">
+            <p className="text-[#C9C9C9] text-lg mt-[100px] mb-1">
+              아직 완결 작품이 없습니다.
+            </p>
+          </div>
+        ) : (
+          // 내 연재 웹툰 탭에서 데이터가 없을 때
+          <div className="flex flex-col items-center h-[300px]">
+            <p className="text-gray-700 font-semibold text-lg mt-[70px] mb-1">
+              아직 작품이 없습니다.
+            </p>
+            <p className="text-[#888888] text-sm mb-8">
+              새로운 웹툰을 시작해보세요!
+            </p>
+            <Link href={'/creator/series/new'}>
+              <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
+                새 웹툰 등록하기
+              </button>
+            </Link>
+          </div>
+        )
       ) : (
         <div className="space-y-4">
           {works.map((work: Webtoon) => (

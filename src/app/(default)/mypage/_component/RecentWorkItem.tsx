@@ -12,6 +12,7 @@ interface RecentWorkItemProps {
   genre: string;
   episodes: number;
   rating: number;
+  ratingCount: number;
 }
 
 const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
@@ -22,6 +23,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   genre,
   episodes,
   rating,
+  ratingCount,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 영역 참조
@@ -82,6 +84,9 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
           <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
             {rating}
           </p>
+          <p className="text-[#C9C9C9] text-xs ml-[3px] mt-[1px]">
+            ({ratingCount})
+          </p>
         </div>
         <Link
           href={{
@@ -94,10 +99,11 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
               size: 'M',
               variant: 'brand-yellow',
               handleClick: navigateToWebtoon,
-              containerStyles: 'text-xs px-5 py-3',
+              containerStyles:
+                'text-xs px-5 py-3 relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
             }}
           >
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex gap-2 items-center justify-center relative">
               {episodes}화 이어서 보기
             </div>
           </Button>

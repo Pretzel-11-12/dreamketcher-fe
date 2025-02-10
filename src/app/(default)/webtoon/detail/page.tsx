@@ -26,6 +26,7 @@ const dropdownOptions = [
 
 export default function Detail() {
   const [newComment, setNewComment] = useState('');
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
@@ -94,10 +95,14 @@ export default function Detail() {
     <>
       <EpisodeHeader
         item={{ webtoonId, episodeTitle: data?.title, episodeNo: data?.no }}
+        isVisible={isHeaderVisible}
       />
-      <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
-        <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px]">
-          <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
+      <div
+        className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center"
+        onClick={() => setHeaderVisible((prev) => !prev)}
+      >
+        <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
+          <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
             {_.isString(data?.content) ? (
               <Image
                 alt={data.title}

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { updateProfile } from '@/app/api/updateProfile';
+import { updateProfile } from '@/app/api/auth/updateProfile';
 import { User } from '@/model/User';
 
 export const useUpdateProfile = () => {

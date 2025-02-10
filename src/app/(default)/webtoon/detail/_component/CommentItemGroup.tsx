@@ -48,10 +48,15 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
           content: arg.content,
         },
       }),
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [item.id, 'recomments'],
-      }),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [webtoonId, episodeId, 'comments'],
+      });
+    },
     onError: (e) => console.log(e),
   });
 
@@ -76,6 +81,9 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
                   nickname: d.nickname,
                   createdAt: d.createdAt,
                 }}
+                webtoonId={webtoonId}
+                episodeId={episodeId}
+                parentCommentId={String(item.id)}
               />
             ))}
             <div className="relative px-10 pt-5 border-t border-[#F2F2F2]">

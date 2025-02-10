@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       's3.ap-northeast-2.amazonaws.com',
       'dreamketcher-server.s3.ap-northeast-2.amazonaws.com',
       'example.com',
-    ], // 이미지 도메인 추가
+    ],
   },
   webpack(config) {
     config.module.rules.push({

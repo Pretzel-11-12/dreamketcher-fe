@@ -10,6 +10,7 @@ const recentWorks = [
     genre: '로맨스',
     episodes: 50,
     rating: 4.5,
+    ratingCount: 1.278,
     comments: 120,
   },
   {
@@ -20,6 +21,7 @@ const recentWorks = [
     genre: '로맨스',
     episodes: 30,
     rating: 4.8,
+    ratingCount: 375,
     comments: 85,
   },
 ];

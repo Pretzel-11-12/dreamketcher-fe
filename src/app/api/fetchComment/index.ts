@@ -141,12 +141,12 @@ export namespace fetchComment {
       commentId: string;
       recommentId: string;
     };
-  }): Promise<{ id: number }> {
+  }): Promise<{ id: number } | null> {
     const { param } = arg;
     const { webtoonId, episodeId, commentId, recommentId } = param;
 
     const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}delete`,
+      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/delete`,
       {
         method: 'DELETE',
         headers: {
@@ -156,6 +156,10 @@ export namespace fetchComment {
       }
     );
 
-    return response.json();
+    if (response.status === 204) {
+      return null; // 204일 경우 본문이 없으므로 null 반환
+    }
+
+    return response.json(); // 204가 아닐 경우 JSON 응답 반환
   }
 }
