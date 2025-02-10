@@ -16,7 +16,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 5,
@@ -60,7 +60,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
 ];
 
