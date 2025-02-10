@@ -41,7 +41,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
         !isManualToggle && window.scrollY >= 300 && setDisplay(false)
       }
     >
-      <div className="w-[800px] flex items-center text-md gap-3">
+      <div className="w-[720px] flex items-center text-md gap-3">
         <Link
           href={{
             pathname: '/webtoon/list',
