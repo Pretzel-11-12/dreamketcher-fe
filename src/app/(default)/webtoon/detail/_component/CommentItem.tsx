@@ -52,8 +52,9 @@ const CommentItem: React.FC<CommentInfoType> = ({
               width={13}
               height={13}
             />
-            답글
+            {info.childCommentCount > 0 ? info.childCommentCount : '답글'}
           </div>
+
           <div className="text-xs flex items-center gap-1 cursor-pointer">
             <Image
               src="/assets/icon/inactiveLike.svg"
