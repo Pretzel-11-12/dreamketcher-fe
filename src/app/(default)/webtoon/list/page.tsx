@@ -49,7 +49,7 @@ export default function Detail() {
   }
 
   return (
-    <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
+    <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
       <ListCategorySelector selectedCategory="전체" />
       <hr className="border-line border-solid" />

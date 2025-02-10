@@ -10,7 +10,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black">
+    <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black">
       <QuickMenu />
       <hr className="border-line border-solid" />
       <CategorySelector />

@@ -7,7 +7,7 @@ export interface Webtoon {
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
-  description: string;
+  story: string;
 }
 
 export interface MyWebtoon {
@@ -15,7 +15,7 @@ export interface MyWebtoon {
   title: string;
   thumbnail: string;
   author: string;
-  description: string;
+  story: string;
   episodeCount: number;
   avgStar: number;
   numOfStars: number;
@@ -30,7 +30,7 @@ export interface FavoriteWebtoon {
   authorNickname: string;
   updatedAt: string;
   episodeCount: number;
-  description: string;
+  story: string;
   genre: string;
 }
 
