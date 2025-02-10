@@ -33,7 +33,7 @@ const MypageHeader: React.FC = () => {
           className={`text-[16px] font-medium ${
             isMypageActive
               ? 'text-[#2E4072]'
-              : 'text-gray-800 hover:text-blue-600'
+              : 'text-[#888888] hover:text-blue-600'
           }`}
           onClick={() => router.push('/mypage')}
         >
@@ -61,7 +61,7 @@ const MypageHeader: React.FC = () => {
           className={`text-[16px] font-medium ${
             isStorageActive
               ? 'text-[#2E4072]'
-              : 'text-gray-800 hover:text-blue-600'
+              : 'text-[#888888] hover:text-blue-600'
           }`}
           onClick={() => router.push('/mypage/storage')}
         >

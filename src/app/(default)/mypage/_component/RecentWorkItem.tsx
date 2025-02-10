@@ -99,10 +99,11 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
               size: 'M',
               variant: 'brand-yellow',
               handleClick: navigateToWebtoon,
-              containerStyles: 'text-xs px-5 py-3',
+              containerStyles:
+                'text-xs px-5 py-3 relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
             }}
           >
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex gap-2 items-center justify-center relative">
               {episodes}화 이어서 보기
             </div>
           </Button>

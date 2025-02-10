@@ -23,7 +23,7 @@ export default function Mypage() {
     <div className="min-h-screen flex flex-col pr-[23px] border-r border-r-line">
       <div className="max-w-4xl bg-white mt-[105px] flex">
         <img
-          className="w-[70px] h-[70px] rounded-full mr-6 border border-[#F2F2F2]"
+          className="w-[70px] h-[70px] rounded-full mr-[15px] border border-[#F2F2F2]"
           src={imageUrl || '/assets/images/profile-default.png'}
           alt="프로필"
         />
