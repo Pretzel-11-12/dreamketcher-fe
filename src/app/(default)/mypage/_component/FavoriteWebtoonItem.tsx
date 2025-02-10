@@ -87,7 +87,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
             alt="Clock Icon"
             width={12}
             height={12}
-            className="mr-2"
+            className="mr-[6px]"
           />
           <p className="text-xs text-[#888888]">
             {formatDate(updatedAt)} 업데이트
@@ -117,9 +117,9 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
         <Image
           src={'/assets/icon/notification.svg'}
           alt="notification Icon"
-          width={24}
-          height={24}
-          className="mr-3 mt-1"
+          width={34}
+          height={34}
+          className="mr-[10px]"
         />
 
         <div className="relative">

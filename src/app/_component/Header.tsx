@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchUserInfo } from '@/app/api/auth';
+import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
 import ProfileModal from '@/app/modal/_component/ProfileModal';
 import SearchKeyword from './SearchKeyword';
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
       }
 
       try {
-        const userInfo = await fetchUserInfo(accessToken);
+        const userInfo = await fetchProfile(accessToken);
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
@@ -67,8 +67,8 @@ const Header: React.FC = () => {
 
   return (
     <header className="fixed w-full bg-white z-50">
-      <div className="flex items-center justify-between w-full max-w-[1200px] h-[80px] mx-auto relative">
-        <hr className="fixed left-0 w-[100vw] mt-[81px]" />
+      <div className="flex items-center justify-between w-full max-w-[1200px] h-[70px] mx-auto relative">
+        <hr className="fixed left-0 w-[100vw] mt-[70px]" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"

@@ -7,9 +7,9 @@ export default function MypageLayout({
 }) {
   return (
     <div className="flex justify-center h-screen">
-      <div className="flex w-[1024px]">
+      <div className="flex w-[1200px]">
         <MypageHeader />
-        <main className="flex-1 p-6 bg-white">{children}</main>
+        <main className="flex-1 px-6 bg-white">{children}</main>
       </div>
     </div>
   );
