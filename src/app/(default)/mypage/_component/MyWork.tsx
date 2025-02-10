@@ -11,7 +11,7 @@ export interface Webtoon {
   title: string;
   thumbnail: string;
   author: string;
-  description: string;
+  story: string;
   episodeCount: number;
   avgStar: number;
   numOfStars: number;
