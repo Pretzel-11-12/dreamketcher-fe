@@ -48,7 +48,7 @@ const CommentItem: React.FC<CommentInfoType> = ({
           >
             <Image
               src="/assets/icon/inactiveMessage.svg"
-              alt="like"
+              alt="reply"
               width={13}
               height={13}
             />
@@ -67,7 +67,7 @@ const CommentItem: React.FC<CommentInfoType> = ({
           <div className="text-xs flex items-center gap-1 cursor-pointer">
             <Image
               src="/assets/icon/inactiveDislike.svg"
-              alt="like"
+              alt="dislike"
               width={13}
               height={13}
             />
