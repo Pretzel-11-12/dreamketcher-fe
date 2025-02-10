@@ -10,15 +10,16 @@ type EpisodeHeaderProps = {
     episodeTitle?: string;
     episodeNo?: number;
   };
+  isVisible: boolean;
 };
-const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item }) => {
+
+const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
   const [isDisplay, setDisplay] = useState(true);
+  const [isManualToggle, setManualToggle] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 300) {
-      setDisplay(false);
-    } else {
-      setDisplay(true);
+    if (!isManualToggle) {
+      setDisplay(window.scrollY <= 300);
     }
   };
 
@@ -29,16 +30,18 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item }) => {
     return () => {
       window.removeEventListener('scroll', throttleScroll);
     };
-  }, []);
+  }, [throttleScroll]);
 
   return (
     <div
-      className="w-full h-[50px] bg-[#F9F9F9] fixed border-b flex items-center justify-center transition-opacity duration-300 z-50"
-      style={isDisplay ? { opacity: 1 } : { opacity: 0 }}
-      onMouseEnter={() => setDisplay(true)}
-      onMouseLeave={() => window.scrollY >= 300 && setDisplay(false)}
+      className="w-full h-[50px] bg-[#F9F9F9] fixed border-b flex items-center justify-center transition-opacity duration-300 z-30"
+      style={{ opacity: isVisible || isDisplay ? 1 : 0 }}
+      onMouseEnter={() => !isManualToggle && setDisplay(true)}
+      onMouseLeave={() =>
+        !isManualToggle && window.scrollY >= 300 && setDisplay(false)
+      }
     >
-      <div className="w-[800px] flex items-center text-md gap-3">
+      <div className="w-[720px] flex items-center text-md gap-3">
         <Link
           href={{
             pathname: '/webtoon/list',

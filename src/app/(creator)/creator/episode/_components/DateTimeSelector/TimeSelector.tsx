@@ -1,51 +1,81 @@
 import _ from 'lodash';
-import { useState } from 'react';
+import Icon from '/public/assets/icon/radioButton.svg';
+import moment from 'moment';
 
 type TimeSelectorType = {
-  onChange: (value: string) => void;
+  onChange: (value: number) => void;
+  setVisible: (value: boolean) => void;
+  visible: boolean;
+  time: number;
+  date: string;
 };
 
-const TimeSelector: React.FC<TimeSelectorType> = ({ onChange }) => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('09:00');
+const TimeSelector: React.FC<TimeSelectorType> = ({
+  onChange,
+  setVisible,
+  visible,
+  time,
+  date,
+}) => {
+  const times = _.range(0, 24)
+    .filter((v) => {
+      const _date = new Date(new Date(date).setHours(0, 0, 0, 0));
+      const now = new Date(new Date().setHours(0, 0, 0, 0));
 
-  const times = _.range(0, 24).map(
-    (hour) => hour.toString().padStart(2, '0') + ':00'
-  );
+      return _date > now ? v : v >= new Date().getHours() + 1;
+    })
+    .map((hour) => {
+      return {
+        id: hour,
+        text: formatterTime(hour),
+      };
+    });
+  function formatterTime(hour: number) {
+    return moment(hour, 'HH:mm')
+      .format('A hh:mm')
+      .replace('AM', '오전')
+      .replace('PM', '오후');
+  }
 
-  const onChangeTime = (value: string) => {
-    setValue(value);
+  const onChangeTime = (value: number) => {
     onChange(value);
-    setVisible(false);
   };
 
   return (
-    <div className="relative">
+    <>
       <div
         onClick={() => setVisible(!visible)}
-        className="text-sm bg-white border border-brand-yellow rounded-md w-[140px] h-full flex justify-center font-normal cursor-pointer items-center"
+        className={`text-sm bg-white border ${
+          visible ? 'border-brand-yellow' : 'border-brand-gray'
+        } rounded-md w-[123px] h-full flex justify-center font-normal cursor-pointer items-center`}
       >
-        <span>{value}</span>
+        <span>{formatterTime(time)}</span>
       </div>
       {visible && (
-        <div className="flex flex-col h-[250px] w-[200px] overflow-scroll border rounded-md absolute top-12 text-sm py-1 bg-white">
-          {times.map((time) => (
+        <div className="flex flex-col h-[250px] w-[323px] overflow-y-scroll border rounded-md absolute top-12 text-sm py-2 bg-white px-2">
+          {times.map((t) => (
             <div
-              className="border-b py-2 cursor-pointer hover:bg-brand-gray px-3"
-              onClick={() => onChangeTime(time)}
+              key={t.id}
+              className={`border-b border-brand-gray py-3 cursor-pointer hover:bg-brand-gray px-4 flex items-center gap-2`}
+              onClick={() => onChangeTime(t.id)}
             >
+              <Icon
+                className={
+                  time === t.id ? `text-brand-yellow` : 'text-brand-gray'
+                }
+              />
               <span
                 className={`${
-                  time === value ? 'text-brand-yellow' : 'text-slate-700'
+                  time === t.id ? 'text-brand-yellow' : 'text-slate-700'
                 }`}
               >
-                {time}
+                {t.text}
               </span>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

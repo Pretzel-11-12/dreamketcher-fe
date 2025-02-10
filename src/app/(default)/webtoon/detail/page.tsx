@@ -26,6 +26,7 @@ const dropdownOptions = [
 
 export default function Detail() {
   const [newComment, setNewComment] = useState('');
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
@@ -94,13 +95,17 @@ export default function Detail() {
     <>
       <EpisodeHeader
         item={{ webtoonId, episodeTitle: data?.title, episodeNo: data?.no }}
+        isVisible={isHeaderVisible}
       />
-      <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
+      <div
+        className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center"
+        onClick={() => setHeaderVisible((prev) => !prev)}
+      >
         <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px] ">
-          <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
+          <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
             {_.isString(data?.content) ? (
               <Image
-                alt={''}
+                alt={data.title}
                 src={data?.content}
                 width={0}
                 height={0}
@@ -108,9 +113,9 @@ export default function Detail() {
                 style={{ width: '100%', height: 'auto' }}
               />
             ) : (
-              data?.content.map((c, i) => (
+              data?.content.map((c) => (
                 <Image
-                  key={`${i}`}
+                  key={c}
                   alt={''}
                   src={c}
                   width={0}

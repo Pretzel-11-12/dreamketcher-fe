@@ -2,13 +2,10 @@
 
 import { useEffect } from 'react';
 import useAuthStore from '@/app/store/authStore';
-import { fetchUserInfo } from '@/app/api/auth';
 
 const GoogleCallbackPage: React.FC = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
-
-  
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
@@ -38,7 +35,6 @@ const GoogleCallbackPage: React.FC = () => {
           throw new Error('Access token is missing in the response.');
         }
         setAccessToken(accessToken);
-        console.log({ accessToken });
         localStorage.setItem('accessToken', accessToken);
 
         alert('로그인에 성공했습니다.');

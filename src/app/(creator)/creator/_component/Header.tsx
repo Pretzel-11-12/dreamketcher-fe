@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchUserInfo } from '@/app/api/auth';
+import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
 import ProfileModal from '@/app/modal/_component/ProfileModal';
 import { useRouter } from 'next/navigation';
@@ -30,23 +30,22 @@ const Header: React.FC = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  const [isAlarmModalOpen, setAlarmModalOpen] = useState(false);
+
   const { id, imageUrl, setUserInfo } = useAuthStore();
-  const profileImage: any = null;
 
   useEffect(() => {
     const handleFetchUserInfo = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      // 액세스 토큰이 없으면 비로그인 상태로 처리
       if (!accessToken) {
         console.log('No access token found. User is not logged in.');
         setUserInfo(DEFAULT_USER_INFO);
+        router.push('/login');
         return;
       }
 
       try {
-        const userInfo = await fetchUserInfo(accessToken);
+        const userInfo = await fetchProfile(accessToken);
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
@@ -58,6 +57,7 @@ const Header: React.FC = () => {
         });
       } catch (err) {
         console.error('Failed to fetch user info:', err);
+        router.push('/login');
 
         // 서버 요청 실패 시 비로그인 상태로 처리
         setUserInfo(DEFAULT_USER_INFO);
@@ -97,23 +97,14 @@ const Header: React.FC = () => {
         <div className="flex justify-end w-full max-w-[600px]">
           <div className="relative flex text-black gap-3 items-center">
             {id ? (
-              <>
-                <Image
-                  src="/assets/images/bell.png"
-                  alt="noti button"
-                  width={30}
-                  height={30}
-                  className="cursor-pointer"
-                />
-                <Image
-                  src={imageUrl || '/assets/images/profile-default.png'}
-                  alt="profile button"
-                  width={30}
-                  height={30}
-                  onClick={handleOpenModal}
-                  className="cursor-pointer rounded-full"
-                />
-              </>
+              <Image
+                src={imageUrl || '/assets/images/profile-default.png'}
+                alt="profile button"
+                width={30}
+                height={30}
+                onClick={handleOpenModal}
+                className="cursor-pointer rounded-full w-[30px] h-[30px]"
+              />
             ) : (
               <Link
                 className="w-[110px] h-[34px] flex items-center justify-center bg-brand-blue text-white text-sm rounded-[5px]"

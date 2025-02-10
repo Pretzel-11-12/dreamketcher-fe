@@ -1,6 +1,6 @@
 import { User } from '@/model/User';
 
-export const fetchUserInfo = async (accessToken: string): Promise<User> => {
+export const fetchProfile = async (accessToken: string): Promise<User> => {
   try {
     const response = await fetch('/api/v1/member/me', {
       method: 'GET',
@@ -17,7 +17,6 @@ export const fetchUserInfo = async (accessToken: string): Promise<User> => {
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error fetching user info:', error);

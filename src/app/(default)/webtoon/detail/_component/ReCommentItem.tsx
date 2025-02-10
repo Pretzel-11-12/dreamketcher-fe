@@ -1,6 +1,8 @@
 import 'moment/locale/ko';
 import moment from 'moment';
 import Image from 'next/image';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { fetchComment } from '@/app/api/fetchComment';
 
 export interface CommentInfo {
   id: number;
@@ -12,12 +14,31 @@ export interface CommentInfo {
 type ReCommentInfoType = {
   info: CommentInfo;
   isLast: boolean;
+  webtoonId: string;
+  episodeId: string;
+  parentCommentId: string;
 };
-const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
+const ReCommentItem: React.FC<ReCommentInfoType> = ({
+  info,
+  isLast,
+  webtoonId,
+  episodeId,
+  parentCommentId,
+}) => {
   moment.locale('ko');
   const timeAgo = moment(info.createdAt).fromNow();
 
-  const deleteReCommentClick = () => {};
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteCommentMutate, isError } = useMutation({
+    mutationFn: fetchComment.deleteReComment,
+    onSuccess: () =>
+      // 성공 시 기존 대댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [Number(parentCommentId), 'recomments'],
+      }),
+    onError: (e) => console.log(e),
+  });
 
   return (
     <div
@@ -51,7 +72,16 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({ info, isLast }) => {
               alt="trash"
               width={20}
               height={20}
-              onClick={deleteReCommentClick}
+              onClick={() =>
+                deleteCommentMutate({
+                  param: {
+                    webtoonId,
+                    episodeId,
+                    commentId: parentCommentId,
+                    recommentId: String(info.id),
+                  },
+                })
+              }
               className="cursor-pointer"
             />
             <Image

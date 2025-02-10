@@ -46,6 +46,11 @@ const Temp = () => {
       return;
     }
 
+    if (!tempNickname.trim()) {
+      alert('닉네임을 입력해주세요.');
+      return;
+    }
+
     const updatedProfile = {
       id,
       nickname: tempNickname,
@@ -53,8 +58,6 @@ const Temp = () => {
       imageUrl: tempimageUrl,
       shortIntroduction: tempShortIntroduction,
     };
-
-    console.log(updatedProfile);
 
     mutate(updatedProfile, {
       onSuccess: () => {
@@ -69,9 +72,9 @@ const Temp = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-[700px] mt-10 mx-auto p-6 border-r border-r-line">
+    <div className="relative flex flex-col items-center w-full max-w-[700px] mt-[50px] mx-auto p-6 border-r border-r-line">
       {/* Header */}
-      <div className="flex justify-between items-center w-full mb-6">
+      <div className="flex justify-between items-center w-full mt-[13px] mb-6">
         <button
           className={'w-6 h-6 pr-[88px]'}
           onClick={() => router.push('/mypage')}

@@ -10,7 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 const SIZE_MAP: { [k in Props['size']]: string } = {
   XL: 'w-full rounded-xl py-3 px-5 text-xl',
-  L: 'w-full rounded-lg py-3 px-5 text-lg',
+  L: 'w-full rounded-lg py-4 px-5 text-lg',
   M: 'w-full rounded-md py-2 px-4 text-md',
   S: 'w-full rounded-md py-2 px-3 text-sm font-medium',
   XS: 'w-full rounded-sm py-2 px-3 text-xs',

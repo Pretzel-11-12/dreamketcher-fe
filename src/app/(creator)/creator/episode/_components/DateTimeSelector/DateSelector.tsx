@@ -5,10 +5,15 @@ import moment from 'moment';
 
 type DateSelectorType = {
   onChange: (value: string) => void;
+  setVisible: (value: boolean) => void;
+  visible: boolean;
 };
 
-const DateSelector: React.FC<DateSelectorType> = ({ onChange }) => {
-  const [visible, setVisible] = useState<boolean>(false);
+const DateSelector: React.FC<DateSelectorType> = ({
+  onChange,
+  setVisible,
+  visible,
+}) => {
   const [value, setValue] = useState<Date>(new Date());
 
   const onChangeCalendar = (value: any) => {
@@ -21,7 +26,9 @@ const DateSelector: React.FC<DateSelectorType> = ({ onChange }) => {
     <div className="relative">
       <div
         onClick={() => setVisible(!visible)}
-        className="text-sm bg-white border border-brand-yellow rounded-md p-2 flex justify-center font-normal cursor-pointer w-[180px]"
+        className={`text-sm bg-white border ${
+          visible ? 'border-brand-yellow' : 'border-brand-gray'
+        } rounded-md p-2 flex justify-center font-normal cursor-pointer w-[194px]`}
       >
         <span>{value ? moment(value).format('YYYY-MM-DD') : '-'}</span>
       </div>
@@ -29,10 +36,13 @@ const DateSelector: React.FC<DateSelectorType> = ({ onChange }) => {
         <Calendar
           onChange={onChangeCalendar}
           value={value}
-          className="bg-white rounded-md border border-brand-yellow p-4 text-sm w-[300px] h-[300px] absolute top-12"
+          className="bg-white rounded-md border border-brand-yellow p-4 text-sm w-[324px] h-[300px] absolute top-12"
           next2Label={null}
           prev2Label={null}
           formatDay={(locale, date) => `${date.getDate()}`}
+          tileDisabled={({ date }) =>
+            date < new Date(new Date().setHours(0, 0, 0, 0))
+          }
         />
       )}
     </div>
