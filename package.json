@@ -21,12 +21,16 @@
     "qs": "^6.13.1",
     "react": "^18.3.1",
     "react-calendar": "^5.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.0.0",
+    "react-dropzone": "^14.3.5",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/lodash": "^4.17.13",
     "@types/node": "^20",
     "@types/qs": "^6.9.17",

@@ -11,19 +11,19 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 
 export interface SeriesFormInfo
-  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id'> {}
+  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id' | 'genre'> {
+  genreId: string;
+}
 
 const options = [
-  { label: '로맨스', id: '1' },
-  { label: '판타지', id: '2' },
-  { label: '무협', id: '3' },
-  { label: '일상', id: '4' },
-  { label: '스릴러', id: '5' },
-  { label: '공포', id: '6' },
-  { label: '액션', id: '7' },
-  { label: '스포츠', id: '8' },
-  { label: '개그', id: '9' },
-  { label: '소년', id: '10' },
+  { label: '로맨스', id: '1', subId: 'PURE' },
+  { label: '판타지', id: '2', subId: 'FANTASY' },
+  { label: '무협', id: '3', subId: 'HISTORICAL' },
+  { label: '일상', id: '4', subId: 'DAILY' },
+  { label: '스릴러', id: '5', subId: 'THRILL' },
+  { label: '액션', id: '6', subId: 'ACTION' },
+  { label: '스포츠', id: '7', subId: 'SPORTS' },
+  { label: '개그', id: '8', subId: 'COMIC' },
 ];
 
 type SeriesFormProp = {
@@ -36,15 +36,17 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     thumbnail: '',
     prologue: '',
     story: '',
-    description: '',
-    genreNames: [],
+    description: '-',
+    genreId: '1',
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
 
   useEffect(() => {
     if (!!item) {
-      setWebtoonInfo(item);
+      const genreId = options.find((v) => v.subId === item.genre)?.id || '1';
+
+      setWebtoonInfo({ ...item, genreId: genreId });
       setStatus('edit');
     }
   }, [item]);
@@ -133,7 +135,13 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>장르</div>
-        <RadioButton options={options} selectedValue={'1'} />
+
+        <RadioButton
+          key={webtoonInfo.genreId}
+          options={options}
+          selectedValue={webtoonInfo.genreId}
+          onChange={(id) => setWebtoonInfo((v) => ({ ...v, genreId: id }))}
+        />
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
@@ -152,7 +160,8 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480, height: 720 }}
+          imageFormat={{ width: 480 }}
+          dpImageFormat={{ width: 140 }}
         />
       </div>
 
@@ -163,6 +172,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           _preview={webtoonInfo.prologue[0]}
           onFileSelect={handlePrologue}
           imageFormat={{ width: 480 }}
+          dpImageFormat={{ width: 140 }}
         />
       </div>
 
@@ -177,21 +187,33 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         />
       </div>
 
-      <div className="pb-24">
-        <div className="grid grid-cols-[10rem_1fr] items-start pb-4">
-          <div>작품 태그</div>
+      <div className="grid grid-cols-[10rem_1fr] items-start">
+        <div>작품 태그</div>
+        <div className="flex flex-col gap-2">
           <TagInput />
-        </div>
-        <div className="flex rounded-md bg-brand-gray py-2 px-3 text-sm text-gray-500 w-full gap-2 items-center">
-          <span className="mdi mdi-alert-circle-outline text-lg"></span>
-          <div className="w-full text-[13px]">
-            태그는 쉼표를 통해 구분되며, 최대 10개까지 등록될 수 있습니다.
-            하나의 태그는 최대 6자 이상을 넘기지 못합니다.
+          <div className="flex rounded-md bg-brand-gray py-1 px-3 text-sm text-gray-500 w-full gap-2 items-center">
+            <span className="mdi mdi-alert-circle-outline text-lg"></span>
+            <div className="w-full text-[13px]">
+              태그는 쉼표를 통해 구분되며, 최대 10개까지 등록될 수 있습니다.
+              하나의 태그는 최대 6자 이상을 넘기지 못합니다.
+            </div>
           </div>
         </div>
       </div>
+
+      <div className="grid grid-cols-[10rem_1fr] items-start pb-24">
+        <div>작품 상태</div>
+        <RadioButton
+          options={[
+            { id: 'open', label: '공개' },
+            { id: 'close', label: '비공개' },
+          ]}
+          selectedValue={'open'}
+        />
+      </div>
+
       <div className="flex justify-center">
-        <div className="w-[380px]">
+        <div className="w-[380px] ">
           <Button
             props={{
               size: 'L',

@@ -51,7 +51,7 @@ const Input: React.FC<InputProps> = (props) => {
       }}
     >
       <input
-        className="outline-none flex-1"
+        className="outline-none flex-1 bg-white w-full"
         onInput={(e) => maxLength && handleOnInput(e)}
         type="text"
         value={text}

@@ -49,3 +49,25 @@ body {
   top: 100%; /* 슬라이더의 세로 가운데 */
   transform: translateY(-50%); /* 세로 가운데 정렬 */
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f2f2f2;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dfdfdf;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

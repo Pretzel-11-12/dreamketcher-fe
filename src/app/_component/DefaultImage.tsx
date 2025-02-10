@@ -27,7 +27,6 @@ export default function DefaultImage({
     } else {
       setURL(src);
     }
-    console.log('url' + url);
   }, [src]);
 
   return (
