@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchUserInfo } from '@/app/api/auth';
+import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
 import ProfileModal from '@/app/modal/_component/ProfileModal';
 import { useRouter } from 'next/navigation';
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       }
 
       try {
-        const userInfo = await fetchUserInfo(accessToken);
+        const userInfo = await fetchProfile(accessToken);
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
