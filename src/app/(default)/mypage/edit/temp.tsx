@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import Input from '@/app/_component/Input';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import Image from 'next/image';
 import Button from '@/app/_component/Button';
+import Input from '@/app/_component/Input';
 import Textarea from '@/app/_component/Textarea';
-import { useUpdateProfile } from '@/app/hooks/useUpdateProfile';
 import useAuthStore from '@/app/store/authStore';
+import { updateProfile } from '@/app/api/auth/updateProfile';
+import { User } from '@/model/User';
 
 const Temp = () => {
   const router = useRouter();
@@ -27,16 +29,47 @@ const Temp = () => {
   const [tempShortIntroduction, setTempShortIntroduction] = useState(
     shortIntroduction || ''
   );
-  const [tempimageUrl, setTempimageUrl] = useState(
+  const [tempImageUrl, setTempImageUrl] = useState(
     imageUrl || '/assets/images/profile-default.png'
   );
 
-  const { mutate } = useUpdateProfile();
+  // 프로필 정보가 새로고침해도 유지되도록 초기 데이터 설정
+  useEffect(() => {
+    setTempNickname(nickname || '');
+    setTempBusinessEmail(businessEmail || '');
+    setTempShortIntroduction(shortIntroduction || '');
+    setTempImageUrl(imageUrl || '/assets/images/profile-default.png');
+  }, [nickname, businessEmail, imageUrl, shortIntroduction]);
+
+  // 프로필 업데이트 뮤테이션
+  const { mutate } = useMutation({
+    mutationFn: async (profileData: User) => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Access token is missing');
+      }
+      return updateProfile(profileData, accessToken);
+    },
+    onSuccess: () => {
+      setUserInfo({
+        id: id ?? 0,
+        nickname: tempNickname,
+        businessEmail: tempBusinessEmail,
+        imageUrl: tempImageUrl,
+        shortIntroduction: tempShortIntroduction,
+      });
+      alert('프로필 저장이 완료되었습니다.');
+      router.push('/mypage');
+    },
+    onError: () => {
+      alert('프로필 저장에 실패했습니다.');
+    },
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setTempimageUrl(URL.createObjectURL(file));
+      setTempImageUrl(URL.createObjectURL(file));
     }
   };
 
@@ -45,7 +78,6 @@ const Temp = () => {
       alert('유효하지 않은 사용자입니다.');
       return;
     }
-
     if (!tempNickname.trim()) {
       alert('닉네임을 입력해주세요.');
       return;
@@ -55,20 +87,13 @@ const Temp = () => {
       id,
       nickname: tempNickname,
       businessEmail: tempBusinessEmail,
-      imageUrl: tempimageUrl,
+      imageUrl: tempImageUrl,
       shortIntroduction: tempShortIntroduction,
     };
 
-    mutate(updatedProfile, {
-      onSuccess: () => {
-        setUserInfo(updatedProfile);
-        alert('프로필 저장이 완료되었습니다.');
-        router.push('/mypage');
-      },
-      onError: () => {
-        alert('프로필 저장에 실패했습니다.');
-      },
-    });
+    // console.log('updatedProfile: ' + JSON.stringify(updatedProfile, null, 2));
+
+    mutate(updatedProfile);
   };
 
   return (
@@ -100,7 +125,7 @@ const Temp = () => {
 
       <div className="relative w-24 h-24 mb-4">
         <Image
-          src={tempimageUrl}
+          src={tempImageUrl}
           alt="프로필 이미지"
           width={90}
           height={90}
