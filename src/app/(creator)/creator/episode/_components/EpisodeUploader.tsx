@@ -9,7 +9,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 export interface EpisodeUploaderProps {
   images: string[];
   onChange: (images: string[]) => void;
-  getContentURL: (file: File | null) => Promise<string>;
+  getContentURL: (files: File[] | null) => Promise<string>;
 }
 
 const ItemType = {
@@ -95,9 +95,8 @@ const EpisodeUploader: React.FC<EpisodeUploaderProps> = ({
     );
 
     if (error) return;
-    const newImages = await Promise.all(
-      acceptedFiles.map(async (file) => getContentURL(file))
-    );
+
+    const newImages = await getContentURL(acceptedFiles);
 
     setError(null);
     onChange([...images, ...newImages]);

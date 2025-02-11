@@ -83,10 +83,11 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     }
   };
-  const getContentURL = async (file: File | null) => {
-    if (file) {
+  const getContentURL = async (files: File[] | null) => {
+    if (files) {
       const formData = new FormData();
-      formData.append('content', file);
+
+      files.forEach((file) => formData.append('content', file));
 
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeContent({
