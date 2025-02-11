@@ -253,7 +253,6 @@ export namespace fetchCreatorEpisode {
         body: formData,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'multipart/form-data',
         },
       }
     );
