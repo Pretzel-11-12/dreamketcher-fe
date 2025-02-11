@@ -39,7 +39,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
         </p>
       </div>
       <Link
-        className="w-[140px] h-[43px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
+        className="w-[138px] h-[43px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
         href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.lastViewedAt}`}
       >
         {webtoon.episodeCount}화 이어읽기
