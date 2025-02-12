@@ -1,6 +1,6 @@
 import CategorySelector from '@/app/(default)/main/_component/CategorySelector';
 import GenreSelector from '@/app/(default)/main/_component/GenreSelector';
-import QuickMenu from '@/app/(default)/main/_component/QuickMenu';
+import QuickMenu from '@/app/_component/QuickMenu';
 import SideSection from './_component/SideSection';
 import { announcements } from '@/app/mocks/SideData';
 

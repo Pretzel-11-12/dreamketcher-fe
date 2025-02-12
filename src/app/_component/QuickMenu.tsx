@@ -7,10 +7,10 @@ const QuickMenu = () => {
   };
 
   return (
-    <div className="fixed flex z-50 right-[30px] top-[625px]">
+    <div className="fixed flex z-50 right-[30px] top-[80%]">
       <button
         onClick={handleClickTop}
-        className="cursor-pointer rounded-full shadow-[0_0_4px_0px_rgba(164,164,164,0.12)] bg-white w-[50px] h-[50px] flex items-center justify-center"
+        className="cursor-pointer rounded-full shadow-[0_0_4px_0px_rgba(164,164,164,0.12)] bg-white w-[50px] h-[50px] flex items-center justify-center ring-1 ring-inset ring-line focus:outline-none"
       >
         <Image
           src={'/assets/icon/arrow-up.svg'}
