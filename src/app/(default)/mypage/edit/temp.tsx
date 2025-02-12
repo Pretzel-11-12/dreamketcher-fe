@@ -91,8 +91,6 @@ const Temp = () => {
       shortIntroduction: tempShortIntroduction,
     };
 
-    // console.log('updatedProfile: ' + JSON.stringify(updatedProfile, null, 2));
-
     mutate(updatedProfile);
   };
 
