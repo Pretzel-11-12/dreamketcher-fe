@@ -16,7 +16,8 @@ const LoginPage: React.FC = () => {
       `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
       `&response_type=code` +
       `&scope=openid%20email%20profile` +
-      `&access_type=offline`;
+      `&access_type=offline` +
+      `&prompt=select_account`;
 
     window.location.href = googleOAuthURL;
   };
