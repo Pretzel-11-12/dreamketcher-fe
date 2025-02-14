@@ -10,9 +10,9 @@ interface Props {
 
 export default function Main({ params }: Props) {
   return (
-    <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-3 pb-32">
+    <div className="flex flex-col w-[870px] border-r border-r-line pt-[50px] pr-3 pb-32">
       <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
-      <div className="flex gap-1 mt-10 mb-[50px]">
+      <div className="flex gap-1 my-[50px]">
         <Image
           src="/assets/images/promotion-1.png"
           alt="Site promotion image"

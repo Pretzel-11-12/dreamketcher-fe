@@ -10,7 +10,7 @@ const thumbnailData: IWebtoon[] = [
     averageStar: 4.9,
     numOfStars: 200,
     genre: '일상',
-    description:
+    story:
       '세계 최초 SSS랭크 천재 헌터 김준우. 어느 날 습격을 당해 죽게 되고, 10년 전으로 회귀한다.​ 스킬은 모두 봉인됐고, 해제를 위해서는 극한 직업인 던전 청소부로 일을 해야 하는데?! ​하지만 이 청소부, 남다르다! 현직 헌터보다 더 강한 전직 헌터의 망나니식 청소가 시작된다!',
   },
   {
@@ -22,7 +22,7 @@ const thumbnailData: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     genre: '일상',
-    description:
+    story:
       '세계 최초 SSS랭크 천재 헌터 김준우. 어느 날 습격을 당해 죽게 되고, 10년 전으로 회귀한다.​ 스킬은 모두 봉인됐고, 해제를 위해서는 극한 직업인 던전 청소부로 일을 해야 하는데?! ​하지만 이 청소부, 남다르다! 현직 헌터보다 더 강한 전직 헌터의 망나니식 청소가 시작된다!',
   },
   {
@@ -34,7 +34,7 @@ const thumbnailData: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     genre: '스릴러',
-    description:
+    story:
       '세계 최초 SSS랭크 천재 헌터 김준우. 어느 날 습격을 당해 죽게 되고, 10년 전으로 회귀한다.​ 스킬은 모두 봉인됐고, 해제를 위해서는 극한 직업인 던전 청소부로 일을 해야 하는데?! ​하지만 이 청소부, 남다르다! 현직 헌터보다 더 강한 전직 헌터의 망나니식 청소가 시작된다!',
   },
   {
@@ -46,7 +46,7 @@ const thumbnailData: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     genre: '개그',
-    description:
+    story:
       '세계 최초 SSS랭크 천재 헌터 김준우. 어느 날 습격을 당해 죽게 되고, 10년 전으로 회귀한다.​ 스킬은 모두 봉인됐고, 해제를 위해서는 극한 직업인 던전 청소부로 일을 해야 하는데?! ​하지만 이 청소부, 남다르다! 현직 헌터보다 더 강한 전직 헌터의 망나니식 청소가 시작된다!',
   },
 ];

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Button from '@/app/_component/Button';
 import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
@@ -93,7 +94,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             {genreName}
           </div>
         </div>
-        <div className="grid grid-cols-[1fr_1fr] gap-1 absolute w-full bottom-0">
+        <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
           <Button
             props={{
               size: 'S',
@@ -102,12 +103,13 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               handleClick: handleLikeToggle,
             }}
           >
-            <div className="flex gap-2 items-center justify-center text-[16px]">
-              <span
-                className={`mdi ${
-                  interest.active ? 'mdi-check' : 'mdi-plus'
-                } text-xl`}
-              ></span>
+            <div className="flex gap-[2px] items-center justify-center text-[16px]">
+              <Image
+                src={'/assets/icon/interest.svg'}
+                alt={'관심 추가 이미지'}
+                width={30}
+                height={30}
+              />
               관심 {interest.count}
             </div>
           </Button>
@@ -120,7 +122,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               }}
             >
               <div className="flex gap-2 items-center justify-center text-[16px]">
-                1화보기
+                첫 화 보기
               </div>
             </Link>
           </Button>

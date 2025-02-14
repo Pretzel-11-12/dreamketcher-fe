@@ -43,7 +43,7 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
     <div className="relative inline-block text-left w-32" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex justify-between w-[104px] h-[37px] px-4 py-2 text-sm font-medium text-gray-700
+        className={`inline-flex justify-between w-[104px] h-[37px] px-4 py-2 text-[14px] font-medium text-gray-700
           ${isOpen ? 'rounded-t-md' : 'rounded-md'}
           border border-[#F2F2F2] shadow-sm bg-white
           hover:bg-[#E4EBFF] focus:outline-none`}

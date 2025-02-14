@@ -2,14 +2,10 @@ import Image from 'next/image';
 
 export interface UserInfo {
   name: string;
-  description: string;
+  story: string;
   authorImage: string;
 }
-export default function WriterInfoItem({
-  name,
-  description,
-  authorImage,
-}: UserInfo) {
+export default function WriterInfoItem({ name, story, authorImage }: UserInfo) {
   const src = authorImage || '/assets/images/profile-default.png';
 
   return (
@@ -27,7 +23,7 @@ export default function WriterInfoItem({
           <div className="text-gray-400 text-sm">글 / 그림</div>
         </div>
       </div>
-      <div className="text-sm px-0.5 pt-1.5">{description}</div>
+      <div className="text-sm px-0.5 pt-1.5">{story}</div>
     </div>
   );
 }

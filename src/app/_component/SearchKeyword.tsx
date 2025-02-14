@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -21,7 +21,9 @@ const SearchKeyword: React.FC = () => {
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="웹툰명 또는 작가명을 입력해주세요."
         className="w-[263px] h-[34px] p-4 bg-line rounded-[100px] text-[13px] text-black
-         focus:bg-white focus:outline-brand-yellow focus:outline-offset-[-2px] transition duration-300"
+         border border-line
+         focus:border-brand-yellow focus:bg-white focus:outline-none
+         transition duration-300"
       />
       <button
         onClick={handleSearch}
