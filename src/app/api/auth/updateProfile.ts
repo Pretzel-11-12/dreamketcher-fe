@@ -1,3 +1,4 @@
+import { fetchAPI } from '..';
 import { User } from '@/model/User';
 
 export const updateProfile = async (profileData: User, token: string) => {
@@ -38,17 +39,12 @@ export const updateProfile = async (profileData: User, token: string) => {
   const jsonBlob = jsonToBlob();
   const formData = await createFormDataWithFile(jsonBlob);
 
-  const response = await fetch('/api/v1/member/profile', {
+  await fetchAPI({
     method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    endpoint: '/member/profile',
     body: formData,
+    isFormData: true,
   });
-
-  if (!response.ok) {
-    throw new Error('프로필 수정에 실패했습니다.');
-  }
 
   return;
 };
