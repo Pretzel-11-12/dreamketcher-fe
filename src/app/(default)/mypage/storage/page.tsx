@@ -17,11 +17,11 @@ export default function StoragePage() {
   return (
     <div className="mt-[70px]">
       <h1 className="text-xl font-semibold pt-[21px] mb-4">보관함</h1>
-      <div className="flex space-x-4 mb-4 border-b border-b-line">
+      <div className="flex border-b border-b-line">
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={`px-4 py-2 w-[110px] ${
+            className={`w-[100px] h-[48px] ${
               selectedTab === tab.key
                 ? 'text-yellow-500 text-[15px] border-b-2 border-yellow-500'
                 : 'text-[#888888] text-[15px]'

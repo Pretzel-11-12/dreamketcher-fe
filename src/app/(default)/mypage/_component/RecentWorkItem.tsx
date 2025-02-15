@@ -57,24 +57,24 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   }, []);
 
   return (
-    <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
+    <div className="w-[870px] h-[190px] flex items-center relative gap-[17px] pb-5 border-b border-b-line">
       <img
         src={image}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col" style={{ paddingTop: '6.5px' }}>
         <h3
-          className="text-base font-semibold cursor-pointer"
+          className="text-base/[18px] font-semibold cursor-pointer"
           onClick={navigateToWebtoon}
         >
           {title}
         </h3>
-        <p className="text-xs text-[#888888] mt-1">
+        <p className="text-xs text-[#888888] mt-[7px]">
           {writer} &#183; {genre} &#183; {episodes}화
         </p>
-        <div className="flex items-center mt-1 mb-4">
+        <div className="flex items-center mt-[7px] mb-[18px]">
           <Image
             src="/assets/images/star-1.png"
             alt="Star PNG"
@@ -100,10 +100,10 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
               variant: 'brand-yellow',
               handleClick: navigateToWebtoon,
               containerStyles:
-                'text-xs px-5 py-3 relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
+                'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
             }}
           >
-            <div className="flex gap-2 items-center justify-center relative">
+            <div className="flex items-center justify-center relative">
               {episodes}화 이어서 보기
             </div>
           </Button>

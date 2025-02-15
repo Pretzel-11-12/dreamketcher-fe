@@ -20,7 +20,7 @@ export default function Mypage() {
   const emailText = businessEmail || '지정된 이메일이 없습니다.';
 
   return (
-    <div className="min-h-screen flex flex-col pr-[23px] border-r border-r-line">
+    <div className="min-h-screen flex flex-col">
       <div className="max-w-4xl bg-white mt-[105px] flex">
         <img
           className="w-[70px] h-[70px] rounded-full mr-[15px] border border-[#F2F2F2]"
@@ -29,7 +29,7 @@ export default function Mypage() {
         />
 
         <div className="ml-[4px]">
-          <p className="text-[18px] font-medium text-gray-800 mt-[8px]">
+          <p className="text-[18px] font-medium text-gray-800 mt-3">
             {nickname}
           </p>
           {businessEmail && (
