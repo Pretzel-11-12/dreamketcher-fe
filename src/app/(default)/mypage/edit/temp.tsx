@@ -95,9 +95,9 @@ const Temp = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-[700px] mt-[50px] mx-auto p-6 border-r border-r-line">
+    <div className="relative flex flex-col items-center w-full max-w-[700px] mt-[50px] mx-auto px-6 py-5">
       {/* Header */}
-      <div className="flex justify-between items-center w-full mt-[13px] mb-6">
+      <div className="flex justify-between items-center w-[870px] h-[39px] mt-[13px] mb-10">
         <button
           className={'w-6 h-6 pr-[88px]'}
           onClick={() => router.push('/mypage')}
@@ -109,11 +109,12 @@ const Temp = () => {
           props={{
             size: 'M',
             variant: 'brand-yellow',
-            containerStyles: '!w-[88px] h-[39px] text-xs px-2 py-3',
+            containerStyles:
+              '!w-[88px] h-[39px] text-xs border border-[#FBA250]',
           }}
         >
           <div
-            className="flex gap-2 items-center justify-center"
+            className="flex gap-2 items-center justify-center text-base"
             onClick={handleSave}
           >
             저장
@@ -121,7 +122,7 @@ const Temp = () => {
         </Button>
       </div>
 
-      <div className="relative w-24 h-24 mb-4">
+      <div className="relative w-24 h-24 mb-[37px]">
         <Image
           src={tempImageUrl}
           alt="프로필 이미지"
@@ -131,13 +132,13 @@ const Temp = () => {
         />
         <label
           htmlFor="profileImageInput"
-          className="absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#F2F2F2]"
+          className="w-[29px] h-[29px] flex flex-col items-center justify-center absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#C9C9C9]"
         >
           <Image
             src="/assets/icon/camera.svg"
             alt="카메라"
-            width={15}
-            height={15}
+            width={16}
+            height={13}
           />
         </label>
         <input
@@ -149,34 +150,35 @@ const Temp = () => {
         />
       </div>
 
-      <div className="w-full mb-10">
-        <label className="text-sm font-medium mb-1 block">닉네임</label>
+      <div className="w-[765px] mb-10">
+        <label className="text-base font-medium mb-2 block">닉네임</label>
         <Input
           text={tempNickname}
           placeholder="닉네임을 작성해주세요."
           subText={`${tempNickname.length}/30`}
           onChange={(value) => value.length <= 30 && setTempNickname(value)}
+          height="44px"
         />
-        <p className="text-[13px] text-[#C9C9C9] mt-1">
+        <p className="text-[13px] text-[#C9C9C9] mt-2">
           비속어, 타인의 권리를 침해하는 닉네임의 경우, 임의로 닉네임이 변경될
           수 있습니다.
         </p>
       </div>
 
-      <div className="w-full mb-10">
-        <label className="text-sm font-medium mb-1 block">자기소개</label>
+      <div className="w-[765px] mt-1 mb-10">
+        <label className="text-base font-medium mb-1 block">자기소개</label>
         <Textarea
           text={tempShortIntroduction}
           placeholder="자기소개를 입력하세요."
           subText={`${tempShortIntroduction.length}/100`}
-          height="200px"
+          height="237px"
           onChange={(value) =>
             value.length <= 100 && setTempShortIntroduction(value)
           }
         />
       </div>
 
-      <div className="w-full mb-4">
+      <div className="w-[765px] mb-4">
         <label className="text-sm font-medium mb-1 block">
           비즈니스 이메일
         </label>
@@ -185,6 +187,7 @@ const Temp = () => {
           placeholder="비즈니스 이메일을 작성해주세요."
           containerStyles="text-xs"
           onChange={(value) => setTempBusinessEmail(value)}
+          height="44px"
         />
       </div>
     </div>

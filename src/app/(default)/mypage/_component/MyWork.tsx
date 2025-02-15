@@ -5,6 +5,7 @@ import WorkItem from './WorkItem';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
+import Button from '@/app/_component/Button';
 
 export interface Webtoon {
   id: number;
@@ -60,7 +61,7 @@ const MyWork: React.FC = () => {
         ].map((tab) => (
           <button
             key={tab.type}
-            className={`w-[130px] h-[48px] text-center border-b-2 transition duration-300 ${
+            className={`w-[135px] h-[48px] text-center border-b-2 transition duration-300 ${
               (status === 'IN_SERIES' && tab.type === 'ongoing') ||
               (status === 'FINISH' && tab.type === 'completed')
                 ? 'text-brand-yellow border-b-brand-yellow'
@@ -87,13 +88,14 @@ const MyWork: React.FC = () => {
             <p className="text-gray-700 font-semibold text-lg mt-[70px] mb-1">
               아직 작품이 없습니다.
             </p>
-            <p className="text-[#888888] text-sm mb-8">
+            <p className="text-[#888888] text-sm mb-[35px]">
               새로운 웹툰을 시작해보세요!
             </p>
-            <Link href={'/creator/series/new'}>
-              <button className="w-[320px] h-[61px] px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-base">
-                새 웹툰 등록하기
-              </button>
+            <Link
+              className="w-[320px] h-[61px] flex items-center justify-center px-6 py-2 border border-[#FBA250] text-white bg-brand-yellow rounded-md text-lg"
+              href={'/creator/series/new'}
+            >
+              새 웹툰 등록하기
             </Link>
           </div>
         )
