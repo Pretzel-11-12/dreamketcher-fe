@@ -127,7 +127,10 @@ export namespace fetchComment {
       }
     );
 
-    if (response.status === 204) {
+    if (response.status === 401) {
+      alert('작성자만 삭제할 수 있습니다.');
+      return null;
+    } else if (response.status === 204) {
       return null; // 204일 경우 본문이 없으므로 null 반환
     }
 
@@ -156,7 +159,10 @@ export namespace fetchComment {
       }
     );
 
-    if (response.status === 204) {
+    if (response.status === 401) {
+      alert('작성자만 삭제할 수 있습니다.');
+      return null;
+    } else if (response.status === 204) {
       return null; // 204일 경우 본문이 없으므로 null 반환
     }
 
