@@ -9,6 +9,7 @@ export interface CommentInfo {
   nickname: string;
   content: string;
   createdAt: string;
+  profileImage: string;
 }
 
 type ReCommentInfoType = {
@@ -47,7 +48,13 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
       }`}
     >
       <div className="w-4 h-4 border-l border-b rounded-sm" />
-      <span className="mdi mdi-account-circle text-gray-600/50 text-[40px] -mt-3"></span>
+      <Image
+        src={info.profileImage}
+        alt="profile"
+        width={36}
+        height={36}
+        className="w-9 h-9 rounded-full object-cover"
+      />
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
           <div className="text-[14px]">{info.nickname}</div>

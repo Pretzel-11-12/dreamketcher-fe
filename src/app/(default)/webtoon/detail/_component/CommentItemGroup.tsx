@@ -80,6 +80,7 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
                   content: d.content,
                   nickname: d.nickname,
                   createdAt: d.createdAt,
+                  profileImage: d.profileImage,
                 }}
                 webtoonId={webtoonId}
                 episodeId={episodeId}

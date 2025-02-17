@@ -33,7 +33,13 @@ const CommentItem: React.FC<CommentInfoType> = ({
 
   return (
     <div className="grid grid-cols-[auto_1fr] py-4 gap-2 border-b border-gray-500/10">
-      <span className="mdi mdi-account-circle text-gray-600/50 text-[40px] -mt-3"></span>
+      <Image
+        src={info.profileImage}
+        alt="profile"
+        width={36}
+        height={36}
+        className="w-9 h-9 rounded-full object-cover"
+      />
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
           <div className="text-[14px]">{info.nickname}</div>
