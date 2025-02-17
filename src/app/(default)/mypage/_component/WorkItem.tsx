@@ -26,11 +26,11 @@ const WorkItem: React.FC<MyWebtoon> = ({
       <img
         src={thumbnail}
         alt="웹툰 썸네일"
-        className="w-[100px] h-[150px] rounded-lg mr-6 cursor-pointer"
+        className="w-[100px] h-[150px] rounded-lg mr-[18px] cursor-pointer"
         onClick={navigateToWebtoon}
       />
 
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-center">
         <h3
           onClick={navigateToWebtoon}
           className="text-base text-gray-800 mb-1 cursor-pointer"
@@ -57,16 +57,11 @@ const WorkItem: React.FC<MyWebtoon> = ({
 
         <p className="text-sm text-[#3F3F3F] mt-2">{story}</p>
 
-        {/* <div className="flex gap-[2px] mt-2">
-          {tags?.map((tag, i) => (
-            <div
-              key={i}
-              className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs"
-            >
-              {tag}
-            </div>
-          ))}
-        </div> */}
+        <div className="flex gap-[2px] mt-2">
+          <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
+            PURE
+          </div>
+        </div>
       </div>
     </div>
   );
