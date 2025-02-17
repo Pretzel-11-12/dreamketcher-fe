@@ -60,14 +60,10 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
 
   return (
     <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
-      {/* <img
+      <img
         src={thumbnail}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
-        onClick={navigateToWebtoon}
-      /> */}
-      <div
-        className="w-[100px] h-[150px] bg-[#d9d9d9] rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
       <div className="flex flex-col">
