@@ -18,7 +18,7 @@ const WorkItem: React.FC<MyWebtoon> = ({
   const router = useRouter();
 
   function navigateToWebtoon() {
-    router.push('/webtoon/list');
+    router.push(`/webtoon/list?id=${id}`);
   }
 
   return (
