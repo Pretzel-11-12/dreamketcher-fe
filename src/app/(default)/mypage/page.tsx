@@ -22,10 +22,12 @@ export default function Mypage() {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="max-w-4xl bg-white mt-[105px] flex">
-        <img
-          className="w-[70px] h-[70px] rounded-full mr-[15px] border border-[#F2F2F2]"
+        <Image
           src={imageUrl || '/assets/images/profile-default.png'}
-          alt="프로필"
+          alt="프로필 이미지"
+          width={70}
+          height={70}
+          className="w-[70px] h-[70px] rounded-full object-cover border border-[#F2F2F2]"
         />
 
         <div className="ml-[4px]">
