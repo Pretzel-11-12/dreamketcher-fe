@@ -1,7 +1,10 @@
 import { fetchAPI } from '..';
 import { User } from '@/model/User';
+import useAuthStore from '@/app/store/authStore';
 
 export const updateProfile = async (profileData: User, token: string) => {
+  const { imageUrl: originalImageUrl } = useAuthStore.getState();
+
   const jsonToBlob = (): Blob => {
     const jsonData = {
       nickname: profileData.nickname,
@@ -18,11 +21,8 @@ export const updateProfile = async (profileData: User, token: string) => {
     const formDataToSend = new FormData();
     formDataToSend.append('profileData', jsonBlob);
 
-    // 기본 프로필 이미지 URL과 현재 imageUrl이 다를 경우에만 파일 추가
-    const DEFAULT_IMAGE_URL =
-      'https://dreamketcher-server.s3.ap-northeast-2.amazonaws.com/profile-images/defaultProfileImage.png';
-
-    if (profileData.imageUrl && profileData.imageUrl !== DEFAULT_IMAGE_URL) {
+    // 기존 imageUrl과 현재 입력된 imageUrl이 다를 경우만 파일 추가
+    if (profileData.imageUrl && profileData.imageUrl !== originalImageUrl) {
       const response = await fetch(profileData.imageUrl);
       const fileBlob = await response.blob();
 
