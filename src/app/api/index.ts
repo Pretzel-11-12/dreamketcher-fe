@@ -62,7 +62,8 @@ export const fetchAPI = async ({
         throw new Error('만료된 토큰');
       }
     } else {
-      throw new Error('API 요청 실패');
+      const errorData = await response.json();
+      return Promise.reject(errorData);
     }
   }
 
