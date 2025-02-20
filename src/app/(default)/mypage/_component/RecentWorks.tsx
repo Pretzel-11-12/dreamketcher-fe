@@ -39,7 +39,7 @@ export default function RecentWorks() {
   }
 
   return (
-    <div className="grid grid-cols-1 mt-10 gap-5">
+    <div className="grid grid-cols-1 mt-5">
       {recentWorks.map((work) => (
         <RecentWorkItem key={work.id} {...work} />
       ))}
