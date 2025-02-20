@@ -3,6 +3,7 @@ import Image from 'next/image';
 import 'moment/locale/ko';
 import moment from 'moment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
 
 type CommentInfoType = {
   info: fetchComment.Model.ResCommentUnit;
@@ -18,6 +19,26 @@ const CommentItem: React.FC<CommentInfoType> = ({
 }) => {
   moment.locale('ko');
   const timeAgo = moment(info.createdAt).fromNow();
+  const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
+  const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
+
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+
+  // 다른 영역 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const queryClient = useQueryClient();
 
@@ -79,26 +100,38 @@ const CommentItem: React.FC<CommentInfoType> = ({
             />
             싫어요
           </div>
-          <div className="flex gap-2 ml-auto">
+          <div className="flex relative ml-auto" ref={menuRef}>
             <Image
-              src="/assets/icon/trash.svg"
-              alt="trash"
+              src={'/assets/icon/meatballsMenu.svg'}
+              alt="meatballsMenu Icon"
               width={20}
               height={20}
-              onClick={() =>
-                deleteCommentMutate({
-                  param: { webtoonId, episodeId, commentId: String(info.id) },
-                })
-              }
-              className="w-5 h-5 cursor-pointer"
+              className="ml-auto p-[1px] rounded cursor-pointer hover:bg-[#F2F2F2]"
+              onClick={toggleMenu}
             />
-            <Image
-              src="/assets/icon/report.svg"
-              alt="report"
-              width={26}
-              height={26}
-              className="cursor-pointer"
-            />
+
+            {/* 삭제 버튼 메뉴 */}
+            {showMenu && (
+              <div className="absolute right-0 top-5 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm z-10">
+                <button
+                  className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
+                  onClick={() =>
+                    deleteCommentMutate({
+                      param: {
+                        webtoonId,
+                        episodeId,
+                        commentId: String(info.id),
+                      },
+                    })
+                  }
+                >
+                  댓글 삭제
+                </button>
+                <button className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                  신고
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
