@@ -59,7 +59,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   };
 
   return (
-    <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
+    <div className="flex items-center relative gap-4 pb-5 border-b border-b-line">
       <img
         src={thumbnail}
         alt={title}
