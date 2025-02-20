@@ -3,7 +3,7 @@ import Link from 'next/link';
 const EmptyRecentWebtoon = () => {
   return (
     <div className="box-border flex flex-col items-center p-[20px_15px] gap-[9px] w-[282px] h-[153px] bg-white border border-[#f2f2f2] rounded-[10px]">
-      <p className="text-[#282828] text-[14px] text-center">
+      <p className="text-[#282828] text-[14px] font-medium text-center">
         드림케쳐에서 자유롭게 웹툰을 연재하세요
       </p>
       <p className="text-[#3f3f3f] text-[13px] whitespace-pre-line text-center">
