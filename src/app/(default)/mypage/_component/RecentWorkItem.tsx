@@ -10,8 +10,8 @@ interface RecentWorkItemProps {
   title: string;
   writer: string;
   genre: string;
-  episodes: number;
-  rating: number;
+  episodeCount: number;
+  averageRating: number;
   ratingCount: number;
 }
 
@@ -21,8 +21,8 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   title,
   writer,
   genre,
-  episodes,
-  rating,
+  episodeCount,
+  averageRating,
   ratingCount,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
@@ -72,7 +72,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
           {title}
         </h3>
         <p className="text-xs text-[#888888] mt-[7px]">
-          {writer} &#183; {genre} &#183; {episodes}화
+          {writer} &#183; {genre} &#183; {episodeCount}화
         </p>
         <div className="flex items-center mt-[7px] mb-[18px]">
           <Image
@@ -82,7 +82,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
             height={13}
           />
           <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
-            {rating}
+            {averageRating}
           </p>
           <p className="text-[#C9C9C9] text-xs ml-[3px] mt-[1px]">
             ({ratingCount})
@@ -104,7 +104,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
             }}
           >
             <div className="flex items-center justify-center relative flex-shrink-0">
-              {episodes}화 이어서 보기
+              {episodeCount}화 이어서 보기
             </div>
           </Button>
         </Link>
