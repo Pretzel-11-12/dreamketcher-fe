@@ -34,8 +34,11 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
 
   return (
     <div
-      className="w-full h-[50px] bg-[#F9F9F9] fixed border-b flex items-center justify-center transition-opacity duration-300 z-30"
-      style={{ opacity: isVisible || isDisplay ? 1 : 0 }}
+      className="w-full h-[64px] bg-[#FFFFFF] fixed flex items-center justify-center transition-opacity duration-300 z-30"
+      style={{
+        boxShadow: 'inset 0 -1px 0 #C9C9C9',
+        opacity: isVisible || isDisplay ? 1 : 0,
+      }}
       onMouseEnter={() => !isManualToggle && setDisplay(true)}
       onMouseLeave={() =>
         !isManualToggle && window.scrollY >= 300 && setDisplay(false)
