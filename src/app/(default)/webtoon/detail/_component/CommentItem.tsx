@@ -32,22 +32,22 @@ const CommentItem: React.FC<CommentInfoType> = ({
   });
 
   return (
-    <div className="grid grid-cols-[auto_1fr] py-4 gap-2 border-b border-gray-500/10">
+    <div className="grid grid-cols-[auto_1fr] py-5 gap-[14px] border-b border-gray-500/10">
       <Image
         src={info.profileImage}
         alt="profile"
         width={36}
         height={36}
-        className="w-9 h-9 rounded-full object-cover"
+        className="w-9 h-9 rounded-full object-cover shadow-[inset_0_0_0_1px_#F2F2F2]"
       />
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
-          <div className="text-[14px]">{info.nickname}</div>
-          <div className="text-[12px] text-gray-500">{timeAgo}</div>
+          <div className="text-sm/[17px]">{info.nickname}</div>
+          <div className="text-xs text-[#888888]">{timeAgo}</div>
         </div>
 
         <div className="text-[13px]">{info.content}</div>
-        <div className="flex gap-4 text-[#888888]">
+        <div className="h-5 mt-1 flex gap-4 text-[#888888]">
           <div
             className="text-xs flex items-center gap-1 cursor-pointer"
             onClick={handleClick}
@@ -90,7 +90,7 @@ const CommentItem: React.FC<CommentInfoType> = ({
                   param: { webtoonId, episodeId, commentId: String(info.id) },
                 })
               }
-              className="cursor-pointer"
+              className="w-5 h-5 cursor-pointer"
             />
             <Image
               src="/assets/icon/report.svg"
