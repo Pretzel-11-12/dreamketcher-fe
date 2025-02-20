@@ -27,10 +27,10 @@ export default function Mypage() {
           alt="프로필 이미지"
           width={70}
           height={70}
-          className="w-[70px] h-[70px] rounded-full object-cover border border-[#F2F2F2]"
+          className="w-[70px] h-[70px] rounded-full object-cover mr-[15px] border border-[#F2F2F2]"
         />
 
-        <div className="ml-[4px]">
+        <div>
           <p className="text-[18px] font-medium text-gray-800 mt-3">
             {nickname}
           </p>
