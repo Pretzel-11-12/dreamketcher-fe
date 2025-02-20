@@ -38,10 +38,10 @@ const CategorySelector: React.FC = () => {
           {categories.map((category) => (
             <button
               key={category.name}
-              className={`flex items-center justify-center w-[125px] h-[55px] text-[16px] transition duration-300 ${
+              className={`flex items-center justify-center w-[125px] h-[55px] text-[17px] font-medium transition duration-300 ${
                 selectedCategory === category.name
                   ? 'bg-brand-yellow text-white'
-                  : 'bg-white text-black'
+                  : 'bg-white text-[#3f3f3f]'
               }
               `}
               onClick={() => handleCategoryClick(category.name, category.path)}
