@@ -40,7 +40,7 @@ const Header: React.FC = () => {
       }
 
       try {
-        const userInfo = await fetchProfile(accessToken);
+        const userInfo = await fetchProfile();
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                     width={30}
                     height={30}
                     onClick={handleOpenModal}
-                    className="cursor-pointer rounded-full w-[30px] h-[30px]"
+                    className="cursor-pointer rounded-full object-cover w-[30px] h-[30px]"
                   />
                 </>
               ) : (

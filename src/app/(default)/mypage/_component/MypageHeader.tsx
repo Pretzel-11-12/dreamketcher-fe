@@ -14,7 +14,7 @@ const MypageHeader: React.FC = () => {
   return (
     <aside className="w-[282px] h-full flex flex-col items-start pr-[24px] border-r border-r-line pt-[105px]">
       <div
-        className={`flex items-center w-[257px] h-[50px] rounded-md px-4 py-2 ${
+        className={`flex items-center w-full h-[50px] rounded-md px-4 py-2 ${
           isMypageActive ? 'bg-[#E4EBFF]' : ''
         }`}
       >

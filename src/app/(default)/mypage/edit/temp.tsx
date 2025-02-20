@@ -58,12 +58,9 @@ const Temp = () => {
         imageUrl: tempImageUrl,
         shortIntroduction: tempShortIntroduction,
       });
-      alert('프로필 저장이 완료되었습니다.');
       router.push('/mypage');
     },
-    onError: () => {
-      alert('프로필 저장에 실패했습니다.');
-    },
+    onError: () => {},
   });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +77,12 @@ const Temp = () => {
     }
     if (!tempNickname.trim()) {
       alert('닉네임을 입력해주세요.');
+      return;
+    }
+
+    const regex = /^[가-힣a-zA-Z0-9\s]*$/;
+    if (!regex.test(tempNickname)) {
+      alert('특수문자는 닉네임에 포함할 수 없습니다.');
       return;
     }
 

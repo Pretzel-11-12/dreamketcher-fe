@@ -45,7 +45,7 @@ const Header: React.FC = () => {
       }
 
       try {
-        const userInfo = await fetchProfile(accessToken);
+        const userInfo = await fetchProfile();
         setUserInfo({
           id: userInfo.id,
           nickname: userInfo.nickname || '',
