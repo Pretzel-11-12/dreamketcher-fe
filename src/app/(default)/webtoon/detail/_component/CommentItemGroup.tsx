@@ -70,7 +70,7 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
       />
       <div>
         {enableRecomments && (
-          <div className="px-4 bg-[#F9F9F9] pb-4">
+          <div className="px-5 bg-[#F9F9F9] pb-4">
             {recomments?.result?.map((d, i) => (
               <ReCommentItem
                 key={d.id}
@@ -80,6 +80,7 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
                   content: d.content,
                   nickname: d.nickname,
                   createdAt: d.createdAt,
+                  profileImage: d.profileImage,
                 }}
                 webtoonId={webtoonId}
                 episodeId={episodeId}
