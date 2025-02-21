@@ -98,7 +98,7 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
           {info.content}
         </div>
 
-        <div className="h-5 flex gap-2 text-[#888888]">
+        <div className="h-5 flex gap-4 text-[#888888]">
           <div className="text-xs flex items-center gap-1 cursor-pointer">
             <Image
               src="/assets/icon/inactiveLike.svg"
@@ -107,6 +107,15 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
               height={13}
             />
             좋아요
+          </div>
+          <div className="text-xs flex items-center gap-1 cursor-pointer">
+            <Image
+              src="/assets/icon/inactiveDislike.svg"
+              alt="dislike"
+              width={13}
+              height={13}
+            />
+            싫어요
           </div>
           <div className="flex relative ml-auto" ref={menuRef}>
             <Image
