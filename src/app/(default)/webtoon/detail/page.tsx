@@ -31,6 +31,17 @@ export default function Detail() {
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
 
+  const { data: webtoonDetail } = useQuery({
+    queryKey: [webtoonId, 'webtoonDetail'],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoonDetails({
+        param: { id: webtoonId },
+        query: { size: 10, page: 0 },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
   const { data, isLoading, isError } = useQuery({
     queryKey: [webtoonId, episodeId, 'detail'],
     queryFn: () =>
@@ -38,6 +49,7 @@ export default function Detail() {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
+
   const { data: comments } = useQuery({
     queryKey: [webtoonId, episodeId, 'comments'],
     queryFn: () =>
@@ -77,15 +89,16 @@ export default function Detail() {
 
   // 웹툰 데이터가 로드되면 최근 본 웹툰에 추가
   useEffect(() => {
-    if (data) {
+    if (data && webtoonDetail) {
       addRecentWebtoon({
         id: parseInt(webtoonId),
-        image: data.thumbnail || '',
-        title: data.title || '',
+        image: webtoonDetail.webtoonThumbnail || '',
+        title: data.webtoonTitle || '',
         writer: data.authorName || '',
         episodeCount: parseInt(episodeId),
         averageRating: data.averageStar || 0,
         stars: data.likeCount || 0,
+        genre: webtoonDetail.genreName || '',
         lastViewedAt: parseInt(episodeId),
       });
     }

@@ -33,6 +33,7 @@ export namespace _Model {
     id: number;
     no: number;
     thumbnail: string;
+    webtoonTitle: string;
     title: string;
     viewCount: number;
     likeCount: number;

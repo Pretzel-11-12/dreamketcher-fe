@@ -7,6 +7,7 @@ export interface RecentWebtoon {
   averageRating: number;
   stars: number;
   lastViewedAt: number;
+  genre: string;
 }
 
 const RECENT_WEBTOONS_KEY = 'recent_webtoons';
