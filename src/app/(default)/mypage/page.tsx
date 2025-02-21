@@ -7,11 +7,19 @@ import Image from 'next/image';
 import MyWork from './_component/MyWork';
 import { useRouter } from 'next/navigation';
 import ClipboardButton from '@/app/_component/ClipboardButton';
+import { useEffect } from 'react';
 
 export default function Mypage() {
   const router = useRouter();
-  const { nickname, businessEmail, imageUrl, shortIntroduction } =
+  const { nickname, businessEmail, imageUrl, shortIntroduction, accessToken } =
     useAuthStore();
+
+  useEffect(() => {
+    if (!accessToken) {
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+    }
+  }, [router]);
 
   const handleEditProfile = () => {
     router.push(`/mypage/edit`);
