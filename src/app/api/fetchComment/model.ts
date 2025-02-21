@@ -7,6 +7,7 @@ export namespace _Model {
     content: string;
     childCommentCount: number;
     createdAt: string;
+    profileImage: string;
   }
 
   export interface ResReCommentUnit {
@@ -16,5 +17,6 @@ export namespace _Model {
     parentCommentId: number;
     commentOrder: number;
     createdAt: string;
+    profileImage: string;
   }
 }

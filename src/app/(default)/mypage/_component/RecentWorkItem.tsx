@@ -10,8 +10,8 @@ interface RecentWorkItemProps {
   title: string;
   writer: string;
   genre: string;
-  episodes: number;
-  rating: number;
+  episodeCount: number;
+  averageRating: number;
   ratingCount: number;
 }
 
@@ -21,8 +21,8 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   title,
   writer,
   genre,
-  episodes,
-  rating,
+  episodeCount,
+  averageRating,
   ratingCount,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
@@ -57,14 +57,14 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   }, []);
 
   return (
-    <div className="w-[870px] h-[190px] flex items-center relative gap-[17px] pb-5 border-b border-b-line">
+    <div className="w-[870px] h-[190px] flex items-center relative gap-[17px] border-b border-b-line">
       <img
         src={image}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
-      <div className="flex flex-col" style={{ paddingTop: '6.5px' }}>
+      <div className="flex flex-col w-[126px]" style={{ paddingTop: '6.5px' }}>
         <h3
           className="text-base/[18px] font-semibold cursor-pointer"
           onClick={navigateToWebtoon}
@@ -72,7 +72,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
           {title}
         </h3>
         <p className="text-xs text-[#888888] mt-[7px]">
-          {writer} &#183; {genre} &#183; {episodes}화
+          {writer} &#183; {genre} &#183; {episodeCount}화
         </p>
         <div className="flex items-center mt-[7px] mb-[18px]">
           <Image
@@ -82,7 +82,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
             height={13}
           />
           <p className="text-brand-yellow text-xs ml-[3px] mt-[1px]">
-            {rating}
+            {averageRating}
           </p>
           <p className="text-[#C9C9C9] text-xs ml-[3px] mt-[1px]">
             ({ratingCount})
@@ -103,8 +103,8 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
                 'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
             }}
           >
-            <div className="flex items-center justify-center relative">
-              {episodes}화 이어서 보기
+            <div className="flex items-center justify-center relative flex-shrink-0">
+              {episodeCount}화 이어서 보기
             </div>
           </Button>
         </Link>

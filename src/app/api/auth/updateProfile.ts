@@ -1,7 +1,10 @@
 import { fetchAPI } from '..';
 import { User } from '@/model/User';
+import useAuthStore from '@/app/store/authStore';
 
 export const updateProfile = async (profileData: User, token: string) => {
+  const { imageUrl: originalImageUrl } = useAuthStore.getState();
+
   const jsonToBlob = (): Blob => {
     const jsonData = {
       nickname: profileData.nickname,
@@ -18,11 +21,8 @@ export const updateProfile = async (profileData: User, token: string) => {
     const formDataToSend = new FormData();
     formDataToSend.append('profileData', jsonBlob);
 
-    // 기본 프로필 이미지 URL과 현재 imageUrl이 다를 경우에만 파일 추가
-    const DEFAULT_IMAGE_URL =
-      'https://dreamketcher-server.s3.ap-northeast-2.amazonaws.com/profile-images/defaultProfileImage.png';
-
-    if (profileData.imageUrl && profileData.imageUrl !== DEFAULT_IMAGE_URL) {
+    // 기존 imageUrl과 현재 입력된 imageUrl이 다를 경우만 파일 추가
+    if (profileData.imageUrl && profileData.imageUrl !== originalImageUrl) {
       const response = await fetch(profileData.imageUrl);
       const fileBlob = await response.blob();
 
@@ -36,15 +36,25 @@ export const updateProfile = async (profileData: User, token: string) => {
     return formDataToSend;
   };
 
-  const jsonBlob = jsonToBlob();
-  const formData = await createFormDataWithFile(jsonBlob);
+  try {
+    const jsonBlob = jsonToBlob();
+    const formData = await createFormDataWithFile(jsonBlob);
 
-  await fetchAPI({
-    method: 'PATCH',
-    endpoint: '/member/profile',
-    body: formData,
-    isFormData: true,
-  });
-
-  return;
+    await fetchAPI({
+      method: 'PATCH',
+      endpoint: '/member/profile',
+      body: formData,
+      isFormData: true,
+    });
+    alert('프로필이 성공적으로 수정되었습니다.');
+  } catch (error: any) {
+    if (error.code === 'BUSINESS_EMAIL_ALREADY_EXISTS') {
+      alert('이미 존재하는 비즈니스 이메일입니다.');
+    } else if (error.code === 'ARGUMENT_NOT_VALID') {
+      alert('이메일 형식이 올바르지 않습니다.');
+    } else {
+      alert('프로필 수정 중 오류가 발생했습니다.');
+    }
+    throw error;
+  }
 };
