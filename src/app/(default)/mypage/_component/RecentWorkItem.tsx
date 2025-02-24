@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Button from '@/app/_component/Button';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 interface RecentWorkItemProps {
   id: number;
@@ -32,7 +31,11 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
 
   const router = useRouter();
   function navigateToWebtoon() {
-    router.push('/webtoon/list');
+    router.push(`/webtoon/list?id=${id}`);
+  }
+
+  function navigateToEpisode() {
+    router.push(`/webtoon/detail?titleId=${id}&no=${episodeCount}`);
   }
 
   const toggleMenu = () => {
@@ -90,26 +93,19 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
             ({ratingCount})
           </p>
         </div>
-        <Link
-          href={{
-            pathname: '/webtoon/detail',
-            query: { titleId: '12345', no: id },
+        <Button
+          props={{
+            size: 'M',
+            variant: 'brand-yellow',
+            handleClick: navigateToEpisode,
+            containerStyles:
+              'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
           }}
         >
-          <Button
-            props={{
-              size: 'M',
-              variant: 'brand-yellow',
-              handleClick: navigateToWebtoon,
-              containerStyles:
-                'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
-            }}
-          >
-            <div className="flex items-center justify-center relative flex-shrink-0">
-              {episodeCount}화 이어서 보기
-            </div>
-          </Button>
-        </Link>
+          <div className="flex items-center justify-center relative flex-shrink-0">
+            {episodeCount}화 이어서 보기
+          </div>
+        </Button>
       </div>
 
       <div className="ml-auto relative" ref={menuRef}>
