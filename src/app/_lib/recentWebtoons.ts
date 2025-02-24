@@ -40,3 +40,11 @@ export const getRecentWebtoons = (): RecentWebtoon[] => {
     return [];
   }
 };
+
+export const removeRecentWebtoon = (id: number) => {
+  const recentWebtoons = getRecentWebtoons().filter(
+    (webtoon) => webtoon.id !== id
+  );
+  localStorage.setItem(RECENT_WEBTOONS_KEY, JSON.stringify(recentWebtoons));
+  return recentWebtoons;
+};
