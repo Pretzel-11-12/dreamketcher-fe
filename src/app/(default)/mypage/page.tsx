@@ -11,8 +11,9 @@ import { useEffect } from 'react';
 
 export default function Mypage() {
   const router = useRouter();
-  const { nickname, businessEmail, imageUrl, shortIntroduction, accessToken } =
+  const { nickname, businessEmail, imageUrl, shortIntroduction } =
     useAuthStore();
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     if (!accessToken) {
