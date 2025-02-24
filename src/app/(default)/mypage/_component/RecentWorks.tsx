@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import RecentWorkItem from './RecentWorkItem';
-import { getRecentWebtoons, RecentWebtoon } from '@/app/_lib/recentWebtoons';
+import {
+  getRecentWebtoons,
+  RecentWebtoon,
+  removeRecentWebtoon,
+} from '@/app/_lib/recentWebtoons';
 
 export default function RecentWorks() {
   const [recentWebtoons, setRecentWebtoons] = useState<RecentWebtoon[]>([]);
@@ -8,6 +12,10 @@ export default function RecentWorks() {
   useEffect(() => {
     setRecentWebtoons(getRecentWebtoons());
   }, []);
+
+  const handleDelete = (id: number) => {
+    setRecentWebtoons(removeRecentWebtoon(id));
+  };
 
   if (recentWebtoons.length === 0) {
     return (
@@ -23,7 +31,13 @@ export default function RecentWorks() {
   return (
     <div className="grid grid-cols-1 mt-5">
       {recentWebtoons.map((work) => (
-        <RecentWorkItem genre={''} ratingCount={0} key={work.id} {...work} />
+        <RecentWorkItem
+          genre={''}
+          ratingCount={0}
+          key={work.id}
+          {...work}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );

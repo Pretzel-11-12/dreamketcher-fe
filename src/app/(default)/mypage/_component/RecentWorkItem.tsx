@@ -13,6 +13,7 @@ interface RecentWorkItemProps {
   episodeCount: number;
   averageRating: number;
   ratingCount: number;
+  onDelete: (id: number) => void;
 }
 
 const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
@@ -24,6 +25,7 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   episodeCount,
   averageRating,
   ratingCount,
+  onDelete,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 영역 참조
@@ -38,8 +40,8 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   };
 
   const handleDelete = () => {
-    alert(`작품 '${title}'이 삭제되었습니다.`);
-    // TODO : 작품 삭제 로직 추가
+    onDelete(id);
+    alert(`작품 '${title}'이 최근 본 웹툰에서 삭제되었습니다.`);
   };
 
   // 다른 영역 클릭 시 메뉴를 닫는 로직
