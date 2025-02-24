@@ -23,7 +23,7 @@ export default function RecentWorks() {
   return (
     <div className="grid grid-cols-1 mt-5">
       {recentWebtoons.map((work) => (
-        <RecentWorkItem genre={''} ratingCount={0} key={work.id} {...work} />
+        <RecentWorkItem ratingCount={0} key={work.id} {...work} />
       ))}
     </div>
   );
