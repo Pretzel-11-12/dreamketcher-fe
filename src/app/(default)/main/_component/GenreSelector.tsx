@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const genres: { name: string; param: string }[] = [
   { name: '추천', param: 'RECOMMENDED' },
@@ -19,9 +19,15 @@ const genres: { name: string; param: string }[] = [
 const GenreSelector: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
   const currentGenre = searchParams.get('genre') || 'RECOMMENDED';
 
   const handleGenreClick = (genre: string) => {
+    // 현재 경로가 main이 아니면 main으로 이동
+    if (!pathname.includes('/main')) {
+      router.push(`/main/default?genre=${genre}`);
+      return;
+    }
     // URL의 'genre' 쿼리 파라미터를 업데이트
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set('genre', genre);
