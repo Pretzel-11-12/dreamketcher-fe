@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <div className="antialiased flex flex-col min-h-screen bg-white">
       <RQProvider>
-        <Header></Header>
-        <Suspense>{children}</Suspense>
-        <Footer></Footer>
+        <Suspense>
+          <Header></Header>
+          {children}
+          <Footer></Footer>
+        </Suspense>
       </RQProvider>
     </div>
   );
