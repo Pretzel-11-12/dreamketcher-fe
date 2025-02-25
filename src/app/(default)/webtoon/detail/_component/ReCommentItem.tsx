@@ -53,14 +53,24 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
 
   const queryClient = useQueryClient();
 
+  // 대댓글 삭제
   const { mutate: deleteCommentMutate, isError } = useMutation({
     mutationFn: fetchComment.deleteReComment,
-    onSuccess: () =>
+    onSuccess: () => {
+      alert('대댓글이 삭제되었습니다.');
       // 성공 시 기존 대댓글 리스트를 다시 불러옴
       queryClient.invalidateQueries({
         queryKey: [Number(parentCommentId), 'recomments'],
-      }),
-    onError: (e) => console.log(e),
+      });
+    },
+    onError: (error: any) => {
+      if (error.code === 'UNAUTHORIZED_MEMBER') {
+        alert('작성자만 삭제할 수 있습니다.');
+      } else {
+        alert('대댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('대댓글 삭제 에러:', error);
+      }
+    },
   });
 
   return (
