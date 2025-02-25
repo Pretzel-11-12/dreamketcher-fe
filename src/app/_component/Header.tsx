@@ -80,16 +80,16 @@ const Header: React.FC = () => {
         </div>
 
         <div className="flex justify-end w-full max-w-[600px]">
-          <div className="flex items-center w-fit gap-3">
+          <div className="flex items-center w-fit gap-[20px]">
             <SearchKeyword />
-            <div className="relative flex text-black gap-3 items-center">
+            <div className="relative flex text-black gap-[20px] items-center">
               {id ? (
                 <>
                   <Image
-                    src="/assets/images/bell.png"
+                    src="/assets/icon/bell.svg"
                     alt="noti button"
-                    width={30}
-                    height={30}
+                    width={34}
+                    height={34}
                     className="cursor-pointer"
                   />
                   <Image

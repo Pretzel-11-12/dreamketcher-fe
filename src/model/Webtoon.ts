@@ -43,4 +43,5 @@ export interface RecentWatchedWebtoon {
   averageRating: number;
   stars: number;
   lastViewedAt: number;
+  genre: string;
 }

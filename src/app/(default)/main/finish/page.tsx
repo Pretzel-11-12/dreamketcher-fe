@@ -10,9 +10,9 @@ export default function Finish() {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-3  pb-32">
+    <div className="flex flex-col w-[894px] border-r border-r-line pt-[50px] pr-3 pb-32 pr-[24px]">
       <ThumbnailContainer type={'finish'} title={'베스트 완결 웹툰'} />
-      <div className="flex gap-1 mt-10">
+      <div className="flex gap-[10px] mt-10">
         <Image
           src="/assets/images/promotion-1.png"
           alt="Site promotion image"
