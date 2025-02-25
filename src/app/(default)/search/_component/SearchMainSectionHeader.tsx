@@ -12,11 +12,6 @@ const categories: { name: string }[] = [
   { name: '완결' },
 ];
 
-const dropdownOptions = [
-  { label: '최근순', value: 'recent' },
-  { label: '오래된순', value: 'oldest' },
-];
-
 const SearchMainSectionHeader: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -44,7 +39,6 @@ const SearchMainSectionHeader: React.FC = () => {
             </button>
           ))}
         </div>
-        <Dropdown options={dropdownOptions} defaultOption="recent" />
       </div>
     </div>
   );
