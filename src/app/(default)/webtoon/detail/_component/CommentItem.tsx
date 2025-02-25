@@ -1,7 +1,7 @@
 import { fetchComment } from '@/app/api/fetchComment';
 import Image from 'next/image';
 import 'moment/locale/ko';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 
@@ -18,7 +18,9 @@ const CommentItem: React.FC<CommentInfoType> = ({
   handleClick,
 }) => {
   moment.locale('ko');
-  const timeAgo = moment(info.createdAt).fromNow();
+
+  const timeAgo = moment.utc(info.createdAt).tz('Asia/Seoul').fromNow();
+
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
 
