@@ -16,13 +16,13 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   return (
-    <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-4">
+    <div className="flex flex-col w-[870px] border-r border-r-line pt-8 pr-4 gap-[20px]">
       <div className="flex items-end">
         <p className="text-md">'{keyword}'에 대한 검색 결과</p>
         <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>
       </div>
       <SearchMainSectionHeader />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-[20px]">
         {webtoons.length > 0 ? (
           webtoons.map((webtoon) => (
             <SearchResultThumbnail
