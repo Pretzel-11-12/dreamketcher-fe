@@ -31,7 +31,7 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
         query: { titleId: webtoonId, no: episodeId },
       }}
     >
-      <div className="grid grid-cols-[auto_1fr] border-b gap-4 p-[20px] hover:bg-[#F8F8F8]">
+      <div className="grid grid-cols-[auto_1fr] border-b gap-4 p-[20px] pl-0 hover:bg-[#F8F8F8]">
         {thumbnail ? (
           <DefaultImage alt={title} src={thumbnail} height={60} width={100} />
         ) : (

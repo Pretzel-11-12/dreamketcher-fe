@@ -61,30 +61,34 @@ export default function Detail() {
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
             <div>
-              <div className="flex justify-between px-5">
+              <div className="flex justify-between">
                 <div>총 {data?.episode_count}화</div>
 
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <div
-                    className={`text-sm font-${
-                      sortDirection === 'desc' && 'semibold'
-                    } cursor-pointer`}
+                    className={`text-sm cursor-pointer ${
+                      sortDirection === 'desc'
+                        ? 'font-medium text-[#3f3f3f]'
+                        : 'font-normal text-[#888]'
+                    }`}
                     onClick={() => setSortDirection('desc')}
                   >
                     최신화부터
                   </div>
-
+                  <div className="text-[#888]">·</div>
                   <div
-                    className={`text-sm font-${
-                      sortDirection === 'asc' && 'semibold'
-                    } cursor-pointer`}
+                    className={`text-sm cursor-pointer ${
+                      sortDirection === 'asc'
+                        ? 'font-medium text-[#3f3f3f]'
+                        : 'font-normal text-[#888]'
+                    }`}
                     onClick={() => setSortDirection('asc')}
                   >
                     1화부터
                   </div>
                 </div>
               </div>
-              <div className="min-h-20">
+              <div className="min-h-20 mb-[50px]">
                 {data?.episodes?.map((item, index) => (
                   <EpisodeListItem
                     items={item}

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import RecentThumbnail from './RecentThumbnail';
 import { RecentWebtoon, getRecentWebtoons } from '@/app/_lib/recentWebtoons';
 import EmptyRecentWebtoon from './EmptyRecentWebtoon';
+import RecommendWebtoonThumbnail from './RecommendWebtoonThumbnail';
 interface Props {
   announcements: {
     id: number;
@@ -29,14 +30,19 @@ export default function SideSection({ announcements }: Props) {
         </div>
       )}
       <div className="flex mb-14 gap-[6px]">
-        {recentWebtoons.length > 0 ? (
+        {recentWebtoons.length === 0 ? (
+          <EmptyRecentWebtoon />
+        ) : recentWebtoons.length === 1 ? (
+          <>
+            <RecentThumbnail webtoon={recentWebtoons[0]} />
+            <RecommendWebtoonThumbnail />
+          </>
+        ) : (
           recentWebtoons.map((webtoon) => (
             <div key={webtoon.id}>
               <RecentThumbnail webtoon={webtoon} />
             </div>
           ))
-        ) : (
-          <EmptyRecentWebtoon />
         )}
       </div>
       <div className="flex flex-col gap-4">
