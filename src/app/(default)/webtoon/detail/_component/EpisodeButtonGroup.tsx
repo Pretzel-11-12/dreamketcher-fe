@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import EpisodeButton, { EpisodeButtonItemInfo } from './EposideButton';
+import EpisodeButton, { EpisodeButtonItemInfo } from './EpisodeButton';
 import StarRatingModal from './StarRatingModal';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
