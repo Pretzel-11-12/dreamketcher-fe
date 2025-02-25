@@ -73,7 +73,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
   };
 
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-[14px] pr-4">
+    <div className="grid grid-cols-[auto_1fr] gap-[14px]">
       <DefaultImage
         src={webtoonThumbnail}
         alt={webtoonTitle}
@@ -106,9 +106,9 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               handleClick: handleLikeToggle,
             }}
           >
-            <div className="flex gap-[2px] items-center justify-center text-[16px]">
+            <div className="flex gap-[2px] items-center justify-center text-[18px]">
               <Image
-                src={'/assets/icon/interest.svg'}
+                src={'/assets/icon/inspector.svg'}
                 alt={'관심 추가 이미지'}
                 width={30}
                 height={30}
@@ -117,14 +117,14 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             </div>
           </Button>
 
-          <Button props={{ size: 'S', variant: 'brand-gray' }}>
+          <Button props={{ size: 'S', variant: 'brand-gray-light' }}>
             <Link
               href={{
                 pathname: '/webtoon/detail',
                 query: { titleId: webtoonId, no: '1' },
               }}
             >
-              <div className="flex gap-2 items-center justify-center text-[16px]">
+              <div className="flex gap-2 items-center justify-center text-[18px]">
                 첫 화 보기
               </div>
             </Link>

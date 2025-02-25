@@ -56,8 +56,8 @@ export default function Detail() {
       <GenreSelector />
       <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
-        <div className="flex w-[1200px]">
-          <div className="flex flex-col w-[870px] gap-6 border-r border-r-line pt-8">
+        <div className="flex w-[1200px] pt-[40px]">
+          <div className="flex flex-col w-[894px] gap-6 border-r border-r-line pr-[24px]">
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
             <div>
@@ -102,7 +102,7 @@ export default function Detail() {
             </div>
           </div>
 
-          <div className="flex flex-col w-[300px] p-3 gap-1">
+          <div className="flex flex-col w-[282px] ml-[24px] gap-1">
             <RankingWebtoons genre={data?.genreName} />
           </div>
         </div>
