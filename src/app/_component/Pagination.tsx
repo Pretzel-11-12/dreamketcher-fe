@@ -21,26 +21,26 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 mt-4">
+    <div className="flex items-center justify-center gap-[3px]">
       <button
-        className="px-2 py-1 disabled:opacity-50"
+        className="disabled:opacity-50"
         onClick={handlePrev}
         disabled={currentPage === 1}
       >
         <Image
           src={'/assets/icon/leftArrow.svg'}
           alt="leftArrow Icon"
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           className=""
         />
       </button>
       {Array.from({ length: totalPages }, (_, index) => (
         <button
           key={index + 1}
-          className={`px-3 py-1  ${
+          className={`w-[24px] h-[24px] text-[13px] ${
             currentPage === index + 1
-              ? 'bg-[#2E4072] rounded-md text-white text-[13px]'
+              ? 'bg-[#2E4072] rounded-[5px] text-white'
               : ''
           }`}
           onClick={() => onPageChange(index + 1)}
@@ -49,15 +49,15 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
       ))}
       <button
-        className="px-2 py-1 disabled:opacity-50"
+        className="disabled:opacity-50"
         onClick={handleNext}
         disabled={currentPage === totalPages}
       >
         <Image
           src={'/assets/icon/rightArrow.svg'}
           alt="rightArrow Icon"
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           className=""
         />
       </button>

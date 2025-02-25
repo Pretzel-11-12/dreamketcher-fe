@@ -33,7 +33,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
         />
       </div>
       <div className="flex flex-col text-[12px]">
-        <p className="text-[16px]">{webtoon.title}</p>
+        <p className="text-[14px] text-[#3f3f3f]">{webtoon.title}</p>
         <p className="text-[#888888] mb-2">
           {webtoon.writer} · {webtoon.episodeCount}화
         </p>

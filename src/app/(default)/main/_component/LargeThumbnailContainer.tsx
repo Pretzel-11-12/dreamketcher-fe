@@ -79,7 +79,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
   const { nickname } = useAuthStore();
 
   return (
-    <div className="flex flex-col text-black mt-3 gap-[14px]">
+    <div className="flex flex-col text-black gap-[14px]">
       <div className="flex justify-between h-[21px]">
         {nickname ? (
           <p className="text-[18px]">
