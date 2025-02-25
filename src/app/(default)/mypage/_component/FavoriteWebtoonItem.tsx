@@ -66,7 +66,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
-      <div className="flex flex-col">
+      <div className="flex w-[126px] flex-col">
         <h3
           className="text-base font-semibold cursor-pointer"
           onClick={navigateToWebtoon}
@@ -99,10 +99,10 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
             props={{
               size: 'M',
               variant: 'brand-yellow',
-              containerStyles: 'text-xs px-5 py-3',
+              containerStyles: 'w-[126px] h-[34px] text-xs',
             }}
           >
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex items-center justify-center">
               {episodeCount}화 보러가기
             </div>
           </Button>
