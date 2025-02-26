@@ -43,7 +43,7 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
     <div className="relative inline-block text-left w-32" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex justify-between items-center w-[57px] h-[17px] text-[14px] text-[#888888]`}
+        className={`inline-flex gap-2 items-center w-[57px] h-[17px] text-[14px] text-[#888888]`}
       >
         {selected
           ? options.find((option) => option.value === selected)?.label
@@ -51,17 +51,17 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
         <span className="">
           {isOpen ? (
             <Image
-              src="/assets/icon/upArrow.svg"
+              src="/assets/icon/mainPage-upArrow.svg"
               alt="Up Arrow"
-              width={16}
-              height={16}
+              width={11}
+              height={11}
             />
           ) : (
             <Image
-              src="/assets/icon/downArrow.svg"
+              src="/assets/icon/mainPage-downArrow.svg"
               alt="Down Arrow"
-              width={16}
-              height={16}
+              width={11}
+              height={11}
             />
           )}
         </span>
