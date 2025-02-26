@@ -3,9 +3,15 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'XL' | 'L' | 'M' | 'S' | 'XS';
-  variant: 'brand-yellow' | 'brand-blue' | 'brand-gray' | 'transparent';
+  variant:
+    | 'brand-yellow'
+    | 'brand-blue'
+    | 'brand-gray'
+    | 'brand-gray-light'
+    | 'transparent';
   disabled?: boolean;
   containerStyles?: string;
+  border?: string;
   handleClick?: () => void;
 }
 const SIZE_MAP: { [k in Props['size']]: string } = {
@@ -22,6 +28,8 @@ const VARIANT_MAP: { [k in Props['variant']]: string } = {
     'bg-brand-blue text-white hover:bg-[#4D5D87] disabled:bg-gray-300',
   'brand-gray':
     'bg-brand-gray text-[#3F3F3F] hover:bg-[#efefef] disabled:bg-gray-300',
+  'brand-gray-light':
+    'bg-[#FBFBFB] text-[#545454] hover:bg-[#efefef] disabled:bg-gray-300 border border-[#F2F2F2]',
   transparent: 'text-bg-brand-gray',
 };
 

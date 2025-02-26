@@ -41,7 +41,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
   return (
     <div className="flex flex-col gap-5">
       <div
-        className="flex w-full h-[150px] cursor-pointer gap-5"
+        className="flex w-full h-[150px] cursor-pointer gap-[18px]"
         onClick={tempClickHandler}
       >
         <DefaultImage
@@ -50,7 +50,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           height={150}
           width={120}
         />
-        <div className="flex flex-col text-xs gap-2 justify-center">
+        <div className="flex flex-col text-xs gap-[7px] justify-center">
           <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
           <p className="text-[#888888]">
             {highlightKeyword(webtoon.member, keyword)} ·{' '}
@@ -67,15 +67,23 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
             <p className="text-[#888888]">({webtoon.numOfStars})</p>
           </div>
-          <p className="text-sm">{highlightKeyword(webtoon.story, keyword)}</p>
+          <p className="text-[14px] text-[#3f3f3f]">
+            {highlightKeyword(webtoon.story, keyword)}
+          </p>
           <div className="flex flex-wrap">
             {temporalTags.slice(0, 3).map((tag, index) => (
-              <div className="bg-gray-100 m-1 p-1 rounded-[4px]" key={index}>
+              <div
+                className="bg-gray-100 px-[5px] leading-[normal] flex items-center h-[20px] m-1 ml-0 rounded-[3px]"
+                key={index}
+              >
                 {highlightKeyword(tag, keyword)}
               </div>
             ))}
             {temporalTags.length > 3 && (
-              <div className="m-1 p-1" key="extra">
+              <div
+                className="flex m-1 ml-0 items-center justify-center h-[20px] leading-[normal]"
+                key="extra"
+              >
                 외 {temporalTags.length - 3}개
               </div>
             )}

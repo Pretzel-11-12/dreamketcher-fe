@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import LargeThumbnail from './LargeThumbnail';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
+import MediumThumbnail from './MediumThumbnail';
 
 interface DetailThumbnailContainerProps {
   title: string;
@@ -12,19 +12,22 @@ const DetailThumbnailContainer: React.FC<DetailThumbnailContainerProps> = ({
   title,
 }) => {
   return (
-    <div className="flex flex-col text-black mt-3 gap-1">
-      <div className="flex text-[17px] items-center gap-2">
+    <div className="flex flex-col text-black gap-[16px]">
+      <div className="flex text-[18px] items-center gap-[10px] font-medium">
         <p>{title}</p>
-        <div className="flex text-[#888888] text-[14px]">
-          <p className="text-brand-yellow mr-1">최신순</p>
-          <p> · 좋아요순 · 별점순</p>
+        <div className="flex text-[#888888] text-[14px] gap-[6px]">
+          <p className="text-brand-yellow">최신순</p>
+          <p>·</p>
+          <p>좋아요순</p>
+          <p>·</p>
+          <p>별점순</p>
         </div>
       </div>
-      <div className="flex flex-wrap mt-3 gap-1">
+      <div className="flex flex-wrap justify-between gap-y-[15px]">
         {thumbnailData.length > 0 ? (
           thumbnailData.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} w={130} h={252} />
+              <MediumThumbnail webtoon={webtoon} w={160} h={336} />
             </div>
           ))
         ) : (

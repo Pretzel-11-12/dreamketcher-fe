@@ -3,19 +3,16 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { RecentWatchedWebtoon } from '@/model/Webtoon';
 
-type RecentThumbnailProps = {
-  webtoon: RecentWatchedWebtoon;
-};
+type RecommendWebtoonThumbnailProps = {};
 
-const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
+const RecommendWebtoonThumbnail: React.FC<
+  RecommendWebtoonThumbnailProps
+> = ({}) => {
   const router = useRouter();
 
   const handleThumbnailClick = () => {
-    router.push(
-      `/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`
-    );
+    router.push(`/main`);
   };
 
   return (
@@ -25,27 +22,25 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
     >
       <div className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden">
         <Image
-          src={webtoon.image}
+          src="/assets/images/monthly-dreamketcher.png"
           alt="Webtoon thumbnail image"
           fill
           className="object-cover"
           sizes="138px"
         />
       </div>
-      <div className="flex flex-col text-[12px]">
-        <p className="text-[14px] text-[#3f3f3f]">{webtoon.title}</p>
-        <p className="text-[#888888] mb-2">
-          {webtoon.writer} · {webtoon.episodeCount}화
-        </p>
+      <div className="flex flex-col text-[12px] items-center">
+        <p className="text-[14px] text-[#3f3f3f]">드림케쳐 추천작 리스트</p>
+        <p className="text-[#3f3f3f] mb-2">⁺. ⊹˚₊ ₊·(੭· ˕ · )੭‧*</p>
       </div>
       <Link
         className="w-[138px] h-[43px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
-        href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.lastViewedAt}`}
+        href={`/main`}
       >
-        {webtoon.episodeCount}화 이어읽기
+        추천작 보러가기
       </Link>
     </div>
   );
 };
 
-export default RecentThumbnail;
+export default RecommendWebtoonThumbnail;
