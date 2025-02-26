@@ -20,7 +20,7 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         line: '#F2F2F2',
-        titleblack: '282828',
+        titleblack: '#282828',
       },
     },
   },

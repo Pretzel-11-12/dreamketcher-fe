@@ -27,8 +27,8 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
         width={w}
         height={225}
       />
-      <div className="flex flex-col text-[12px]">
-        <p className="text-[16px] break-words text-titleblack">
+      <div className="flex flex-col text-[12px] mt-[3px]">
+        <p className="text-[14px] break-words text-titleblack">
           {webtoon.title}
         </p>
         <p className="text-[#888888]">
