@@ -90,11 +90,11 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
       />
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
-          <div className="text-[14px] text-[#282828]">{info.nickname}</div>
+          <div className="text-[14px] text-titleblack">{info.nickname}</div>
           <div className="text-[12px] text-gray-500">{timeAgo}</div>
         </div>
 
-        <div className="text-[13px] mb-[7px] text-[#282828]">
+        <div className="text-[13px] mb-[7px] text-titleblack">
           {info.content}
         </div>
 

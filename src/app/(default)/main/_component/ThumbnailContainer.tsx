@@ -54,7 +54,7 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
   return (
     <div className="flex flex-col gap-[15px] text-black">
       <div className="flex items-center gap-[7px] h-[20px]">
-        <p className="text-[18px] font-semibold text-[#282828]">{title}</p>
+        <p className="text-[18px] font-semibold text-titleblack">{title}</p>
         <SliderDropdown options={dropdownOptions} defaultOption="latest" />
       </div>
       <WebtoonSlider webtoons={data || []} />

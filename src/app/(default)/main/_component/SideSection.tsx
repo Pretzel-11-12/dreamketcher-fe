@@ -24,7 +24,7 @@ export default function SideSection({ announcements }: Props) {
     <div className="flex flex-col gap-[15px] w-[282px] pt-[50px] ml-[24px]">
       {recentWebtoons.length > 0 && (
         <div className="flex items-center">
-          <p className="text-[16px] text-[#282828] font-semibold h-[20px]">
+          <p className="text-[16px] text-titleblack font-semibold h-[20px]">
             최근 본 웹툰
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function SideSection({ announcements }: Props) {
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between">
-          <p className="font-medium text-[#282828] text-[16px]">공지사항</p>
+          <p className="font-medium text-titleblack text-[16px]">공지사항</p>
           <p className="text-[#888888] text-[14px]">더보기</p>
         </div>
         <hr className=""></hr>

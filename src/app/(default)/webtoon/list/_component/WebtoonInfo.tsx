@@ -82,7 +82,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         rounded={'rounded-[10px]'}
       />
       <div className="flex flex-col gap-[10px] relative">
-        <div className="text-[22px] font-medium text-[#282828]">
+        <div className="text-[22px] font-medium text-titleblack">
           {webtoonTitle}
         </div>
         <div className="flex gap-[5px] items-center text-[16px] text-[#888]">

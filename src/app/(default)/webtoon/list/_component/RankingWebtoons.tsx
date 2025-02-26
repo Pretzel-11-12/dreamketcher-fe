@@ -19,7 +19,9 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
   return (
     <div className="flex flex-col gap-[15px]">
       <div className="flex gap-1 border-b pb-[14px] border-[#F2F2F2] justify-between">
-        <p className="text-[16px] font-medium text-[#282828]">{genre} 베스트</p>
+        <p className="text-[16px] font-medium text-titleblack">
+          {genre} 베스트
+        </p>
         <p className="text-[12px] text-[#888888] self-end">더보기</p>
       </div>
       <div className="flex flex-col gap-[3px]">
