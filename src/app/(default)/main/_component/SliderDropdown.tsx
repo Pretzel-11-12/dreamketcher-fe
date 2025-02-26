@@ -43,28 +43,25 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
     <div className="relative inline-block text-left w-32" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex justify-between w-[104px] h-[37px] px-4 py-2 text-[14px] font-medium text-gray-700
-          ${isOpen ? 'rounded-t-md' : 'rounded-md'}
-          border border-[#F2F2F2] shadow-sm bg-white
-          hover:bg-[#E4EBFF] focus:outline-none`}
+        className={`inline-flex justify-between items-center w-[57px] h-[17px] text-[14px] text-[#888888]`}
       >
         {selected
           ? options.find((option) => option.value === selected)?.label
           : 'Select'}
-        <span className="ml-2 mt-[4px]">
+        <span className="">
           {isOpen ? (
             <Image
               src="/assets/icon/upArrow.svg"
               alt="Up Arrow"
-              width={13}
-              height={13}
+              width={16}
+              height={16}
             />
           ) : (
             <Image
               src="/assets/icon/downArrow.svg"
               alt="Down Arrow"
-              width={13}
-              height={13}
+              width={16}
+              height={16}
             />
           )}
         </span>
@@ -72,24 +69,20 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
 
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md shadow-lg">
-          <div className="py-0 ">
+        <div className="absolute z-10 w-[83px] mt-[4px] bg-white border border-baseLine rounded-[5px] shadow-lg">
+          <div className="">
             {options.map((option) => (
               <div
                 key={option.value}
                 onClick={() => handleSelect(option.value)}
-                className={`flex justify-between cursor-pointer px-4 py-2 text-sm text-gray-700
-                  hover:bg-[#E4EBFF] w-[104px] h-[37px]`}
+                className={`flex justify-between cursor-pointer px-[10px] py-[5px] text-[13px] ${
+                  selected === option.value
+                    ? 'text-contentBlack'
+                    : 'text-lightGray'
+                }
+                  hover:bg-[#E4EBFF] w-[83px] h-[32px]`}
               >
                 <span>{option.label}</span>
-                {selected === option.value && (
-                  <Image
-                    src="/assets/icon/check.svg"
-                    alt="check icon"
-                    width={13}
-                    height={13}
-                  />
-                )}
               </div>
             ))}
           </div>

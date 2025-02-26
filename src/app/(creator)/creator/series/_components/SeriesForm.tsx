@@ -175,7 +175,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-baseline">
+      <div className="grid grid-cols-[10rem_1fr] items-baseLine">
         <div>작품 설명</div>
         <Textarea
           text={webtoonInfo.story}

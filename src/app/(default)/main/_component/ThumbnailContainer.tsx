@@ -16,8 +16,8 @@ interface ThumbnailContainerProps {
 
 const dropdownOptions = [
   { label: '실시간', value: 'latest' },
-  { label: '별점순', value: 'stars' },
-  { label: '좋아요순', value: 'likes' },
+  { label: '오늘', value: 'today' },
+  { label: '이번주', value: 'thisWeek' },
 ];
 
 const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
