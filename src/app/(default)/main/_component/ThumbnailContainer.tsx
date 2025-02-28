@@ -53,7 +53,7 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
   }
   return (
     <div className="flex flex-col gap-[15px] text-black">
-      <div className="flex items-center gap-[7px] h-[20px]">
+      <div className="flex items-end gap-[7px] h-[20px]">
         <p className="text-[18px] font-medium text-titleblack">{title}</p>
         <SliderDropdown options={dropdownOptions} defaultOption="latest" />
       </div>
