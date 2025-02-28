@@ -47,7 +47,7 @@ export default function SideSection({ announcements }: Props) {
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between">
-          <p className="font-medium text-titleblack text-[16px]">공지사항</p>
+          <p className="font-semibold text-titleblack text-[16px]">공지사항</p>
           <p className="text-[#888888] text-[14px]">더보기</p>
         </div>
         <hr className=""></hr>
