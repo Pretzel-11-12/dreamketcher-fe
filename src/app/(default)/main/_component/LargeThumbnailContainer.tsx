@@ -58,8 +58,8 @@ const webtoonThumbnails: IWebtoon[] = [
     member: 'John Smith',
     genre: '일상',
     lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
+    averageStar: 0,
+    numOfStars: 0,
     story: 'asdf',
   },
 ];
