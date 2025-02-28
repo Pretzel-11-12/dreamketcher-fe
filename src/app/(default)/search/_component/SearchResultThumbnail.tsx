@@ -56,7 +56,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
             {highlightKeyword(webtoon.member, keyword)} ·{' '}
             {highlightKeyword(webtoon.genre, keyword)} · {webtoon.lastEpisode}화
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 text-[13px]">
             <Image
               src="/assets/images/star-1.png"
               alt="Star PNG"

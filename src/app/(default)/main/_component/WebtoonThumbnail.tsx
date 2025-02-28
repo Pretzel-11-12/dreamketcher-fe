@@ -39,7 +39,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           <p className="text-[#888888]">
             {webtoon.member} · {webtoon.genre}
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 text-[13px]">
             <Image
               src="/assets/images/star-1.png"
               alt="Star PNG"

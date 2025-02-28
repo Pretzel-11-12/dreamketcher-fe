@@ -35,7 +35,7 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
           {webtoon.member} · {webtoon.genre}
         </p>
         <p className="text-[#888888]">판타지 헌터물 외 3개</p>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 text-[13px]">
           <Image
             src="/assets/images/star-1.png"
             alt="Star PNG"
