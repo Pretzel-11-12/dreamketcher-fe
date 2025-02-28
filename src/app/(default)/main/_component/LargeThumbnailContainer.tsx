@@ -82,7 +82,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
     <div className="flex flex-col text-black gap-[14px]">
       <div className="flex justify-between h-[21px]">
         {nickname ? (
-          <p className="text-[18px]">
+          <p className="text-[18px] font-semibold text-titleblack">
             {nickname}님을 위한 {title}
           </p>
         ) : (
