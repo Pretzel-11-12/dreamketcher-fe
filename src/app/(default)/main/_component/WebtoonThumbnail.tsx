@@ -41,11 +41,10 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           </p>
           <div className="flex items-center gap-1 text-[13px]">
             <Image
-              src="/assets/images/star-1.png"
-              alt="Star PNG"
+              src="/assets/icon/star-1.svg"
+              alt="Star svg"
               width={13}
               height={13}
-              style={{ height: '13px' }} // CSS로 높이 강제
             />
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
             <p className="text-[#888888]">({webtoon.numOfStars})</p>
