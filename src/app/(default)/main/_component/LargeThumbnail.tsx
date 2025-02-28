@@ -40,10 +40,13 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
             alt="Star PNG"
             width={13}
             height={13}
-            style={{ height: '13px' }} // CSS로 높이 강제
           />
-          <p className="text-brand-yellow">{webtoon.averageStar}</p>
-          <p className="text-[#888888]">({webtoon.numOfStars})</p>
+          <p className="text-brand-yellow leading-[13px] ">
+            {webtoon.averageStar}
+          </p>
+          <p className="text-[#888888] leading-[13px] ">
+            ({webtoon.numOfStars})
+          </p>
         </div>
       </div>
     </div>
