@@ -28,7 +28,7 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
         height={249}
       />
       <div className="flex flex-col text-[12px] gap-[3px]">
-        <p className="text-[14px] break-words text-titleblack font-semibold">
+        <p className="text-[14px] break-words text-titleblack font-medium">
           {webtoon.title}
         </p>
         <p className="text-[#888888]">
