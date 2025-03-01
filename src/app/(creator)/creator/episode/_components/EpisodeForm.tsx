@@ -83,24 +83,26 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     }
   };
+  const formData = new FormData();
   const getContentURL = async (files: File[] | null) => {
     if (files) {
-      const formData = new FormData();
-
-      files.forEach((file) => formData.append('content', file));
-
+      files.map((file) => formData.append('content', file));
+      console.log(formData);
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeContent({
           webtoonId: webtoonId,
           formData,
         });
 
-        return s3Url[0];
+        return s3Url;
       } catch (e) {
         console.log(e);
       }
     }
   };
+
+  const a = `["https://s3.ap-northeast-2.amazonaws.com/dreamketcher-server/episode/5/42/%2Fcontent/43f06f4d-e780-41ad-b2a0-fd81cb0e0c53_png",
+    "https://s3.ap-northeast-2.amazonaws.com/dreamketcher-server/episode/5/42/%2Fcontent/fbc758f0-b0ff-479c-b907-ff8c947504cb_png"]`;
 
   const handleEpisode = async () => {
     console.log({ status });

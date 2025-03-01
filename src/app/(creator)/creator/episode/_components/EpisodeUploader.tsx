@@ -95,7 +95,7 @@ const EpisodeUploader: React.FC<EpisodeUploaderProps> = ({
     );
 
     if (error) return;
-
+    console.log(acceptedFiles);
     const newImages = await getContentURL(acceptedFiles);
 
     setError(null);
