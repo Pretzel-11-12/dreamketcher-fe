@@ -49,7 +49,7 @@ const DraggableImage = ({
     <div
       ref={ref}
       onClick={() => setSelected(image)}
-      className={`text-sm p-1 hover:bg-brand-gray transition ${
+      className={`text-sm p-1 hover:bg-brand-gray transition px-3 ${
         image === selected ? 'text-brand-yellow' : 'text-[#888888]'
       } ${isDragging ? 'opacity-50' : 'opacity-100'}`}
     >
@@ -141,10 +141,12 @@ const EpisodeUploader: React.FC<EpisodeUploaderProps> = ({
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <div className="flex gap-5 w-full">
-          <div className="w-full h-full flex flex-col gap-1">
-            <span className="text-sm">파일 등록</span>
-            <div className="border rounded-sm flex flex-col p-3 w-full h-[421px]">
+        <div className="flex gap-[33px] w-full">
+          <div className="w-full h-full flex flex-col gap-[10px]">
+            <span className="text-sm leading-[17px] text-[#545454]">
+              파일 목록
+            </span>
+            <div className="border rounded-[5px] flex flex-col py-3 w-full h-[421px]">
               <div className="flex-1">
                 <div className="flex flex-col">
                   {images.map((image, index) => (

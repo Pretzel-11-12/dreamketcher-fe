@@ -23,16 +23,16 @@ const CategoryTab: React.FC<CategoryTabProps> = ({
   activeColor: _activeColor,
 }) => {
   const [selected, setSelectedId] = useState(selectedId);
-  const activeColor = _activeColor || 'brand-yellow';
+
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-full h-[48px]">
-      <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
+    <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-full h-[40px]">
+      <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto h-full">
         {items.map((item) => (
           <button
             key={item.id}
-            className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] hover:text-${activeColor} hover:border-b border-b-brand-yellow transition duration-300 ${
+            className={`flex items-center justify-center w-[85px] h-full text-[15px] border-b-brand-yellow transition duration-300 ${
               selected === item.id
-                ? `text-${activeColor} border-b border-b-${activeColor}`
+                ? 'text-brand-yellow border-b border-b-brand-yellow font-medium'
                 : 'text-[#888888]'
             }`}
             onClick={() => {
@@ -40,7 +40,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({
               handleCategoryClick && handleCategoryClick(item.id);
             }}
           >
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-0.5 text-[13px]">
               <span>{item.label}</span>
               <span className="font-light">{item.subLabel}</span>
             </div>
