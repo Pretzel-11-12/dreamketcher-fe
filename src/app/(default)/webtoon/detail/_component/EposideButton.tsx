@@ -1,5 +1,5 @@
-"use client";
-import Image from "next/image";
+'use client';
+import Image from 'next/image';
 
 export interface EpisodeButtonItemInfo {
   text: string;
@@ -16,8 +16,8 @@ const EpisodeButton = (props: EpisodeButtonItemInfo) => {
     <>
       <div
         onClick={handleClick}
-        className={`w-full h-full flex flex-col items-center justify-center ${
-          !isLast && "border-r"
+        className={`w-[144px] h-[100px] flex flex-col items-center justify-center ${
+          !isLast && 'border-r'
         } p-4 hover:bg-slate-300/20`}
       >
         <div className="flex items-center justify-center">
@@ -30,15 +30,15 @@ const EpisodeButton = (props: EpisodeButtonItemInfo) => {
           {icon.iconWithText && (
             <div
               className={`text-sm text-${
-                isActive ? "brand-yellow" : "gray-500/90"
+                isActive ? 'brand-yellow' : 'gray-500/90'
               }  pl-1`}
             >
               {icon.iconWithText}
             </div>
           )}
         </div>
-        <div className="text-lg font-medium pt-0.5">{text}</div>
-        <div className="text-sm text-gray-500/90 -mt-0.5">{subText}</div>
+        <div className="text-base font-medium pt-0.5">{text}</div>
+        <div className="text-xs text-gray-500/90 -mt-0.5">{subText}</div>
       </div>
     </>
   );

@@ -37,18 +37,18 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
   }, []);
 
   return (
-    <div className="relative inline-block text-left w-32" ref={dropdownRef}>
+    <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex justify-between w-[104px] h-[37px] px-4 py-2 text-sm font-medium text-gray-700
+        className={`inline-flex gap-5 w-[104px] h-[37px] px-[10px] py-[10px] text-sm/[17px] text-[#3F3F3F]
           ${isOpen ? 'rounded-t-md' : 'rounded-md'}
-          border border-[#F2F2F2] shadow-sm bg-white
+          border border-[#F2F2F2] bg-white
           hover:bg-[#E4EBFF] focus:outline-none`}
       >
         {selected
           ? options.find((option) => option.value === selected)?.label
           : 'Select'}
-        <span className="ml-2 mt-[4px]">
+        <span className="mt-[2px]">
           {isOpen ? (
             <Image
               src="/assets/icon/upArrow.svg"
@@ -69,13 +69,13 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
 
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md shadow-lg">
-          <div className="py-0 ">
+        <div className="absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md">
+          <div>
             {options.map((option) => (
               <div
                 key={option.value}
                 onClick={() => handleSelect(option.value)}
-                className={`flex justify-between cursor-pointer px-4 py-2 text-sm text-gray-700
+                className={`flex gap-5 cursor-pointer px-[10px] py-[10px] text-sm/[17px] text-[#3F3F3F]
                   hover:bg-[#E4EBFF] w-[104px] h-[37px]`}
               >
                 <span>{option.label}</span>
@@ -85,6 +85,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption }) => {
                     alt="check icon"
                     width={13}
                     height={13}
+                    className="h-[13px] mt-[2px]"
                   />
                 )}
               </div>

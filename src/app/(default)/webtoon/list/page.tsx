@@ -49,15 +49,15 @@ export default function Detail() {
   }
 
   return (
-    <div className="flex flex-col items-center mt-[80px] w-full bg-white text-black pb-32">
+    <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
       <ListCategorySelector selectedCategory="전체" />
       <hr className="border-line border-solid" />
       <GenreSelector />
       <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
-        <div className="flex w-[1024px]">
-          <div className="flex flex-col w-full gap-6 border-r border-r-line pt-8">
+        <div className="flex w-[1200px]">
+          <div className="flex flex-col w-[870px] gap-6 border-r border-r-line pt-8">
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
             <div>

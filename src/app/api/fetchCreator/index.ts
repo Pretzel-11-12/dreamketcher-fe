@@ -48,7 +48,6 @@ export namespace fetchCreatorWebtoon {
     thumbnail: string;
     prologue: string;
     story: string;
-    description: string;
   }): Promise<Model.ResPostWebtoon> {
     const response = await fetch(`/api/v1/webtoons/upload`, {
       method: 'POST',
@@ -69,7 +68,6 @@ export namespace fetchCreatorWebtoon {
       thumbnail: string;
       prologue: string;
       story: string;
-      description: string;
       // genre: string;
     };
   }): Promise<any> {

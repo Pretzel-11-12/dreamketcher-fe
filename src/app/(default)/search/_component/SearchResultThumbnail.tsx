@@ -67,9 +67,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
             <p className="text-[#888888]">({webtoon.numOfStars})</p>
           </div>
-          <p className="text-sm">
-            {highlightKeyword(webtoon.description, keyword)}
-          </p>
+          <p className="text-sm">{highlightKeyword(webtoon.story, keyword)}</p>
           <div className="flex flex-wrap">
             {temporalTags.slice(0, 3).map((tag, index) => (
               <div className="bg-gray-100 m-1 p-1 rounded-[4px]" key={index}>

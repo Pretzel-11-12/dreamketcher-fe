@@ -25,7 +25,7 @@ const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
     {
       text: '관심웹툰',
       handleClick: () => {},
-      icon: { src: '/assets/icon/add-circle.svg', size: 34 },
+      icon: { src: '/assets/icon/add-circle.svg', size: 24 },
       subText: '1,140',
     },
     {

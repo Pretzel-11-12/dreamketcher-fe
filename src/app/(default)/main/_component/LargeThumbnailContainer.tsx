@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import WebtoonThumbnail from '@/app/(default)/main/_component/WebtoonThumbnail';
+import useAuthStore from '@/app/store/authStore';
 import LargeThumbnail from './LargeThumbnail';
 import TagSelector from './TagSelector';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
@@ -16,7 +16,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
   {
     id: 5,
@@ -60,7 +60,7 @@ const webtoonThumbnails: IWebtoon[] = [
     lastEpisode: 294,
     averageStar: 4.1,
     numOfStars: 200,
-    description: 'asdf',
+    story: 'asdf',
   },
 ];
 
@@ -76,10 +76,20 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
   title,
 }) => {
   const [tag, setTag] = useState('로맨스');
+  const { nickname } = useAuthStore();
 
   return (
-    <div className="flex flex-col text-black mt-3 gap-1">
-      <p className="text-[17px]">{title}</p>
+    <div className="flex flex-col text-black mt-3 gap-[14px]">
+      <div className="flex justify-between h-[21px]">
+        {nickname ? (
+          <p className="text-[18px]">
+            {nickname}님을 위한 {title}
+          </p>
+        ) : (
+          <p className="text-[18px]">{title}</p>
+        )}
+        <p className="text-[14px] text-[#888888] cursor-pointer">더보기</p>
+      </div>
       <TagSelector
         selectedTag={tag}
         tags={[
@@ -93,7 +103,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         ]}
         handleTagClick={setTag}
       />
-      <div className="flex mt-3 overflow-hidden gap-[8px]">
+      <div className="flex overflow-hidden gap-[8px]">
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>

@@ -59,15 +59,11 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
   };
 
   return (
-    <div className="flex items-center relative gap-4 mt-3 pb-6 border-b border-b-line">
-      {/* <img
+    <div className="flex items-center relative gap-4 pb-5 border-b border-b-line">
+      <img
         src={thumbnail}
         alt={title}
         className="w-[100px] h-[150px] object-cover rounded cursor-pointer"
-        onClick={navigateToWebtoon}
-      /> */}
-      <div
-        className="w-[100px] h-[150px] bg-[#d9d9d9] rounded cursor-pointer"
         onClick={navigateToWebtoon}
       />
       <div className="flex flex-col">
@@ -87,7 +83,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
             alt="Clock Icon"
             width={12}
             height={12}
-            className="mr-2"
+            className="mr-[6px]"
           />
           <p className="text-xs text-[#888888]">
             {formatDate(updatedAt)} 업데이트
@@ -117,9 +113,9 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
         <Image
           src={'/assets/icon/notification.svg'}
           alt="notification Icon"
-          width={24}
-          height={24}
-          className="mr-3 mt-1"
+          width={34}
+          height={34}
+          className="mr-[10px]"
         />
 
         <div className="relative">

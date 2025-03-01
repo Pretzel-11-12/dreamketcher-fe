@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import RecentThumbnail from './RecentThumbnail';
 import { RecentWebtoon, getRecentWebtoons } from '@/app/_lib/recentWebtoons';
-
+import EmptyRecentWebtoon from './EmptyRecentWebtoon';
 interface Props {
   announcements: {
     id: number;
@@ -20,9 +20,13 @@ export default function SideSection({ announcements }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col w-[282px] pt-8 gap-1 ml-[24px]">
-      <p>최근 본 작품</p>
-      <div className="flex mt-3 mb-14">
+    <div className="flex flex-col gap-[15px] w-[282px] pt-[50px] ml-[24px]">
+      {recentWebtoons.length > 0 && (
+        <div className="flex items-center">
+          <p className="text-[16px]">최근 본 웹툰</p>
+        </div>
+      )}
+      <div className="flex mb-14 gap-[6px]">
         {recentWebtoons.length > 0 ? (
           recentWebtoons.map((webtoon) => (
             <div key={webtoon.id}>
@@ -30,17 +34,21 @@ export default function SideSection({ announcements }: Props) {
             </div>
           ))
         ) : (
-          <p className="text-gray-400 text-sm">최근 본 작품이 없습니다.</p>
+          <EmptyRecentWebtoon />
         )}
       </div>
       <div className="flex flex-col gap-4">
-        <p>공지사항</p>
-        <hr className="-ml-2"></hr>
+        <div className="flex justify-between">
+          <p className="font-medium text-[#282828] text-[16px]">공지사항</p>
+          <p className="text-[#888888] text-[14px]">더보기</p>
+        </div>
+        <hr className=""></hr>
         <div className="flex flex-col gap-1">
           {announcements.map((announcement) => (
             <div className="flex" key={announcement.id}>
-              <p className="text-[#3F3F3F] text-[12px]">
-                · {announcement.title}
+              <p className="flex items-center text-[#3F3F3F] text-[12px]">
+                <span className="inline-block w-[2px] h-[2px] bg-[#c9c9c9] rounded-full mr-[10px]" />
+                {announcement.title}
               </p>
             </div>
           ))}

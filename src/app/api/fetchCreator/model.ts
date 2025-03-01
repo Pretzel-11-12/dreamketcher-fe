@@ -35,7 +35,7 @@ export namespace _Model {
     author: string;
     avgStar: number;
     numOfStars: number;
-    description: string;
+    story: string;
     genre: string;
   }
 
@@ -45,7 +45,6 @@ export namespace _Model {
     thumbnail: string;
     prologue: string;
     story: string;
-    description: string;
     genre: string;
   }
 }

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useAuthStore from '@/app/store/authStore';
-import { logout } from '@/app/api/logout';
+import { logout } from '@/app/api/auth/logout';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -80,7 +80,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
               alt="profile button"
               width={30}
               height={30}
-              className="rounded-full w-[30px] h-[30px]"
+              className="rounded-full w-[30px] h-[30px] object-cover"
             />
             <p className="font-medium mt-[6px]">{nickname}</p>
           </button>

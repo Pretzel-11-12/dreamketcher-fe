@@ -26,6 +26,7 @@ const dropdownOptions = [
 
 export default function Detail() {
   const [newComment, setNewComment] = useState('');
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
@@ -37,6 +38,7 @@ export default function Detail() {
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
+
   const { data: comments } = useQuery({
     queryKey: [webtoonId, episodeId, 'comments'],
     queryFn: () =>
@@ -79,12 +81,13 @@ export default function Detail() {
     if (data) {
       addRecentWebtoon({
         id: parseInt(webtoonId),
-        image: data.thumbnail || '',
-        title: data.title || '',
+        image: data.webtoonThumbnail || '',
+        title: data.webtoonTitle || '',
         writer: data.authorName || '',
         episodeCount: parseInt(episodeId),
         averageRating: data.averageStar || 0,
         stars: data.likeCount || 0,
+        genre: data.genre || '',
         lastViewedAt: parseInt(episodeId),
       });
     }
@@ -94,10 +97,14 @@ export default function Detail() {
     <>
       <EpisodeHeader
         item={{ webtoonId, episodeTitle: data?.title, episodeNo: data?.no }}
+        isVisible={isHeaderVisible}
       />
-      <div className="flex flex-col bg-[#FAFAFA] gap-5 w-full items-center">
-        <div className="w-full flex items-center justify-center bg-white pb-10 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] pt-[100px]">
-          <div className="w-[800px] flex flex-col gap-16 items-center justify-center text-md">
+      <div
+        className="flex flex-col bg-[#FAFAFA] w-full items-center"
+        onClick={() => setHeaderVisible((prev) => !prev)}
+      >
+        <div className="w-full flex items-center justify-center bg-white pb-10 pt-[100px]">
+          <div className="w-[720px] flex flex-col gap-[100px] items-center justify-center text-md">
             {_.isString(data?.content) ? (
               <Image
                 alt={data.title}
@@ -128,16 +135,26 @@ export default function Detail() {
             />
           </div>
         </div>
-
-        <div className="w-full flex items-center justify-center bg-white pt-14 shadow-[0_-4px_10px_rgba(0,0,0,0.04)]">
+        {/* divider */}
+        <div
+          className="w-full h-[15px] bg-[##FAFAFA]"
+          style={{
+            boxShadow: 'inset 0px 0px 4px 0px rgba(121, 121, 121, 0.10)',
+          }}
+        >
+          {/* divider */}
+        </div>
+        <div className="w-full flex items-center justify-center bg-white pt-10">
           <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
             <div className="h-full w-full flex flex-col pb-18 gap-1">
-              <div className="p-5 border border-[#F2F2F2] rounded-md">
-                <div className="text-[16px] font-medium pb-2">작가의 말</div>
+              <div className="h-[132px] p-5 border border-[#F2F2F2] rounded-md">
+                <div className="text-base/[19px] font-medium pb-[15px]">
+                  작가의 말
+                </div>
                 <WriterInfoItem
                   authorImage={data?.authorImage || ''}
                   name={data?.authorName || ''}
-                  description={data?.authorNote || ''}
+                  story={data?.authorNote || ''}
                 />
               </div>
 
@@ -157,6 +174,7 @@ export default function Detail() {
                     props={{
                       variant: 'brand-yellow',
                       size: 'S',
+                      containerStyles: 'w-[79px] h-7 text-xs/[14px]',
                       onClick: () => {
                         mutationWebtoon.mutate({
                           webtoonId,
@@ -165,6 +183,7 @@ export default function Detail() {
                         });
                         setNewComment(' ');
                       },
+                      disabled: !newComment.trim(),
                     }}
                   >
                     댓글 남기기
@@ -172,7 +191,7 @@ export default function Detail() {
                 </div>
               </div>
 
-              <div className="pt-8 mb-5">
+              <div className="pt-[46px] mb-4">
                 <Dropdown options={dropdownOptions} defaultOption="like" />
               </div>
 

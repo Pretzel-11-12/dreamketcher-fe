@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import QuickMenu from '@/app/(default)/main/_component/QuickMenu';
+import QuickMenu from '@/app/_component/QuickMenu';
 
 type Props = { children: ReactNode };
 

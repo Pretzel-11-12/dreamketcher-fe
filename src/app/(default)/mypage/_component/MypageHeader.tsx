@@ -12,7 +12,7 @@ const MypageHeader: React.FC = () => {
   const isStorageActive = pathname === '/mypage/storage';
 
   return (
-    <aside className="w-[277px] h-full flex flex-col items-start pr-[20px] border-r border-r-line pt-24">
+    <aside className="w-[282px] h-full flex flex-col items-start pr-[24px] border-r border-r-line pt-[105px]">
       <div
         className={`flex items-center w-full h-[50px] rounded-md px-4 py-2 ${
           isMypageActive ? 'bg-[#E4EBFF]' : ''
@@ -33,7 +33,7 @@ const MypageHeader: React.FC = () => {
           className={`text-[16px] font-medium ${
             isMypageActive
               ? 'text-[#2E4072]'
-              : 'text-gray-800 hover:text-blue-600'
+              : 'text-[#888888] hover:text-blue-600'
           }`}
           onClick={() => router.push('/mypage')}
         >
@@ -61,7 +61,7 @@ const MypageHeader: React.FC = () => {
           className={`text-[16px] font-medium ${
             isStorageActive
               ? 'text-[#2E4072]'
-              : 'text-gray-800 hover:text-blue-600'
+              : 'text-[#888888] hover:text-blue-600'
           }`}
           onClick={() => router.push('/mypage/storage')}
         >

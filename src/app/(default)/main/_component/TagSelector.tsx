@@ -14,11 +14,11 @@ const TagSelector: React.FC<TagSelectorProps> = ({
   handleTagClick,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-start md:mb-0 w-full md:w-auto gap-1">
+    <div className="flex flex-wrap items-center justify-start md:mb-0 w-full md:w-auto gap-[10px]">
       {tags.map((tag) => (
         <button
           key={tag.name}
-          className={`flex items-center justify-center w-[49px] h-[26px] text-[13px] rounded-[11px] transition duration-300 ${
+          className={`flex items-center justify-center h-[26px] text-[13px] rounded-[5px] px-[10px] transition duration-300 ${
             selectedTag === tag.name
               ? 'bg-[#5474CE] text-white'
               : 'bg-[#f2f2f2] text-[#888888] hover:bg-[#5474CE] hover:text-white'
