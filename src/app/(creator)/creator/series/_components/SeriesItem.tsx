@@ -6,6 +6,7 @@ import DeleteModal from '../../_component/DeleteModal';
 import { useState } from 'react';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import DefaultImage from '@/app/_component/DefaultImage';
+import moment from 'moment';
 
 const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   item
@@ -14,9 +15,11 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
 
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
 
+  const updatedAt = moment(item.updatedAt).format('YYYY.MM.DD');
+
   return (
     <>
-      <div className="grid grid-cols-[100px_repeat(6,1fr)_80px] gap-5 items-center border-b py-[20px] pl-[45px] w-full text-gray-600 text-sm border-gray-400/20">
+      <div className="grid grid-cols-[100px_repeat(6,1fr)_80px] gap-5 items-center border-b py-[20px] pl-[45px] w-full text-[#545454] text-[13px] border-gray-400/20">
         <div
           className="flex flex-col gap-[12px] items-center cursor-pointer"
           onClick={() => router.push(`/creator/episode?webtoonId=${item.id}`)}
@@ -31,7 +34,7 @@ const SeriesItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
         </div>
 
         <span className="flex justify-center w-full">{item.episodeCount}</span>
-        <span className="flex justify-center w-full">{item.updatedAt}</span>
+        <span className="flex justify-center w-full">{updatedAt}</span>
         <span className="flex justify-center w-full">
           {item.startedAt || '-'}
         </span>

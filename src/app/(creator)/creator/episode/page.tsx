@@ -34,11 +34,11 @@ export default function CreatorMain() {
   }
 
   return (
-    <div className="grid grid-cols-[auto_1fr] mt-[80px] w-full h-full">
+    <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full border-r border-[#F2F2F2]">
       <EpisodeSideBar webtoonInfo={webtoonInfo} />
       <div className="flex flex-col">
-        <div className="flex items-center justify-between pt-2 px-3">
-          <span className="text-lg font-semibold pl-4">
+        <div className="flex items-center justify-between pt-3 px-2">
+          <span className="text-lg font-semibold pl-4 leading-[24px] text-[#282828]">
             {data?.webtoonTitle}
           </span>
           <Link
@@ -52,7 +52,7 @@ export default function CreatorMain() {
           </Link>
         </div>
 
-        <div className="pl-4">
+        <div className="pl-[24px] pt-4">
           <CategoryTab
             items={[
               { id: '1', label: '회차', subLabel: '(0)' },
@@ -61,9 +61,9 @@ export default function CreatorMain() {
             selectedId={'1'}
           />
         </div>
-        <div className="w-full h-0.1 border-b" />
+        <div className="w-full h-0 border-b" />
 
-        <div className="pl-4 transform scale-[0.8] origin-left">
+        <div className="pl-[24px] transform scale-[0.8] origin-left">
           <CategoryTab
             activeColor="[#3F3F3F]"
             items={[

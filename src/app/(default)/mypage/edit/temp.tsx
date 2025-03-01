@@ -158,7 +158,8 @@ const Temp = () => {
         <Input
           text={tempNickname}
           placeholder="닉네임을 작성해주세요."
-          subText={`${tempNickname.length}/30`}
+          maxLength={30}
+          currentTextLength={tempNickname.length}
           onChange={(value) => value.length <= 30 && setTempNickname(value)}
           height="44px"
         />

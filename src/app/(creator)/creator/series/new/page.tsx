@@ -31,17 +31,19 @@ export default function SeriesNew() {
     <div
       className={`grid grid-cols-[${
         isExist ? 'auto_1fr' : '1fr'
-      }] mt-[80px] w-full h-full`}
+      }] mt-[70px] w-full h-full`}
     >
       {isExist && <EpisodeSideBar webtoonInfo={webtoonInfo} />}
 
       <div className="flex flex-col w-full">
         <div
-          className={`${isExist && 'px-6'} text-xl font-medium py-4 border-b`}
+          className={`${
+            isExist && 'px-6'
+          } text-[22px] font-medium py-[20px] border-b border-[#E0E0E0] h-[70px]`}
         >
           {isExist ? data?.title || '데이터 없음' : '새 작품 등록'}
         </div>
-        <div className={`${isExist && 'px-8'} py-8`}>
+        <div className={`${isExist && 'px-8'} py-[40px]`}>
           <SeriesForm item={data} />
         </div>
       </div>

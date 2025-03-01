@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from 'react';
 export interface InputProps {
   text?: string;
   placeholder?: string;
-  subText?: string;
+  currentTextLength?: number;
   onChange?: (value: string) => void;
   height?: string;
   width?: string;
@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = (props) => {
   const {
     text,
     placeholder = '텍스트를 입력하세요',
-    subText,
+    currentTextLength,
     onChange,
     height = '40px',
     width = '100%',
@@ -41,7 +41,7 @@ const Input: React.FC<InputProps> = (props) => {
 
   return (
     <div
-      className={`flex items-center w-full gap-1 text-sm ${containerStyles} px-4 border bg-white rounded-md focus:outline-none transition-colors duration-200 w-full h-full ${
+      className={`flex items-center w-full gap-1 text-sm ${containerStyles} px-4 border bg-white rounded-[5px] focus:outline-none transition-colors duration-200 w-full h-full ${
         isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
       } ${text ? 'text-[#3F3F3F]' : 'text-[#C9C9C9] placeholder:text-[#C9C9C9]'}
 `}
@@ -61,8 +61,15 @@ const Input: React.FC<InputProps> = (props) => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
+      <div className="flex items-center">
+        <span className="text-xs pointer-events-none text-[#888888]">
+          {currentTextLength}
+        </span>
 
-      <span className="text-xs pointer-events-none">{subText}</span>
+        <span className="text-xs pointer-events-none text-[#C9C9C9]">
+          {maxLength ? '/' + maxLength : ' '}
+        </span>
+      </div>
     </div>
   );
 };

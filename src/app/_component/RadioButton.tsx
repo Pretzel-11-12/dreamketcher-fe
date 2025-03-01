@@ -25,7 +25,7 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-x-14 gap-y-3 text-[15px]">
+    <div className="grid grid-cols-6 gap-y-3 text-[15px]">
       {options.map((option) => (
         <label
           key={option.id}
@@ -39,16 +39,16 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
             onChange={() => handleChange(option.id)}
             className="hidden"
           />
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-[5px] items-center">
             {selected === option.id ? (
-              <span className="mdi mdi-check-circle text-brand-yellow text-xl" />
+              <span className="mdi mdi-check-circle text-brand-yellow text-[20px]" />
             ) : (
-              <span className="mdi mdi-check-circle-outline text-gray-500/30 text-xl" />
+              <span className="mdi mdi-check-circle-outline text-gray-500/30 text-[20px]" />
             )}
 
             <span
-              className={`whitespace-nowrap ${
-                selected === option.id && 'font-semibold'
+              className={`whitespace-nowrap text-[#3F3F3F] ${
+                selected === option.id ? 'font-medium' : 'font-normal'
               }`}
             >
               {option.label}

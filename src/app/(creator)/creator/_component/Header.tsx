@@ -78,10 +78,12 @@ const Header: React.FC = () => {
 
           <Link href="/main/default">
             <Image
-              src="/assets/images/d-text.png"
+              src="/assets/images/d-studio-logo.png"
               alt="profile button"
               width={30}
-              height={30}
+              height={0}
+              sizes="100vw"
+              style={{ height: 'auto' }}
             />
           </Link>
 

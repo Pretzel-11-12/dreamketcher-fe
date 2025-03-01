@@ -23,7 +23,7 @@ const OptionButton: React.FC<OptionButtonInfo> = ({ items }) => {
           {items.map((item) => (
             <button
               key={item.text}
-              className="hover:bg-brand-gray rounded-[6px] p-[5px] text-[13px] flex w-full"
+              className="hover:bg-brand-gray rounded-[6px] p-[5px] text-[13px] flex w-full text-[#3F3F3F]"
               onClick={() => {
                 item.onClick(), setOption(false);
               }}
