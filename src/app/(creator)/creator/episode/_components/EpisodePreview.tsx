@@ -14,15 +14,11 @@ const EpisodePreview: React.FC<EpisodeUploaderProps> = ({
   const [isOpenModal, setOpenModal] = useState(false);
   return (
     <>
-      <div className="w-full h-full flex flex-col gap-1">
-        <span className="text-sm">미리보기</span>
-        <div className="border rounded-sm flex flex-col p-3 w-full h-[421px]">
+      <div className="w-full h-full flex flex-col gap-[10px]">
+        <span className="text-sm leading-[17px] text-[#545454]">미리보기</span>
+        <div className="border rounded-[5px] flex flex-col p-3 w-full h-[421px] overflow-y-scroll">
           {selected && (
-            <img
-              src={selected}
-              alt="Preview"
-              className="w-full h-full object-contain"
-            />
+            <img src={selected} alt="Preview" className="w-full object-cover" />
           )}
         </div>
         <div className="w-full flex justify-end">

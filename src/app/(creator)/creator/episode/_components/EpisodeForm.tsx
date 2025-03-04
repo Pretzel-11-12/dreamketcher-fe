@@ -83,18 +83,18 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       }
     }
   };
-  const getContentURL = async (file: File | null) => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('content', file);
-
+  const formData = new FormData();
+  const getContentURL = async (files: File[] | null) => {
+    if (files) {
+      files.map((file) => formData.append('content', file));
+      console.log(formData);
       try {
         const s3Url = await fetchCreatorEpisode.postEpisodeContent({
           webtoonId: webtoonId,
           formData,
         });
 
-        return s3Url[0];
+        return s3Url;
       } catch (e) {
         console.log(e);
       }
@@ -125,20 +125,20 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
 
   const [publicSetting, setPublicSetting] = useState('public');
   return (
-    <div className="flex flex-col w-full gap-12 pb-20">
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>회차 제목</div>
+    <div className="flex flex-col w-full gap-[50px] pb-20">
+      <div className="grid grid-cols-[10rem_1fr] items-center gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">회차 제목</div>
         <Input
           placeholder="제목을 입력해주세요."
           maxLength={30}
-          subText={`${episodeInfo.title?.length}/30`}
+          currentTextLength={episodeInfo.title?.length}
           text={episodeInfo.title}
           onChange={(title) => setEpisodeInfo((v) => ({ ...v, title }))}
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>회차 번호</div>
+      <div className="grid grid-cols-[10rem_1fr] items-start gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">회차 번호</div>
 
         <div className="flex flex-col gap-2">
           <Input text={no} disable width="101px" />
@@ -148,8 +148,10 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>회차 썸네일</div>
+      <div className="grid grid-cols-[10rem_1fr] items-start gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">
+          회차 썸네일
+        </div>
         <ThumbnailUploader
           _preview={episodeInfo.thumbnail}
           onFileSelect={handleThumbnail}
@@ -157,9 +159,9 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>원고 등록</div>
-        <div>
+      <div className="grid grid-cols-[10rem_1fr] items-start gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">원고 등록</div>
+        <div className="font-medium text-[16px] font-[#3F3F3F]">
           <EpisodeUploader
             images={episodeInfo.content || []}
             onChange={(images) =>
@@ -170,9 +172,11 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>작가의 말</div>
+      <div className="grid grid-cols-[10rem_1fr] items-center gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">작가의 말</div>
         <Input
+          maxLength={100}
+          currentTextLength={episodeInfo.authorNote?.length}
           text={episodeInfo.authorNote}
           placeholder="작가의 말을 작성해주세요."
           onChange={(authorNote) =>
@@ -181,8 +185,8 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start pb-[300px]">
-        <div>공개 설정</div>
+      <div className="grid grid-cols-[10rem_1fr] items-center pb-[300px] gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F]">공개 설정</div>
         <div className="flex flex-col gap-2 w-full">
           <RadioButton
             options={[

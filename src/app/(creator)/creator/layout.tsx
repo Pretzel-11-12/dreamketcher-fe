@@ -22,7 +22,7 @@ export default function RootLayout({
       <RQProvider>
         <Header />
         <div className="flex w-full justify-center">
-          <div className="bg-white text-black max-w-[1200px] w-full">
+          <div className="bg-white text-black max-w-[1020px] w-full">
             <Suspense>{children}</Suspense>
           </div>
         </div>

@@ -62,7 +62,7 @@ const SeriesList = () => {
 
   return (
     <>
-      <div className="pl-4">
+      <div className="pl-[24px]">
         <SeriesCategorySelector {...count} />
       </div>
       <div className="grid grid-cols-[150px_repeat(6,1fr)_80px] items-center text-sm border-y py-2 text-[#C9C9C9] border-gray-400/10 bg-brand-gray/40 border-t-[#E0E0E0]">
@@ -84,7 +84,7 @@ const SeriesList = () => {
         result.map((item) => <SeriesItem {...item} key={item.id} />)
       ) : (
         <div className="flex flex-col items-center py-[140px]">
-          <span className="text-[18px] font-normal">아직 작품이 없습니다.</span>
+          <span className="text-[18px] font-medium">아직 작품이 없습니다.</span>
           <span className="text-[14px] pb-8 text-[#888888]">
             새로운 작품을 시작해보세요!
           </span>

@@ -17,7 +17,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
     initialTags = [],
     onChange,
     active = false,
-    height = 'auto',
+    height = '44px',
     width = '100%',
   } = props;
 
@@ -54,7 +54,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
 
   return (
     <div
-      className={`flex items-center px-2 py-3 border rounded-md text-sm focus:outline-none transition-colors duration-200 ${
+      className={`flex items-center px-2 border rounded-md text-sm focus:outline-none transition-colors duration-200 ${
         isFocused || active ? 'border-brand-yellow' : 'border-brand-gray'
       }`}
       style={{ height, width }}
@@ -88,7 +88,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
           onKeyDown={handleKeyDown}
           onCompositionStart={() => setComposing(true)}
           onCompositionEnd={() => setComposing(false)}
-          className={`flex-1 px-2 focus:outline-none ${
+          className={`flex-1 px-2 focus:outline-none h-full ${
             inputValue
               ? 'text-[#3F3F3F]'
               : 'text-[#C9C9C9] placeholder:text-[#C9C9C9]'
