@@ -19,11 +19,13 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
   }
   return (
     <div
-      className="flex flex-col cursor-pointer gap-[7px]"
+      className="flex flex-col gap-[7px]"
       style={{ width: `${w}px`, height: `${h}px` }}
-      onClick={tempClickHandler}
     >
-      <div className="relative w-full h-[249px] rounded-[5px] overflow-hidden">
+      <div
+        className="relative w-full h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
+        onClick={tempClickHandler}
+      >
         <Image
           src={webtoon.thumbnail}
           alt="Webtoon thumbnail image"

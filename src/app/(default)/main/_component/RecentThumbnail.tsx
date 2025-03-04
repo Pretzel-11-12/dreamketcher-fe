@@ -18,12 +18,24 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
     );
   };
 
+  const handleGenreClick = (e: React.MouseEvent) => {
+    router.push(`/main/default?genre=${webtoon.genre}`);
+  };
+
+  const handleWriterClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.writer}`);
+  };
+
+  const handleTitleClick = (e: React.MouseEvent) => {
+    router.push(`/webtoon/list?id=${webtoon.id}`);
+  };
+
   return (
-    <div
-      className="flex flex-col w-[138px] h-[304px] cursor-pointer"
-      onClick={handleThumbnailClick}
-    >
-      <div className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden">
+    <div className="flex flex-col w-[138px] h-[304px]">
+      <div
+        className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden cursor-pointer"
+        onClick={handleTitleClick}
+      >
         <Image
           src={webtoon.image}
           alt="Webtoon thumbnail image"
@@ -32,14 +44,31 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
           sizes="138px"
         />
       </div>
-      <div className="flex flex-col text-[12px]">
-        <p className="text-[14px] text-[#3f3f3f]">{webtoon.title}</p>
-        <p className="text-[#888888] mb-2">
-          {webtoon.writer} · {webtoon.episodeCount}화
+      <div className="flex flex-col text-[12px] mt-[6px]">
+        <p
+          className="text-[14px] hover:text-brand-primary hover:font-medium cursor-pointer"
+          onClick={handleTitleClick}
+        >
+          {webtoon.title}
+        </p>
+        <p className="text-[#888888]">
+          <span
+            className="hover:text-brand-primary hover:font-medium cursor-pointer"
+            onClick={handleWriterClick}
+          >
+            {webtoon.writer}
+          </span>
+          {' · '}
+          <span
+            className="hover:text-brand-primary hover:font-medium cursor-pointer"
+            onClick={handleGenreClick}
+          >
+            {webtoon.genre}
+          </span>
         </p>
       </div>
       <Link
-        className="w-[138px] h-[43px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
+        className="w-[138px] h-[43px] mt-[12px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
         href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.lastViewedAt}`}
       >
         {webtoon.episodeCount}화 이어읽기

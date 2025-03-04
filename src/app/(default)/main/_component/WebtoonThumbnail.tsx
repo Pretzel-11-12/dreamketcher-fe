@@ -36,9 +36,9 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-[166px] h-[311px] cursor-pointer gap-2">
+    <div className="flex flex-col w-[166px] h-[311px] gap-2">
       <div
-        className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden"
+        className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
         onClick={handleThumbnailClick}
       >
         <Image
