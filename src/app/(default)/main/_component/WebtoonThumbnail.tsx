@@ -4,15 +4,19 @@ import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
 import DefaultImage from '@/app/_component/DefaultImage';
+import RankingBadge from './RankingBadge';
+import NewBadge from './NewBadge';
 
 type WebtoonThumbnailProps = {
   webtoon: IWebtoon;
   ranking: number;
+  isNew?: boolean;
 };
 
 const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   webtoon,
   ranking,
+  isNew = true,
 }) => {
   const router = useRouter();
 
@@ -32,6 +36,10 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           className="object-cover"
           sizes="166px"
         />
+        <div className="absolute top-[3px] left-[3px] flex gap-[2px]">
+          {isNew && <NewBadge />}
+          {ranking && <RankingBadge rank={ranking} />}
+        </div>
       </div>
       <div className="flex items-center">
         <div className="flex flex-col text-[12px]">
