@@ -14,9 +14,11 @@ type MediumThumbnailProps = {
 const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
   const temporalTags = ['무협/사극', '사이다', '세계관', '성장'];
   const router = useRouter();
-  function tempClickHandler() {
+
+  const handleTitleClick = (e: React.MouseEvent) => {
     router.push(`/webtoon/list?id=${webtoon.id}`);
-  }
+  };
+
   return (
     <div
       className="flex flex-col gap-[7px]"
@@ -24,7 +26,7 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
     >
       <div
         className="relative w-full h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
-        onClick={tempClickHandler}
+        onClick={handleTitleClick}
       >
         <Image
           src={webtoon.thumbnail}

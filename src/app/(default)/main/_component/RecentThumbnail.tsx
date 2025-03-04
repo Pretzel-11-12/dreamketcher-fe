@@ -31,7 +31,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   };
 
   return (
-    <div className="flex flex-col w-[138px] h-[304px]">
+    <div className="flex flex-col w-[138px] h-[304px] gap-[6px]">
       <div
         className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden cursor-pointer"
         onClick={handleTitleClick}
@@ -44,23 +44,23 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
           sizes="138px"
         />
       </div>
-      <div className="flex flex-col text-[12px] mt-[6px]">
+      <div className="flex flex-col text-[12px] text-titleBlack">
         <p
-          className="text-[14px] hover:text-brand-primary hover:font-medium cursor-pointer"
+          className="text-[14px] hover:font-medium cursor-pointer"
           onClick={handleTitleClick}
         >
           {webtoon.title}
         </p>
         <p className="text-[#888888]">
           <span
-            className="hover:text-brand-primary hover:font-medium cursor-pointer"
+            className="hover:font-medium cursor-pointer"
             onClick={handleWriterClick}
           >
             {webtoon.writer}
           </span>
           {' · '}
           <span
-            className="hover:text-brand-primary hover:font-medium cursor-pointer"
+            className="hover:font-medium cursor-pointer"
             onClick={handleGenreClick}
           >
             {webtoon.genre}

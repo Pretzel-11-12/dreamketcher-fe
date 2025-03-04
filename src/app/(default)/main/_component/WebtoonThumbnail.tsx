@@ -36,7 +36,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-[166px] h-[311px] gap-2">
+    <div className="flex flex-col w-[166px] h-[311px] gap-[7px]">
       <div
         className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
         onClick={handleThumbnailClick}
@@ -54,23 +54,23 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         </div>
       </div>
       <div className="flex items-center">
-        <div className="flex flex-col text-[12px]">
+        <div className="flex flex-col text-[12px] text-titleBlack">
           <p
-            className="text-[14px] hover:text-brand-primary hover:font-medium cursor-pointer"
+            className="text-[14px] hover:font-medium cursor-pointer"
             onClick={handleTitleClick}
           >
             {webtoon.title}
           </p>
           <p className="text-[#888888]">
             <span
-              className="hover:text-brand-primary hover:font-medium cursor-pointer"
+              className="hover:font-medium cursor-pointer"
               onClick={handleMemberClick}
             >
               {webtoon.member}
             </span>
             {' · '}
             <span
-              className="hover:text-brand-primary hover:font-medium cursor-pointer"
+              className="hover:font-medium cursor-pointer"
               onClick={handleGenreClick}
             >
               {webtoon.genre}

@@ -107,7 +107,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} w={150} h={287} />
+              <LargeThumbnail webtoon={webtoon} />
             </div>
           ))
         ) : (
