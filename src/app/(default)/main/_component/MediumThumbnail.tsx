@@ -23,12 +23,15 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
       style={{ width: `${w}px`, height: `${h}px` }}
       onClick={tempClickHandler}
     >
-      <Image
-        src={webtoon.thumbnail}
-        alt="Webtoon thumbnail image"
-        width={w}
-        height={249}
-      />
+      <div className="relative w-full h-[249px] rounded-[5px] overflow-hidden">
+        <Image
+          src={webtoon.thumbnail}
+          alt="Webtoon thumbnail image"
+          fill
+          className="object-cover"
+          sizes={`${w}px`}
+        />
+      </div>
       <div className="flex flex-col text-[12px] gap-[3px]">
         <TagList tags={temporalTags} maxDisplay={2} keyword={''} />
         <div className="flex items-center gap-1 text-[13px]">

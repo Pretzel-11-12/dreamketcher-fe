@@ -21,12 +21,15 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
       style={{ width: `${w}px`, height: `${h}px` }}
       onClick={tempClickHandler}
     >
-      <Image
-        src={webtoon.thumbnail}
-        alt="Webtoon thumbnail image"
-        width={w}
-        height={225}
-      />
+      <div className="relative w-full h-[225px] rounded-[5px] overflow-hidden">
+        <Image
+          src={webtoon.thumbnail}
+          alt="Webtoon thumbnail image"
+          fill
+          className="object-cover"
+          sizes="150px"
+        />
+      </div>
       <div className="flex flex-col text-[12px] mt-[3px]">
         <p className="text-[14px] break-words text-titleBlack">
           {webtoon.title}
