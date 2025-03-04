@@ -73,7 +73,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
   };
 
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-4 pr-4">
+    <div className="grid grid-cols-[auto_1fr] gap-[14px]">
       <DefaultImage
         src={webtoonThumbnail}
         alt={webtoonTitle}
@@ -81,14 +81,17 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         height={300}
         rounded={'rounded-[10px]'}
       />
-      <div className="flex flex-col gap-3 relative">
-        <div className="text-2xl font-semibold">{webtoonTitle}</div>
-        <div className="flex gap-1 items-center">
-          <div className="text-sm">{AuthorNickname}</div>
-          <div className="text-sm text-gray-900/40">글/ 그림 | {genreName}</div>
+      <div className="flex flex-col gap-[10px] relative leading-[1.2]">
+        <div className="text-[22px] font-medium text-titleBlack">
+          {webtoonTitle}
         </div>
-        <div className="text-sm">{webtoonStory}</div>
-
+        <div className="flex gap-[5px] items-center text-[16px] text-[#888]">
+          <div className="text-[#3f3f3f]">{AuthorNickname}</div>
+          <div className="text-[#888] mr-[7px]">글/ 그림</div>
+          <div className="mr-[7px]">|</div>
+          <div> {genreName}</div>
+        </div>
+        <div className="text-sm text-[#3f3f3f]">{webtoonStory}</div>
         <div className="text-sm flex gap-1">
           <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
             {genreName}
@@ -103,9 +106,9 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               handleClick: handleLikeToggle,
             }}
           >
-            <div className="flex gap-[2px] items-center justify-center text-[16px]">
+            <div className="flex gap-[2px] items-center justify-center text-[18px]">
               <Image
-                src={'/assets/icon/interest.svg'}
+                src={'/assets/icon/inspector.svg'}
                 alt={'관심 추가 이미지'}
                 width={30}
                 height={30}
@@ -114,14 +117,14 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             </div>
           </Button>
 
-          <Button props={{ size: 'S', variant: 'brand-gray' }}>
+          <Button props={{ size: 'S', variant: 'brand-gray-light' }}>
             <Link
               href={{
                 pathname: '/webtoon/detail',
                 query: { titleId: webtoonId, no: '1' },
               }}
             >
-              <div className="flex gap-2 items-center justify-center text-[16px]">
+              <div className="flex gap-2 items-center justify-center text-[18px]">
                 첫 화 보기
               </div>
             </Link>

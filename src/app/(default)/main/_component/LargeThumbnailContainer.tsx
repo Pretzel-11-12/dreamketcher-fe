@@ -58,8 +58,8 @@ const webtoonThumbnails: IWebtoon[] = [
     member: 'John Smith',
     genre: '일상',
     lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
+    averageStar: 0,
+    numOfStars: 0,
     story: 'asdf',
   },
 ];
@@ -79,10 +79,10 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
   const { nickname } = useAuthStore();
 
   return (
-    <div className="flex flex-col text-black mt-3 gap-[14px]">
+    <div className="flex flex-col text-black gap-[14px]">
       <div className="flex justify-between h-[21px]">
         {nickname ? (
-          <p className="text-[18px]">
+          <p className="text-[18px] font-medium text-titleBlack">
             {nickname}님을 위한 {title}
           </p>
         ) : (
@@ -107,7 +107,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>
-              <LargeThumbnail webtoon={webtoon} w={150} h={287} />
+              <LargeThumbnail webtoon={webtoon} />
             </div>
           ))
         ) : (

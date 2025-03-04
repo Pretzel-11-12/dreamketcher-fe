@@ -6,39 +6,65 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 
 type LargeThumbnailProps = {
   webtoon: IWebtoon;
-  w: number;
-  h: number;
 };
 
-const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon, w, h }) => {
+const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
-  function tempClickHandler() {
+
+  const handleMemberClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.member}`);
+  };
+
+  const handleGenreClick = (e: React.MouseEvent) => {
+    router.push(`/main/default?genre=${webtoon.genre}`);
+  };
+
+  const handleTitleClick = (e: React.MouseEvent) => {
     router.push(`/webtoon/list?id=${webtoon.id}`);
-  }
+  };
+
   return (
-    <div
-      className="flex flex-col cursor-pointer"
-      style={{ width: `${w}px`, height: `${h}px` }}
-      onClick={tempClickHandler}
-    >
-      <Image
-        src={webtoon.thumbnail}
-        alt="Webtoon thumbnail image"
-        width={w}
-        height={225}
-      />
-      <div className="flex flex-col text-[12px]">
-        <p className="text-[16px] break-words">{webtoon.title}</p>
-        <p className="text-[#888888]">
-          {webtoon.member} · {webtoon.genre}
+    <div className="w-[150px] flex flex-col cursor-pointer gap-[7px]">
+      <div
+        className="relative w-full h-[225px] rounded-[5px] overflow-hidden"
+        onClick={handleTitleClick}
+      >
+        <Image
+          src={webtoon.thumbnail}
+          alt="Webtoon thumbnail image"
+          fill
+          className="object-cover"
+          sizes="150px"
+        />
+      </div>
+      <div className="flex flex-col text-[12px] text-titleBlack">
+        <p
+          className="text-[14px] hover:font-medium cursor-pointer"
+          onClick={handleTitleClick}
+        >
+          {webtoon.title}
         </p>
-        <div className="flex items-center gap-1">
+        <p className="text-[#888888]">
+          <span
+            className="hover:font-medium cursor-pointer"
+            onClick={handleMemberClick}
+          >
+            {webtoon.member}
+          </span>
+          {' · '}
+          <span
+            className="hover:font-medium cursor-pointer"
+            onClick={handleGenreClick}
+          >
+            {webtoon.genre}
+          </span>
+        </p>
+        <div className="flex items-center gap-1 text-[13px]">
           <Image
-            src="/assets/images/star-1.png"
-            alt="Star PNG"
+            src="/assets/icon/star-1.svg"
+            alt="Star svg"
             width={13}
             height={13}
-            style={{ height: '13px' }} // CSS로 높이 강제
           />
           <p className="text-brand-yellow">{webtoon.averageStar}</p>
           <p className="text-[#888888]">({webtoon.numOfStars})</p>

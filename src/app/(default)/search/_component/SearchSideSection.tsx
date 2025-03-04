@@ -14,10 +14,10 @@ const SearchSideSection: React.FC<SearchSideSectionProps> = ({
   recommendTags,
 }) => {
   return (
-    <div className="flex flex-col w-[346px] pt-8 gap-4 ml-[24px]">
-      <div className="flex flex-col gap-4">
-        <p>연관 검색어</p>
-        <hr className="-ml-2"></hr>
+    <div className="flex flex-col w-[282px] ml-[24px] pt-[40px] gap-[40px] ml-[24px]">
+      <div className="flex flex-col gap-[15px]">
+        <p className="text-[16px] text-[#3f3f3f]">연관 검색어</p>
+        <hr></hr>
         <KeywordSelector
           keywords={searchKeywords}
           handleKeywordClick={() => {
@@ -25,9 +25,9 @@ const SearchSideSection: React.FC<SearchSideSectionProps> = ({
           }}
         />
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-[15px]">
         <p>추천 태그</p>
-        <hr className="-ml-2"></hr>
+        <hr></hr>
         <RecommendTagSelector
           recommendTags={recommendTags}
           handleTagClick={() => {

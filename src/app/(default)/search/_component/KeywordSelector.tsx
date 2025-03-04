@@ -16,7 +16,7 @@ const KeywordSelector: React.FC<KeywordSelectorProps> = ({
       {keywords.map((keyword, index) => (
         <button
           key={index}
-          className={`flex items-center justify-center p-[8px] h-[20px] text-[12px] bg-[#f2f2f2] hover:bg-[#5474CE] text-[#888888] hover:text-white rounded-[3px] transition duration-300
+          className={`flex items-center justify-center p-[5px] h-[20px] text-[12px] bg-[#f2f2f2] hover:bg-[#5474CE] text-[#888888] hover:text-white rounded-[3px] transition duration-300
             }`}
           onClick={() => handleKeywordClick(keyword)}
         >

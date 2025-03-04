@@ -12,11 +12,6 @@ const categories: { name: string }[] = [
   { name: '완결' },
 ];
 
-const dropdownOptions = [
-  { label: '최근순', value: 'recent' },
-  { label: '오래된순', value: 'oldest' },
-];
-
 const SearchMainSectionHeader: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -27,7 +22,7 @@ const SearchMainSectionHeader: React.FC = () => {
   };
 
   return (
-    <div className="my-4">
+    <div>
       <div className="flex flex-col md:flex-row items-center justify-between mx-auto h-[33px]">
         <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto gap-[10px]">
           {categories.map((category) => (
@@ -44,8 +39,6 @@ const SearchMainSectionHeader: React.FC = () => {
             </button>
           ))}
         </div>
-
-        <Dropdown options={dropdownOptions} defaultOption="recent" />
       </div>
     </div>
   );

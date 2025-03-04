@@ -5,24 +5,38 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
+import Dropdown from '@/app/_component/Dropdown';
+import Pagination from '@/app/_component/Pagination';
 
 interface SearchMainSectionProps {
   webtoons: IWebtoon[];
 }
+const dropdownOptions = [
+  { label: '최근순', value: 'recent' },
+  { label: '오래된순', value: 'oldest' },
+];
 
 const mockWebtoons = thumbnailData;
 
 const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
   const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
   const keyword = searchParams.get('keyword') || '';
   return (
-    <div className="flex flex-col w-[700px] border-r border-r-line pt-8 pr-4">
+    <div className="flex flex-col w-[894px] border-r border-r-line pt-[40px] pr-[24px] gap-[20px]">
       <div className="flex items-end">
-        <p className="text-md">'{keyword}'에 대한 검색 결과</p>
+        <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
+          '{keyword}'에 대한 검색 결과
+        </p>
         <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>
       </div>
-      <SearchMainSectionHeader />
-      <div className="flex flex-col gap-5">
+      {webtoons.length > 0 && (
+        <div className="mb-[20px]">
+          <SearchMainSectionHeader />
+        </div>
+      )}
+      <Dropdown options={dropdownOptions} defaultOption="recent" />
+      <div className="flex flex-col gap-5 mb-[30px]">
         {webtoons.length > 0 ? (
           webtoons.map((webtoon) => (
             <SearchResultThumbnail
@@ -45,6 +59,11 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
           </div>
         )}
       </div>
+      <Pagination
+        totalPages={10}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

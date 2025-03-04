@@ -69,7 +69,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
       <div className="flex items-start justify-end mx-auto w-[1200px]">
         <div
           ref={modalRef}
-          className="mt-[85px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"
+          className="mt-[63px] w-[260px] bg-white text-black rounded-[10px] overflow-y-auto border border-line text-[14px]"
         >
           <button
             className="flex flex-row items-start justify-start gap-2 pl-4 pt-2 h-[50px] border-b border-b-line w-full hover:bg-gray-100"
