@@ -121,12 +121,12 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
   return (
     <div className="flex flex-col w-full gap-12 pb-20 text-[16px]">
-      <div className="grid grid-cols-[10rem_1fr] items-start">
+      <div className="grid grid-cols-[10rem_1fr] items-center">
         <div>작품제목</div>
         <Input
           maxLength={30}
           placeholder="제목을 입력해주세요."
-          subText={`${webtoonInfo.title.length}/30`}
+          currentTextLength={webtoonInfo.title.length}
           text={webtoonInfo.title}
           onChange={(title) => setWebtoonInfo((v) => ({ ...v, title: title }))}
         />
@@ -143,7 +143,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start">
+      <div className="grid grid-cols-[10rem_1fr] items-center">
         <div>이용가</div>
         <RadioButton
           options={[
@@ -159,7 +159,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480 }}
+          imageFormat={{ width: 480, height: 720 }}
           dpImageFormat={{ width: 140 }}
         />
       </div>
@@ -170,12 +170,12 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.prologue[0]}
           onFileSelect={handlePrologue}
-          imageFormat={{ width: 480 }}
+          imageFormat={{ width: 480, height: 720 }}
           dpImageFormat={{ width: 140 }}
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-baseLine">
+      <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 설명</div>
         <Textarea
           text={webtoonInfo.story}
@@ -187,11 +187,11 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>작품 태그</div>
-        <div className="flex flex-col gap-2">
+        <div className="pt-2">작품 태그</div>
+        <div className="flex flex-col gap-[12px]">
           <TagInput />
-          <div className="flex rounded-md bg-brand-gray py-1 px-3 text-sm text-gray-500 w-full gap-2 items-center">
-            <span className="mdi mdi-alert-circle-outline text-lg"></span>
+          <div className="flex rounded-md bg-brand-gray py-2.5 px-3 text-sm text-[#888888] w-full gap-2 items-center">
+            <img src="/assets/images/alert-circle.svg" alt="Alert Icon" />
             <div className="w-full text-[13px]">
               태그는 쉼표를 통해 구분되며, 최대 10개까지 등록될 수 있습니다.
               하나의 태그는 최대 6자 이상을 넘기지 못합니다.
@@ -200,7 +200,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-start pb-24">
+      <div className="grid grid-cols-[10rem_1fr] items-center pb-24">
         <div>작품 상태</div>
         <RadioButton
           options={[
@@ -212,7 +212,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-[380px] ">
+        <div className="w-[319px] ">
           <Button
             props={{
               size: 'L',
