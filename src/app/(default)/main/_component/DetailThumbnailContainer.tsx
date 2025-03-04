@@ -27,7 +27,7 @@ const DetailThumbnailContainer: React.FC<DetailThumbnailContainerProps> = ({
         {thumbnailData.length > 0 ? (
           thumbnailData.map((webtoon) => (
             <div key={webtoon.id}>
-              <MediumThumbnail webtoon={webtoon} w={160} h={336} />
+              <MediumThumbnail webtoon={webtoon} w={166} h={336} />
             </div>
           ))
         ) : (

@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
+import TagList from '../../search/_component/TagList';
 
 type MediumThumbnailProps = {
   webtoon: IWebtoon;
@@ -11,6 +12,7 @@ type MediumThumbnailProps = {
 };
 
 const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
+  const temporalTags = ['무협/사극', '사이다', '세계관', '성장'];
   const router = useRouter();
   function tempClickHandler() {
     router.push(`/webtoon/list?id=${webtoon.id}`);
@@ -28,13 +30,7 @@ const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
         height={249}
       />
       <div className="flex flex-col text-[12px] gap-[3px]">
-        <p className="text-[14px] break-words text-titleblack font-medium">
-          {webtoon.title}
-        </p>
-        <p className="text-[#888888]">
-          {webtoon.member} · {webtoon.genre}
-        </p>
-        <p className="text-[#888888]">판타지 헌터물 외 3개</p>
+        <TagList tags={temporalTags} maxDisplay={2} keyword={''} />
         <div className="flex items-center gap-1 text-[13px]">
           <Image
             src="/assets/icon/star-1.svg"

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
 import DefaultImage from '@/app/_component/DefaultImage';
+import { highlightKeyword } from '@/app/util/highlightKeyword';
+import TagList from './TagList';
 
 type SearchResultThumbnailProps = {
   webtoon: IWebtoon;
@@ -21,23 +23,6 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
     router.push(`/webtoon/list?id=${webtoon.id}`);
   };
 
-  // 텍스트 강조 함수
-  const highlightKeyword = (text: string, keyword: string) => {
-    if (!text) return ''; // text가 undefined일 경우 빈 문자열 반환
-    if (!keyword) return text; // 키워드가 없으면 원본 텍스트 반환
-
-    const parts = text.split(new RegExp(`(${keyword})`, 'gi')); // 키워드로 분리
-    return parts.map((part, index) =>
-      part.toLowerCase() === keyword.toLowerCase() ? (
-        <span key={index} className="font-bold">
-          {part}
-        </span>
-      ) : (
-        <span key={index}>{part}</span>
-      )
-    );
-  };
-
   return (
     <div className="flex flex-col gap-5">
       <div
@@ -51,7 +36,9 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           width={120}
         />
         <div className="flex flex-col text-xs gap-[7px] justify-center">
-          <p className="text-lg">{highlightKeyword(webtoon.title, keyword)}</p>
+          <p className="text-[18px]">
+            {highlightKeyword(webtoon.title, keyword)}
+          </p>
           <p className="text-[#888888]">
             {highlightKeyword(webtoon.member, keyword)} ·{' '}
             {highlightKeyword(webtoon.genre, keyword)} · {webtoon.lastEpisode}화
@@ -69,24 +56,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           <p className="text-[14px] text-[#3f3f3f]">
             {highlightKeyword(webtoon.story, keyword)}
           </p>
-          <div className="flex flex-wrap">
-            {temporalTags.slice(0, 3).map((tag, index) => (
-              <div
-                className="bg-gray-100 px-[5px] leading-[normal] flex items-center h-[20px] m-1 ml-0 rounded-[3px]"
-                key={index}
-              >
-                {highlightKeyword(tag, keyword)}
-              </div>
-            ))}
-            {temporalTags.length > 3 && (
-              <div
-                className="flex m-1 ml-0 items-center justify-center h-[20px] leading-[normal]"
-                key="extra"
-              >
-                외 {temporalTags.length - 3}개
-              </div>
-            )}
-          </div>
+          <TagList tags={temporalTags} keyword={keyword} />
         </div>
       </div>
       <hr className=""></hr>
