@@ -5,7 +5,7 @@ export const highlightKeyword = (text: string, keyword: string) => {
   const parts = text.split(new RegExp(`(${keyword})`, 'gi')); // 키워드로 분리
   return parts.map((part, index) =>
     part.toLowerCase() === keyword.toLowerCase() ? (
-      <span key={index} className="font-bold">
+      <span key={index} className="font-semibold">
         {part}
       </span>
     ) : (
