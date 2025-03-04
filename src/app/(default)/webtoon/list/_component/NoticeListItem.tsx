@@ -12,7 +12,7 @@ export default function NoticeListItem({ index, title }: NoticeInfo) {
         <div className="px-[10px] py-0.5 text-[12px] border border-brand-blue text-brand-blue rounded-md">
           공지
         </div>
-        <div className="text-[15px] text-titleblack">{title}</div>
+        <div className="text-[15px] text-titleBlack">{title}</div>
       </div>
     </div>
   );

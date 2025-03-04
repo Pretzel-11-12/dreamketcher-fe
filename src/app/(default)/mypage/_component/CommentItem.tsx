@@ -37,7 +37,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
         />
         <div className="flex-1">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-titleblack">{nickname}</span>
+            <span className="text-sm text-titleBlack">{nickname}</span>
             <span className="text-xs text-[#888888]">{createdAt}</span>
           </div>
           <p className="text-[13px] text-[#3F3F3F] mt-1">{content}</p>
