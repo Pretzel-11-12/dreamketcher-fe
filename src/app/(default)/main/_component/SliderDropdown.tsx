@@ -40,10 +40,10 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
   }, []);
 
   return (
-    <div className="relative inline-block text-left w-32" ref={dropdownRef}>
+    <div className="relative inline-flex text-left w-32" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex gap-2 items-center w-[57px] h-[17px] text-[14px] text-[#888888]`}
+        className={`inline-flex gap-2 items-center w-[57px] h-[17px] text-[14px] leading-[14px] text-[#888888]`}
       >
         {selected
           ? options.find((option) => option.value === selected)?.label
@@ -69,18 +69,18 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
 
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute z-10 w-[83px] mt-[4px] bg-white border border-baseLine rounded-[5px] shadow-lg">
+        <div className="absolute z-10 w-[83px] mt-[24px] bg-white border border-baseLine rounded-[5px] shadow-lg">
           <div className="">
             {options.map((option) => (
               <div
                 key={option.value}
                 onClick={() => handleSelect(option.value)}
-                className={`flex justify-between cursor-pointer px-[10px] py-[5px] text-[13px] ${
+                className={`flex justify-between cursor-pointer px-[10px] py-[7px] text-[13px] leading-[16px] ${
                   selected === option.value
                     ? 'text-contentBlack'
                     : 'text-lightGray'
                 }
-                  hover:bg-[#E4EBFF] w-[83px] h-[32px]`}
+                  hover:bg-[#E4EBFF] w-[83px] h-[30px]`}
               >
                 <span>{option.label}</span>
               </div>
