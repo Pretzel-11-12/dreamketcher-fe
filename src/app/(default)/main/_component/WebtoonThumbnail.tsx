@@ -3,7 +3,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
-import DefaultImage from '@/app/_component/DefaultImage';
 import RankingBadge from './RankingBadge';
 import NewBadge from './NewBadge';
 
@@ -15,20 +14,33 @@ type WebtoonThumbnailProps = {
 
 const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   webtoon,
-  ranking,
-  isNew = true,
+  ranking = 0,
+  isNew = false,
 }) => {
   const router = useRouter();
 
-  function tempClickHandler() {
+  const handleThumbnailClick = () => {
     router.push(`/webtoon/list?id=${webtoon.id}`);
-  }
+  };
+
+  const handleMemberClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.member}`);
+  };
+
+  const handleGenreClick = (e: React.MouseEvent) => {
+    router.push(`/main/default?genre=${webtoon.genre}`);
+  };
+
+  const handleTitleClick = (e: React.MouseEvent) => {
+    router.push(`/webtoon/list?id=${webtoon.id}`);
+  };
+
   return (
-    <div
-      className="flex flex-col w-[166px] h-[311px] cursor-pointer gap-2"
-      onClick={tempClickHandler}
-    >
-      <div className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden">
+    <div className="flex flex-col w-[166px] h-[311px] cursor-pointer gap-2">
+      <div
+        className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden"
+        onClick={handleThumbnailClick}
+      >
         <Image
           src={webtoon.thumbnail}
           alt="Webtoon thumbnail image"
@@ -43,9 +55,26 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
       </div>
       <div className="flex items-center">
         <div className="flex flex-col text-[12px]">
-          <p className="text-[14px]">{webtoon.title}</p>
+          <p
+            className="text-[14px] hover:text-brand-primary hover:font-medium cursor-pointer"
+            onClick={handleTitleClick}
+          >
+            {webtoon.title}
+          </p>
           <p className="text-[#888888]">
-            {webtoon.member} · {webtoon.genre}
+            <span
+              className="hover:text-brand-primary hover:font-medium cursor-pointer"
+              onClick={handleMemberClick}
+            >
+              {webtoon.member}
+            </span>
+            {' · '}
+            <span
+              className="hover:text-brand-primary hover:font-medium cursor-pointer"
+              onClick={handleGenreClick}
+            >
+              {webtoon.genre}
+            </span>
           </p>
           <div className="flex items-center gap-1 text-[13px]">
             <Image
