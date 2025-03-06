@@ -127,4 +127,114 @@ export namespace fetchComment {
       throw error;
     }
   }
+
+  // 댓글 추천
+  export const recommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recommend`,
+    });
+  };
+
+  // 댓글 추천 취소
+  export const deleteRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recommend`,
+    });
+  };
+
+  // 댓글 비추천
+  export const notRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/not-recommend`,
+    });
+  };
+
+  // 댓글 비추천 취소
+  export const deleteNotRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/not-recommend`,
+    });
+  };
+
+  // 대댓글 추천
+  export const recommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/recommend`,
+    });
+  };
+
+  // 대댓글 추천 취소
+  export const deleteRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/recommend`,
+    });
+  };
+
+  // 대댓글 비추천
+  export const notRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/not-recommend`,
+    });
+  };
+
+  // 대댓글 비추천 취소
+  export const deleteNotRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/not-recommend`,
+    });
+  };
+
+  // 댓글/대댓글 추천,비추천 상태관리
+  // export async function getCommend(): Promise<{
+  //   result: Model.ResCommendUnit[];
+  // }> {
+  //   return fetchAPI({
+  //     method: 'GET',
+  //     endpoint: `/webtoons/commend`,
+  //   }) as Promise<{ result: Model.ResCommendUnit[] }>;
+  // }
 }
