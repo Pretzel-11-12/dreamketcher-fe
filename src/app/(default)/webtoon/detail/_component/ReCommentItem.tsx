@@ -53,6 +53,50 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
 
   const queryClient = useQueryClient();
 
+  // 대댓글 추천
+  const { mutate: recommendReCommentMutate } = useMutation({
+    mutationFn: (variables: {
+      webtoonId: string;
+      episodeId: string;
+      commentId: string;
+      recommentId: string;
+    }) =>
+      fetchComment.recommendReComment(
+        variables.webtoonId,
+        variables.episodeId,
+        variables.commentId,
+        variables.recommentId
+      ),
+    onSuccess: () =>
+      // 성공 시 기존 대댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [Number(parentCommentId), 'recomments'],
+      }),
+    onError: (e) => console.log(e),
+  });
+
+  // 대댓글 비추천
+  const { mutate: notRecommendReCommentMutate } = useMutation({
+    mutationFn: (variables: {
+      webtoonId: string;
+      episodeId: string;
+      commentId: string;
+      recommentId: string;
+    }) =>
+      fetchComment.notRecommendReComment(
+        variables.webtoonId,
+        variables.episodeId,
+        variables.commentId,
+        variables.recommentId
+      ),
+    onSuccess: () =>
+      // 성공 시 기존 대댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [Number(parentCommentId), 'recomments'],
+      }),
+    onError: (e) => console.log(e),
+  });
+
   // 대댓글 삭제
   const { mutate: deleteCommentMutate, isError } = useMutation({
     mutationFn: fetchComment.deleteReComment,
@@ -105,12 +149,22 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
           <div className="text-[12px] text-gray-500">{timeAgo}</div>
         </div>
 
-        <div className="text-[13px] mb-[7px] text-[#282828]">
+        <div className="text-[13px] mb-[7px]  text-[#3F3F3F]">
           {info.content}
         </div>
 
         <div className="h-5 flex gap-4 text-[#888888]">
-          <div className="text-xs flex items-center gap-1 cursor-pointer">
+          <div
+            className="text-xs flex items-center gap-1 cursor-pointer"
+            onClick={() =>
+              recommendReCommentMutate({
+                webtoonId,
+                episodeId,
+                commentId: String(info.id),
+                recommentId: String(parentCommentId),
+              })
+            }
+          >
             <Image
               src="/assets/icon/inactiveLike.svg"
               alt="like"
@@ -119,7 +173,17 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
             />
             좋아요
           </div>
-          <div className="text-xs flex items-center gap-1 cursor-pointer">
+          <div
+            className="text-xs flex items-center gap-1 cursor-pointer"
+            onClick={() =>
+              notRecommendReCommentMutate({
+                webtoonId,
+                episodeId,
+                commentId: String(info.id),
+                recommentId: String(parentCommentId),
+              })
+            }
+          >
             <Image
               src="/assets/icon/inactiveDislike.svg"
               alt="dislike"
