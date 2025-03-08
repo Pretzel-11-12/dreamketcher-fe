@@ -1,3 +1,4 @@
+import { fetchAPI } from '..';
 import { _Model as __Model } from './model';
 import qs from 'qs';
 
@@ -18,15 +19,12 @@ export namespace fetchComment {
     const { param, query } = arg;
     const { webtoonId, episodeId } = param;
 
-    const queryString = arg.query ? `?${qs.stringify(query)}` : '';
+    const queryString = query ? `?${qs.stringify(query)}` : '';
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments` +
-        queryString,
-      { method: 'GET' }
-    );
-
-    return response.json();
+    return fetchAPI({
+      method: 'GET',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments${queryString}`,
+    }) as Promise<{ result: Model.ResCommentUnit[]; totalElements: number }>;
   }
 
   export async function getReComments(arg: {
@@ -46,13 +44,10 @@ export namespace fetchComment {
 
     const queryString = arg.query ? `?${qs.stringify(query)}` : '';
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomments` +
-        queryString,
-      { method: 'GET' }
-    );
-
-    return response.json();
+    return fetchAPI({
+      method: 'GET',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomments${queryString}`,
+    }) as Promise<{ result: Model.ResReCommentUnit[]; totalElements: number }>;
   }
 
   export async function postComment(arg: {
@@ -65,19 +60,11 @@ export namespace fetchComment {
     const { param } = arg;
     const { webtoonId, episodeId, content } = param;
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/create`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: content }),
-      }
-    );
-
-    return response.json();
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/create`,
+      body: { content },
+    });
   }
 
   export async function postReComment(arg: {
@@ -91,19 +78,11 @@ export namespace fetchComment {
     const { param } = arg;
     const { webtoonId, episodeId, content, commentId } = param;
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/create`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: content }),
-      }
-    );
-
-    return response.json();
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/create`,
+      body: { content },
+    });
   }
 
   export async function deleteComment(arg: {
@@ -116,25 +95,15 @@ export namespace fetchComment {
     const { param } = arg;
     const { webtoonId, episodeId, commentId } = param;
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/delete`,
-      {
+    try {
+      return await fetchAPI({
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    if (response.status === 401) {
-      alert('작성자만 삭제할 수 있습니다.');
-      return null;
-    } else if (response.status === 204) {
-      return null; // 204일 경우 본문이 없으므로 null 반환
+        endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/delete`,
+      });
+    } catch (error: any) {
+      console.error('댓글 삭제 중 오류 발생:', error);
+      throw error;
     }
-
-    return response.json(); // 204가 아닐 경우 JSON 응답 반환
   }
 
   export async function deleteReComment(arg: {
@@ -148,24 +117,124 @@ export namespace fetchComment {
     const { param } = arg;
     const { webtoonId, episodeId, commentId, recommentId } = param;
 
-    const response = await fetch(
-      `/api/v1/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/delete`,
-      {
+    try {
+      return await fetchAPI({
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    if (response.status === 401) {
-      alert('작성자만 삭제할 수 있습니다.');
-      return null;
-    } else if (response.status === 204) {
-      return null; // 204일 경우 본문이 없으므로 null 반환
+        endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/delete`,
+      });
+    } catch (error: any) {
+      console.error('대댓글 삭제 중 오류 발생:', error);
+      throw error;
     }
-
-    return response.json(); // 204가 아닐 경우 JSON 응답 반환
   }
+
+  // 댓글 추천
+  export const recommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recommend`,
+    });
+  };
+
+  // 댓글 추천 취소
+  export const deleteRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recommend`,
+    });
+  };
+
+  // 댓글 비추천
+  export const notRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/not-recommend`,
+    });
+  };
+
+  // 댓글 비추천 취소
+  export const deleteNotRecommendComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/not-recommend`,
+    });
+  };
+
+  // 대댓글 추천
+  export const recommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/recommend`,
+    });
+  };
+
+  // 대댓글 추천 취소
+  export const deleteRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/recommend`,
+    });
+  };
+
+  // 대댓글 비추천
+  export const notRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'POST',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/not-recommend`,
+    });
+  };
+
+  // 대댓글 비추천 취소
+  export const deleteNotRecommendReComment = async (
+    webtoonId: string,
+    episodeId: string,
+    commentId: string,
+    recommentId: string
+  ) => {
+    return fetchAPI({
+      method: 'DELETE',
+      endpoint: `/webtoons/${webtoonId}/episode/${episodeId}/comments/${commentId}/recomment/${recommentId}/not-recommend`,
+    });
+  };
+
+  // 댓글/대댓글 추천,비추천 상태관리
+  // export async function getCommend(): Promise<{
+  //   result: Model.ResCommendUnit[];
+  // }> {
+  //   return fetchAPI({
+  //     method: 'GET',
+  //     endpoint: `/webtoons/commend`,
+  //   }) as Promise<{ result: Model.ResCommendUnit[] }>;
+  // }
 }

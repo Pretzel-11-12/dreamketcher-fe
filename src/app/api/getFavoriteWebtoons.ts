@@ -1,15 +1,9 @@
-export const getFavoriteWebtoons = async (token: string) => {
-  const response = await fetch('/api/v1/member/favorite', {
+import { FavoriteWebtoon } from '@/model/Webtoon';
+import { fetchAPI } from '.';
+
+export const getFavoriteWebtoons = async (): Promise<FavoriteWebtoon[]> => {
+  return await fetchAPI({
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    endpoint: '/member/favorite',
   });
-
-  if (!response.ok) {
-    throw new Error('관심 웹툰 데이터를 가져오는 데 실패했습니다.');
-  }
-
-  return response.json();
 };

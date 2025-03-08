@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import Pagination from '../../../_component/Pagination';
 import FavoriteWebtoonItem from './FavoriteWebtoonItem';
-import { useFavoriteWebtoons } from '@/app/hooks/useFavoriteWebtoons';
+import { useQuery } from '@tanstack/react-query';
+import { getFavoriteWebtoons } from '@/app/api/getFavoriteWebtoons';
+import { FavoriteWebtoon } from '@/model/Webtoon';
 
 export default function FavoriteWebtoons() {
   const itemsPerPage = 10; // 한 페이지당 항목 수
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isLoading, isError } = useFavoriteWebtoons();
-
-  if (isLoading) {
-    return <p>로딩 중...</p>;
-  }
-
-  if (isError) {
-    return <p>웹툰 데이터를 가져오는 중 오류가 발생했습니다.</p>;
-  }
+  const { data = [] } = useQuery<FavoriteWebtoon[]>({
+    queryKey: ['myFavorite'],
+    queryFn: async () => getFavoriteWebtoons(),
+  });
 
   if (!data || data.length === 0) {
     return (
@@ -35,7 +32,7 @@ export default function FavoriteWebtoons() {
   return (
     <div>
       <div className="grid grid-cols-1 mt-10 gap-5">
-        {currentItems.map((webtoon) => (
+        {currentItems.map((webtoon: FavoriteWebtoon) => (
           <FavoriteWebtoonItem key={webtoon.interestedWebtoonId} {...webtoon} />
         ))}
       </div>

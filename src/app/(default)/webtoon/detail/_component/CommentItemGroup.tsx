@@ -110,6 +110,7 @@ const CommentItemGroup: React.FC<CommentsInfo> = ({ item }) => {
                       });
                       setNewReComment(' ');
                     },
+                    disabled: !newReComment.trim(),
                   }}
                 >
                   대댓글 남기기
