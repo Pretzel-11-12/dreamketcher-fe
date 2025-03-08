@@ -143,7 +143,7 @@ export default function Detail() {
           {/* divider */}
         </div>
         <div className="w-full flex items-center justify-center bg-white pt-10">
-          <div className="w-[720px] flex flex-col gap-16 items-center justify-center text-md">
+          <div className="w-[720px] flex flex-col gap-[50px] items-center justify-center text-md">
             <div className="h-full w-full flex flex-col pb-18 gap-1">
               <div className="h-[132px] p-5 border border-[#F2F2F2] rounded-md">
                 <div className="text-base/[19px] text-[#282828] font-medium pb-[15px]">
@@ -156,7 +156,7 @@ export default function Detail() {
                 />
               </div>
 
-              <div className="text-md text-[#282828] font-medium pt-10 pb-2">
+              <div className="text-md text-[#282828] font-medium mt-[46px] pb-2">
                 {totalElements}개의 댓글
               </div>
               <div className="relative">
@@ -193,7 +193,7 @@ export default function Detail() {
                 <Dropdown options={dropdownOptions} defaultOption="like" />
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
                 {result?.map((comment) => (
                   <CommentItemGroup item={comment} key={comment.id} />
                 ))}
