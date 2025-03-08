@@ -48,10 +48,12 @@ export const updateProfile = async (profileData: User, token: string) => {
     });
     alert('프로필이 성공적으로 수정되었습니다.');
   } catch (error: any) {
-    if (error.code === 'BUSINESS_EMAIL_ALREADY_EXISTS') {
-      alert('이미 존재하는 비즈니스 이메일입니다.');
+    if (error.code === 'NICKNAME_ALREADY_EXISTS') {
+      alert('이미 존재하는 닉네임입니다.');
     } else if (error.code === 'ARGUMENT_NOT_VALID') {
       alert('이메일 형식이 올바르지 않습니다.');
+    } else if (error.code === 'BUSINESS_EMAIL_ALREADY_EXISTS') {
+      alert('이미 존재하는 비즈니스 이메일입니다.');
     } else {
       alert('프로필 수정 중 오류가 발생했습니다.');
     }
