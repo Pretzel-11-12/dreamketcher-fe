@@ -17,7 +17,7 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
   isOpen,
   handleOpenModal,
 }) => {
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(5);
   const closeModal = () => handleOpenModal(false);
 
   const handleStarClick = (star: number) => {

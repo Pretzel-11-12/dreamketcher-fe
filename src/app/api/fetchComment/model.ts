@@ -6,6 +6,8 @@ export namespace _Model {
     nickname: string;
     content: string;
     childCommentCount: number;
+    recommendationCount: number;
+    notRecommendationCount: number;
     createdAt: string;
     profileImage: string;
   }
@@ -16,7 +18,13 @@ export namespace _Model {
     content: string;
     parentCommentId: number;
     commentOrder: number;
+    recommendationCount: number;
+    notRecommendationCount: number;
     createdAt: string;
     profileImage: string;
   }
+
+  // export interface ResCommendUnit {
+  //   id: number;
+  // }
 }
