@@ -1,5 +1,5 @@
 import 'moment/locale/ko';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchComment } from '@/app/api/fetchComment';
@@ -28,7 +28,8 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
   parentCommentId,
 }) => {
   moment.locale('ko');
-  const timeAgo = moment(info.createdAt).fromNow();
+  const timeAgo = moment.utc(info.createdAt).tz('Asia/Seoul').fromNow();
+
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
 
@@ -52,14 +53,68 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
 
   const queryClient = useQueryClient();
 
-  const { mutate: deleteCommentMutate, isError } = useMutation({
-    mutationFn: fetchComment.deleteReComment,
+  // 대댓글 추천
+  const { mutate: recommendReCommentMutate } = useMutation({
+    mutationFn: (variables: {
+      webtoonId: string;
+      episodeId: string;
+      commentId: string;
+      recommentId: string;
+    }) =>
+      fetchComment.recommendReComment(
+        variables.webtoonId,
+        variables.episodeId,
+        variables.commentId,
+        variables.recommentId
+      ),
     onSuccess: () =>
       // 성공 시 기존 대댓글 리스트를 다시 불러옴
       queryClient.invalidateQueries({
         queryKey: [Number(parentCommentId), 'recomments'],
       }),
     onError: (e) => console.log(e),
+  });
+
+  // 대댓글 비추천
+  const { mutate: notRecommendReCommentMutate } = useMutation({
+    mutationFn: (variables: {
+      webtoonId: string;
+      episodeId: string;
+      commentId: string;
+      recommentId: string;
+    }) =>
+      fetchComment.notRecommendReComment(
+        variables.webtoonId,
+        variables.episodeId,
+        variables.commentId,
+        variables.recommentId
+      ),
+    onSuccess: () =>
+      // 성공 시 기존 대댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [Number(parentCommentId), 'recomments'],
+      }),
+    onError: (e) => console.log(e),
+  });
+
+  // 대댓글 삭제
+  const { mutate: deleteCommentMutate, isError } = useMutation({
+    mutationFn: fetchComment.deleteReComment,
+    onSuccess: () => {
+      alert('대댓글이 삭제되었습니다.');
+      // 성공 시 기존 대댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: [Number(parentCommentId), 'recomments'],
+      });
+    },
+    onError: (error: any) => {
+      if (error.code === 'UNAUTHORIZED_MEMBER') {
+        alert('작성자만 삭제할 수 있습니다.');
+      } else {
+        alert('대댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('대댓글 삭제 에러:', error);
+      }
+    },
   });
 
   return (
@@ -98,8 +153,18 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
           {info.content}
         </div>
 
-        <div className="h-5 flex gap-2 text-[#888888]">
-          <div className="text-xs flex items-center gap-1 cursor-pointer">
+        <div className="h-5 flex gap-4 text-[#888888]">
+          <div
+            className="text-xs flex items-center gap-1 cursor-pointer"
+            onClick={() =>
+              recommendReCommentMutate({
+                webtoonId,
+                episodeId,
+                commentId: String(info.id),
+                recommentId: String(parentCommentId),
+              })
+            }
+          >
             <Image
               src="/assets/icon/inactiveLike.svg"
               alt="like"
@@ -107,6 +172,25 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
               height={13}
             />
             좋아요
+          </div>
+          <div
+            className="text-xs flex items-center gap-1 cursor-pointer"
+            onClick={() =>
+              notRecommendReCommentMutate({
+                webtoonId,
+                episodeId,
+                commentId: String(info.id),
+                recommentId: String(parentCommentId),
+              })
+            }
+          >
+            <Image
+              src="/assets/icon/inactiveDislike.svg"
+              alt="dislike"
+              width={13}
+              height={13}
+            />
+            싫어요
           </div>
           <div className="flex relative ml-auto" ref={menuRef}>
             <Image

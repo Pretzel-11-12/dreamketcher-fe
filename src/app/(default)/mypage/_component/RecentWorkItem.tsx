@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Button from '@/app/_component/Button';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 interface RecentWorkItemProps {
   id: number;
@@ -13,6 +12,7 @@ interface RecentWorkItemProps {
   episodeCount: number;
   averageRating: number;
   ratingCount: number;
+  onDelete: (id: number) => void;
 }
 
 const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
@@ -24,13 +24,18 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   episodeCount,
   averageRating,
   ratingCount,
+  onDelete,
 }) => {
   const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 영역 참조
 
   const router = useRouter();
   function navigateToWebtoon() {
-    router.push('/webtoon/list');
+    router.push(`/webtoon/list?id=${id}`);
+  }
+
+  function navigateToEpisode() {
+    router.push(`/webtoon/detail?titleId=${id}&no=${episodeCount}`);
   }
 
   const toggleMenu = () => {
@@ -38,8 +43,8 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
   };
 
   const handleDelete = () => {
-    alert(`작품 '${title}'이 삭제되었습니다.`);
-    // TODO : 작품 삭제 로직 추가
+    onDelete(id);
+    alert(`작품 '${title}'이 최근 본 웹툰에서 삭제되었습니다.`);
   };
 
   // 다른 영역 클릭 시 메뉴를 닫는 로직
@@ -88,26 +93,19 @@ const RecentWorkItem: React.FC<RecentWorkItemProps> = ({
             ({ratingCount})
           </p>
         </div>
-        <Link
-          href={{
-            pathname: '/webtoon/detail',
-            query: { titleId: '12345', no: id },
+        <Button
+          props={{
+            size: 'M',
+            variant: 'brand-yellow',
+            handleClick: navigateToEpisode,
+            containerStyles:
+              'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
           }}
         >
-          <Button
-            props={{
-              size: 'M',
-              variant: 'brand-yellow',
-              handleClick: navigateToWebtoon,
-              containerStyles:
-                'w-[126px] h-[34px] text-xs relative before:absolute before:inset-0 before:rounded-[inherit] before:border-[1px] before:border-[#FA973B]',
-            }}
-          >
-            <div className="flex items-center justify-center relative flex-shrink-0">
-              {episodeCount}화 이어서 보기
-            </div>
-          </Button>
-        </Link>
+          <div className="flex items-center justify-center relative flex-shrink-0">
+            {episodeCount}화 이어서 보기
+          </div>
+        </Button>
       </div>
 
       <div className="ml-auto relative" ref={menuRef}>

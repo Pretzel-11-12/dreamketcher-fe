@@ -40,7 +40,7 @@ const EpisodeFooter = () => {
       onMouseEnter={() => setDisplay(true)}
       onMouseLeave={() => setDisplay(false)}
     >
-      <div className="w-[720px] h-[34px] flex items-center text-sm gap-3 justify-between">
+      <div className="w-[720px] h-[34px] flex items-center text-sm text-[#3F3F3F] gap-3 justify-between">
         <div className="flex gap-5 items-center">
           <div className="cursor-pointer items-center flex gap-2">
             <Image

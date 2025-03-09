@@ -36,7 +36,7 @@ export const fetchAPI = async ({
       // accessToken 만료
       if (retry) {
         // 새 accessToken이 제대로 적용되지 않은 경우
-        alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+        alert('로그인이 필요합니다.');
         localStorage.removeItem('accessToken');
         window.location.href = '/login';
         throw new Error('만료된 토큰');
@@ -56,7 +56,7 @@ export const fetchAPI = async ({
         }
       } catch (error) {
         // refreshToken 도 만료된 경우
-        alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+        alert('로그인이 필요합니다.');
         localStorage.removeItem('accessToken');
         window.location.href = '/login';
         throw new Error('만료된 토큰');
