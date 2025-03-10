@@ -26,8 +26,8 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <div className="bg-white rounded-lg p-5 flex gap-2 flex-col w-[384px] items-center">
-        <span className="font-semibold text-[30px] text-brand-yellow">
+      <div className="bg-white rounded-lg pt-[30px] pb-[15px] px-[15px] flex gap-[5px] flex-col w-[384px] h-[284px] items-center">
+        <span className="font-semibold h-9 text-[30px] text-brand-yellow">
           {rating}
         </span>
         <div className="flex justify-center gap-1.5">
@@ -44,12 +44,13 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
           ))}
         </div>
 
-        <span className="text-sm text-gray-600/40 pb-2">별을 클릭하세요</span>
+        <span className="text-sm h-[17px] text-[#888888] mb-[25px]">별을 클릭하세요</span>
 
         <Button
           props={{
             size: 'L',
             variant: 'brand-yellow',
+            containerStyles: 'w-[354px] h-[50px] !p-0 mb-[3px]',
             handleClick: async () => {
               const response = await fetchWebtoonDetail.putStars({
                 webtoonId,
@@ -69,6 +70,7 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
           props={{
             size: 'L',
             variant: 'brand-gray',
+            containerStyles: 'w-[354px] h-[50px] !p-0',
             handleClick: closeModal,
           }}
         >
