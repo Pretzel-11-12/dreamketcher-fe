@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import Textarea from '@/app/_component/Textarea';
 import useAuthStore from '@/app/store/authStore';
 import { updateProfile } from '@/app/api/auth/updateProfile';
 import { User } from '@/model/User';
+import ProfileImageEditModal from '../_component/ProfileImageEditModal';
 
 const Temp = () => {
   const router = useRouter();
@@ -22,18 +23,14 @@ const Temp = () => {
     setUserInfo,
   } = useAuthStore();
 
-  const [tempNickname, setTempNickname] = useState(nickname || '');
-  const [tempBusinessEmail, setTempBusinessEmail] = useState(
-    businessEmail || ''
-  );
-  const [tempShortIntroduction, setTempShortIntroduction] = useState(
-    shortIntroduction || ''
-  );
-  const [tempImageUrl, setTempImageUrl] = useState(
-    imageUrl || '/assets/images/profile-default.png'
-  );
+  const [isModalOpen, handleOpenModal] = useState<boolean>(false);
 
-  // 프로필 정보가 새로고침해도 유지되도록 초기 데이터 설정
+  const [tempNickname, setTempNickname] = useState(nickname || '');
+  const [tempBusinessEmail, setTempBusinessEmail] = useState(businessEmail || '');
+  const [tempShortIntroduction, setTempShortIntroduction] = useState(shortIntroduction || '');
+  const [tempImageUrl, setTempImageUrl] = useState(imageUrl || '/assets/images/profile-default.png');
+  const fileInputRef = useRef<HTMLInputElement>(null); // 파일 입력 참조
+
   useEffect(() => {
     setTempNickname(nickname || '');
     setTempBusinessEmail(businessEmail || '');
@@ -41,7 +38,6 @@ const Temp = () => {
     setTempImageUrl(imageUrl || '/assets/images/profile-default.png');
   }, [nickname, businessEmail, imageUrl, shortIntroduction]);
 
-  // 프로필 업데이트 뮤테이션
   const { mutate } = useMutation({
     mutationFn: async (profileData: User) => {
       const accessToken = localStorage.getItem('accessToken');
@@ -60,7 +56,6 @@ const Temp = () => {
       });
       router.push('/mypage');
     },
-    onError: () => {},
   });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +63,17 @@ const Temp = () => {
     if (file) {
       setTempImageUrl(URL.createObjectURL(file));
     }
+  };
+
+  // 모달 내 파일 업로드 버튼 클릭 시
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+    // setIsModalOpen(false);
+  };
+
+  // 모달 내 프로필 이미지 삭제 버튼 클릭 시 (현재는 삭제 로직 미구현)
+  const handleDeleteProfileImage = () => {
+    // setIsModalOpen(false);
   };
 
   const handleSave = () => {
@@ -98,6 +104,7 @@ const Temp = () => {
   };
 
   return (
+    <>
     <div className="relative flex flex-col items-center w-full max-w-[700px] mt-[50px] mx-auto px-6 py-5">
       {/* Header */}
       <div className="flex justify-between items-center w-[870px] h-[39px] mt-[13px] mb-10">
@@ -112,8 +119,7 @@ const Temp = () => {
           props={{
             size: 'M',
             variant: 'brand-yellow',
-            containerStyles:
-              '!w-[88px] h-[39px] text-xs border border-[#FBA250]',
+            containerStyles: '!w-[88px] h-[39px] text-xs border border-[#FBA250]',
           }}
         >
           <div
@@ -125,6 +131,7 @@ const Temp = () => {
         </Button>
       </div>
 
+      {/* 프로필 이미지 & 변경 버튼 */}
       <div className="relative w-24 h-24 mb-[37px]">
         <Image
           src={tempImageUrl}
@@ -133,9 +140,9 @@ const Temp = () => {
           height={90}
           className="rounded-full object-cover border border-[#F2F2F2] w-[90px] h-[90px]"
         />
-        <label
-          htmlFor="profileImageInput"
-          className="w-[29px] h-[29px] flex flex-col items-center justify-center absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#C9C9C9]"
+        <div
+          className="w-[29px] h-[29px] flex items-center justify-center absolute bottom-2 right-[3px] bg-white rounded-full p-1 cursor-pointer border border-[#C9C9C9]"
+          onClick={() => handleOpenModal(true)} // 버튼 클릭 시 모달 열기
         >
           <Image
             src="/assets/icon/camera.svg"
@@ -143,9 +150,9 @@ const Temp = () => {
             width={16}
             height={13}
           />
-        </label>
+        </div>
         <input
-          id="profileImageInput"
+          ref={fileInputRef}
           type="file"
           accept="image/*"
           className="hidden"
@@ -195,6 +202,14 @@ const Temp = () => {
         />
       </div>
     </div>
+
+    <ProfileImageEditModal
+      isOpen={isModalOpen}
+      handleOpenModal={handleOpenModal}
+      onUpload={handleUploadClick}
+      //onDelete={handleDeleteProfileImage}
+    />
+  </>
   );
 };
 
