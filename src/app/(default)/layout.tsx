@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="antialiased flex flex-col min-h-screen bg-white">
+    <div className="antialiased flex flex-col min-h-screen bg-white overflow-x-hidden">
       <RQProvider>
         <Suspense>
           <Header></Header>
