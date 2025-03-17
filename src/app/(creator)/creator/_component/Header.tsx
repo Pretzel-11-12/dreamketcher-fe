@@ -69,7 +69,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
-      <div className="flex items-center justify-between w-full max-w-[1200px] h-[70px] mx-auto px-4 md:px-0 relative">
+      <div className="flex items-center justify-between w-full h-[70px] mx-auto px-5 relative">
         <div className="flex items-center gap-3">
           <span
             className="mdi mdi-chevron-left text-2xl text-gray-600 cursor-pointer"
@@ -87,12 +87,12 @@ const Header: React.FC = () => {
             />
           </Link>
 
-          <Link href="/creator/series?status=IN_SERIES">
+          <Link href="/creator/series">
             <Image
               src="/assets/images/studio-text.png"
               alt="profile button"
-              width={65}
-              height={30}
+              width={75}
+              height={35}
             />
           </Link>
         </div>
