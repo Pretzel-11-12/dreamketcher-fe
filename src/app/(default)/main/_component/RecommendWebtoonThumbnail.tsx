@@ -20,7 +20,7 @@ const RecommendWebtoonThumbnail: React.FC<
       className="flex flex-col w-[138px] h-[304px]"
       onClick={handleThumbnailClick}
     >
-      <div className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden">
+      <div className="relative w-[138px] h-[199px] rounded-[5px] overflow-hidden">
         <Image
           src="/assets/images/monthly-dreamketcher.png"
           alt="Webtoon thumbnail image"

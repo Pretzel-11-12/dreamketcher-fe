@@ -33,7 +33,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   return (
     <div className="flex flex-col w-[138px] h-[304px] gap-[6px]">
       <div
-        className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden cursor-pointer"
+        className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden cursor-pointer bg-[#000000]"
         onClick={handleTitleClick}
       >
         <Image
@@ -46,8 +46,9 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
       </div>
       <div className="flex flex-col text-[12px] text-titleBlack">
         <p
-          className="text-[14px] hover:font-medium cursor-pointer"
+          className="text-[14px] hover:font-medium cursor-pointer truncate max-w-[138px]"
           onClick={handleTitleClick}
+          title={webtoon.title}
         >
           {webtoon.title}
         </p>

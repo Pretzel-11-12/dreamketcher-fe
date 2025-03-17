@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dreamketcher
 
-## Getting Started
+## 📷 프로젝트 소개
 
-First, run the development server:
+웹툰 공모 플랫폼
+
+- **프로젝트의 목적 & 대상**:
+
+- **주요 기능**:
+
+## 🏷️ 구조도
+
+![Dreamketcher 구조도]()
+
+## 🔨 실행 방법
 
 ```bash
+# production 배포 env실행
+npm run build
+
+# development 개발 env실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# test 개발 env실행
+npm run test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧑🏻‍💻 프론트엔드 개발자
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| ([@boozeal](https://github.com/boozeal)) | ([@seorinnn](https://github.com/seorinnn)) | ([@Soy728](https://github.com/Soy728)) |
+| ---------------------------------------- | ------------------------------------------ | -------------------------------------- |
+|                                          |                                            |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🖥️ 서비스 화면
 
-## Learn More
+`메인`
+|메인|
+|--------------|
+|<img width="1498" alt="image" src="">|
 
-To learn more about Next.js, take a look at the following resources:
+`인증`
+|로그인|회원가입|
+|-----|-----|
+|<img width="1512" alt="image" src="">|<img width="1512" alt="image" src="">|
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`웹툰`
+|웹툰 리스트|웹툰 상세|
+|-----|-----|
+|<img width="1512" alt="image" src="">|![image]()|
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🪐 트러블 슈팅
