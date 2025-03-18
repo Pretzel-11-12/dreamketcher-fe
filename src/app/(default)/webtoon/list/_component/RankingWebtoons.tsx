@@ -18,9 +18,13 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
 
   return (
     <div className="flex flex-col gap-[15px]">
-      <div className="flex gap-1 border-b pb-[14px] border-[#F2F2F2] justify-between">
-        <p className="text-[16px] font-medium text-iconBlack">{genre} 베스트</p>
-        <p className="text-[12px] text-[#888888] self-end">더보기</p>
+      <div className="border-b border-[#F2F2F2] pb-[14px]">
+        <div className="flex items-center justify-between">
+          <p className="text-[16px] font-medium text-iconBlack">
+            {genre} 베스트
+          </p>
+          <p className="text-[12px] text-inActive">더보기</p>
+        </div>
       </div>
       <div className="flex flex-col gap-[3px]">
         {ranking?.map((item, index) => (
@@ -29,13 +33,13 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
             key={index}
           >
             <div
-              className="grid grid-cols-[10px_1fr] gap-2 hover:text-[#888888] cursor-pointer text-contentBlack"
+              className="grid grid-cols-[15px_1fr] gap-[12px] cursor-pointer text-contentBlack"
               key={item.title}
             >
-              <p className="text-[13px] text-brand-blue text-center font-normal">
+              <p className="text-[13px] text-[#EF4C4C] text-center font-normal">
                 {index + 1}
               </p>
-              <p className="text-[13px]">{item.title}</p>
+              <p className="text-[13px] hover:text-inActive">{item.title}</p>
             </div>
           </Link>
         ))}
