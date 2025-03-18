@@ -17,13 +17,11 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
   const ranking = _(data).take(10).value();
 
   return (
-    <div className="flex flex-col gap-[15px]">
+    <div className="flex flex-col gap-[15px] font-medium">
       <div className="border-b border-[#F2F2F2] pb-[14px]">
         <div className="flex items-center justify-between">
-          <p className="text-[16px] font-medium text-iconBlack">
-            {genre} 베스트
-          </p>
-          <p className="text-[12px] text-inActive">더보기</p>
+          <p className="text-[16px] text-iconBlack">{genre} 베스트</p>
+          <p className="text-[12px] text-inActive font-normal">더보기</p>
         </div>
       </div>
       <div className="flex flex-col gap-[3px]">
@@ -36,7 +34,7 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
               className="grid grid-cols-[15px_1fr] gap-[12px] cursor-pointer text-contentBlack"
               key={item.title}
             >
-              <p className="text-[13px] text-[#EF4C4C] text-center font-normal">
+              <p className="text-[13px] text-[#EF4C4C] text-center">
                 {index + 1}
               </p>
               <p className="text-[13px] hover:text-inActive">{item.title}</p>
