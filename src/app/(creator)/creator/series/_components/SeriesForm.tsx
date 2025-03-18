@@ -62,12 +62,10 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           formData.append('oldThumbnail', item.thumbnail);
           formData.append('folderName', `/webtoon/${item.id}/thumbnail`);
 
-          const s3Url = await fetchCreatorWebtoon.editWebtoonThumbnail({
+          await fetchCreatorWebtoon.editWebtoonThumbnail({
             formData,
             webtoonId: item.id,
           });
-
-          console.log(s3Url);
         } else {
           formData.append('image', file);
           const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({
@@ -77,24 +75,9 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           setWebtoonInfo((v) => ({
             ...v,
             thumbnail: s3Url,
+            prologue: s3Url,
           }));
         }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };
-
-  const handlePrologue = async (file: File | null) => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('images', file);
-      try {
-        const s3Url = await fetchCreatorWebtoon.postWebtoonPrologue({
-          formData,
-        });
-
-        setWebtoonInfo((v) => ({ ...v, prologue: s3Url }));
       } catch (e) {
         console.log(e);
       }
@@ -113,7 +96,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         await fetchCreatorWebtoon.postWebtoon(webtoonInfo);
       }
       alert(isEdit ? '작품이 수정되었습니다' : '작품이 등록되었습니다');
-      router.push(`/creator/series?status=NEW`);
+      router.push(`/creator/series`);
     } catch (e) {
       alert(isEdit ? '작품 수정 실패하였습니다' : '작품 등록 실패하였습니다');
     }
@@ -159,17 +142,6 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         <ThumbnailUploader
           _preview={webtoonInfo.thumbnail}
           onFileSelect={handleThumbnail}
-          imageFormat={{ width: 480, height: 720 }}
-          dpImageFormat={{ width: 140 }}
-        />
-      </div>
-
-      <div className="grid grid-cols-[10rem_1fr] items-start">
-        <div>프롤로그</div>
-
-        <ThumbnailUploader
-          _preview={webtoonInfo.prologue[0]}
-          onFileSelect={handlePrologue}
           imageFormat={{ width: 480, height: 720 }}
           dpImageFormat={{ width: 140 }}
         />

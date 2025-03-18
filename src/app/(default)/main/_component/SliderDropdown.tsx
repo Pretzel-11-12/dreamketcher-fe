@@ -3,11 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface SliderDropdownProps {
+  onClickOption?: (value: string) => void;
   options: { label: string; value: string }[]; // 옵션 데이터 타입
   defaultOption?: string; // 초기 선택 옵션
 }
 
 const SliderDropdown: React.FC<SliderDropdownProps> = ({
+  onClickOption,
   options,
   defaultOption,
 }) => {
@@ -21,6 +23,7 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
 
   const handleSelect = (value: string) => {
     setSelected(value);
+    onClickOption?.(value);
     setIsOpen(false);
   };
 

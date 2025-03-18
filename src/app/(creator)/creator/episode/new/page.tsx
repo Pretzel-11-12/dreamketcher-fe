@@ -20,18 +20,20 @@ export default function EpisodeNew() {
   });
 
   return (
-    <div className="flex flex-col mt-[70px] w-full">
-      <div className="text-[22px] font-medium py-4 border-b">회차 등록</div>
-      <div className="py-10">
-        {isLoading ? (
-          <>로딩중</>
-        ) : (
-          <EpisodeForm
-            item={data}
-            episodeId={episodeId}
-            webtoonId={webtoonId}
-          />
-        )}
+    <div className="flex flex-col mt-[70px] w-full items-center">
+      <div className="w-[1020px]">
+        <div className="text-[22px] font-medium py-4 border-b">회차 등록</div>
+        <div className="py-10">
+          {isLoading ? (
+            <>로딩중</>
+          ) : (
+            <EpisodeForm
+              item={data}
+              episodeId={episodeId}
+              webtoonId={webtoonId}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
