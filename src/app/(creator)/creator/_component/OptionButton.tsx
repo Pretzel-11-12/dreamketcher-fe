@@ -11,9 +11,9 @@ const OptionButton: React.FC<OptionButtonInfo> = ({ items }) => {
     <div className="relative w-fit">
       <button
         onClick={() => setOption(!activeOption)}
-        className="hover:bg-brand-gray rounded-md px-2 py-1.5"
+        className="hover:bg-brand-gray rounded-md px-1 py-0.3"
       >
-        <span className="mdi mdi-dots-horizontal"></span>
+        <span className="mdi mdi-dots-horizontal text-[#888]"></span>
       </button>
       {activeOption && (
         <div

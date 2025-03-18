@@ -1,59 +1,39 @@
 'use client';
 
-import CategoryTab, { CategoryItemProps } from '@/app/_component/CategoryTab';
+import SliderDropdown from '@/app/(default)/main/_component/SliderDropdown';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-enum CountSeries {
-  IN_SERIES = 'inSeriesCount',
-  FINISH = 'finishCount',
-  NEW = 'newCount',
-  REST = 'restCount',
-  PRE_SERIES = 'preSeriesCount',
-}
-
-interface CountSeriesCategory {
-  finishCount: number;
-  inSeriesCount: number;
-  newCount: number;
-  preSeriesCount: number;
-  restCount: number;
-}
-const SeriesCategorySelector: React.FC<CountSeriesCategory> = (count) => {
+const SeriesCategorySelector: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const status = searchParams.get('status')!;
+  const status = searchParams.get('status') || 'ALL';
 
-  const categories: CategoryItemProps[] = [
+  const categories = [
     {
-      id: 'IN_SERIES',
+      value: 'ALL',
+      label: '전체',
+    },
+    {
+      value: 'IN_SERIES',
       label: '연재중',
-      subLabel: `(${count[CountSeries.IN_SERIES]})`,
     },
     {
-      id: 'FINISH',
+      value: 'FINISH',
       label: '완결',
-      subLabel: `(${count[CountSeries.FINISH]})`,
-    },
-    { id: 'NEW', label: '신작', subLabel: `(${count[CountSeries.NEW]})` },
-    {
-      id: 'REST',
-      label: '휴재',
-      subLabel: `(${count[CountSeries.REST]})`,
-    },
-    {
-      id: 'PRE_SERIES',
-      label: '연재전',
-      subLabel: `(${count[CountSeries.PRE_SERIES]})`,
     },
   ];
 
   return (
-    <CategoryTab
-      items={categories}
-      selectedId={status}
-      handleCategoryClick={(value) => {
-        router.push(`/creator/series?status=${value}`);
-      }}
+    <SliderDropdown
+      options={categories}
+      defaultOption={status}
+      onClickOption={(value) =>
+        router.push(
+          value === 'ALL'
+            ? `/creator/series`
+            : `/creator/series?status=${value}`
+        )
+      }
     />
   );
 };

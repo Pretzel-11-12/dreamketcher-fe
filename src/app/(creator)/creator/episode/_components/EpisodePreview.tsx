@@ -11,7 +11,35 @@ const EpisodePreview: React.FC<EpisodeUploaderProps> = ({
   images,
   selected,
 }) => {
-  const [isOpenModal, setOpenModal] = useState(false);
+  const openNewWindow = () => {
+    const width = 1000;
+    const height = 800;
+    const newWindow = window.open(
+      '',
+      '_blank',
+      `width=${width},height=${height},left=100,top=100`
+    );
+
+    if (newWindow) {
+      newWindow.document.write(`
+        <html>
+          <head>
+  
+            <style>
+              body { overflow-x: hidden;  }
+              img { width: 100vw; height: auto;}
+            </style>
+          </head>
+          <body>
+          
+            ${images.map((img) => `<img src="${img}" alt="이미지" />`).join('')}
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
+  };
+
   return (
     <>
       <div className="w-full h-full flex flex-col gap-[10px]">
@@ -27,7 +55,7 @@ const EpisodePreview: React.FC<EpisodeUploaderProps> = ({
               props={{
                 size: 'XS',
                 variant: 'brand-yellow',
-                handleClick: () => setOpenModal(true),
+                handleClick: openNewWindow,
               }}
             >
               전체 미리보기
@@ -35,34 +63,6 @@ const EpisodePreview: React.FC<EpisodeUploaderProps> = ({
           </div>
         </div>
       </div>
-
-      <Modal
-        isOpen={isOpenModal}
-        onClose={() => {
-          setOpenModal(false);
-        }}
-      >
-        <div className="bg-white rounded-lg flex gap-2 flex-col w-[800px] h-[1000px] py-5 px-4">
-          <div className="flex justify-between">
-            <span className="text-[18px] font-medium">전체 미리보기</span>
-            <span
-              className="mdi mdi-close text-lg cursor-pointer"
-              onClick={() => setOpenModal(false)}
-            />
-          </div>
-
-          <div className="flex flex-col w-full overflow-y-scroll h-full gap-2 px-5">
-            {images.map((v) => (
-              <img
-                key={v}
-                src={v}
-                alt="Preview"
-                className="w-full h-full object-contain"
-              />
-            ))}
-          </div>
-        </div>
-      </Modal>
     </>
   );
 };

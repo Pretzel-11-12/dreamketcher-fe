@@ -3,6 +3,7 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getWebtoonRanking } from '@/app/(default)/main/_lib/getWebtoonRanking';
 import _ from 'lodash';
 import Link from 'next/link';
+import { GenreEnum } from '@/app/util';
 
 const RankingWebtoons: React.FC<{ genre?: string }> = ({
   genre = 'RECOMMEND',
@@ -17,12 +18,12 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
   const ranking = _(data).take(10).value();
 
   return (
-    <div className="flex flex-col gap-[15px] font-medium">
-      <div className="border-b border-[#F2F2F2] pb-[14px]">
-        <div className="flex items-center justify-between">
-          <p className="text-[16px] text-iconBlack">{genre} 베스트</p>
-          <p className="text-[12px] text-inActive font-normal">더보기</p>
-        </div>
+    <div className="flex flex-col gap-[15px]">
+      <div className="flex gap-1 border-b pb-[14px] border-[#F2F2F2] justify-between">
+        <p className="text-[16px] font-medium text-iconBlack">
+          {GenreEnum[genre as keyof typeof GenreEnum]} 베스트
+        </p>
+        <p className="text-[12px] text-[#888888] self-end">더보기</p>
       </div>
       <div className="flex flex-col gap-[3px]">
         {ranking?.map((item, index) => (

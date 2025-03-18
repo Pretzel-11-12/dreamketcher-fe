@@ -46,7 +46,7 @@ const ListCategorySelector: React.FC<ListCategorySelectorProps> = ({
         <div className="flex justify-center md:justify-end w-full md:w-auto">
           <Link
             className="w-[125px] h-[39px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px]"
-            href="/creator/series?status=IN_SERIES"
+            href="/creator/series"
           >
             <Image
               src={'/assets/icon/studio.png'}
