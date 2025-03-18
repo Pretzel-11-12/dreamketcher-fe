@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
-import Dropdown from '@/app/_component/Dropdown';
+import SearchDropdown from './SearchDropdown';
 import Pagination from '@/app/_component/Pagination';
 
 interface SearchMainSectionProps {
@@ -35,7 +35,7 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
           <SearchMainSectionHeader />
         </div>
       )}
-      <Dropdown options={dropdownOptions} defaultOption="recent" />
+      <SearchDropdown options={dropdownOptions} defaultOption="recent" />
       <div className="flex flex-col gap-5 mb-[30px]">
         {webtoons.length > 0 ? (
           webtoons.map((webtoon) => (
