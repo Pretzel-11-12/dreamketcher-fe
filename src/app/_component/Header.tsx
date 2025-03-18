@@ -68,7 +68,7 @@ const Header: React.FC = () => {
   return (
     <header className="fixed w-full bg-white z-50">
       <div className="flex items-center justify-between w-full max-w-[1200px] h-[70px] mx-auto relative">
-        <hr className="fixed left-0 w-[100vw] mt-[70px]" />
+        <hr className="fixed left-0 w-full mt-[70px]" />
         <div className="flex items-center space-x-10">
           <Link
             href="/"

@@ -1,6 +1,7 @@
 import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface EpisodeItemProp {
   items: fetchWebtoonDetail.Model.EpisodeUnit;
@@ -22,7 +23,10 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
   const now = new Date().setHours(0, 0, 0, 0);
   const isNewEpisode = time >= now;
 
-  const formatTime = new Date(publishedAt).toISOString().split('T')[0];
+  const formatTime = new Date(publishedAt)
+    .toISOString()
+    .split('T')[0]
+    .replace(/-/g, '.');
 
   return (
     <Link
@@ -31,15 +35,15 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
         query: { titleId: webtoonId, no: episodeId },
       }}
     >
-      <div className="grid grid-cols-[auto_1fr] border-b gap-4 p-[20px] pl-0 hover:bg-[#F8F8F8]">
+      <div className="grid grid-cols-[auto_1fr] border-b gap-[12px] p-[20px] pl-0 hover:bg-[#F8F8F8]">
         {thumbnail ? (
           <DefaultImage alt={title} src={thumbnail} height={60} width={100} />
         ) : (
           <div className="bg-[#DEE5EA] h-[60px] w-[100px]"></div>
         )}
 
-        <div className="flex flex-col gap-1 justify-center">
-          <div className="font-medium flex items-center gap-1 text-[16px]">
+        <div className="flex flex-col font-normal gap-1 justify-center items-start">
+          <div className="flex items-center gap-1 text-[16px] text-titleBlack">
             {isNewEpisode && (
               <div className="flex bg-[#4C68B4] text-white w-[18px] text-[8px] rounded-sm font-semibold h-[15px] items-center justify-center">
                 UP
@@ -47,17 +51,27 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
             )}
             {episodeId}화 - {title}
           </div>
-          <div className="flex gap-3 items-center text-[12px] text-[#9F9F9F]">
-            <div className="flex gap-1 items-center">
-              <span className="mdi mdi-star"></span>
-              <div>{averageStar || 0}</div>
+          <div className="flex gap-3 items-center text-[12px] text-inActive">
+            <div className="flex gap-1 items-center w-[40px]">
+              <Image
+                src="/assets/icon/list-star.svg"
+                alt="star"
+                width={12}
+                height={12}
+              />
+              <div>{(averageStar || 0).toFixed(2)}</div>
             </div>
-            <div className="flex gap-1 items-center">
-              <span className="mdi mdi-thumb-up-outline"></span>
+            <div className="flex gap-1 items-center w-[30px]">
+              <Image
+                src="/assets/icon/like.svg"
+                alt="thumbup"
+                width={12}
+                height={12}
+              />
               <div>{likeCount || 0}</div>
             </div>
-            <div>조회 {viewCount}</div>
-            <div className="text-[#F2F2F2]">|</div>
+            <div className="w-[50px]">조회 {viewCount}</div>
+            <div className="text-[#E0E0E0]">|</div>
             <div>{formatTime}</div>
           </div>
         </div>

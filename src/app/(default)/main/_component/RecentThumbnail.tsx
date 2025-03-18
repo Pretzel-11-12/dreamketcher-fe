@@ -12,12 +12,6 @@ type RecentThumbnailProps = {
 const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
 
-  const handleThumbnailClick = () => {
-    router.push(
-      `/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`
-    );
-  };
-
   const handleGenreClick = (e: React.MouseEvent) => {
     router.push(`/main/default?genre=${webtoon.genre}`);
   };
@@ -70,7 +64,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
       </div>
       <Link
         className="w-[138px] h-[43px] mt-[12px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
-        href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.lastViewedAt}`}
+        href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`}
       >
         {webtoon.episodeCount}화 이어읽기
       </Link>
