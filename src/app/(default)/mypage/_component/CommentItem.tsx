@@ -3,6 +3,7 @@ import React from 'react';
 import useAuthStore from '@/app/store/authStore';
 import moment from 'moment-timezone';
 import { _Model } from '@/app/api/fetchComment/model';
+import { router } from 'next/client';
 import ResMyCommentsUnit = _Model.ResMyCommentsUnit;
 
 const CommentItem: React.FC<ResMyCommentsUnit> = ({
@@ -23,6 +24,9 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
 
   const timeAgo = moment.utc(createdAt).tz('Asia/Seoul').fromNow();
 
+  function navigateToEpisode() {
+    router.push(`/webtoon/detail?titleId=${id}&no=${no}`);
+  }
 
   return (
     <div className="border-b py-5">
@@ -47,14 +51,19 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
               width={42}
               height={42}
               className="w-[70px] h-[42px] rounded-md cursor-pointer"
+              onClick={navigateToEpisode}
             />
-            <span className="text-[13px]/[16px] text-[#888888] mt-1 ml-2 cursor-pointer">[{title}] - {no}화 {episodeTitle}</span>
+            <span
+              className="h-5 text-[13px]/[16px] text-[#888888] mt-1 ml-2 cursor-pointer"
+              onClick={navigateToEpisode}>[{title}] - {no}화 {episodeTitle}
+            </span>
             <Image
               src="/assets/icon/arrow-right-gray.svg"
               alt="rightArrow"
               width={20}
               height={20}
               className="w-5 h-5 cursor-pointer"
+              onClick={navigateToEpisode}
             />
           </div>
           <div className="h-5 flex items-center text-xs text-[#888888] gap-3 mt-2">
