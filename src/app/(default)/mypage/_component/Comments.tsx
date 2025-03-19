@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import CommentItem from "./CommentItem";
-import Dropdown from "@/app/_component/Dropdown";
+import React from 'react';
+import CommentItem from './CommentItem';
+import Dropdown from '@/app/_component/Dropdown';
 import { useQuery } from '@tanstack/react-query';
 import { fetchComment } from '@/app/api/fetchComment';
 
@@ -42,7 +42,7 @@ export default function Comments() {
       </div>
 
       {!result ? (
-        <p className="text-gray-300 text-center pt-10">남긴 댓글이 없습니다.</p>
+        <p className="text-[#C9C9C9] text-center text-lg pt-4">남긴 댓글이 없습니다.</p>
       ) : (
         <div>
           {result?.map((comment) => (
