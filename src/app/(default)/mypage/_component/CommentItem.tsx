@@ -25,8 +25,8 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
 
 
   return (
-    <div className="border-b py-4">
-      <div className="flex items-start gap-4">
+    <div className="border-b py-5">
+      <div className="flex items-start gap-[14px]">
         <Image
           src={imageUrl || '/assets/images/profile-default.png'}
           alt="프로필 이미지"
@@ -36,21 +36,28 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
         />
         <div className="flex-1">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-titleBlack">{nickname}</span>
+            <span className="text-sm/[17px] text-titleBlack">{nickname}</span>
             <span className="text-xs text-[#888888]">{timeAgo}</span>
           </div>
-          <p className="text-[13px] text-[#3F3F3F] mt-1">{content}</p>
-          <div className="flex gap-2 mt-4">
+          <p className="text-[13px] text-[#3F3F3F] mt-2">{content}</p>
+          <div className="flex mt-[22px]">
             <Image
               src={episodeThumbnail}
               alt="프로필 이미지"
               width={42}
               height={42}
-              className="w-[70px] h-[42px] rounded-md"
+              className="w-[70px] h-[42px] rounded-md cursor-pointer"
             />
-            <span className="text-[13px] text-[#888888]">[{title}] - {no}화 {episodeTitle}</span>
+            <span className="text-[13px]/[16px] text-[#888888] mt-1 ml-2 cursor-pointer">[{title}] - {no}화 {episodeTitle}</span>
+            <Image
+              src="/assets/icon/arrow-right-gray.svg"
+              alt="rightArrow"
+              width={20}
+              height={20}
+              className="w-5 h-5 cursor-pointer"
+            />
           </div>
-          <div className="flex items-center text-xs gap-3 mt-2">
+          <div className="h-5 flex items-center text-xs text-[#888888] gap-3 mt-2">
             <div className="flex items-center gap-1">
               <Image
                 src={'/assets/icon/inactiveMessage.svg'}
@@ -58,7 +65,7 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
                 width={11}
                 height={11}
               />
-              <span>{childCommentCount}</span>
+              <span className="mt-[2px]">{childCommentCount > 0 ? childCommentCount : '답글'}</span>
             </div>
             <div className="flex items-center gap-1">
               <Image
@@ -67,7 +74,7 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
                 width={11}
                 height={11}
               />
-              <span>{recommendationCount}</span>
+              <span className="mt-[2px]">{recommendationCount > 0 ? recommendationCount : '좋아요'}</span>
             </div>
             <div className="flex items-center gap-1">
               <Image
@@ -76,7 +83,7 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
                 width={11}
                 height={11}
               />
-              <span>{notRecommendationCount}</span>
+              <span className="mt-[2px]">{notRecommendationCount > 0 ? notRecommendationCount : '싫어요'}</span>
             </div>
             <Image
               src={'/assets/icon/meatballsMenu.svg'}
