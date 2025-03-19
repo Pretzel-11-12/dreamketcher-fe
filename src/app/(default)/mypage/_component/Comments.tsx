@@ -41,7 +41,7 @@ export default function Comments() {
         <Dropdown options={dropdownOptions} defaultOption="recent" />
       </div>
 
-      {!result ? (
+      {!totalElements ? (
         <p className="text-[#C9C9C9] text-center text-lg pt-4">남긴 댓글이 없습니다.</p>
       ) : (
         <div>
