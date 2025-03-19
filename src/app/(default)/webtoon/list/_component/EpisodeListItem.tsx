@@ -70,8 +70,10 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
               />
               <div>{likeCount || 0}</div>
             </div>
-            <div className="w-[50px]">조회 {viewCount}</div>
-            <div className="text-[#E0E0E0]">|</div>
+            <div className="flex gap-1 items-center">
+              <div className="w-[50px]">조회 {viewCount}</div>
+              <div className="text-[#E0E0E0]">|</div>
+            </div>
             <div>{formatTime}</div>
           </div>
         </div>
