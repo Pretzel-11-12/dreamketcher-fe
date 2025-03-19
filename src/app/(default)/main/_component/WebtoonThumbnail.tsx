@@ -56,7 +56,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
       <div className="flex items-center">
         <div className="flex flex-col text-[12px] text-titleBlack">
           <p
-            className="text-[14px] font-medium hover:underline cursor-pointer"
+            className="text-[16px] font-medium hover:underline cursor-pointer"
             onClick={handleTitleClick}
           >
             {webtoon.title}

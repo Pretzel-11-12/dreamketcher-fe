@@ -40,7 +40,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
       </div>
       <div className="flex flex-col text-[12px] text-titleBlack">
         <p
-          className="text-[14px] hover:font-medium cursor-pointer truncate max-w-[138px]"
+          className="text-[16px] font-medium hover:underline cursor-pointer truncate max-w-[138px]"
           onClick={handleTitleClick}
           title={webtoon.title}
         >
@@ -48,14 +48,14 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
         </p>
         <p className="text-[#888888]">
           <span
-            className="hover:font-medium cursor-pointer"
+            className="hover:underline cursor-pointer"
             onClick={handleWriterClick}
           >
             {webtoon.writer}
           </span>
           {' · '}
           <span
-            className="hover:font-medium cursor-pointer"
+            className="hover:underline cursor-pointer"
             onClick={handleGenreClick}
           >
             {webtoon.genre}
