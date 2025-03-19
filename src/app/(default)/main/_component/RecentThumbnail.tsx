@@ -30,12 +30,10 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
         className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden cursor-pointer bg-[#000000]"
         onClick={handleTitleClick}
       >
-        <Image
+        <img
           src={webtoon.image}
           alt="Webtoon thumbnail image"
-          fill
-          className="object-cover"
-          sizes="138px"
+          className="w-[138px] h-[207px] object-cover"
         />
       </div>
       <div className="flex flex-col text-[12px] text-titleBlack">
