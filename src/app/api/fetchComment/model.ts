@@ -24,6 +24,21 @@ export namespace _Model {
     profileImage: string;
   }
 
+  export interface ResMyCommentsUnit {
+    id: number;
+    no: number;
+    content: string;
+    thumbnail: string;
+    title: string;
+    episodeTitle: string;
+    episodeThumbnail: string;
+    childCommentCount: number;
+    recommendationCount: number;
+    notRecommendationCount: number;
+    createdAt: string;
+    type: string;
+  }
+
   // export interface ResCommendUnit {
   //   id: number;
   // }
