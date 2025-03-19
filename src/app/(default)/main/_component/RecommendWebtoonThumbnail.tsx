@@ -34,7 +34,7 @@ const RecommendWebtoonThumbnail: React.FC<
         <p className="text-[#3f3f3f]">⁺. ⊹˚₊ ₊·(੭· ˕ · )੭‧*</p>
       </div>
       <Link
-        className="w-[138px] h-[43px] mt-[12px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
+        className="w-[138px] h-[43px] mt-[6px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
         href={`/main`}
       >
         추천작 보러가기
