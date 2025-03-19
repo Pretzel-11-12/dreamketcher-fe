@@ -56,21 +56,21 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
       <div className="flex items-center">
         <div className="flex flex-col text-[12px] text-titleBlack">
           <p
-            className="text-[14px] hover:font-medium cursor-pointer"
+            className="text-[14px] font-medium hover:underline cursor-pointer"
             onClick={handleTitleClick}
           >
             {webtoon.title}
           </p>
           <p className="text-[#888888]">
             <span
-              className="hover:font-medium cursor-pointer"
+              className="hover:underline cursor-pointer"
               onClick={handleMemberClick}
             >
               {webtoon.member}
             </span>
             {' · '}
             <span
-              className="hover:font-medium cursor-pointer"
+              className="hover:underline cursor-pointer"
               onClick={handleGenreClick}
             >
               {webtoon.genre}
