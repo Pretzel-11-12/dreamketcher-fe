@@ -1,49 +1,54 @@
 import Image from 'next/image';
 import React from 'react';
+import useAuthStore from '@/app/store/authStore';
+import moment from 'moment-timezone';
+import { _Model } from '@/app/api/fetchComment/model';
+import ResMyCommentsUnit = _Model.ResMyCommentsUnit;
 
-interface CommentItemProps {
-  id: number;
-  profileImage: string;
-  nickname: string;
-  content: string;
-  webtoon: {
-    thumbnail: string;
-    title: string;
-  };
-  createdAt: string;
-  likes: number;
-  dislikes: number;
-  replies: number;
-}
-
-const CommentItem: React.FC<CommentItemProps> = ({
+const CommentItem: React.FC<ResMyCommentsUnit> = ({
   id,
-  profileImage,
-  nickname,
+  no,
   content,
-  webtoon,
+  title,
+  episodeTitle,
+  episodeThumbnail,
   createdAt,
-  likes,
-  dislikes,
-  replies,
+  recommendationCount,
+  notRecommendationCount,
+  childCommentCount,
 }) => {
+
+  const { nickname, imageUrl } = useAuthStore();
+  moment.locale('ko');
+
+  const timeAgo = moment.utc(createdAt).tz('Asia/Seoul').fromNow();
+
+
   return (
     <div className="border-b py-4">
       <div className="flex items-start gap-4">
-        <img
-          src={profileImage}
-          alt={nickname}
-          className="w-9 h-9 object-cover rounded-full"
+        <Image
+          src={imageUrl || '/assets/images/profile-default.png'}
+          alt="프로필 이미지"
+          width={36}
+          height={36}
+          className="w-[36px] h-[36px] rounded-full object-cover"
         />
         <div className="flex-1">
           <div className="flex justify-between items-center">
             <span className="text-sm text-titleBlack">{nickname}</span>
-            <span className="text-xs text-[#888888]">{createdAt}</span>
+            <span className="text-xs text-[#888888]">{timeAgo}</span>
           </div>
           <p className="text-[13px] text-[#3F3F3F] mt-1">{content}</p>
           <div className="flex gap-2 mt-4">
-            <div className="bg-[#DEE5EA] h-[60px] w-[70px] h-[42px] rounded-md" />
-            <span className="text-[13px] text-gray-600">{webtoon.title}</span>
+            <Image
+              src={episodeThumbnail}
+              alt="프로필 이미지"
+              width={42}
+              height={42}
+              className="w-[70px] h-[42px] rounded-md"
+            />
+            <span className="text-[13px] text-[#888888]">[{title}] - {no}화 {episodeTitle}</span>
           </div>
           <div className="flex items-center text-xs gap-3 mt-2">
             <div className="flex items-center gap-1">
@@ -53,7 +58,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 width={11}
                 height={11}
               />
-              <span>{replies}</span>
+              <span>{childCommentCount}</span>
             </div>
             <div className="flex items-center gap-1">
               <Image
@@ -62,7 +67,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 width={11}
                 height={11}
               />
-              <span>{likes}</span>
+              <span>{recommendationCount}</span>
             </div>
             <div className="flex items-center gap-1">
               <Image
@@ -71,7 +76,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 width={11}
                 height={11}
               />
-              <span>{dislikes}</span>
+              <span>{notRecommendationCount}</span>
             </div>
             <Image
               src={'/assets/icon/meatballsMenu.svg'}
