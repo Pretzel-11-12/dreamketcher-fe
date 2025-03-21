@@ -30,7 +30,7 @@ const StarRatingModal: React.FC<StarRatingModalProps> = ({
         <span className="font-semibold h-9 text-[30px] text-brand-yellow">
           {rating}
         </span>
-        <div className="flex justify-center gap-1.5">
+        <div className="flex justify-center gap-0.5">
           {[1, 2, 3, 4, 5].map((star) => (
             <button
               key={star}
