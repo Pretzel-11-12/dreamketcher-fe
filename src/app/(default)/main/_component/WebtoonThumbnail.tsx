@@ -5,9 +5,12 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
 import RankingBadge from './RankingBadge';
 import NewBadge from './NewBadge';
+import { genres } from '@/constants/genres';
 
 type WebtoonThumbnailProps = {
-  webtoon: IWebtoon;
+  webtoon: Omit<IWebtoon, 'genre'> & {
+    genre: (typeof genres)[number]['param'];
+  };
   ranking: number;
   isNew?: boolean;
 };
@@ -28,7 +31,8 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   };
 
   const handleGenreClick = (e: React.MouseEvent) => {
-    router.push(`/main/default?genre=${webtoon.genre}`);
+    const genreParam = genres.find((g) => g.param === webtoon.genre)?.param;
+    router.push(`/main/default?genre=${genreParam}`);
   };
 
   const handleTitleClick = (e: React.MouseEvent) => {
@@ -73,7 +77,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
               className="hover:underline cursor-pointer"
               onClick={handleGenreClick}
             >
-              {webtoon.genre}
+              {genres.find((g) => g.param === webtoon.genre)?.name}
             </span>
           </p>
           <div className="flex items-center gap-1 text-[13px]">
