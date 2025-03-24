@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import Button from '@/app/_component/Button';
-import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import CoverImage from '@/app/_component/CoverImage';
 
 export enum Tag {
   SCARED = '괴담',
@@ -74,7 +74,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
 
   return (
     <div className="grid grid-cols-[auto_1fr] gap-[14px]">
-      <DefaultImage
+      <CoverImage
         src={webtoonThumbnail}
         alt={webtoonTitle}
         width={200}
