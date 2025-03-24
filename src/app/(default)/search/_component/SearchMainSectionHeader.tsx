@@ -28,9 +28,9 @@ const SearchMainSectionHeader: React.FC = () => {
           {categories.map((category) => (
             <button
               key={category.name}
-              className={`flex items-center justify-center w-[85px] h-[33px] text-[15px] text-[#c9c9c9] rounded-[100px] hover:bg-brand-yellow hover:text-white transition duration-300 ${
+              className={`flex items-center justify-center w-[85px] h-[33px] text-[14px] text-[#c9c9c9] rounded-[100px] hover:bg-brand-yellow hover:text-white transition duration-300 ${
                 selectedCategory === category.name
-                  ? 'bg-brand-yellow text-white'
+                  ? 'bg-brand-yellow text-white border border-[#FA973B]'
                   : 'bg-line text-[#c9c9c9]'
               }`}
               onClick={() => handleCategoryClick(category.name)}
