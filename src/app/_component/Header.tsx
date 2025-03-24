@@ -70,12 +70,13 @@ const Header: React.FC = () => {
       <div className="flex items-center justify-between w-full max-w-[1200px] h-[70px] mx-auto relative">
         <hr className="fixed left-0 w-full mt-[70px]" />
         <div className="flex items-center space-x-10">
-          <Link
-            href="/"
-            className="flex items-center text-lg md:text-xl font-bold"
-          >
-            <span className="text-brand-yellow">Dream</span>
-            <span className="text-brand-blue">ketcher</span>
+          <Link href="/">
+            <Image
+              src="/assets/images/Dreamketcher-text.png"
+              alt="logo button"
+              width={205}
+              height={22}
+            />
           </Link>
         </div>
 
