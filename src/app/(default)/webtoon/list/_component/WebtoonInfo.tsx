@@ -108,8 +108,12 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
           >
             <div className="flex gap-[2px] items-center justify-center text-[18px]">
               <Image
-                src={'/assets/icon/inspector.svg'}
-                alt={'관심 추가 이미지'}
+                src={
+                  interest.active
+                    ? '/assets/icon/inspector-filled.svg'
+                    : '/assets/icon/inspector.svg'
+                }
+                alt={interest.active ? '관심 등록됨' : '관심 추가 이미지'}
                 width={30}
                 height={30}
               />
