@@ -25,6 +25,7 @@ const dropdownOptions = [
 export default function Detail() {
   const [newComment, setNewComment] = useState('');
   const [isHeaderVisible, setHeaderVisible] = useState(true);
+  const [showAllComments, setShowAllComments] = useState(false);
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
@@ -52,6 +53,9 @@ export default function Detail() {
     totalElements: 0,
     result: [],
   };
+
+  // const displayedComments = showAllComments ? result : result.slice(0, 10);
+
   const queryClient = useQueryClient();
 
   const mutationWebtoon = useMutation({
@@ -199,22 +203,26 @@ export default function Detail() {
                 ))}
               </div>
             </div>
-            <Button
-              props={{
-                size: 'S',
-                variant: 'brand-yellow',
-                containerStyles:
-                  '!w-[143px] h-[40px] flex items-center justify-center gap-2',
-              }}
-            >
-              댓글 더보기
-              <Image
-                src="/assets/icon/downArrow-white.svg"
-                alt="Down Arrow"
-                width={20}
-                height={20}
-              />
-            </Button>
+
+            {totalElements > 10 && !showAllComments && (
+              <Button
+                props={{
+                  size: 'S',
+                  variant: 'brand-yellow',
+                  containerStyles:
+                    '!w-[143px] h-[40px] flex items-center justify-center gap-2',
+                  onClick: () => setShowAllComments(true),
+                }}
+              >
+                댓글 더보기
+                <Image
+                  src="/assets/icon/downArrow-white.svg"
+                  alt="Down Arrow"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+            )}
           </div>
         </div>
       </div>
