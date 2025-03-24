@@ -23,7 +23,7 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const keyword = searchParams.get('keyword') || '';
   return (
-    <div className="flex flex-col w-[894px] border-r border-r-line pt-[30px] pr-[24px] gap-[20px]">
+    <div className="flex flex-col w-[894px] min-h-[calc(100vh-255px)] border-r border-r-line pt-[30px] pr-[24px] gap-[20px]">
       <div className="flex items-end">
         <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
           '{keyword}'에 대한 검색 결과
@@ -36,7 +36,7 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
           <SearchDropdown options={dropdownOptions} defaultOption="recent" />
         </div>
       )}
-      <div className="flex flex-col gap-5 mb-[30px]">
+      <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
         {webtoons.length > 0 ? (
           webtoons.map((webtoon) => (
             <SearchResultThumbnail
