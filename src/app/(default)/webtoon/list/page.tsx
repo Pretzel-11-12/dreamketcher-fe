@@ -97,12 +97,13 @@ export default function Detail() {
                   />
                 ))}
               </div>
-
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPage}
-                onPageChange={setCurrentPage}
-              />
+              {data && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={data.totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </div>
           </div>
 
