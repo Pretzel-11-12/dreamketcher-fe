@@ -8,7 +8,7 @@ import FilterComponent from './FilterComponent';
 import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
 import { useSearchParams, useRouter } from 'next/navigation';
 import SliderDropdown from './SliderDropdown';
-
+import CustomWebtoonSlider from './CustomWebtoonSlider';
 interface ThumbnailContainerProps {
   type: string;
   title: string;
@@ -63,7 +63,7 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
           onClickOption={handleOrderChange}
         />
       </div>
-      <WebtoonSlider webtoons={data || []} />
+      <CustomWebtoonSlider webtoons={data || []} />
     </div>
   );
 };
