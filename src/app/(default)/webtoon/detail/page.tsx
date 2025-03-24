@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import WriterInfoItem from './_component/WriterInfoItem';
 import CommentItemGroup from './_component/CommentItemGroup';
 import EpisodeButtonGroup from './_component/EpisodeButtonGroup';
@@ -7,17 +7,15 @@ import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
 import Dropdown from '@/app/_component/Dropdown';
 import { useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { addRecentWebtoon } from '@/app/_lib/recentWebtoons';
 
 import _ from 'lodash';
-import { da } from '@faker-js/faker';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
