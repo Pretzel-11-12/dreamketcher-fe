@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -29,6 +29,7 @@ const Temp = () => {
   const [tempBusinessEmail, setTempBusinessEmail] = useState(businessEmail || '');
   const [tempShortIntroduction, setTempShortIntroduction] = useState(shortIntroduction || '');
   const [tempImageUrl, setTempImageUrl] = useState(imageUrl || '/assets/images/profile-default.png');
+  const [isDeleteImage, setIsDeleteImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null); // 파일 입력 참조
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const Temp = () => {
     setTempBusinessEmail(businessEmail || '');
     setTempShortIntroduction(shortIntroduction || '');
     setTempImageUrl(imageUrl || '/assets/images/profile-default.png');
+    setIsDeleteImage(false);
   }, [nickname, businessEmail, imageUrl, shortIntroduction]);
 
   const { mutate } = useMutation({
@@ -62,6 +64,7 @@ const Temp = () => {
     const file = e.target.files?.[0];
     if (file) {
       setTempImageUrl(URL.createObjectURL(file));
+      setIsDeleteImage(false);
     }
   };
 
@@ -71,9 +74,11 @@ const Temp = () => {
     // setIsModalOpen(false);
   };
 
-  // 모달 내 프로필 이미지 삭제 버튼 클릭 시 (현재는 삭제 로직 미구현)
+  // 모달 내 프로필 이미지 삭제 버튼 클릭 시
   const handleDeleteProfileImage = () => {
-    // setIsModalOpen(false);
+    setIsDeleteImage(true);
+    setTempImageUrl('/assets/images/profile-default.png'); // 기본 이미지 표시
+    handleOpenModal(false);
   };
 
   const handleSave = () => {
@@ -96,8 +101,9 @@ const Temp = () => {
       id,
       nickname: tempNickname,
       businessEmail: tempBusinessEmail,
-      imageUrl: tempImageUrl,
+      imageUrl: isDeleteImage ? '' : tempImageUrl,
       shortIntroduction: tempShortIntroduction,
+      isDeleteImage,
     };
 
     mutate(updatedProfile);
@@ -207,7 +213,7 @@ const Temp = () => {
       isOpen={isModalOpen}
       handleOpenModal={handleOpenModal}
       onUpload={handleUploadClick}
-      //onDelete={handleDeleteProfileImage}
+      onDelete={handleDeleteProfileImage}
     />
   </>
   );

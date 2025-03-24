@@ -7,19 +7,19 @@ import Image from 'next/image';
 interface ProfileImageEditModalProps {
   isOpen: boolean;
   onUpload: () => void;
+  onDelete: () => void;
   handleOpenModal: (isOpen: boolean) => void;
 }
 
 const ProfileImageEditModal: React.FC<ProfileImageEditModalProps> = ({
 isOpen,
 onUpload,
+onDelete,
 handleOpenModal
 }) => {
   if (!isOpen) return null;
 
   const closeModal = () => handleOpenModal(false);
-
-  const onDelete = () => {}; // 삭제 로직은 미구현 상태
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
@@ -44,7 +44,7 @@ handleOpenModal
               height={20}
               className="mr-[10px]"
             />
-            <p className="text-xl/7 text-[#FF6831]">프로필 이미지 삭제</p>
+            <p className="text-xl/7 text-[#FF6831]" onClick={onDelete}>프로필 이미지 삭제</p>
           </button>
         </div>
 
