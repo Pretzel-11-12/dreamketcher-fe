@@ -72,7 +72,7 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-10">
           <Link href="/">
             <Image
-              src="/assets/images/Dreamketcher-text.png"
+              src="/assets/images/dreamketcher-text.png"
               alt="logo button"
               width={205}
               height={22}
