@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import RankingBadge from './RankingBadge';
 import NewBadge from './NewBadge';
 import { genres } from '@/constants/genres';
-
+import CoverImage from '@/app/_component/CoverImage';
 type WebtoonThumbnailProps = {
   webtoon: Omit<IWebtoon, 'genre'> & {
     genre: (typeof genres)[number]['param'];
@@ -45,12 +45,11 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
         onClick={handleThumbnailClick}
       >
-        <Image
+        <CoverImage
           src={webtoon.thumbnail}
-          alt="Webtoon thumbnail image"
-          fill
-          className="object-cover"
-          sizes="166px"
+          alt={webtoon.title}
+          width={166}
+          height={249}
         />
         <div className="absolute top-[3px] left-[3px] flex gap-[2px]">
           {isNew && <NewBadge />}

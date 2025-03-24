@@ -71,25 +71,13 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
       {/* 왼쪽 화살표 버튼 */}
       <button
         onClick={() => handleScroll('left')}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 
-                 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center
+        className="absolute left-0 top-[108px] -translate-x-1/2 z-10 
+                 w-[34px] h-[34px] rounded-full bg-white shadow-md flex items-center justify-center
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300
                  hover:bg-gray-100"
         aria-label="이전"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
+        <img src="/assets/icon/leftArrow.svg" alt="이전" className="w-5 h-5" />
       </button>
 
       {/* 기존 슬라이더 */}
@@ -122,25 +110,13 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
       {/* 오른쪽 화살표 버튼 */}
       <button
         onClick={() => handleScroll('right')}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 
-                 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center
+        className="absolute right-0 top-[108px] translate-x-1/2 z-10 
+                 w-[34px] h-[34px] rounded-full bg-white shadow-md flex items-center justify-center
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300
                  hover:bg-gray-100"
         aria-label="다음"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
+        <img src="/assets/icon/rightArrow.svg" alt="다음" className="w-5 h-5" />
       </button>
     </div>
   );
