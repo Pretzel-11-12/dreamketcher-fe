@@ -36,8 +36,8 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           height={150}
           width={100}
         />
-        <div className="flex flex-col text-xs gap-[3px] mt-[2px]">
-          <p className="text-[18px] mb-[3px]">
+        <div className="flex flex-col text-xs gap-[3px] mt-[1px]">
+          <p className="text-[18px] mb-[3px] leading-[normal]">
             {highlightKeyword(webtoon.title, keyword)}
           </p>
           <p className="text-[#888888]">

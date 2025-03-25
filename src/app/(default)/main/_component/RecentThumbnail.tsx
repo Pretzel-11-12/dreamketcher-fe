@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { RecentWatchedWebtoon } from '@/model/Webtoon';
+import BrandButton from '@/app/(default)/main/_component/BrandButton';
+import { genres } from '@/constants/genres';
 
 type RecentThumbnailProps = {
   webtoon: RecentWatchedWebtoon;
@@ -11,6 +11,7 @@ type RecentThumbnailProps = {
 
 const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
+  const currentGenre = genres.find((g) => g.param === webtoon.genre);
 
   const handleGenreClick = (e: React.MouseEvent) => {
     router.push(`/main/default?genre=${webtoon.genre}`);
@@ -38,7 +39,7 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
       </div>
       <div className="flex flex-col text-[12px] text-titleBlack">
         <p
-          className="text-[16px] font-medium hover:underline cursor-pointer truncate max-w-[138px]"
+          className="text-[14px] font-medium hover:underline cursor-pointer truncate max-w-[138px]"
           onClick={handleTitleClick}
           title={webtoon.title}
         >
@@ -56,16 +57,17 @@ const RecentThumbnail: React.FC<RecentThumbnailProps> = ({ webtoon }) => {
             className="hover:underline cursor-pointer"
             onClick={handleGenreClick}
           >
-            {webtoon.genre}
+            {currentGenre?.name || '장르 없음'}
           </span>
         </p>
       </div>
-      <Link
-        className="w-[138px] h-[43px] mt-[6px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
+      <BrandButton
+        width={138}
+        height={43}
         href={`/webtoon/detail?titleId=${webtoon.id}&no=${webtoon.episodeCount}`}
       >
         {webtoon.episodeCount}화 이어읽기
-      </Link>
+      </BrandButton>
     </div>
   );
 };

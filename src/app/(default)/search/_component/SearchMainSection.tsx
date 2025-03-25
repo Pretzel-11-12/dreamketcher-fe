@@ -30,12 +30,10 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
         </p>
         <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>
       </div>
-      {webtoons.length > 0 && (
-        <div className="mb-[20px] flex justify-between items-center">
-          <SearchMainSectionHeader />
-          <SearchDropdown options={dropdownOptions} defaultOption="recent" />
-        </div>
-      )}
+      <div className="mb-[7px] flex justify-between items-center">
+        <SearchMainSectionHeader />
+        <SearchDropdown options={dropdownOptions} defaultOption="recent" />
+      </div>
       <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
         {webtoons.length > 0 ? (
           webtoons.map((webtoon) => (

@@ -72,7 +72,7 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
       <button
         onClick={() => handleScroll('left')}
         className="absolute left-0 top-[108px] -translate-x-1/2 z-10 
-                 w-[34px] h-[34px] rounded-full bg-white shadow-md flex items-center justify-center
+                 w-[34px] h-[34px] rounded-full bg-white shadow-[0_4px_8px_rgba(0,0,0,0.08)] flex items-center justify-center
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300
                  hover:bg-gray-100"
         aria-label="이전"
@@ -83,7 +83,7 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
       {/* 기존 슬라이더 */}
       <div
         ref={sliderRef}
-        className="flex gap-[30px] overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-track]:bg-gray-100 pb-[23px]"
+        className="flex gap-[30px] overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-inActive [&::-webkit-scrollbar-track]:bg-baseLine pb-[20px]"
         style={{
           cursor: isDragging ? 'grabbing' : 'grab',
           scrollBehavior: 'smooth',
@@ -111,7 +111,7 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
       <button
         onClick={() => handleScroll('right')}
         className="absolute right-0 top-[108px] translate-x-1/2 z-10 
-                 w-[34px] h-[34px] rounded-full bg-white shadow-md flex items-center justify-center
+                 w-[34px] h-[34px] rounded-full bg-white shadow-[0_4px_8px_rgba(0,0,0,0.08)] flex items-center justify-center
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300
                  hover:bg-gray-100"
         aria-label="다음"
