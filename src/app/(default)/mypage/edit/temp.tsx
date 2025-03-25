@@ -71,7 +71,7 @@ const Temp = () => {
   // 모달 내 파일 업로드 버튼 클릭 시
   const handleUploadClick = () => {
     fileInputRef.current?.click();
-    // setIsModalOpen(false);
+    handleOpenModal(false);
   };
 
   // 모달 내 프로필 이미지 삭제 버튼 클릭 시
