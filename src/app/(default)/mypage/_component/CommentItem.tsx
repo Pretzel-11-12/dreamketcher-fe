@@ -9,10 +9,11 @@ import { useRouter } from 'next/navigation';
 import ResMyCommentsUnit = _Model.ResMyCommentsUnit;
 
 const CommentItem: React.FC<ResMyCommentsUnit> = ({
-  id,
   webtoonId,
   episodeId,
   no,
+  commentId,
+  recommentId,
   content,
   title,
   episodeTitle,
@@ -21,6 +22,7 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
   recommendationCount,
   notRecommendationCount,
   childCommentCount,
+  type,
 }) => {
 
   const { nickname, imageUrl } = useAuthStore();
@@ -57,21 +59,44 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
     };
   }, []);
 
-  // 댓글 삭제
-  const { mutate: deleteCommentMutate, isError } = useMutation({
-    mutationFn: fetchComment.deleteComment,
+  // 내 댓글, 대댓글 삭제
+  const { mutate: deleteCommentMutate } = useMutation({
+    mutationFn: async () => {
+      if (type === 'comment') {
+        return fetchComment.deleteComment({
+          param: {
+            webtoonId,
+            episodeId,
+            commentId: String(commentId),
+          },
+        });
+      } else if (type === 'recomment') {
+        return fetchComment.deleteReComment({
+          param: {
+            webtoonId,
+            episodeId,
+            commentId: String(commentId),
+            recommentId: String(recommentId),
+          },
+        });
+      } else {
+        throw new Error('유효하지 않은 댓글 타입입니다.');
+      }
+    },
     onSuccess: () => {
-      alert('댓글이 삭제되었습니다.');
-      // 성공 시 기존 댓글 리스트를 다시 불러옴
-      queryClient.invalidateQueries({
-        queryKey: ['myComments'],
-      });
+      alert(type === 'comment' ? '댓글이 삭제되었습니다.' : '대댓글이 삭제되었습니다.');
+
+      queryClient.invalidateQueries({ queryKey: ['myComments'] });
     },
     onError: (error: any) => {
       if (error.code === 'UNAUTHORIZED_MEMBER') {
         alert('작성자만 삭제할 수 있습니다.');
       } else {
-        alert('댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(
+          type === 'comment'
+            ? '댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.'
+            : '대댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.'
+        );
         console.error('댓글 삭제 에러:', error);
       }
     },
@@ -159,15 +184,7 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
                      ref={menuRef}>
                   <button
                     className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                    onClick={() =>
-                      deleteCommentMutate({
-                        param: {
-                          webtoonId,
-                          episodeId,
-                          commentId: String(id),
-                        },
-                      })
-                    }
+                    onClick={() => deleteCommentMutate()}
                   >
                     댓글 삭제
                   </button>
