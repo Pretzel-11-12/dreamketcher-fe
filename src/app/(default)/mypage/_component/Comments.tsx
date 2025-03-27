@@ -37,7 +37,7 @@ export default function Comments() {
 
   return (
     <div>
-      <div className="pt-4 mb-8">
+      <div className="pt-[30px] mb-8">
         <Dropdown options={dropdownOptions} defaultOption="recent" />
       </div>
 
