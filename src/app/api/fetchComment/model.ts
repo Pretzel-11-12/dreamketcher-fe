@@ -25,10 +25,11 @@ export namespace _Model {
   }
 
   export interface ResMyCommentsUnit {
-    id: number;
     webtoonId: string;
     episodeId: string;
     no: number;
+    commentId: number;
+    recommentId: number;
     content: string;
     thumbnail: string;
     title: string;
