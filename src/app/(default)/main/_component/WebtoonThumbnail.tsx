@@ -57,9 +57,9 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         </div>
       </div>
       <div className="flex items-center">
-        <div className="flex flex-col text-[12px] text-titleBlack">
+        <div className="flex flex-col text-[14px] text-titleBlack">
           <p
-            className="text-[16px] font-medium hover:underline cursor-pointer"
+            className="text-[18px] font-medium hover:underline cursor-pointer"
             onClick={handleTitleClick}
           >
             {webtoon.title}
@@ -79,7 +79,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
               {genres.find((g) => g.param === webtoon.genre)?.name}
             </span>
           </p>
-          <div className="flex items-center gap-1 text-[12px]">
+          <div className="flex items-center gap-1 text-[12px] leading-[12px]">
             <Image
               src="/assets/icon/star-1.svg"
               alt="Star svg"
