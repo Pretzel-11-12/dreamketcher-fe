@@ -233,7 +233,7 @@ export default function Detail() {
           </div>
         </div>
       </div>
-      <EpisodeFooter />
+      <EpisodeFooter isVisible={isHeaderVisible}/>
     </>
   );
 }
