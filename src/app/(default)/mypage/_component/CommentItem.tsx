@@ -3,11 +3,13 @@ import React from 'react';
 import useAuthStore from '@/app/store/authStore';
 import moment from 'moment-timezone';
 import { _Model } from '@/app/api/fetchComment/model';
-import { router } from 'next/client';
+import { useRouter } from 'next/navigation';
 import ResMyCommentsUnit = _Model.ResMyCommentsUnit;
 
 const CommentItem: React.FC<ResMyCommentsUnit> = ({
   id,
+  webtoonId,
+  episodeId,
   no,
   content,
   title,
@@ -24,8 +26,10 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
 
   const timeAgo = moment.utc(createdAt).tz('Asia/Seoul').fromNow();
 
+  const router = useRouter();
+
   function navigateToEpisode() {
-    router.push(`/webtoon/detail?titleId=${id}&no=${no}`);
+    router.push(`/webtoon/detail?titleId=${webtoonId}&no=${episodeId}`);
   }
 
   return (
