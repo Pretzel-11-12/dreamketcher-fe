@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useAuthStore from '@/app/store/authStore';
 import moment from 'moment-timezone';
 import { _Model } from '@/app/api/fetchComment/model';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { fetchComment } from '@/app/api/fetchComment';
 import { useRouter } from 'next/navigation';
 import ResMyCommentsUnit = _Model.ResMyCommentsUnit;
 
@@ -28,9 +30,52 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
 
   const router = useRouter();
 
+  const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
+  const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
+
+  const queryClient = useQueryClient();
+
   function navigateToEpisode() {
     router.push(`/webtoon/detail?titleId=${webtoonId}&no=${episodeId}`);
   }
+
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+
+  // 다른 영역 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // 댓글 삭제
+  const { mutate: deleteCommentMutate, isError } = useMutation({
+    mutationFn: fetchComment.deleteComment,
+    onSuccess: () => {
+      alert('댓글이 삭제되었습니다.');
+      // 성공 시 기존 댓글 리스트를 다시 불러옴
+      queryClient.invalidateQueries({
+        queryKey: ['myComments'],
+      });
+    },
+    onError: (error: any) => {
+      if (error.code === 'UNAUTHORIZED_MEMBER') {
+        alert('작성자만 삭제할 수 있습니다.');
+      } else {
+        alert('댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('댓글 삭제 에러:', error);
+      }
+    },
+  });
 
   return (
     <div className="border-b py-5">
@@ -98,13 +143,37 @@ const CommentItem: React.FC<ResMyCommentsUnit> = ({
               />
               <span className="mt-[2px]">{notRecommendationCount > 0 ? notRecommendationCount : '싫어요'}</span>
             </div>
-            <Image
-              src={'/assets/icon/meatballsMenu.svg'}
-              alt="meatballsMenu Icon"
-              width={25}
-              height={25}
-              className="ml-auto px-1 py-1 rounded hover:bg-[#F2F2F2]"
-            />
+            <div className="flex relative ml-auto">
+              <Image
+                src={'/assets/icon/meatballsMenu.svg'}
+                alt="meatballsMenu Icon"
+                width={25}
+                height={25}
+                className="ml-auto px-1 py-1 rounded cursor-pointer hover:bg-[#F2F2F2]"
+                onClick={toggleMenu}
+              />
+
+              {/* 삭제 버튼 메뉴 */}
+              {showMenu && (
+                <div className="absolute right-0 top-5 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm z-10"
+                     ref={menuRef}>
+                  <button
+                    className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
+                    onClick={() =>
+                      deleteCommentMutate({
+                        param: {
+                          webtoonId,
+                          episodeId,
+                          commentId: String(id),
+                        },
+                      })
+                    }
+                  >
+                    댓글 삭제
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
