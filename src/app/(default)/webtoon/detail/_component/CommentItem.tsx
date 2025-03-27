@@ -174,13 +174,13 @@ const CommentItem: React.FC<CommentInfoType> = ({
       />
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-[1fr_auto] items-center">
-          <div className="text-sm/[17px] text-[#282828] font-semibold">
+          <div className="text-sm/[17px] text-[#282828] font-medium">
             {info.nickname}
           </div>
           <div className="text-xs text-[#888888]">{timeAgo}</div>
         </div>
 
-        <div className="text-[13px] text-[#3F3F3F]">{info.content}</div>
+        <div className="text-[13px]/[16px] text-[#3F3F3F]">{info.content}</div>
         <div className="h-5 mt-1 flex gap-4 text-[#888888]">
           <div
             className="text-xs flex items-center gap-1 cursor-pointer"

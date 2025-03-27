@@ -1,22 +1,19 @@
 'use client';
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const EpisodeFooter = () => {
-  const [isDisplay, setDisplay] = useState(false);
+const EpisodeFooter = ({ isVisible }: { isVisible: boolean }) => {
+  const [isDisplay, setDisplay] = useState(true);
+  const [isManualToggle, setManualToggle] = useState(false);
 
   const handleScroll = () => {
-    const isAtBottom =
-      window.innerHeight + window.scrollY + 500 >=
-      document.documentElement.scrollHeight;
-
-    if (isAtBottom) {
-      setDisplay(true);
-    } else {
-      setDisplay(false);
+    if (!isManualToggle) {
+      setDisplay(window.scrollY <= 300);
     }
   };
+
+
   const throttleScroll = _.throttle(handleScroll, 300);
 
   const handleClickComment = () => {
@@ -36,9 +33,13 @@ const EpisodeFooter = () => {
   return (
     <div
       className="w-full h-[50px] bg-[#FFFFFF] fixed bottom-0 border-t border-[#C9C9C9] flex items-center justify-center transition-opacity duration-300 z-50"
-      style={isDisplay ? { opacity: 1 } : { opacity: 1 }}
-      onMouseEnter={() => setDisplay(true)}
-      onMouseLeave={() => setDisplay(false)}
+      style={{
+        opacity: isVisible || isDisplay ? 1 : 0
+      }}
+      onMouseEnter={() => !isManualToggle && setDisplay(true)}
+      onMouseLeave={() =>
+        !isManualToggle && window.scrollY >= 300 && setDisplay(false)
+      }
     >
       <div className="w-[720px] h-[34px] flex items-center text-sm text-[#3F3F3F] gap-3 justify-between">
         <div className="flex gap-5 items-center">
