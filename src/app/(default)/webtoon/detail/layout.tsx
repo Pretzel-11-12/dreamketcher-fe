@@ -1,6 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
-import EpisodeHeader from './_component/EpisodeHeader';
-import EpisodeFooter from './_component/EpisodeFooter';
+import { ReactNode } from 'react';
 import QuickMenu from '@/app/_component/QuickMenu';
 
 type Props = { children: ReactNode };
