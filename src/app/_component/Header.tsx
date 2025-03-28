@@ -99,7 +99,7 @@ const Header: React.FC = () => {
                     width={34}
                     height={34}
                     onClick={handleOpenModal}
-                    className="cursor-pointer rounded-full object-cover w-[30px] h-[30px]"
+                    className="cursor-pointer rounded-full object-cover w-[34px] h-[34px]"
                   />
                 </>
               ) : (
