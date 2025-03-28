@@ -96,8 +96,8 @@ const Header: React.FC = () => {
                   <Image
                     src={imageUrl || '/assets/images/profile-default.png'}
                     alt="profile button"
-                    width={30}
-                    height={30}
+                    width={34}
+                    height={34}
                     onClick={handleOpenModal}
                     className="cursor-pointer rounded-full object-cover w-[30px] h-[30px]"
                   />
