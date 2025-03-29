@@ -98,7 +98,7 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
   });
 
   // 대댓글 삭제
-  const { mutate: deleteCommentMutate, isError } = useMutation({
+  const { mutate: deleteReCommentMutate, isError } = useMutation({
     mutationFn: fetchComment.deleteReComment,
     onSuccess: () => {
       alert('대댓글이 삭제되었습니다.');
@@ -208,7 +208,7 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
                 <button
                   className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
                   onClick={() =>
-                    deleteCommentMutate({
+                    deleteReCommentMutate({
                       param: {
                         webtoonId,
                         episodeId,
