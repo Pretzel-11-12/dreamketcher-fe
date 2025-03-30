@@ -11,7 +11,7 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { addRecentWebtoon } from '@/app/_lib/recentWebtoons';
 
@@ -23,6 +23,8 @@ const dropdownOptions = [
 ];
 
 export default function Detail() {
+  const commentRef = useRef<HTMLDivElement>(null);
+
   const [newComment, setNewComment] = useState('');
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [showAllComments, setShowAllComments] = useState(false);
@@ -95,6 +97,10 @@ export default function Detail() {
     }
   }, [data, webtoonId, episodeId]);
 
+  const handleScrollToComment = () => {
+    commentRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <EpisodeHeader
@@ -149,7 +155,9 @@ export default function Detail() {
         <div className="w-full flex items-center justify-center bg-white pt-10">
           <div className="w-[720px] flex flex-col gap-[50px] items-center justify-center text-md">
             <div className="h-full w-full flex flex-col pb-18 gap-1">
-              <div className="h-[132px] p-5 border border-[#F2F2F2] rounded-md">
+              <div
+                className="h-[132px] p-5 border border-[#F2F2F2] rounded-md"
+                ref={commentRef}>
                 <div className="text-base/[19px] text-[#282828] font-medium pb-[15px]">
                   작가의 말
                 </div>
@@ -233,7 +241,9 @@ export default function Detail() {
           </div>
         </div>
       </div>
-      <EpisodeFooter isVisible={isHeaderVisible}/>
+      <EpisodeFooter
+        isVisible={isHeaderVisible}
+        onClickComment={handleScrollToComment}/>
     </>
   );
 }
