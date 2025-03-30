@@ -34,7 +34,6 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   const [webtoonInfo, setWebtoonInfo] = useState<SeriesFormInfo>({
     title: '',
     thumbnail: '',
-    prologue: '',
     story: '',
     genreId: '1',
   });
@@ -75,7 +74,6 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           setWebtoonInfo((v) => ({
             ...v,
             thumbnail: s3Url,
-            prologue: s3Url,
           }));
         }
       } catch (e) {

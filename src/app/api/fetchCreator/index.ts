@@ -39,14 +39,14 @@ export namespace fetchCreatorWebtoon {
     });
 
     if (!response.ok) throw new Error(`Failed to get creators webtoon`);
-    const res: Model.CreatorWebtoonDetail = await response.json();
-    return { ...res, prologue: JSON.parse(res.prologue) };
+
+    return await response.json();
   }
   // Complete
   export async function postWebtoon(arg: {
     title: string;
     thumbnail: string;
-    prologue: string;
+    genreId: string;
     story: string;
   }): Promise<Model.ResPostWebtoon> {
     const response = await fetch(`/api/v1/webtoons/upload`, {
@@ -66,9 +66,8 @@ export namespace fetchCreatorWebtoon {
     body: {
       title: string;
       thumbnail: string;
-      prologue: string;
       story: string;
-      // genre: string;
+      genreId: string;
     };
   }): Promise<any> {
     const { webtoonId, body } = arg;
@@ -94,6 +93,7 @@ export namespace fetchCreatorWebtoon {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     });
+    console.log(response.json());
     if (!response.ok) throw new Error(`Failed to delete webtoons`);
     return response;
   }
