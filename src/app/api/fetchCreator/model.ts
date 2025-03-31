@@ -43,7 +43,6 @@ export namespace _Model {
     id: number;
     title: string;
     thumbnail: string;
-    prologue: string;
     story: string;
     genre: string;
   }
