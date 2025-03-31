@@ -56,8 +56,9 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
               <Image
                 src="/assets/icon/list-star.svg"
                 alt="star"
-                width={12}
-                height={12}
+                width={15}
+                height={15}
+                className="w-[15px] h-[15px]"
               />
               <div>{(averageStar || 0).toFixed(2)}</div>
             </div>

@@ -120,7 +120,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
           <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
             <Button
               props={{
-                size: 'S',
+                size: 'C',
                 variant: interest.active ? 'transparent' : 'brand-yellow',
                 containerStyles: 'border border-brand-yellow text-brand-yellow',
                 handleClick: handleLikeToggle,
@@ -141,7 +141,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
               </div>
             </Button>
 
-            <Button props={{ size: 'S', variant: 'brand-gray-light' }}>
+            <Button props={{ size: 'C', variant: 'brand-gray-light' }}>
               <Link
                 href={{
                   pathname: '/webtoon/detail',

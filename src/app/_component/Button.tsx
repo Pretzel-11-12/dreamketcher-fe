@@ -2,13 +2,14 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size: 'XL' | 'L' | 'M' | 'S' | 'XS';
+  size: 'XL' | 'L' | 'M' | 'S' | 'XS' | 'C';
   variant:
     | 'brand-yellow'
     | 'brand-blue'
     | 'brand-gray'
     | 'brand-gray-light'
-    | 'transparent';
+    | 'transparent'
+    | 'brand-gray-light';
   disabled?: boolean;
   containerStyles?: string;
   border?: string;
@@ -20,6 +21,7 @@ const SIZE_MAP: { [k in Props['size']]: string } = {
   M: 'w-full rounded-md py-2 px-4 text-md',
   S: 'w-full rounded-md py-2 px-3 text-sm font-medium',
   XS: 'w-full rounded-sm py-2 px-3 text-xs',
+  C: 'w-full rounded-md py-[10px] px-3 text-sm font-medium',
 };
 const VARIANT_MAP: { [k in Props['variant']]: string } = {
   'brand-yellow':
