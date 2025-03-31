@@ -73,17 +73,20 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
         onClick={() => handleScroll('left')}
         className="absolute left-0 top-[108px] -translate-x-1/2 z-10 
                  w-[34px] h-[34px] rounded-full bg-white shadow-[0_4px_8px_rgba(0,0,0,0.08)] flex items-center justify-center
-                 opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                 hover:bg-gray-100"
+                 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         aria-label="이전"
       >
-        <img src="/assets/icon/leftArrow.svg" alt="이전" className="w-5 h-5" />
+        <img
+          src="/assets/icon/leftArrow.svg"
+          alt="이전"
+          className="w-5 h-5 hover:brightness-75"
+        />
       </button>
 
       {/* 기존 슬라이더 */}
       <div
         ref={sliderRef}
-        className="flex gap-[30px] overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-inActive [&::-webkit-scrollbar-track]:bg-baseLine pb-[20px]"
+        className="flex gap-[20px] overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-inActive [&::-webkit-scrollbar-track]:bg-baseLine pb-[20px]"
         style={{
           cursor: isDragging ? 'grabbing' : 'grab',
           scrollBehavior: 'smooth',
@@ -112,11 +115,14 @@ const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
         onClick={() => handleScroll('right')}
         className="absolute right-0 top-[108px] translate-x-1/2 z-10 
                  w-[34px] h-[34px] rounded-full bg-white shadow-[0_4px_8px_rgba(0,0,0,0.08)] flex items-center justify-center
-                 opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                 hover:bg-gray-100"
+                 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         aria-label="다음"
       >
-        <img src="/assets/icon/rightArrow.svg" alt="다음" className="w-5 h-5" />
+        <img
+          src="/assets/icon/rightArrow.svg"
+          alt="다음"
+          className="w-5 h-5 hover:brightness-75"
+        />
       </button>
     </div>
   );
