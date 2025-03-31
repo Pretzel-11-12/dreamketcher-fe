@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 type EpisodeHeaderProps = {
   item: {
@@ -34,7 +35,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
 
   return (
     <div
-      className="w-full h-[64px] bg-[#FFFFFF] fixed flex items-center justify-center transition-opacity duration-300 z-30"
+      className="w-full h-[64px] bg-[#FFFFFF] text-[#3F3F3F] font-medium fixed flex items-center justify-center transition-opacity duration-300 z-30"
       style={{
         boxShadow: 'inset 0 -1px 0 #C9C9C9',
         opacity: isVisible || isDisplay ? 1 : 0,
@@ -45,14 +46,13 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
       }
     >
       <div className="w-[720px] flex items-center text-md gap-3">
-        <Link
-          href={{
-            pathname: '/webtoon/list',
-            query: { id: item.webtoonId },
-          }}
-        >
-          <span className="mdi mdi-chevron-left text-2xl" />
-        </Link>
+        <Image
+          src="/assets/icon/arrow-up.svg"
+          alt="leftArrow"
+          width={34}
+          height={34}
+          className="w-[24px] h-[24px] cursor-pointer -rotate-90"
+        />
         {item.webtoonTitle}
         {item.episodeNo}화 - {item.episodeTitle}
       </div>

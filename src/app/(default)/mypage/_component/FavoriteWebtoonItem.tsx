@@ -74,7 +74,7 @@ const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
           {title}
         </h3>
         <p className="text-xs text-[#888888] mt-1">
-          {authorNickname} {genre} &#183; {episodeCount}화
+          {authorNickname} &#183; {genre} &#183; {episodeCount}화
         </p>
 
         <div className="flex mt-1 mb-4">
