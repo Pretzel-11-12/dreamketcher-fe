@@ -40,7 +40,7 @@ export default function SeriesNew() {
       ) : (
         <div className="grid grid-cols-1 mt-[70px] w-full h-full bg-white">
           <div className="flex flex-col items-center">
-            <div className="w-[1020px]">
+            <div className="w-[1200px]">
               <div
                 className={`text-[22px] font-medium py-[20px] border-b border-[#E0E0E0] h-[70px] w-full`}
               >
