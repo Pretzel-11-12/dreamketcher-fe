@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import WriterInfoItem from './_component/WriterInfoItem';
 import CommentItemGroup from './_component/CommentItemGroup';
 import EpisodeButtonGroup from './_component/EpisodeButtonGroup';
@@ -7,17 +7,15 @@ import Button from '@/app/_component/Button';
 import Textarea from '@/app/_component/Textarea';
 import Dropdown from '@/app/_component/Dropdown';
 import { useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import EpisodeHeader from './_component/EpisodeHeader';
 import EpisodeFooter from './_component/EpisodeFooter';
 import { fetchComment } from '@/app/api/fetchComment';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { addRecentWebtoon } from '@/app/_lib/recentWebtoons';
 
 import _ from 'lodash';
-import { da } from '@faker-js/faker';
 
 const dropdownOptions = [
   { label: '좋아요순', value: 'like' },
@@ -27,6 +25,7 @@ const dropdownOptions = [
 export default function Detail() {
   const [newComment, setNewComment] = useState('');
   const [isHeaderVisible, setHeaderVisible] = useState(true);
+  const [showAllComments, setShowAllComments] = useState(false);
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
@@ -54,6 +53,9 @@ export default function Detail() {
     totalElements: 0,
     result: [],
   };
+
+  // const displayedComments = showAllComments ? result : result.slice(0, 10);
+
   const queryClient = useQueryClient();
 
   const mutationWebtoon = useMutation({
@@ -195,32 +197,43 @@ export default function Detail() {
                 <Dropdown options={dropdownOptions} defaultOption="like" />
               </div>
 
-              <div className="flex flex-col">
+              {totalElements === 0 ? (
+                <div className="text-center text-[#C9C9C9] text-sm mt-[74px]">
+                  <p>이번 화의 댓글이 아예 없습니다.</p>
+                  <p>첫 댓글을 남겨보세요.</p>
+                </div>
+              ) :
+                <div className="flex flex-col">
                 {result?.map((comment) => (
                   <CommentItemGroup item={comment} key={comment.id} />
                 ))}
               </div>
+              }
             </div>
-            <Button
-              props={{
-                size: 'S',
-                variant: 'brand-yellow',
-                containerStyles:
-                  '!w-[143px] h-[40px] flex items-center justify-center gap-2',
-              }}
-            >
-              댓글 더보기
-              <Image
-                src="/assets/icon/downArrow-white.svg"
-                alt="Down Arrow"
-                width={20}
-                height={20}
-              />
-            </Button>
+
+            {totalElements > 10 && !showAllComments && (
+              <Button
+                props={{
+                  size: 'S',
+                  variant: 'brand-yellow',
+                  containerStyles:
+                    '!w-[143px] h-[40px] flex items-center justify-center gap-2',
+                  onClick: () => setShowAllComments(true),
+                }}
+              >
+                댓글 더보기
+                <Image
+                  src="/assets/icon/downArrow-white.svg"
+                  alt="Down Arrow"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+            )}
           </div>
         </div>
       </div>
-      <EpisodeFooter />
+      <EpisodeFooter isVisible={isHeaderVisible}/>
     </>
   );
 }

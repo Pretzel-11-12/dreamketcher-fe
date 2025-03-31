@@ -8,3 +8,12 @@ export type User = {
   imageUrl: string;
   role?: 'MEMBER' | 'ADMIN';
 };
+
+export type UpdateUser = {
+  id: number;
+  businessEmail: string;
+  nickname: string;
+  shortIntroduction: string;
+  imageUrl: string;
+  isDeleteImage?: boolean;
+}
