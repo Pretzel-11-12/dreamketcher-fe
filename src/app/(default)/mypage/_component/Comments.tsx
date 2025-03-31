@@ -45,8 +45,8 @@ export default function Comments() {
         <p className="text-[#C9C9C9] text-center text-lg pt-4">남긴 댓글이 없습니다.</p>
       ) : (
         <div>
-          {result?.map((comment) => (
-            <CommentItem key={comment.id} {...comment} />
+          {result?.map((comment, index) => (
+            <CommentItem key={index} {...comment} />
           ))}
         </div>
       )}
