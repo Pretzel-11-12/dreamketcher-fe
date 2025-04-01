@@ -88,7 +88,7 @@ export default function Detail() {
                   </div>
                 </div>
               </div>
-              <hr className="border-line mt-[10px]" />
+              <hr className="border-b border-b-line mt-[10px]" />
               <div className="min-h-20 mb-[50px]">
                 {data?.episodes?.map((item, index) => (
                   <EpisodeListItem
