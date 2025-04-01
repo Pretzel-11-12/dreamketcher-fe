@@ -160,8 +160,8 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
               recommendReCommentMutate({
                 webtoonId,
                 episodeId,
-                commentId: String(info.id),
-                recommentId: String(parentCommentId),
+                commentId: String(parentCommentId),
+                recommentId: String(info.id),
               })
             }
           >
@@ -179,8 +179,8 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
               notRecommendReCommentMutate({
                 webtoonId,
                 episodeId,
-                commentId: String(info.id),
-                recommentId: String(parentCommentId),
+                commentId: String(parentCommentId),
+                recommentId: String(info.id),
               })
             }
           >
