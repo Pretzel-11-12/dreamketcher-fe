@@ -32,7 +32,7 @@ const GenreSelector: React.FC = () => {
               key={genre.param}
               className={`flex items-center justify-center w-[85px] h-[48px] text-[15px] border-b-brand-yellow transition duration-300 ${
                 currentGenre === genre.param
-                  ? 'text-brand-yellow border-b border-b-brand-yellow'
+                  ? 'text-brand-yellow border-b-2 border-b-brand-yellow'
                   : 'text-[#888888]'
               }`}
               onClick={() => handleGenreClick(genre.param)}
