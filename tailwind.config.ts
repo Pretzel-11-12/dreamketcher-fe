@@ -26,6 +26,7 @@ export default {
         lightGray: '#C9C9C9',
         inActive: '#888888',
         contentBlack: '#3F3F3F',
+        buttonLine: '#FA973B',
       },
     },
   },

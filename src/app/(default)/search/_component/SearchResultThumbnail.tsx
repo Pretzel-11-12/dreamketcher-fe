@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import DefaultImage from '@/app/_component/DefaultImage';
 import { highlightKeyword } from '@/app/util/highlightKeyword';
 import TagList from './TagList';
+import CoverImage from '@/app/_component/CoverImage';
 
 type SearchResultThumbnailProps = {
   webtoon: IWebtoon;
@@ -29,21 +30,21 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
         className="flex w-full h-[150px] cursor-pointer gap-[18px]"
         onClick={tempClickHandler}
       >
-        <DefaultImage
+        <CoverImage
           alt={'Search webtoon thumbnail'}
           src={webtoon.thumbnail}
           height={150}
-          width={120}
+          width={100}
         />
-        <div className="flex flex-col text-xs gap-[7px] justify-center">
-          <p className="text-[18px]">
+        <div className="flex flex-col text-xs gap-[3px] mt-[1px]">
+          <p className="text-[18px] mb-[3px] leading-[normal]">
             {highlightKeyword(webtoon.title, keyword)}
           </p>
           <p className="text-[#888888]">
             {highlightKeyword(webtoon.member, keyword)} ·{' '}
             {highlightKeyword(webtoon.genre, keyword)} · {webtoon.lastEpisode}화
           </p>
-          <div className="flex items-center gap-1 text-[13px]">
+          <div className="flex items-center gap-1 text-[13px] mb-[7px]">
             <Image
               src="/assets/icon/star-1.svg"
               alt="Star svg"
@@ -53,13 +54,12 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
             <p className="text-[#888888]">({webtoon.numOfStars})</p>
           </div>
-          <p className="text-[14px] text-[#3f3f3f]">
+          <p className="text-[14px] text-[#3f3f3f] mb-[4px] whitespace-nowrap overflow-hidden text-ellipsis">
             {highlightKeyword(webtoon.story, keyword)}
           </p>
           <TagList tags={temporalTags} keyword={keyword} />
         </div>
       </div>
-      <hr className=""></hr>
     </div>
   );
 };

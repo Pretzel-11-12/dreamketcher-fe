@@ -5,9 +5,12 @@ import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
 import RankingBadge from './RankingBadge';
 import NewBadge from './NewBadge';
-
+import { genres } from '@/constants/genres';
+import CoverImage from '@/app/_component/CoverImage';
 type WebtoonThumbnailProps = {
-  webtoon: IWebtoon;
+  webtoon: Omit<IWebtoon, 'genre'> & {
+    genre: (typeof genres)[number]['param'];
+  };
   ranking: number;
   isNew?: boolean;
 };
@@ -28,7 +31,8 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
   };
 
   const handleGenreClick = (e: React.MouseEvent) => {
-    router.push(`/main/default?genre=${webtoon.genre}`);
+    const genreParam = genres.find((g) => g.param === webtoon.genre)?.param;
+    router.push(`/main/default?genre=${genreParam}`);
   };
 
   const handleTitleClick = (e: React.MouseEvent) => {
@@ -41,12 +45,11 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         className="relative w-[166px] h-[249px] rounded-[5px] overflow-hidden cursor-pointer"
         onClick={handleThumbnailClick}
       >
-        <Image
+        <CoverImage
           src={webtoon.thumbnail}
-          alt="Webtoon thumbnail image"
-          fill
-          className="object-cover"
-          sizes="166px"
+          alt={webtoon.title}
+          width={166}
+          height={249}
         />
         <div className="absolute top-[3px] left-[3px] flex gap-[2px]">
           {isNew && <NewBadge />}
@@ -54,29 +57,29 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
         </div>
       </div>
       <div className="flex items-center">
-        <div className="flex flex-col text-[12px] text-titleBlack">
+        <div className="flex flex-col text-[14px] text-titleBlack">
           <p
-            className="text-[14px] hover:font-medium cursor-pointer"
+            className="text-[18px] font-medium hover:underline cursor-pointer"
             onClick={handleTitleClick}
           >
             {webtoon.title}
           </p>
-          <p className="text-[#888888]">
+          <p className="text-inActive">
             <span
-              className="hover:font-medium cursor-pointer"
+              className="hover:underline cursor-pointer"
               onClick={handleMemberClick}
             >
               {webtoon.member}
             </span>
             {' · '}
             <span
-              className="hover:font-medium cursor-pointer"
+              className="hover:underline cursor-pointer"
               onClick={handleGenreClick}
             >
-              {webtoon.genre}
+              {genres.find((g) => g.param === webtoon.genre)?.name}
             </span>
           </p>
-          <div className="flex items-center gap-1 text-[13px]">
+          <div className="flex items-center gap-1 text-[12px] leading-[12px]">
             <Image
               src="/assets/icon/star-1.svg"
               alt="Star svg"
@@ -84,7 +87,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
               height={13}
             />
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
-            <p className="text-[#888888]">({webtoon.numOfStars})</p>
+            <p className="text-lightGray">({webtoon.numOfStars})</p>
           </div>
         </div>
       </div>

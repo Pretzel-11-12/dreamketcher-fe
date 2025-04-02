@@ -32,13 +32,13 @@ const RankingWebtoons: React.FC<{ genre?: string }> = ({
             key={index}
           >
             <div
-              className="grid grid-cols-[15px_1fr] gap-[12px] cursor-pointer text-contentBlack"
+              className="grid grid-cols-[15px_1fr] gap-[12px] cursor-pointer text-contentBlack font-medium"
               key={item.title}
             >
-              <p className="text-[13px] text-[#EF4C4C] text-center">
+              <p className="text-[14px] text-[#EF4C4C] text-center">
                 {index + 1}
               </p>
-              <p className="text-[13px] hover:text-inActive">{item.title}</p>
+              <p className="text-[14px] hover:text-inActive">{item.title}</p>
             </div>
           </Link>
         ))}

@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchComment } from '@/app/api/fetchComment';
 
 const dropdownOptions = [
-  { label: "최근순", value: "recent" },
-  { label: "오래된순", value: "oldest" },
+  { label: '최근순', value: 'recent' },
+  { label: '오래된순', value: 'oldest' },
 ];
 
 export default function Comments() {
@@ -34,7 +34,6 @@ export default function Comments() {
     totalElements: 0,
     result: [],
   };
-
   return (
     <div>
       <div className="pt-[30px] mb-8">
@@ -42,11 +41,13 @@ export default function Comments() {
       </div>
 
       {!totalElements ? (
-        <p className="text-[#C9C9C9] text-center text-lg pt-4">남긴 댓글이 없습니다.</p>
+        <p className="text-[#C9C9C9] text-center text-lg pt-4">
+          남긴 댓글이 없습니다.
+        </p>
       ) : (
         <div>
-          {result?.map((comment) => (
-            <CommentItem key={comment.id} {...comment} />
+          {result?.map((comment, index) => (
+            <CommentItem key={index} {...comment} />
           ))}
         </div>
       )}

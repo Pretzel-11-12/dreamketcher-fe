@@ -1,8 +1,10 @@
 'use client';
 
+import { Suspense } from 'react';
 import Image from 'next/image';
 import LargeThumbnailContainer from '../_component/LargeThumbnailContainer';
 import ThumbnailContainer from '../_component/ThumbnailContainer';
+import ThumbnailSkeleton from '../_component/ThumbnailSkeleton';
 
 interface Props {
   params: Promise<{ params: string }>;
@@ -11,7 +13,9 @@ interface Props {
 export default function Main({ params }: Props) {
   return (
     <div className="flex flex-col w-[894px] border-r border-r-line pt-[50px] pr-3 pb-32 pr-[24px] gap-[50px]">
-      <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
+      <Suspense fallback={<ThumbnailSkeleton />}>
+        <ThumbnailContainer type={'default'} title={'전체 웹툰 랭킹'} />
+      </Suspense>
       <div className="flex gap-[10px]">
         <Image
           src="/assets/images/promotion-1.png"

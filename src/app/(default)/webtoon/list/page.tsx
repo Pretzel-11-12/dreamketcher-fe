@@ -56,12 +56,12 @@ export default function Detail() {
       <GenreSelector />
       <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
-        <div className="flex w-[1200px] pt-[40px]">
-          <div className="flex flex-col w-[894px] gap-6 border-r border-r-line pr-[24px]">
+        <div className="flex w-[1200px]">
+          <div className="flex flex-col w-[894px] gap-5 border-r border-r-line pt-[40px] pr-[24px]">
             {data && <WebtoonInfo webtoon={{ ...data }} />}
             <NoticeList />
             <div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-[10px]">
                 <div>총 {data?.episode_count}화</div>
 
                 <div className="flex items-center gap-2">
@@ -88,6 +88,7 @@ export default function Detail() {
                   </div>
                 </div>
               </div>
+              <hr className="border-line border-solid mt-[10px]" />
               <div className="min-h-20 mb-[50px]">
                 {data?.episodes?.map((item, index) => (
                   <EpisodeListItem
@@ -97,16 +98,17 @@ export default function Detail() {
                   />
                 ))}
               </div>
-
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPage}
-                onPageChange={setCurrentPage}
-              />
+              {data && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={data.totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </div>
           </div>
 
-          <div className="flex flex-col w-[282px] ml-[24px] gap-1">
+          <div className="flex flex-col w-[282px] ml-[24px] gap-1 pt-[40px]">
             <RankingWebtoons genre={data?.genreName} />
           </div>
         </div>

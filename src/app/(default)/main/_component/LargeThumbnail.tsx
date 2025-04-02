@@ -39,21 +39,21 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
       </div>
       <div className="flex flex-col text-[12px] text-titleBlack">
         <p
-          className="text-[14px] hover:font-medium cursor-pointer"
+          className="text-[16px] font-medium hover:underline cursor-pointer"
           onClick={handleTitleClick}
         >
           {webtoon.title}
         </p>
         <p className="text-[#888888]">
           <span
-            className="hover:font-medium cursor-pointer"
+            className="hover:underline cursor-pointer"
             onClick={handleMemberClick}
           >
             {webtoon.member}
           </span>
           {' · '}
           <span
-            className="hover:font-medium cursor-pointer"
+            className="hover:underline cursor-pointer"
             onClick={handleGenreClick}
           >
             {webtoon.genre}
