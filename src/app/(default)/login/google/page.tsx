@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import useAuthStore from '@/app/store/authStore';
+import { handleGoogleLogin } from '@/app/api/auth/login';
 
 const GoogleCallbackPage: React.FC = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
@@ -17,28 +18,17 @@ const GoogleCallbackPage: React.FC = () => {
 
       try {
         // GET 요청으로 authCode를 쿼리 스트링에 포함하여 서버로 전송
-        const response = await fetch(
-          `/api/v1/auth/google/callback?code=${authCode}`,
-          {
-            method: 'GET',
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to authenticate: ${response.statusText}`);
-        }
-
-        const data = await response.json();
+        const data = await handleGoogleLogin(authCode);
         const accessToken = data.accessToken;
 
         if (!accessToken) {
           throw new Error('Access token is missing in the response.');
         }
+
         setAccessToken(accessToken);
         localStorage.setItem('accessToken', accessToken);
 
         alert('로그인에 성공했습니다.');
-
         window.location.href = '/main';
       } catch (error) {
         console.error('Error during authentication:', error);
@@ -46,7 +36,7 @@ const GoogleCallbackPage: React.FC = () => {
     };
 
     handleGoogleCallback();
-  }, [[setAccessToken, setUserInfo]]);
+  }, [setAccessToken]);
 
   return (
     <div className="flex items-center justify-center h-screen">
