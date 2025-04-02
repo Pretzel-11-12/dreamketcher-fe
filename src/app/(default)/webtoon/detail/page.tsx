@@ -207,7 +207,7 @@ export default function Detail() {
 
               {totalElements === 0 ? (
                 <div className="text-center text-[#C9C9C9] text-sm mt-[74px]">
-                  <p>이번 화의 댓글이 아예 없습니다.</p>
+                  <p>이번 화의 댓글이 아직 없습니다.</p>
                   <p>첫 댓글을 남겨보세요.</p>
                 </div>
               ) :
