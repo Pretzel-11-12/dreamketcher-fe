@@ -1,15 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Webtoon as IWebtoon } from '@/model/Webtoon';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
 import SearchDropdown from './SearchDropdown';
 import Pagination from '@/app/_component/Pagination';
+import { _Model as __Model } from '@/app/api/fetchWebtoons/model';
 
 interface SearchMainSectionProps {
-  webtoons: IWebtoon[];
+  data: __Model.PaginatedResponse;
+  setCurrentPage: (page: number) => void;
 }
 const dropdownOptions = [
   { label: '최근순', value: 'recent' },
@@ -18,25 +19,25 @@ const dropdownOptions = [
 
 const mockWebtoons = thumbnailData;
 
-const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
+const SearchMainSection: React.FC<SearchMainSectionProps> = ({ data }) => {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const keyword = searchParams.get('keyword') || '';
   return (
-    <div className="flex flex-col w-[894px] min-h-[calc(100vh-255px)] border-r border-r-line pt-[30px] pr-[24px] gap-[20px]">
+    <div className="flex flex-col w-[894px] min-h-[calc(100vh-255px)] border-r border-r-line pt-[30px] pr-[24px] gap-[20px] pb-[80px]">
       <div className="flex items-end">
         <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
           '{keyword}'에 대한 검색 결과
         </p>
-        <p className="ml-2 text-sm text-gray-500">총 {webtoons.length}개</p>
+        <p className="ml-2 text-sm text-gray-500">총 {data.results.length}개</p>
       </div>
       <div className="mb-[7px] flex justify-between items-center">
         <SearchMainSectionHeader />
         <SearchDropdown options={dropdownOptions} defaultOption="recent" />
       </div>
       <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
-        {webtoons.length > 0 ? (
-          webtoons.map((webtoon) => (
+        {data.results.length > 0 ? (
+          data.results.map((webtoon) => (
             <SearchResultThumbnail
               key={webtoon.id}
               webtoon={webtoon}
@@ -58,7 +59,7 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ webtoons }) => {
         )}
       </div>
       <Pagination
-        totalPages={10}
+        totalPages={data.totalPages}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />

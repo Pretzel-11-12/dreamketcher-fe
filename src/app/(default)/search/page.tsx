@@ -1,23 +1,31 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getSearchResult } from '@/app/api/fetchWebtoons/getSearchResult';
 import SearchSideSection from './_component/SearchSideSection';
 import SearchMainSection from './_component/SearchMainSection';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
 
 export default function Search() {
-  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
 
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
 
-  const { data, isLoading, isError } = useQuery<IWebtoon[]>({
-    queryKey: ['webtoons', 'search', keyword],
-    queryFn: () => getSearchResult(keyword),
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['webtoons', 'search', keyword, currentPage - 1],
+    queryFn: () =>
+      getSearchResult({
+        param: { keyword },
+        query: {
+          fromFirst: sortDirection === 'asc',
+          page: currentPage - 1,
+          size: 30,
+        },
+      }),
     enabled: !!keyword,
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -34,13 +42,20 @@ export default function Search() {
     '개그',
   ];
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (isError) return <p>Error fetching search results</p>;
-
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-[1200px]">
-        <SearchMainSection webtoons={data || []} />
+        <SearchMainSection
+          data={
+            data || {
+              results: [],
+              totalElements: 0,
+              currentPage: 0,
+              totalPages: 0,
+            }
+          }
+          setCurrentPage={setCurrentPage}
+        />
         <SearchSideSection
           searchKeywords={mockKeyword || []}
           recommendTags={mockKeyword || []}
