@@ -24,7 +24,7 @@ const GenreSelector: React.FC = () => {
   };
 
   return (
-    <div className="border-b w-full border-b-line">
+    <div className="border-b w-full border-b-line min-w-[900px]">
       <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-[1200px] h-[48px]">
         <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
           {genres.map((genre) => (

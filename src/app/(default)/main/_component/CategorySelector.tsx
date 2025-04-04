@@ -33,8 +33,8 @@ const CategorySelector: React.FC = () => {
 
   return (
     <div className="border-b w-full border-b-line">
-      <div className="flex flex-col md:flex-row items-center justify-between mx-auto w-[1200px] h-[55px]">
-        <div className="flex flex-wrap items-center justify-center md:mb-0 w-full md:w-auto">
+      <div className="flex flex-row items-center justify-between mx-auto w-[1200px] h-[55px]">
+        <div className="flex items-center justify-center w-auto">
           {categories.map((category) => (
             <button
               key={category.name}
