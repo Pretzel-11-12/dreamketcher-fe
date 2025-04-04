@@ -1,4 +1,4 @@
-import { _Model as __Model } from '@/app/api/fetchWebtoonDetail/model';
+import { _Model as __Model } from '@/app/api/fetchWebtoons/model';
 import qs from 'qs';
 export import Model = __Model;
 
