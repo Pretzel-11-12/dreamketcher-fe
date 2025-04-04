@@ -1,43 +1,73 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import thumbnailData from '@/app/mocks/webtoonThumbnails';
 import SearchDropdown from './SearchDropdown';
 import Pagination from '@/app/_component/Pagination';
 import { _Model as __Model } from '@/app/api/fetchWebtoons/model';
+import { useQuery } from '@tanstack/react-query';
+import { getSearchResult } from '@/app/api/fetchWebtoons/getSearchResult';
 
 interface SearchMainSectionProps {
-  data: __Model.PaginatedResponse;
-  setCurrentPage: (page: number) => void;
+  keyword: string;
 }
+
 const dropdownOptions = [
-  { label: '최근순', value: 'recent' },
-  { label: '오래된순', value: 'oldest' },
+  { label: '최근순', value: 'desc' },
+  { label: '오래된순', value: 'asc' },
 ];
 
 const mockWebtoons = thumbnailData;
 
-const SearchMainSection: React.FC<SearchMainSectionProps> = ({ data }) => {
-  const searchParams = useSearchParams();
+export default function SearchMainSection({ keyword }: SearchMainSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const keyword = searchParams.get('keyword') || '';
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['webtoons', 'search', keyword, currentPage - 1, sortDirection],
+    queryFn: () =>
+      getSearchResult({
+        param: { keyword },
+        query: {
+          fromFirst: sortDirection === 'asc',
+          page: currentPage - 1,
+          size: 30,
+        },
+      }),
+    enabled: !!keyword,
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
+  const searchData = data || {
+    results: [],
+    totalElements: 0,
+    currentPage: 0,
+    totalPages: 0,
+  };
+
   return (
     <div className="flex flex-col w-[894px] min-h-[calc(100vh-255px)] border-r border-r-line pt-[30px] pr-[24px] gap-[20px] pb-[80px]">
       <div className="flex items-end">
         <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
           '{keyword}'에 대한 검색 결과
         </p>
-        <p className="ml-2 text-sm text-gray-500">총 {data.results.length}개</p>
+        <p className="ml-2 text-sm text-gray-500">
+          총 {searchData.results.length}개
+        </p>
       </div>
       <div className="mb-[7px] flex justify-between items-center">
         <SearchMainSectionHeader />
-        <SearchDropdown options={dropdownOptions} defaultOption="recent" />
+        <SearchDropdown
+          options={dropdownOptions}
+          selected={sortDirection}
+          onSelect={(value) => setSortDirection(value as 'desc' | 'asc')}
+        />
       </div>
       <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
-        {data.results.length > 0 ? (
-          data.results.map((webtoon) => (
+        {searchData.results.length > 0 ? (
+          searchData.results.map((webtoon) => (
             <SearchResultThumbnail
               key={webtoon.id}
               webtoon={webtoon}
@@ -59,12 +89,10 @@ const SearchMainSection: React.FC<SearchMainSectionProps> = ({ data }) => {
         )}
       </div>
       <Pagination
-        totalPages={data.totalPages}
+        totalPages={searchData.totalPages}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
     </div>
   );
-};
-
-export default SearchMainSection;
+}
