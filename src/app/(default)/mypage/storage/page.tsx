@@ -17,7 +17,7 @@ export default function StoragePage() {
   return (
     <div className="mt-[70px]">
       <h1 className="text-xl font-semibold pt-[21px] mb-4">보관함</h1>
-      <div className="flex border-b border-b-line">
+      <div className="flex -ml-6 -mr-[23px] pl-6 pr-[23px] border-b border-b-line">
         {tabs.map((tab) => (
           <button
             key={tab.key}
