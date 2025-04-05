@@ -23,7 +23,7 @@ export default function StoragePage() {
             key={tab.key}
             className={`w-[100px] h-[48px] ${
               selectedTab === tab.key
-                ? 'text-yellow-500 text-[15px] border-b-2 border-yellow-500'
+                ? 'text-brand-yellow border-b-brand-yellow text-[15px] border-b-2'
                 : 'text-[#888888] text-[15px]'
             }`}
             onClick={() => setSelectedTab(tab.key)}
