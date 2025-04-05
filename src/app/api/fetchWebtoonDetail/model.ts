@@ -15,6 +15,22 @@ export namespace _Model {
     episodes: EpisodeUnit[];
   }
 
+  export interface WebtoonUnit {
+    webtoonId: number;
+    webtoonTitle: string;
+    webtoonThumbnail: string;
+    webtoonStory: string;
+    AuthorNickname: string;
+    interestCount: number;
+    genreName: string;
+    tags: TagUnit[];
+  }
+
+  export interface TagUnit {
+    id: number;
+    content: string;
+  }
+
   export interface EpisodeUnit {
     episodeId: number;
     title: string;

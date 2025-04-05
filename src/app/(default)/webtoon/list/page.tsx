@@ -37,6 +37,20 @@ export default function Detail() {
     gcTime: 5 * 60 * 1000,
   });
 
+  const {
+    data: webtoonData,
+    isLoading: webtoonLoading,
+    isError: webtoonError,
+  } = useQuery({
+    queryKey: [id, 'detail'],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoonInfo({
+        param: { id },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
   }
@@ -57,7 +71,7 @@ export default function Detail() {
       <div className="w-full flex justify-center">
         <div className="flex w-[1200px]">
           <div className="flex flex-col w-[894px] gap-5 border-r border-r-line pt-[40px] pr-[24px]">
-            {data && <WebtoonInfo webtoon={{ ...data }} />}
+            {webtoonData && <WebtoonInfo webtoon={webtoonData} />}
             <NoticeList />
             <div>
               <div className="flex justify-between mt-[10px]">
