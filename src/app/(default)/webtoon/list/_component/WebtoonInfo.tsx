@@ -28,6 +28,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     webtoonStory,
     genreName,
     AuthorNickname,
+    tags,
   } = webtoon;
   console.log({ webtoonThumbnail });
   const [interest, setInterest] = useState<{
@@ -113,9 +114,11 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
           </div>
           <div className="text-sm text-[#3f3f3f]">{webtoonStory}</div>
           <div className="text-sm flex gap-1">
-            <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
-              {genreName}
-            </div>
+            {tags.map((v) => (
+              <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
+                {v.content}
+              </div>
+            ))}
           </div>
           <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
             <Button
