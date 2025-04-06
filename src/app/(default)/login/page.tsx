@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
     : 'https://dreamketcher.site/login/google';
   // const REDIRECT_URI = 'https://api.dreamketcher.site/login/google';
 
-  const handleGoogleLogin = async () => {
+  const redirectToGoogleLogin = async () => {
     const googleOAuthURL =
       `https://accounts.google.com/o/oauth2/v2/auth?` +
       `client_id=${GOOGLE_CLIENT_ID}` +
@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
           {/* 구글 로그인 */}
           <button
             className="flex items-center justify-center w-full"
-            onClick={handleGoogleLogin}
+            onClick={redirectToGoogleLogin}
           >
             <img
               src="/assets/images/google-button.svg"
