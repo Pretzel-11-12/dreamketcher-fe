@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface TagInputProps {
   placeholder?: string;
@@ -26,9 +26,14 @@ const TagInput: React.FC<TagInputProps> = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isComposing, setComposing] = useState(false);
 
+  useEffect(() => {
+    setTags(initialTags);
+  }, [initialTags]);
+
   const addTag = (tag: string) => {
-    if (tag && !tags.includes(tag) && tags.length <= 10 && tag.length <= 6) {
-      const updatedTags = [...tags, tag];
+    const _tag = '#' + tag;
+    if (tag && !tags.includes(_tag) && tags.length <= 10 && _tag.length <= 7) {
+      const updatedTags = [...tags, _tag];
       setTags(updatedTags);
       onChange?.(updatedTags);
     }

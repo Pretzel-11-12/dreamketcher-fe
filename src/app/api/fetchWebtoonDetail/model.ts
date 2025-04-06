@@ -1,18 +1,39 @@
 export namespace _Model {
   export const name = 'webtoonDetail/model';
 
-  export interface WebtoonDetailUnit {
+  export interface WebtoonDetail {
     webtoonId: number;
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
     AuthorNickname: string;
-    episode_count: number;
     interestCount: number;
     genreName: string;
+    tags: Tag[];
+  }
+
+  interface Tag {
+    id: number;
+    content: string;
+  }
+
+  export interface Episodes {
+    webtoonId: number;
+    episode_count: number;
     currentPage: number;
     totalPages: number;
-    episodes: EpisodeUnit[];
+    episodes: Episode[];
+  }
+
+  interface Episode {
+    episodeId: number;
+    no: number;
+    title: string;
+    thumbnail: string;
+    publishedAt: string;
+    viewCount: number;
+    likeCount: number;
+    averageStar: number;
   }
 
   export interface EpisodeUnit {

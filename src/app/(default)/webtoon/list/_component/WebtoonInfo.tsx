@@ -16,7 +16,7 @@ export enum Tag {
 }
 
 type webtoonDataProps = {
-  webtoon: fetchWebtoonDetail.Model.WebtoonDetailUnit;
+  webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
 };
 
 const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
@@ -29,7 +29,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     genreName,
     AuthorNickname,
   } = webtoon;
-
+  console.log({ webtoonThumbnail });
   const [interest, setInterest] = useState<{
     active: boolean;
     count: number;

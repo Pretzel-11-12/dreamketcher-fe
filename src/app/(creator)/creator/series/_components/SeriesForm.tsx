@@ -11,8 +11,12 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 
 export interface SeriesFormInfo
-  extends Omit<fetchCreatorWebtoon.Model.CreatorWebtoonDetail, 'id' | 'genre'> {
+  extends Omit<
+    fetchCreatorWebtoon.Model.CreatorWebtoonDetail,
+    'id' | 'genre' | 'tags'
+  > {
   genreId: string;
+  tagsInput: string;
 }
 
 const options = [
@@ -36,6 +40,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     thumbnail: '',
     story: '',
     genreId: '1',
+    tagsInput: '',
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
@@ -44,7 +49,17 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
     if (!!item) {
       const genreId = options.find((v) => v.subId === item.genre)?.id || '1';
 
-      setWebtoonInfo({ ...item, genreId: genreId });
+      setWebtoonInfo({
+        title: item.title,
+        thumbnail: item.thumbnail,
+        story: item.story,
+        genreId: genreId,
+        tagsInput: item.tags
+          .map((v) =>
+            v.content?.startsWith('#') ? v.content : '#' + v.content
+          )
+          .join(' '),
+      });
       setStatus('edit');
     }
   }, [item]);
@@ -158,8 +173,14 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div className="pt-2">작품 태그</div>
+
         <div className="flex flex-col gap-[12px]">
-          <TagInput />
+          <TagInput
+            initialTags={webtoonInfo.tagsInput.split(' ').filter((v) => !!v)}
+            onChange={(tags) =>
+              setWebtoonInfo((v) => ({ ...v, tagsInput: tags.join(' ') }))
+            }
+          />
           <div className="flex rounded-md bg-brand-gray py-2.5 px-3 text-sm text-[#888888] w-full gap-2 items-center">
             <img src="/assets/images/alert-circle.svg" alt="Alert Icon" />
             <div className="w-full text-[13px]">

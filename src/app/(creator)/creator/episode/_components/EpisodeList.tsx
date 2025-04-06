@@ -22,7 +22,7 @@ type EpisodeListProps = {
 const EpisodeList: React.FC<EpisodeListProps> = ({ items, webtoonInfo }) => {
   return (
     <>
-      <div className="grid grid-cols-[repeat(7,1fr)_80px] items-center px-4 text-sm gap-5 border-b py-2 text-gray-500 border-gray-400/20 bg-brand-gray/60">
+      <div className="grid grid-cols-[30px_140px_180px_repeat(4,1fr)_80px] items-center pl-10 pr-4 text-sm gap-5 border-b py-2 text-gray-500 border-gray-400/20 bg-brand-gray/60">
         {headers.map((item) => (
           <div key={item} className="flex justify-center w-full">
             {item}

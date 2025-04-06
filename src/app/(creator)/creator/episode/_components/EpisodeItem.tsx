@@ -28,7 +28,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({
     <>
       <div className="grid grid-cols-[auto_repeat(4,1fr)_80px] gap-5 items-center border-b p-4 w-full text-gray-600 text-sm border-gray-400/20">
         <div
-          className="cursor-pointer grid grid-cols-[5rem_repeat(2,1fr)] items-center gap-2"
+          className="cursor-pointer grid grid-cols-[90px_140px_180px] items-center gap-2"
           onClick={() => {
             router.push(
               `/creator/episode/new?episodeId=${item.episodeId}&webtoonId=${webtoonInfo.id}`
