@@ -48,7 +48,6 @@ export default function Detail() {
     gcTime: 5 * 60 * 1000,
   });
 
-  console.log({ webtoon, episodes });
   return (
     <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />

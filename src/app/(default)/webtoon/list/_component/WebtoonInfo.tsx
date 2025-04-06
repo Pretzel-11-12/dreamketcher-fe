@@ -30,7 +30,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     AuthorNickname,
     tags,
   } = webtoon;
-  console.log({ webtoonThumbnail });
+
   const [interest, setInterest] = useState<{
     active: boolean;
     count: number;
