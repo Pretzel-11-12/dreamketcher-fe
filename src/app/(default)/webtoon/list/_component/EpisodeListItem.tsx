@@ -56,21 +56,12 @@ const EpisodeListItem: React.FC<EpisodeItemProp> = ({ items, webtoonId }) => {
               <Image
                 src="/assets/icon/list-star.svg"
                 alt="star"
-                width={12}
-                height={12}
+                width={15}
+                height={15}
+                className="w-[15px] h-[15px]"
               />
               <div>{(averageStar || 0).toFixed(2)}</div>
             </div>
-            <div className="flex gap-1 items-center w-[30px]">
-              <Image
-                src="/assets/icon/like.svg"
-                alt="thumbup"
-                width={12}
-                height={12}
-              />
-              <div>{likeCount || 0}</div>
-            </div>
-            <div className="w-[50px]">조회 {viewCount}</div>
             <div className="text-[#E0E0E0]">|</div>
             <div>{formatTime}</div>
           </div>

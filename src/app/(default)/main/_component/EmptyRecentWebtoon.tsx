@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import BrandButton from '@/app/(default)/main/_component/BrandButton';
 
 const EmptyRecentWebtoon = () => {
   return (
@@ -12,12 +12,9 @@ const EmptyRecentWebtoon = () => {
         }
       </p>
       <div className="flex justify-center md:justify-end font-medium w-full md:w-auto mt-[4px]">
-        <Link
-          className="w-[252px] h-[36px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px] text-[14px]"
-          href="/main"
-        >
+        <BrandButton width={252} height={36} href="/main">
           드림케쳐 더 알아보기
-        </Link>
+        </BrandButton>
       </div>
     </div>
   );

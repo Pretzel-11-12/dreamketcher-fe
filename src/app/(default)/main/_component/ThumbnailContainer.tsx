@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import WebtoonSlider from './WebtoonSlider';
 import FilterComponent from './FilterComponent';
 import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import SliderDropdown from './SliderDropdown';
-
+import CustomWebtoonSlider from './CustomWebtoonSlider';
 interface ThumbnailContainerProps {
   type: string;
   title: string;
@@ -25,19 +25,19 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
   title,
 }) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const genre = searchParams.get('genre') || 'RECOMMENDED';
-  const [selectedFilter, setSelectedFilter] = useState<string>('실시간');
-  const orderMapping: { [key: string]: string } = {
-    실시간: 'latest',
-    별점순: 'stars',
-    좋아요순: 'likes',
+  const currentOrder = searchParams.get('order') || 'latest';
+
+  const handleOrderChange = (newOrder: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('order', newOrder);
+    router.push(`?${params.toString()}`);
   };
 
-  const order = orderMapping[selectedFilter] || 'latest';
-
   const { data, isLoading, isError } = useQuery<IWebtoon[]>({
-    queryKey: ['webtoons', 'ranking', type, genre, order],
-    queryFn: () => getWebtoonRanking(type, genre, order),
+    queryKey: ['webtoons', 'ranking', type, genre, currentOrder],
+    queryFn: () => getWebtoonRanking(type, genre, currentOrder),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
@@ -57,9 +57,13 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
         <p className="text-[18px] leading-[18px] font-medium text-titleBlack">
           {title}
         </p>
-        <SliderDropdown options={dropdownOptions} defaultOption="latest" />
+        <SliderDropdown
+          options={dropdownOptions}
+          defaultOption={currentOrder}
+          onClickOption={handleOrderChange}
+        />
       </div>
-      <WebtoonSlider webtoons={data || []} />
+      <CustomWebtoonSlider webtoons={data || []} />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { fetchAPI } from '..';
-import { User } from '@/model/User';
+import { UpdateUser } from '@/model/User';
 import useAuthStore from '@/app/store/authStore';
 
-export const updateProfile = async (profileData: User, token: string) => {
+export const updateProfile = async (profileData: UpdateUser, token: string) => {
   const { imageUrl: originalImageUrl } = useAuthStore.getState();
 
   const jsonToBlob = (): Blob => {
@@ -10,6 +10,7 @@ export const updateProfile = async (profileData: User, token: string) => {
       nickname: profileData.nickname,
       shortIntroduction: profileData.shortIntroduction,
       businessEmail: profileData.businessEmail,
+      isDeleteImage: profileData.isDeleteImage,
     };
 
     return new Blob([JSON.stringify(jsonData)], {

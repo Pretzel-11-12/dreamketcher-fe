@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import WhiteBrandButton from './WhiteBrandButton';
 
 type RecommendWebtoonThumbnailProps = {};
 
@@ -17,28 +18,24 @@ const RecommendWebtoonThumbnail: React.FC<
 
   return (
     <div
-      className="flex flex-col w-[138px] h-[304px]"
+      className="flex flex-col w-[138px] h-[304px] gap-[6px]"
       onClick={handleThumbnailClick}
     >
-      <div className="relative w-[138px] h-[199px] rounded-[5px] overflow-hidden">
-        <Image
+      <div className="relative w-[138px] h-[207px] rounded-[5px] overflow-hidden">
+        <img
           src="/assets/images/monthly-dreamketcher.png"
           alt="Webtoon thumbnail image"
-          fill
-          className="object-cover"
-          sizes="138px"
+          className="w-[138px] h-[207px] object-cover"
         />
       </div>
-      <div className="flex flex-col text-[12px] items-center mt-[6px]">
+
+      <div className="flex flex-col text-[12px] items-center">
         <p className="text-[14px] text-[#3f3f3f]">드림케쳐 추천작 리스트</p>
         <p className="text-[#3f3f3f]">⁺. ⊹˚₊ ₊·(੭· ˕ · )੭‧*</p>
       </div>
-      <Link
-        className="w-[138px] h-[43px] mt-[12px] flex items-center justify-center bg-brand-yellow text-white text-[14px] rounded-[5px]"
-        href={`/main`}
-      >
+      <WhiteBrandButton width={138} height={43} href="/main">
         추천작 보러가기
-      </Link>
+      </WhiteBrandButton>
     </div>
   );
 };

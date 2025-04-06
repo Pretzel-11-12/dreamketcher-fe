@@ -50,6 +50,23 @@ export namespace fetchComment {
     }) as Promise<{ result: Model.ResReCommentUnit[]; totalElements: number }>;
   }
 
+  export async function getMyComments(arg: {
+    query: {
+      page: number;
+      size: number;
+      order: 'DESC' | 'ASC';
+    };
+  }): Promise<{ result: Model.ResMyCommentsUnit[]; totalElements: number }> {
+    const { query } = arg;
+    const queryString = query ? `?${qs.stringify(query)}` : '';
+
+    return fetchAPI({
+      method: 'GET',
+      endpoint: `/member/comments-and-recomments${queryString}`,
+    }) as Promise<{ result: Model.ResMyCommentsUnit[]; totalElements: number }>;
+  }
+
+
   export async function postComment(arg: {
     param: {
       webtoonId: string;
