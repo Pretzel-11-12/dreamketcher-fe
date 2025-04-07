@@ -3,28 +3,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface DropdownProps {
-  options: { label: string; value: string }[]; // 옵션 데이터 타입
-  defaultOption?: string; // 초기 선택 옵션
+  options: { label: string; value: string }[];
+  defaultOption?: string;
+  onSelect: (value: string) => void;
+  selected: string;
 }
 
 const SearchDropdown: React.FC<DropdownProps> = ({
   options,
-  defaultOption,
+  onSelect,
+  selected,
 }) => {
-  const [isOpen, setIsOpen] = useState(false); // 드롭다운 열림 상태
-  const [selected, setSelected] = useState<string | null>(
-    defaultOption || null
-  ); // 선택된 옵션
+  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (value: string) => {
-    setSelected(value);
+    onSelect(value);
     setIsOpen(false);
   };
 
-  // 외부 클릭 감지 로직
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -72,7 +71,6 @@ const SearchDropdown: React.FC<DropdownProps> = ({
         </div>
       </button>
 
-      {/* 드롭다운 메뉴 */}
       {isOpen && (
         <div className="absolute z-10 w-[104px] bg-white border border-[#F2F2F2] rounded-b-md">
           <div>

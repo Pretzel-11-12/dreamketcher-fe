@@ -21,7 +21,6 @@ export default function Detail() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
-  const totalPage = 10;
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [id, sortDirection, 'episode', currentPage - 1],
@@ -33,6 +32,20 @@ export default function Detail() {
           page: currentPage - 1,
           size: 30,
         },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
+  const {
+    data: webtoonData,
+    isLoading: webtoonLoading,
+    isError: webtoonError,
+  } = useQuery({
+    queryKey: [id, 'detail'],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoonInfo({
+        param: { id },
       }),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
@@ -58,7 +71,7 @@ export default function Detail() {
       <div className="w-full flex justify-center">
         <div className="flex w-[1200px]">
           <div className="flex flex-col w-[894px] gap-5 border-r border-r-line pt-[40px] pr-[24px]">
-            {data && <WebtoonInfo webtoon={{ ...data }} />}
+            {webtoonData && <WebtoonInfo webtoon={webtoonData} />}
             <NoticeList />
             <div>
               <div className="flex justify-between mt-[10px]">
@@ -88,7 +101,7 @@ export default function Detail() {
                   </div>
                 </div>
               </div>
-              <hr className="border-line border-solid mt-[10px]" />
+              <hr className="border-line mt-[10px]"></hr>
               <div className="min-h-20 mb-[50px]">
                 {data?.episodes?.map((item, index) => (
                   <EpisodeListItem

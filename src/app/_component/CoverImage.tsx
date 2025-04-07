@@ -12,7 +12,7 @@ interface CoverImageProps {
 
 export default function CoverImage({
   alt,
-  src,
+  src = '',
   height,
   width,
   rounded = 'rounded-[5px]',

@@ -1,5 +1,14 @@
+import { Webtoon as IWebtoon } from '@/model/Webtoon';
+
 export namespace _Model {
   export const name = 'webtoonDetail/model';
+
+  export interface PaginatedResponse {
+    results: IWebtoon[];
+    currentPage: number;
+    totalPages: number;
+    totalElements: number;
+  }
 
   export interface WebtoonDetailUnit {
     webtoonId: number;
@@ -13,22 +22,6 @@ export namespace _Model {
     currentPage: number;
     totalPages: number;
     episodes: EpisodeUnit[];
-  }
-
-  export interface WebtoonUnit {
-    webtoonId: number;
-    webtoonTitle: string;
-    webtoonThumbnail: string;
-    webtoonStory: string;
-    AuthorNickname: string;
-    interestCount: number;
-    genreName: string;
-    tags: TagUnit[];
-  }
-
-  export interface TagUnit {
-    id: number;
-    content: string;
   }
 
   export interface EpisodeUnit {

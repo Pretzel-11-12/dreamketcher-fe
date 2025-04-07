@@ -24,6 +24,20 @@ export namespace fetchWebtoonDetail {
     return response.json();
   }
 
+  export async function getWebtoonInfo(arg: {
+    param: { id: string };
+  }): Promise<Model.WebtoonUnit> {
+    const { param } = arg;
+    const { id } = param;
+
+    const response = await fetch(`/api/v1/webtoons/detail/${id}`, {
+      method: 'GET',
+    });
+    if (!response.ok)
+      throw new Error(`Failed to fetch info for webtoon: ${id}`);
+    return response.json();
+  }
+
   export async function postFavoriteWebtoon(arg: {
     param: { id: string };
   }): Promise<any> {
