@@ -4,6 +4,7 @@ import 'moment/locale/ko';
 import moment from 'moment-timezone';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
+import DeleteConfirmModal from '@/app/(default)/webtoon/detail/_component/DeleteConfirmModal';
 
 type CommentInfoType = {
   info: fetchComment.Model.ResCommentUnit;
@@ -25,6 +26,8 @@ const CommentItem: React.FC<CommentInfoType> = ({
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
   const [isDisliked, setIsDisliked] = useState(false); // 싫어요 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -250,18 +253,14 @@ const CommentItem: React.FC<CommentInfoType> = ({
               <div className="absolute right-0 top-5 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm z-10">
                 <button
                   className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                  onClick={() =>
-                    deleteCommentMutate({
-                      param: {
-                        webtoonId,
-                        episodeId,
-                        commentId: String(info.id),
-                      },
-                    })
-                  }
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    setShowMenu(false);
+                  }}
                 >
                   댓글 삭제
                 </button>
+
                 <button className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100">
                   신고
                 </button>
@@ -270,6 +269,20 @@ const CommentItem: React.FC<CommentInfoType> = ({
           </div>
         </div>
       </div>
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onConfirm={() => {
+          deleteCommentMutate({
+            param: {
+              webtoonId,
+              episodeId,
+              commentId: String(info.id),
+            },
+          });
+          setIsDeleteModalOpen(false);
+        }}
+        onCancel={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 };
