@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchComment } from '@/app/api/fetchComment';
 import { useEffect, useRef, useState } from 'react';
+import DeleteConfirmModal from '@/app/(default)/webtoon/detail/_component/DeleteConfirmModal';
 
 export interface CommentInfo {
   id: number;
@@ -32,6 +33,8 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
 
   const [showMenu, setShowMenu] = useState(false); // 메뉴 상태
   const menuRef = useRef<HTMLDivElement>(null); // 메뉴 참조
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -207,16 +210,10 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
               <div className="absolute right-0 top-5 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm z-10">
                 <button
                   className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                  onClick={() =>
-                    deleteReCommentMutate({
-                      param: {
-                        webtoonId,
-                        episodeId,
-                        commentId: parentCommentId,
-                        recommentId: String(info.id),
-                      },
-                    })
-                  }
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    setShowMenu(false);
+                  }}
                 >
                   대댓글 삭제
                 </button>
@@ -228,6 +225,21 @@ const ReCommentItem: React.FC<ReCommentInfoType> = ({
           </div>
         </div>
       </div>
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onConfirm={() => {
+          deleteReCommentMutate({
+            param: {
+              webtoonId,
+              episodeId,
+              commentId: String(parentCommentId),
+              recommentId: String(info.id),
+            },
+          });
+          setIsDeleteModalOpen(false);
+        }}
+        onCancel={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 };
