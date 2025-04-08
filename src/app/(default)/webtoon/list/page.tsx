@@ -21,7 +21,6 @@ export default function Detail() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
-  const totalPage = 10;
 
   const { data: webtoon } = useQuery({
     queryKey: [id],
@@ -88,7 +87,7 @@ export default function Detail() {
                   </div>
                 </div>
               </div>
-              <hr className="border-line border-solid mt-[10px]" />
+              <hr className="border-line mt-[10px]"></hr>
               <div className="min-h-20 mb-[50px]">
                 {episodes?.episodes?.map((item, index) => (
                   <EpisodeListItem

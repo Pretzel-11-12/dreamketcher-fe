@@ -36,7 +36,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           height={150}
           width={100}
         />
-        <div className="flex flex-col text-xs gap-[3px] mt-[1px]">
+        <div className="flex flex-col text-xs gap-[3px] mt-[1px] max-w-[752px]">
           <p className="text-[18px] mb-[3px] leading-[normal]">
             {highlightKeyword(webtoon.title, keyword)}
           </p>
@@ -54,7 +54,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
             <p className="text-brand-yellow">{webtoon.averageStar}</p>
             <p className="text-[#888888]">({webtoon.numOfStars})</p>
           </div>
-          <p className="text-[14px] text-[#3f3f3f] mb-[4px] whitespace-nowrap overflow-hidden text-ellipsis">
+          <p className="text-[14px] text-[#3f3f3f] mb-[4px] whitespace-normal line-clamp-1">
             {highlightKeyword(webtoon.story, keyword)}
           </p>
           <TagList tags={temporalTags} keyword={keyword} />

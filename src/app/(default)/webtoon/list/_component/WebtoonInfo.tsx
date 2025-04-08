@@ -39,15 +39,15 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     count: interestCount,
   });
 
-  const { data: isFavotire } = useQuery<{ webtoonId: number }[]>({
+  const { data: isFavorite } = useQuery<{ webtoonId: number }[]>({
     queryKey: [webtoonId],
     queryFn: () =>
       fetchWebtoonDetail.favoriteWebtoon({ param: { id: String(webtoonId) } }),
   });
 
   useEffect(() => {
-    setInterest((i) => ({ active: !!isFavotire, count: i.count }));
-  }, [isFavotire]);
+    setInterest((i) => ({ active: !!isFavorite, count: i.count }));
+  }, [isFavorite]);
 
   const [toastState, setToastState] = useState({
     isVisible: false,

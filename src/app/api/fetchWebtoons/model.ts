@@ -1,55 +1,27 @@
+import { Webtoon as IWebtoon } from '@/model/Webtoon';
+
 export namespace _Model {
   export const name = 'webtoonDetail/model';
 
-  export interface WebtoonDetail {
-    webtoonId: number;
-    webtoonTitle: string;
-    webtoonThumbnail: string;
-    webtoonStory: string;
-    AuthorNickname: string;
-    interestCount: number;
-    genreName: string;
-    tags: Tag[];
-  }
-
-  interface Tag {
-    id: number;
-    content: string;
-  }
-
-  export interface Episodes {
-    webtoonId: number;
-    episode_count: number;
+  export interface PaginatedResponse {
+    results: IWebtoon[];
     currentPage: number;
     totalPages: number;
-    episodes: Episode[];
+    totalElements: number;
   }
 
-  interface Episode {
-    episodeId: number;
-    no: number;
-    title: string;
-    thumbnail: string;
-    publishedAt: string;
-    viewCount: number;
-    likeCount: number;
-    averageStar: number;
-  }
-
-  export interface WebtoonUnit {
+  export interface WebtoonDetailUnit {
     webtoonId: number;
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
     AuthorNickname: string;
+    episode_count: number;
     interestCount: number;
     genreName: string;
-    tags: TagUnit[];
-  }
-
-  export interface TagUnit {
-    id: number;
-    content: string;
+    currentPage: number;
+    totalPages: number;
+    episodes: EpisodeUnit[];
   }
 
   export interface EpisodeUnit {

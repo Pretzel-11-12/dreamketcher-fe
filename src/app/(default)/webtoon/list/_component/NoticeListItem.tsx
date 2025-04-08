@@ -7,7 +7,7 @@ export interface NoticeInfo {
 }
 export default function NoticeListItem({ index, title }: NoticeInfo) {
   return (
-    <div className="grid grid-cols-[auto_1fr] border-b gap-4 p-[15px] pl-0">
+    <div className="grid grid-cols-[auto_1fr] border-b border-b-line gap-4 p-[15px] pl-0">
       <div className="flex gap-2 items-center text-sm">
         <div className="px-[10px] py-0.5 text-[12px] border border-brand-blue text-brand-blue rounded-md">
           공지
