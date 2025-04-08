@@ -22,10 +22,20 @@ export default function Detail() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
 
-  const { data, isLoading, isError } = useQuery({
+  const { data: webtoon } = useQuery({
+    queryKey: [id],
+    queryFn: () =>
+      fetchWebtoonDetail.getWebtoon({
+        param: { id },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
+  const { data: episodes } = useQuery({
     queryKey: [id, sortDirection, 'episode', currentPage - 1],
     queryFn: () =>
-      fetchWebtoonDetail.getWebtoonDetails({
+      fetchWebtoonDetail.getEpisodes({
         param: { id },
         query: {
           fromFirst: sortDirection === 'asc',
@@ -37,30 +47,6 @@ export default function Detail() {
     gcTime: 5 * 60 * 1000,
   });
 
-  const {
-    data: webtoonData,
-    isLoading: webtoonLoading,
-    isError: webtoonError,
-  } = useQuery({
-    queryKey: [id, 'detail'],
-    queryFn: () =>
-      fetchWebtoonDetail.getWebtoonInfo({
-        param: { id },
-      }),
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
-  });
-
-  if (isLoading) {
-    return <p className="text-gray-500 text-center">로딩 중...</p>;
-  }
-
-  if (isError) {
-    return (
-      <p className="text-red-500 text-center">데이터를 불러오지 못했습니다.</p>
-    );
-  }
-
   return (
     <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black pb-32">
       <hr className="border-line border-solid" />
@@ -71,11 +57,11 @@ export default function Detail() {
       <div className="w-full flex justify-center">
         <div className="flex w-[1200px]">
           <div className="flex flex-col w-[894px] gap-5 border-r border-r-line pt-[40px] pr-[24px]">
-            {webtoonData && <WebtoonInfo webtoon={webtoonData} />}
+            {webtoon && <WebtoonInfo webtoon={{ ...webtoon }} />}
             <NoticeList />
             <div>
               <div className="flex justify-between mt-[10px]">
-                <div>총 {data?.episode_count}화</div>
+                <div>총 {episodes?.episode_count}화</div>
 
                 <div className="flex items-center gap-2">
                   <div
@@ -103,7 +89,7 @@ export default function Detail() {
               </div>
               <hr className="border-line mt-[10px]"></hr>
               <div className="min-h-20 mb-[50px]">
-                {data?.episodes?.map((item, index) => (
+                {episodes?.episodes?.map((item, index) => (
                   <EpisodeListItem
                     items={item}
                     key={index}
@@ -111,10 +97,10 @@ export default function Detail() {
                   />
                 ))}
               </div>
-              {data && (
+              {episodes && (
                 <Pagination
                   currentPage={currentPage}
-                  totalPages={data.totalPages}
+                  totalPages={episodes.totalPages}
                   onPageChange={setCurrentPage}
                 />
               )}
@@ -122,7 +108,7 @@ export default function Detail() {
           </div>
 
           <div className="flex flex-col w-[282px] ml-[24px] gap-1 pt-[40px]">
-            <RankingWebtoons genre={data?.genreName} />
+            <RankingWebtoons genre={webtoon?.genreName} />
           </div>
         </div>
       </div>

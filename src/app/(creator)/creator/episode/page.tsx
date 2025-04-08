@@ -13,37 +13,47 @@ export default function CreatorMain() {
   const searchParams = useSearchParams();
   const webtoonId = searchParams.get('webtoonId')!;
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['creator-episode', webtoonId],
+  const { data: webtoon } = useQuery({
+    queryKey: [webtoonId],
     queryFn: () =>
-      fetchWebtoonDetail.getWebtoonDetails({ param: { id: webtoonId } }),
+      fetchWebtoonDetail.getWebtoon({
+        param: { id: webtoonId },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 
-  const episodes = data?.episodes || [];
+  const { data: episodes } = useQuery({
+    queryKey: ['creator-episode', webtoonId],
+    queryFn: () =>
+      fetchWebtoonDetail.getEpisodes({
+        param: { id: webtoonId },
+      }),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
   const webtoonInfo = {
-    title: data?.webtoonTitle || '',
+    title: webtoon?.webtoonTitle || '',
     id: webtoonId,
-    thumbnail: data?.webtoonThumbnail || '',
+    thumbnail: webtoon?.webtoonThumbnail || '',
   };
-
-  if (isLoading) {
-    return <p>로딩 중...</p>;
-  }
-
-  if (isError) {
-    return <p>오류 발생</p>;
-  }
 
   return (
     <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full border-r border-[#F2F2F2] bg-[#F9F9F9]">
       <SeriesSideBar />
-      <div className="flex flex-col p-[30px] gap-[20px]">
+      <div className="flex flex-col p-[30px] gap-[20px] pr-[165px]">
         <span className="text-[20px] font-medium leading-[24px] text-titleBlack">
           회차 리스트
         </span>
 
         <div className="bg-white flex flex-col p-[30px] border rounded-md border-brand-gray">
-          {data && <SeriesInfo {...data} />}
+          {webtoon && (
+            <SeriesInfo
+              episodeCount={episodes?.episode_count || 0}
+              {...webtoon}
+            />
+          )}
 
           <div className="pt-4">
             <CategoryTab
@@ -70,7 +80,12 @@ export default function CreatorMain() {
           </div>
 
           <div className="w-full h-0.1 border-b mt-[-5px]" />
-          {<EpisodeList items={episodes} webtoonInfo={webtoonInfo} />}
+          {
+            <EpisodeList
+              items={episodes?.episodes || []}
+              webtoonInfo={webtoonInfo}
+            />
+          }
         </div>
       </div>
     </div>

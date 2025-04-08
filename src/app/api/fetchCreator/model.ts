@@ -45,5 +45,6 @@ export namespace _Model {
     thumbnail: string;
     story: string;
     genre: string;
+    tags: { id: string; content: string }[];
   }
 }
