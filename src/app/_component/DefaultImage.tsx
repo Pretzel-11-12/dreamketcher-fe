@@ -12,7 +12,7 @@ interface ImageProps {
 
 export default function DefaultImage({
   alt,
-  src,
+  src = '',
   height,
   width,
   rounded = 'rounded-[5px]',
