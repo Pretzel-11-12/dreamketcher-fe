@@ -72,7 +72,6 @@ const SeriesList = () => {
             </div>
           </div>
         </Link>
-
         {result.map((item) => (
           <SeriesCardItem {...item} key={item.id} />
         ))}

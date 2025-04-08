@@ -16,8 +16,9 @@ export default function SeriesNew() {
       fetchCreatorWebtoon.getCreatorsWebtoonDetail({
         param: { id: webtoonId! },
       }),
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
+
+    staleTime: 0,
+    gcTime: 0,
     enabled: isExist,
   });
 

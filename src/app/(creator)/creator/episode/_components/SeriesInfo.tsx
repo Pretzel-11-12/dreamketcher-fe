@@ -3,25 +3,30 @@ import DefaultImage from '@/app/_component/DefaultImage';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import Link from 'next/link';
 
-const SeriesInfo: React.FC<fetchWebtoonDetail.Model.WebtoonDetailUnit> = (
-  data
-) => {
+type SeriesInfoProps = fetchWebtoonDetail.Model.WebtoonDetail & {
+  episodeCount: number;
+};
+
+const SeriesInfo: React.FC<SeriesInfoProps> = ({
+  episodeCount,
+  ...webtoon
+}) => {
   return (
     <div className="grid grid-cols-[auto_1fr_auto] gap-[14px]">
       <DefaultImage
-        src={data.webtoonThumbnail}
-        alt={data.webtoonTitle}
+        src={webtoon.webtoonThumbnail}
+        alt={webtoon.webtoonTitle}
         width={165}
         height={247}
       />
 
       <div className="flex flex-col">
         <span className="text-titleBlack text-[20px] font-[500]">
-          {data.webtoonTitle}
+          {webtoon.webtoonTitle}
         </span>
 
         <span className="text-contentBlack text-[14px] font-normal">
-          {data.webtoonStory}
+          {webtoon.webtoonStory}
         </span>
       </div>
 
@@ -30,7 +35,7 @@ const SeriesInfo: React.FC<fetchWebtoonDetail.Model.WebtoonDetailUnit> = (
           className="w-[208px] h-[45px] flex items-center justify-center bg-[#F9F9F9] text-[#888888] border border-brand-gray rounded-[5px]"
           href={{
             pathname: '/creator/series/new',
-            query: { webtoonId: data.webtoonId },
+            query: { webtoonId: webtoon.webtoonId },
           }}
         >
           작품 수정
@@ -39,7 +44,7 @@ const SeriesInfo: React.FC<fetchWebtoonDetail.Model.WebtoonDetailUnit> = (
           className="w-[208px] h-[45px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px]"
           href={{
             pathname: '/creator/episode/new',
-            query: { webtoonId: data.webtoonId, no: data.episodes.length + 1 },
+            query: { webtoonId: webtoon.webtoonId, no: episodeCount + 1 },
           }}
         >
           신규 회차 등록
