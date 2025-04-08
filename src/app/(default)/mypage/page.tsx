@@ -13,10 +13,11 @@ export default function Mypage() {
   const router = useRouter();
   const { nickname, businessEmail, imageUrl, shortIntroduction } =
     useAuthStore();
-  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    if (!accessToken) {
+    const token = localStorage.getItem('accessToken');
+
+    if (!token) {
       alert('로그인이 필요합니다.');
       router.push('/login');
     }

@@ -73,7 +73,7 @@ const MyWork: React.FC = () => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-start mt-10 mb-6 border-b border-b-line">
+      <div className="flex justify-start mt-10 mb-6 -ml-6 -mr-[23px] pl-6 pr-[23px] border-b border-b-line">
         {[
           {
             label: '내 연재 웹툰',

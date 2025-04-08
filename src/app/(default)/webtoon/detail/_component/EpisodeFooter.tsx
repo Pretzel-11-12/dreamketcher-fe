@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const EpisodeFooter = ({ isVisible }: { isVisible: boolean }) => {
+const EpisodeFooter = ({ isVisible, onClickComment }: { isVisible: boolean; onClickComment: () => void; }) => {
   const [isDisplay, setDisplay] = useState(true);
   const [isManualToggle, setManualToggle] = useState(false);
 
@@ -15,13 +15,6 @@ const EpisodeFooter = ({ isVisible }: { isVisible: boolean }) => {
 
 
   const throttleScroll = _.throttle(handleScroll, 300);
-
-  const handleClickComment = () => {
-    window.scrollTo({
-      top: 2300,
-      behavior: 'smooth',
-    });
-  };
 
   useEffect(() => {
     window.addEventListener('scroll', throttleScroll);
@@ -56,7 +49,7 @@ const EpisodeFooter = ({ isVisible }: { isVisible: boolean }) => {
 
           <div
             className="cursor-pointer items-center flex gap-2"
-            onClick={handleClickComment}
+            onClick={onClickComment}
           >
             <Image
               src="/assets/icon/blackMessage.svg"

@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import RecentWorkItem from './RecentWorkItem';
-import {
-  getRecentWebtoons,
-  RecentWebtoon,
-  removeRecentWebtoon,
-} from '@/app/_lib/recentWebtoons';
+import { getRecentWebtoons, RecentWebtoon, removeRecentWebtoon } from '@/app/_lib/recentWebtoons';
 import Link from 'next/link';
 
 export default function RecentWorks() {
@@ -35,7 +31,7 @@ export default function RecentWorks() {
   }
 
   return (
-    <div className="grid grid-cols-1 mt-5">
+    <div className="grid grid-cols-1 mt-[10px]">
       {recentWebtoons.map((work) => (
         <RecentWorkItem
           ratingCount={0}
