@@ -45,3 +45,16 @@ export interface RecentWatchedWebtoon {
   lastViewedAt: number;
   genre: string;
 }
+
+export interface UserWebtoon {
+  id: number;
+  title: string;
+  thumbnail: string;
+  author: string;
+  story: string;
+  episodeCount: number;
+  avgStar: number;
+  numOfStars: number;
+  genre: string;
+  commentCount: number;
+}
