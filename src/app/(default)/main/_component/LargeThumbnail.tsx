@@ -37,7 +37,7 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
           sizes="150px"
         />
       </div>
-      <div className="flex flex-col text-[12px] text-titleBlack">
+      <div className="flex flex-col text-[14px] text-titleBlack">
         <p
           className="text-[16px] font-medium hover:underline cursor-pointer"
           onClick={handleTitleClick}
