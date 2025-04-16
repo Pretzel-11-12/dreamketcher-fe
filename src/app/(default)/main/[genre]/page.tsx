@@ -5,7 +5,7 @@ import Image from 'next/image';
 import LargeThumbnailContainer from '../_component/LargeThumbnailContainer';
 import ThumbnailContainer from '../_component/ThumbnailContainer';
 import ThumbnailSkeleton from '../_component/ThumbnailSkeleton';
-
+import EventContainer from '../_component/EventContainer';
 interface Props {
   params: Promise<{ params: string }>;
 }
@@ -32,6 +32,7 @@ export default function Main({ params }: Props) {
           layout="intrinsic"
         />
       </div>
+      <EventContainer />
       <LargeThumbnailContainer title={'키워드 별 추천 작품'} />
       <LargeThumbnailContainer title={'장르별 신작 작품'} />
     </div>

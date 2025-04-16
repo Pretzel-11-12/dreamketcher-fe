@@ -13,7 +13,7 @@ const Tag = ({
   children: React.ReactNode;
   highlighted?: boolean;
 }) => (
-  <div className="bg-gray-100 px-[5px] leading-[normal] flex items-center h-[20px] mr-1 rounded-[3px]">
+  <div className="bg-gray-100 px-[5px] leading-[normal] flex items-center h-[20px] mr-1 rounded-[3px] text-inActive">
     {children}
   </div>
 );
@@ -29,7 +29,7 @@ const TagList = ({ tags, keyword = '', maxDisplay = 3 }: TagListProps) => {
       ))}
       {remainingCount > 0 && (
         <div
-          className="flex ml-0 items-center justify-center leading-[normal]"
+          className="flex ml-0 items-center justify-center leading-[normal] text-inActive"
           key="extra"
         >
           외 {remainingCount}개

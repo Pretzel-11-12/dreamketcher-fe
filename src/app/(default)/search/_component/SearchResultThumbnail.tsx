@@ -3,7 +3,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
-import DefaultImage from '@/app/_component/DefaultImage';
 import { highlightKeyword } from '@/app/util/highlightKeyword';
 import TagList from './TagList';
 import CoverImage from '@/app/_component/CoverImage';
