@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import WriterComponent from './WriterComponent';
+import { getSearchWriterResult } from '@/app/api/fetchWebtoons/getSearchWriterResult';
 interface SearchWriterSectionProps {
   keyword: string;
 }
@@ -21,31 +22,42 @@ const dropdownOptions = [
 export default function SearchWriterSection({
   keyword,
 }: SearchWriterSectionProps) {
-  const { data, isLoading } = useQuery({
-    queryKey: ['member', 'search', keyword],
-    queryFn: () => {
-      // TODO: API 구현 후 실제 작가 검색 API 호출로 대체
-      return Promise.resolve({
-        results: [
-          {
-            id: 1,
-            name: '작가1',
-            profileImage: '/assets/images/profile-default.png',
-            webtoons: ['웹툰1', '웹툰2'],
-          },
-          {
-            id: 2,
-            name: '작가2',
-            profileImage: '/assets/images/profile-default.png',
-            webtoons: ['웹툰3', '웹툰4'],
-          },
-        ],
-      });
-    },
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['writer', 'search', keyword],
+    queryFn: () =>
+      getSearchWriterResult({
+        param: { keyword },
+      }),
     enabled: !!keyword,
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
+
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['member', 'search', keyword],
+  //   queryFn: () => {
+  //     // TODO: API 구현 후 실제 작가 검색 API 호출로 대체
+  //     return Promise.resolve({
+  //       results: [
+  //         {
+  //           id: 1,
+  //           name: '작가1',
+  //           profileImage: '/assets/images/profile-default.png',
+  //           webtoons: ['웹툰1', '웹툰2'],
+  //         },
+  //         {
+  //           id: 2,
+  //           name: '작가2',
+  //           profileImage: '/assets/images/profile-default.png',
+  //           webtoons: ['웹툰3', '웹툰4'],
+  //         },
+  //       ],
+  //     });
+  //   },
+  //   enabled: !!keyword,
+  //   staleTime: 60 * 1000,
+  //   gcTime: 5 * 60 * 1000,
+  // });
 
   const searchData = data || {
     results: [],

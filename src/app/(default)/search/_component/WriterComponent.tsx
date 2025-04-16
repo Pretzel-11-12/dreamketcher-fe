@@ -27,14 +27,16 @@ const WriterComponent: React.FC<WriterComponentProps> = ({
         <p className="text-titleBlack">
           {highlightKeyword(writer.name, keyword)}
         </p>
-        <p className="text-inActive">
-          {highlightKeyword(
-            writer.webtoons.length > 1
-              ? `<${writer.webtoons[0]}> 외 ${writer.webtoons.length - 1}권`
-              : `<${writer.webtoons[0]}>`,
-            keyword
-          )}
-        </p>
+        {writer.webtoons && (
+          <p className="text-inActive">
+            {highlightKeyword(
+              writer.webtoons.length > 1
+                ? `<${writer.webtoons[0]}> 외 ${writer.webtoons.length - 1}권`
+                : `<${writer.webtoons[0]}>`,
+              keyword
+            )}
+          </p>
+        )}
       </div>
     </div>
   );
