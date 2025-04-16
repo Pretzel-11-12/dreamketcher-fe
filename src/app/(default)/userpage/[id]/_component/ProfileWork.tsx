@@ -7,7 +7,7 @@ import CompletedWork from './CompletedWork';
 import FavoriteWebtoons from './FavoriteWebtoons';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
-import { MyWebtoon } from '@/model/Webtoon';
+import { UserWebtoon } from '@/model/Webtoon';
 
 interface ProfileWorksProps {
   userId: number;
@@ -37,7 +37,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as MyWebtoon[];
+      return res.content.result as UserWebtoon[];
     },
   });
 
@@ -48,7 +48,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as MyWebtoon[];
+      return res.content.result as UserWebtoon[];
     },
   });
 
@@ -59,7 +59,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as MyWebtoon[];
+      return res.content.result as UserWebtoon[];
     },
   });
 
