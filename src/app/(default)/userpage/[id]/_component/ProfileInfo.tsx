@@ -62,7 +62,7 @@ const ProfileInfo = ({ userId }: ProfileInfoProps) => {
               width={11}
               height={9}
             />
-            <p className="text-[12px] text-[#C9C9C9] m-1">{user.businessEmail}</p>
+            <p className="text-[12px] text-[#888888] m-1">{user.businessEmail}</p>
             <ClipboardButton textToCopy={emailText} />
           </div>
         </div>
