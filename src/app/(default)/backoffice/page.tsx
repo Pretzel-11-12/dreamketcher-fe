@@ -6,24 +6,37 @@ import { useQuery } from '@tanstack/react-query';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 import { getAdminWebtoons } from '@/app/api/fetchBackofficeData/getAdminWebtoons';
 import BackofficeMainSection from './_component/BackofficeMainSection';
-import thumbnailData from '@/app/mocks/webtoonThumbnails';
-
+import BackofficeUserSection from './_component/BackofficeUserSection';
+import { User } from '@/model/User';
+import { getAdminUsers } from '@/app/api/fetchBackofficeData/getAdminUsers';
 export default function Backoffice() {
-  const router = useRouter();
+  const {
+    data: userData,
+    isLoading: userLoading,
+    isError: userError,
+  } = useQuery<User[]>({
+    queryKey: ['users', 'admin'],
+    queryFn: () => getAdminUsers(),
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
 
-  const { data, isLoading, isError } = useQuery<IWebtoon[]>({
+  const {
+    data: webtoonData,
+    isLoading: webtoonLoading,
+    isError: webtoonError,
+  } = useQuery<IWebtoon[]>({
     queryKey: ['webtoons', 'admin'],
     queryFn: () => getAdminWebtoons(),
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
 
-  const mockData = thumbnailData;
-
   return (
     <div className="w-full flex justify-center">
-      <div className="flex w-[1200px] pb-10">
-        <BackofficeMainSection webtoons={data || []} />
+      <div className="flex flex-col w-[1200px] pb-10">
+        <BackofficeUserSection users={userData || []} />
+        <BackofficeMainSection webtoons={webtoonData || []} />
       </div>
     </div>
   );

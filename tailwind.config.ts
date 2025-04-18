@@ -27,6 +27,7 @@ export default {
         inActive: '#888888',
         contentBlack: '#3F3F3F',
         buttonLine: '#FA973B',
+        backgroundGray: '#F9F9F9',
       },
     },
   },

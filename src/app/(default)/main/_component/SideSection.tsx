@@ -54,7 +54,7 @@ export default function SideSection({ announcements }: Props) {
         <div className="flex flex-col gap-1">
           {announcements.map((announcement) => (
             <div className="flex" key={announcement.id}>
-              <p className="flex items-center text-[#3F3F3F] text-[12px]">
+              <p className="flex items-center text-[#3F3F3F] text-[14px]">
                 <span className="inline-block w-[2px] h-[2px] bg-[#c9c9c9] rounded-full mr-[10px]" />
                 {announcement.title}
               </p>

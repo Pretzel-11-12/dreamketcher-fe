@@ -8,6 +8,7 @@ export interface Webtoon {
   averageStar: number;
   numOfStars: number;
   story: string;
+  tags?: string[];
 }
 
 export interface MyWebtoon {
