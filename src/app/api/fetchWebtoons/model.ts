@@ -15,13 +15,9 @@ export namespace _Model {
     name: string;
     profileImage: string;
     webtoons: string[];
-  }
-
-  export interface WriterResponse {
-    results: IWriter[];
-    currentPage: number;
-    totalPages: number;
-    totalElements: number;
+    authorNickname: string;
+    representativeWorkTitle: string;
+    workCount: number;
   }
 
   export interface WebtoonDetailUnit {

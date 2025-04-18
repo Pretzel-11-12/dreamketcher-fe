@@ -4,7 +4,9 @@ import React from 'react';
 interface Writer {
   name: string;
   profileImage: string;
-  webtoons: string[];
+  authorNickname: string;
+  representativeWorkTitle: string;
+  workCount: number;
 }
 
 interface WriterComponentProps {
@@ -25,14 +27,16 @@ const WriterComponent: React.FC<WriterComponentProps> = ({
       />
       <div className="flex gap-[6px] font-pretendard text-[15px] leading-tight">
         <p className="text-titleBlack">
-          {highlightKeyword(writer.name, keyword)}
+          {highlightKeyword(writer.authorNickname, keyword)}
         </p>
-        {writer.webtoons && (
+        {writer.representativeWorkTitle && (
           <p className="text-inActive">
             {highlightKeyword(
-              writer.webtoons.length > 1
-                ? `<${writer.webtoons[0]}> 외 ${writer.webtoons.length - 1}권`
-                : `<${writer.webtoons[0]}>`,
+              writer.workCount > 1
+                ? `<${writer.representativeWorkTitle}> 외 ${
+                    writer.workCount - 1
+                  }권`
+                : `<${writer.representativeWorkTitle}>`,
               keyword
             )}
           </p>

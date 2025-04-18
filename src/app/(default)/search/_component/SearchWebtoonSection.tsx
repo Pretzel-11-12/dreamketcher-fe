@@ -5,7 +5,7 @@ import SearchResultThumbnail from './SearchResultThumbnail';
 import SearchDropdown from './SearchDropdown';
 import Pagination from '@/app/_component/Pagination';
 import { useQuery } from '@tanstack/react-query';
-import { getSearchResult } from '@/app/api/fetchWebtoons/getSearchResult';
+import { getSearchWebtoonsByTitle } from '@/app/api/fetchWebtoons/getSearchResult';
 
 interface SearchWebtoonSectionProps {
   keyword: string;
@@ -23,9 +23,16 @@ export default function SearchWebtoonSection({
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['webtoons', 'search', keyword, currentPage - 1, sortDirection],
+    queryKey: [
+      'webtoons',
+      'search',
+      'title',
+      keyword,
+      currentPage - 1,
+      sortDirection,
+    ],
     queryFn: () =>
-      getSearchResult({
+      getSearchWebtoonsByTitle({
         param: { keyword },
         query: {
           fromFirst: sortDirection === 'asc',
