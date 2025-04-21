@@ -20,15 +20,9 @@ const EventThumbnail: React.FC<EventThumbnailProps> = ({ webtoon }) => {
   return (
     <div className="flex flex-col gap-5">
       <div
-        className="flex w-full h-[150px] cursor-pointer gap-[18px] pr-5"
+        className="flex w-full h-[150px] gap-[18px] pr-5"
         onClick={tempClickHandler}
       >
-        {/* <CoverImage
-          alt={'Search webtoon thumbnail'}
-          src={webtoon.thumbnail}
-          height={150}
-          width={100}
-        /> */}
         <div className="w-[100px] h-[150px] relative">
           <Image src={webtoon.thumbnail} alt="romance icon" fill />
         </div>

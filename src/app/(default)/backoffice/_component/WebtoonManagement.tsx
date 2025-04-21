@@ -72,19 +72,19 @@ const WebtoonManagement: React.FC<WebtoonManagementProps> = ({ webtoon }) => {
       <p className="w-[150px]">{webtoon.member}</p>
       <p className="w-[150px]">웹툰 상태(임시)</p>
       <button
-        className="bg-brand-yellow w-[50px] h-[40px] rounded-[10px] border-4"
+        className="bg-brand-yellow w-[50px] h-[40px] rounded-[10px]"
         onClick={handleApprove}
       >
         승인
       </button>
       <button
-        className="bg-brand-yellow w-[50px] h-[40px] rounded-[10px] border-4"
+        className="bg-brand-yellow w-[50px] h-[40px] rounded-[10px]"
         onClick={handleReject}
       >
         거절
       </button>
       <button
-        className="bg-brand-yellow w-[100px] h-[40px] rounded-[10px] border-4"
+        className="bg-brand-yellow w-[100px] h-[40px] rounded-[10px]"
         onClick={handleChangeStatus}
       >
         상태 변경
