@@ -27,7 +27,6 @@ export default function EventViewer() {
           alt="Site promotion image"
           width={430}
           height={90}
-          layout="intrinsic"
         />
       </div>
     </div>
