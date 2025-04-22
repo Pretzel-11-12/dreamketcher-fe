@@ -14,7 +14,7 @@ export interface MyWebtoon {
   id: number;
   title: string;
   thumbnail: string;
-  author: string;
+  authorNickname: string;
   story: string;
   episodeCount: number;
   avgStar: number;
@@ -50,7 +50,7 @@ export interface UserWebtoon {
   id: number;
   title: string;
   thumbnail: string;
-  author: string;
+  authorNickname: string;
   story: string;
   episodeCount: number;
   avgStar: number;
