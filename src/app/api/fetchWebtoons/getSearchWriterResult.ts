@@ -7,7 +7,7 @@ export const getSearchWriterResult = async (arg: {
   const baseUrl = '/api/v1/webtoons/search';
   const { param } = arg;
   const { keyword } = param;
-  const endpoint = `${baseUrl}?keyword=${keyword}`;
+  const endpoint = `${baseUrl}?keyword=${encodeURIComponent(keyword)}`;
 
   if (!keyword.trim()) {
     throw new Error('Keyword is required');
