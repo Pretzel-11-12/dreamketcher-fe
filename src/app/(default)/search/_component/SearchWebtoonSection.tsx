@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import SearchDropdown from './SearchDropdown';
@@ -21,6 +21,10 @@ export default function SearchWebtoonSection({
 }: SearchWebtoonSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [keyword]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [
