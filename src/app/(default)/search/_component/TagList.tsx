@@ -11,16 +11,14 @@ interface TagListProps {
 const Tag = ({
   children,
   tagId,
-  highlighted = false,
 }: {
   children: React.ReactNode;
-  highlighted?: boolean;
   tagId: number;
 }) => {
   const router = useRouter();
   return (
     <div
-      className="bg-gray-100 px-[5px] leading-[normal] flex items-center h-[20px] mr-1 rounded-[3px] text-inActive"
+      className="bg-gray-100 px-[8px] py-[5px] leading-[normal] flex items-center mr-1 rounded-[3px] text-inActive hover:bg-gray-200 cursor-pointer"
       onClick={() => {
         router.push(`/search/tag?tagId=${tagId}`);
       }}
