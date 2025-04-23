@@ -10,6 +10,16 @@ export namespace _Model {
     totalElements: number;
   }
 
+  export interface IWriter {
+    id: number;
+    name: string;
+    profileImage: string;
+    webtoons: string[];
+    authorNickname: string;
+    representativeWorkTitle: string;
+    workCount: number;
+  }
+
   export interface WebtoonDetailUnit {
     webtoonId: number;
     webtoonTitle: string;
