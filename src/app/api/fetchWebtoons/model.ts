@@ -25,6 +25,11 @@ export namespace _Model {
     workCount: number;
   }
 
+  export interface SearchTagResponse {
+    content: string;
+    webtoons: WebtoonDetailUnit[];
+  }
+
   export interface WebtoonDetailUnit {
     webtoonId: number;
     webtoonTitle: string;

@@ -10,12 +10,6 @@ import CoverImage from '@/app/_component/CoverImage';
 import Toast from '@/app/_component/Toast';
 import TagList from '@/app/(default)/search/_component/TagList';
 
-export enum Tag {
-  SCARED = '괴담',
-  ROMANCE = '로맨스',
-  HORROR = '호러',
-}
-
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
 };

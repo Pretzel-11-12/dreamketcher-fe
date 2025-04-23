@@ -60,7 +60,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           <p className="text-[14px] text-[#3f3f3f] mb-[4px] whitespace-normal line-clamp-1">
             {highlightKeyword(webtoon.story, keyword)}
           </p>
-          <TagList tags={temporalTags} keyword={keyword} />
+          <TagList tags={webtoon.tags} keyword={keyword} />
         </div>
       </div>
     </div>

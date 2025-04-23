@@ -58,7 +58,7 @@ export const getSearchWebtoonsByAuthor = async (arg: {
 
 export const getSearchWebtoonsByTag = async (arg: {
   param: { tagId: number };
-}): Promise<Model.WebtoonDetailUnit[]> => {
+}): Promise<Model.SearchTagResponse> => {
   const baseUrl = '/api/v1/webtoons/tag';
   const { param } = arg;
   const { tagId } = param;

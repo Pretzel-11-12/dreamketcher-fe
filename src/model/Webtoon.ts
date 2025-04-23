@@ -11,7 +11,7 @@ export interface Webtoon {
   averageStar: number;
   numOfStars: number;
   story: string;
-  tags?: Model.Tag[];
+  tags: Model.Tag[];
 }
 
 export interface MyWebtoon {

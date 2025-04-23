@@ -157,7 +157,8 @@ export default function Detail() {
             <div className="h-full w-full flex flex-col pb-18 gap-1">
               <div
                 className="h-[132px] p-5 border border-[#F2F2F2] rounded-md"
-                ref={commentRef}>
+                ref={commentRef}
+              >
                 <div className="text-base/[19px] text-[#282828] font-medium pb-[15px]">
                   작가의 말
                 </div>
@@ -210,13 +211,13 @@ export default function Detail() {
                   <p>이번 화의 댓글이 아직 없습니다.</p>
                   <p>첫 댓글을 남겨보세요.</p>
                 </div>
-              ) :
+              ) : (
                 <div className="flex flex-col">
-                {result?.map((comment) => (
-                  <CommentItemGroup item={comment} key={comment.id} />
-                ))}
-              </div>
-              }
+                  {result?.map((comment) => (
+                    <CommentItemGroup item={comment} key={comment.id} />
+                  ))}
+                </div>
+              )}
             </div>
 
             {totalElements > 10 && !showAllComments && (
@@ -243,7 +244,8 @@ export default function Detail() {
       </div>
       <EpisodeFooter
         isVisible={isHeaderVisible}
-        onClickComment={handleScrollToComment}/>
+        onClickComment={handleScrollToComment}
+      />
     </>
   );
 }

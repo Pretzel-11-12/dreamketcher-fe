@@ -23,7 +23,7 @@ export default function SearchTagSection({ tagId }: SearchTagSectionProps) {
     gcTime: 5 * 60 * 1000,
   });
 
-  const searchData = data || [];
+  const searchData = data || { content: '', webtoons: [] };
 
   return (
     <div className="flex flex-col w-[894px] min-h-[calc(100vh-255px)] border-r border-r-line pt-[30px] pr-[24px] gap-[50px] pb-[80px]">
@@ -38,36 +38,39 @@ export default function SearchTagSection({ tagId }: SearchTagSectionProps) {
           <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
             작품
           </p>
-          <p className="ml-2 text-sm text-gray-500">총 {searchData.length}개</p>
+          <p className="ml-2 text-sm text-gray-500">
+            총 {searchData.webtoons.length}개
+          </p>
         </div>
         <div className="mb-[12px] flex justify-between items-center">
           <SearchMainSectionHeader />
         </div>
         <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
-          {searchData.length > 0 ? (
-            searchData.map((webtoon) => (
-              <SearchTagResultThumbnail
-                key={webtoon.webtoonId}
-                webtoon={webtoon}
-                tag={{
-                  id: tagId,
-                  content: '무협/사극',
-                }}
-              />
-            ))
-          ) : (
-            <div className="flex flex-col items-center text-gray-500 text-sm mt-10 gap-2">
-              <div>
-                <p className="text-black text-base mb-3">
-                  태그 '무협 / 사극'에 대한 검색 결과가 없습니다.
-                </p>
-                <div className="flex flex-col mx-1">
-                  <p>· 띄어쓰기나 철자를 확인해보세요</p>
-                  <p>· 다른 검색어로 검색해보세요</p>
+          {searchData.content &&
+            (searchData.webtoons.length > 0 ? (
+              searchData.webtoons.map((webtoon) => (
+                <SearchTagResultThumbnail
+                  key={webtoon.webtoonId}
+                  webtoon={webtoon}
+                  tag={{
+                    id: tagId,
+                    content: searchData.content,
+                  }}
+                />
+              ))
+            ) : (
+              <div className="flex flex-col items-center text-gray-500 text-sm mt-10 gap-2">
+                <div>
+                  <p className="text-black text-base mb-3">
+                    태그 '{searchData.content}'에 대한 검색 결과가 없습니다.
+                  </p>
+                  <div className="flex flex-col mx-1">
+                    <p>· 띄어쓰기나 철자를 확인해보세요</p>
+                    <p>· 다른 검색어로 검색해보세요</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            ))}
         </div>
       </div>
     </div>
