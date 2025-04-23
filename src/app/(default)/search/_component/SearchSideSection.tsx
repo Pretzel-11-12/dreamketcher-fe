@@ -18,12 +18,7 @@ const SearchSideSection: React.FC<SearchSideSectionProps> = ({
       <div className="flex flex-col gap-[15px]">
         <p className="text-[16px] text-[#3f3f3f]">연관 검색어</p>
         <hr></hr>
-        <KeywordSelector
-          keywords={searchKeywords}
-          handleKeywordClick={() => {
-            return;
-          }}
-        />
+        <KeywordSelector keywords={searchKeywords} />
       </div>
       <div className="flex flex-col gap-[15px]">
         <p>추천 태그</p>
