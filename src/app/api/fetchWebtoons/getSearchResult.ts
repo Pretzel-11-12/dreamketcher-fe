@@ -55,3 +55,29 @@ export const getSearchWebtoonsByAuthor = async (arg: {
   }
   return res.json();
 };
+
+export const getSearchWebtoonsByTag = async (arg: {
+  param: { tagId: number };
+}): Promise<Model.WebtoonDetailUnit[]> => {
+  const baseUrl = '/api/v1/webtoons/tag';
+  const { param } = arg;
+  const { tagId } = param;
+  const endpoint = `${baseUrl}/${tagId}`;
+
+  if (!tagId) {
+    throw new Error('TagId is required');
+  }
+
+  const res = await fetch(endpoint, {
+    next: {
+      tags: ['webtoons', 'search', 'tag', tagId.toString()],
+    },
+    credentials: 'include',
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  return res.json();
+};
