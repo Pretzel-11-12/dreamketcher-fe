@@ -37,7 +37,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as UserWebtoon[];
+      return res.content.result as unknown as UserWebtoon[];
     },
   });
 
@@ -48,7 +48,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as UserWebtoon[];
+      return res.content.result as unknown as UserWebtoon[];
     },
   });
 
@@ -59,7 +59,7 @@ const ProfileWork = ({ userId }: ProfileWorksProps) => {
       const res = await fetchCreatorWebtoon.getCreatorsWebtoons({
         query: { status: 'NEW' },
       });
-      return res.content.result as UserWebtoon[];
+      return res.content.result as unknown as UserWebtoon[];
     },
   });
 
