@@ -5,18 +5,7 @@ import WorkItem from './WorkItem';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
-
-export interface Webtoon {
-  id: number;
-  title: string;
-  thumbnail: string;
-  author: string;
-  story: string;
-  episodeCount: number;
-  avgStar: number;
-  numOfStars: number;
-  genre: string;
-}
+import { MyWebtoon } from '@/model/Webtoon';
 
 const MyWork: React.FC = () => {
   const router = useRouter();
@@ -126,7 +115,7 @@ const MyWork: React.FC = () => {
         )
       ) : (
         <div className="space-y-4">
-          {works.map((work: Webtoon) => (
+          {works.map((work: MyWebtoon) => (
             <WorkItem key={work.id} {...work} />
           ))}
         </div>
