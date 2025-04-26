@@ -31,7 +31,7 @@ export default function FavoriteWebtoons() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 mt-10 gap-5">
+      <div className="grid grid-cols-1 mt-[30px] gap-5">
         {currentItems.map((webtoon: FavoriteWebtoon) => (
           <FavoriteWebtoonItem key={webtoon.interestedWebtoonId} {...webtoon} />
         ))}
