@@ -70,42 +70,49 @@ const Header: React.FC = () => {
   return (
     <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
       <div className="flex items-center justify-between w-full h-[70px] mx-auto px-5 relative">
-        <div className="flex items-center gap-3">
-          <span
-            className="mdi mdi-chevron-left text-2xl text-gray-600 cursor-pointer"
-            onClick={handleGoBack}
-          />
-
+        <div className="flex items-center gap-[5px]">
+          <div className="relative w-[24px] h-[24px]" onClick={handleGoBack}>
+            <Image
+              src="/assets/icon/creator-back.png"
+              alt="creator logo"
+              fill
+            />
+          </div>
           <Link href="/main/default">
             <Image
               src="/assets/images/d-studio-logo.png"
               alt="profile button"
-              width={30}
+              width={38}
               height={0}
               sizes="100vw"
               style={{ height: 'auto' }}
             />
           </Link>
-
-          <Link href="/creator/series">
+          <Link href="/creator/series" className="pl-[5px]">
             <Image
               src="/assets/images/studio-text.png"
               alt="profile button"
-              width={75}
-              height={35}
+              width={103}
+              height={26}
             />
           </Link>
         </div>
         <div className="flex justify-end w-full max-w-[600px]">
-          <div className="relative flex text-black gap-3 items-center">
+          <div className="relative flex text-black gap-[15px] items-center h-[34px]">
+            <button
+              className="h-[34px] p-[10px] rounded-[5px] border border-1 border-[#e0e0e0] flex items-center justify-center text-titleBlack text-[14px]"
+              onClick={handleGoBack}
+            >
+              작업실 나가기
+            </button>
             {id ? (
               <Image
                 src={imageUrl || '/assets/images/profile-default.png'}
                 alt="profile button"
-                width={30}
-                height={30}
+                width={34}
+                height={34}
                 onClick={handleOpenModal}
-                className="cursor-pointer rounded-full w-[30px] h-[30px]"
+                className="cursor-pointer rounded-full w-[34px] h-[34px]"
               />
             ) : (
               <Link

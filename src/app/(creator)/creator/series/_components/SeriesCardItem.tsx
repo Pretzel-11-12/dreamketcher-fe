@@ -10,6 +10,7 @@ import moment from 'moment';
 import Button from '@/app/_component/Button';
 import { GenreEnum } from '@/app/util/index';
 import Image from 'next/image';
+import CardButton from './CardButton';
 
 const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   item
@@ -52,7 +53,7 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
               />
             </div>
 
-            <div className="flex w-full items-center text-[14px] text-[#888] gap-2">
+            <div className="flex w-full items-center text-[16px] text-[#888] gap-2">
               <span>{genre}</span>
               <div className="h-[10px] bg-brand-gray w-[1px]" />
               <span>{startedAt || '-'} ~</span>
@@ -60,33 +61,33 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           </div>
 
           <div className="flex flex-col gap-2">
-            <div className="flex w-full items-center text-[14px] text-[#888] gap-1">
+            <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
               <Image
-                src="/assets/icon/inactiveLike-thin.svg"
-                alt="reply"
-                width={13}
-                height={13}
+                src="/assets/icon/user.png"
+                alt="user"
+                width={17}
+                height={17}
               />
               <span>{item.likeCount}</span>
             </div>
 
-            <div className="flex w-full items-center text-[14px] text-[#888]">
-              <div className="flex w-full items-center text-[14px] text-[#888] gap-1">
+            <div className="flex w-full items-center">
+              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
                 <Image
-                  src="/assets/icon/star.svg"
-                  alt="reply"
-                  width={13}
-                  height={13}
+                  src="/assets/icon/eye.png"
+                  alt="eye"
+                  width={17}
+                  height={17}
                 />
                 <span>{item.numOfStars}</span>
               </div>
 
-              <div className="flex w-full items-center text-[14px] text-[#888] gap-1">
+              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
                 <Image
-                  src="/assets/icon/inactiveMessage.svg"
-                  alt="reply"
-                  width={13}
-                  height={13}
+                  src="/assets/icon/message.png"
+                  alt="message"
+                  width={17}
+                  height={17}
                 />
                 <span>{item.commentCount}</span>
               </div>
@@ -94,27 +95,19 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           </div>
 
           <div className="flex w-full items-center gap-1">
-            <Button
-              props={{
-                size: 'S',
-                variant: 'brand-gray-light',
-                handleClick: () =>
-                  router.push(`/creator/series/new?webtoonId=${item.id}`),
-              }}
-            >
-              작품 수정
-            </Button>
+            <CardButton
+              text="작품 수정"
+              onClick={() =>
+                router.push(`/creator/series/new?webtoonId=${item.id}`)
+              }
+            />
 
-            <Button
-              props={{
-                size: 'S',
-                variant: 'brand-gray-light',
-                handleClick: () =>
-                  router.push(`/creator/episode?webtoonId=${item.id}`),
-              }}
-            >
-              회차 관리
-            </Button>
+            <CardButton
+              text="회차 관리"
+              onClick={() =>
+                router.push(`/creator/series/new?webtoonId=${item.id}`)
+              }
+            />
           </div>
         </div>
       </div>

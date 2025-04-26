@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export interface OptionButtonInfo {
@@ -8,12 +9,17 @@ const OptionButton: React.FC<OptionButtonInfo> = ({ items }) => {
   const [activeOption, setOption] = useState(false);
 
   return (
-    <div className="relative w-fit">
+    <div className="relative">
       <button
         onClick={() => setOption(!activeOption)}
-        className="hover:bg-brand-gray rounded-md px-1 py-0.3"
+        className="hover:bg-brand-gray rounded-md w-[20px] h-[20px]"
       >
-        <span className="mdi mdi-dots-horizontal text-[#888]"></span>
+        <Image
+          src="/assets/icon/menu.png"
+          alt="option"
+          width={20}
+          height={20}
+        />
       </button>
       {activeOption && (
         <div
