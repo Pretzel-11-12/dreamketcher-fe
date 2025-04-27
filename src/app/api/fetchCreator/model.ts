@@ -32,7 +32,7 @@ export namespace _Model {
     thumbnail: string;
     title: string;
     updatedAt: string;
-    author: string;
+    authorNickname: string;
     avgStar: number;
     numOfStars: number;
     story: string;

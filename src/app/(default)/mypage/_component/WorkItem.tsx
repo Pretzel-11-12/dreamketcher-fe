@@ -7,7 +7,7 @@ const WorkItem: React.FC<MyWebtoon> = ({
   id,
   thumbnail,
   title,
-  author,
+  authorNickname,
   genre,
   episodeCount,
   avgStar,
@@ -38,7 +38,7 @@ const WorkItem: React.FC<MyWebtoon> = ({
           {title}
         </h3>
         <p className="text-xs text-gray-400">
-          {author} &#183; {genre} &#183; {episodeCount}화
+          {authorNickname} &#183; {genre} &#183; {episodeCount}화
         </p>
         <div className="flex items-center mt-1">
           <Image
