@@ -15,6 +15,9 @@ avgStar,
 commentCount,
 }) => {
   const router = useRouter();
+  /**
+   * 현재 웹툰의 상세 페이지로 이동합니다.
+   */
   function navigateToWebtoon() {
     router.push(`/webtoon/list?id=${id}`);
   }
