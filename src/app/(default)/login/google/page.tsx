@@ -18,6 +18,8 @@ const GoogleCallbackPage: React.FC = () => {
         return;
       }
 
+      const start = Date.now();
+
       try {
         // GET 요청으로 authCode를 쿼리 스트링에 포함하여 서버로 전송
         const data = await handleGoogleLogin(authCode);
@@ -30,11 +32,20 @@ const GoogleCallbackPage: React.FC = () => {
         setAccessToken(accessToken);
         localStorage.setItem('accessToken', accessToken);
 
-        window.location.href = '/main';
       } catch (error) {
         console.error('구글 로그인 실패:', error);
       } finally {
-        setIsLoading(false);
+        const elapsed = Date.now() - start;
+        const MIN_LOADING_TIME = 2000;
+
+        const delay = Math.max(0, MIN_LOADING_TIME - elapsed);
+        setTimeout(() => {
+          setIsLoading(false);
+
+          setTimeout(() => {
+            window.location.href = '/main';
+          }, 200);
+        }, delay);
       }
     };
 
