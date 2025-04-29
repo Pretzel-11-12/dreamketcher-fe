@@ -4,7 +4,6 @@ import Header from '@/app/_component/Header';
 import Footer from '@/app/_component/Footer';
 import { Suspense } from 'react';
 
-import '@mdi/font/css/materialdesignicons.min.css';
 import RQProvider from '../_component/RQProvider';
 
 export const metadata: Metadata = {

@@ -25,17 +25,17 @@ const Footer: React.FC = () => {
         </p>
         <div className="flex flex-row items-center justify-center gap-[15px] mt-[35px]">
           <img
-            src="/assets/icon/x.png"
+            src="/assets/icon/X.png"
             alt="X Logo"
             className="w-[25px] h-[25px]"
           />
           <img
-            src="/assets/icon/youtube.png"
+            src="/assets/icon/Youtube.png"
             alt="Youtube Logo"
             className="w-[25px] h-[25px]"
           />
           <img
-            src="/assets/icon/facebook.png"
+            src="/assets/icon/Facebook.png"
             alt="Facebook Logo"
             className="w-[25px] h-[25px]"
           />
