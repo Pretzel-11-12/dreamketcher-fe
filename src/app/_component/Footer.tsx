@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-[160px] bg-[#f9f9f9] mt-auto mx-auto pt-[25px">
+      <div className="flex flex-col items-center justify-center w-full h-[160px] bg-[#f9f9f9] mt-auto mx-auto pt-[25px]">
         <p className="text-[#888888] text-[15px] font-medium leading-[120%]">
           서비스 소개 <span className="m-1">|</span> 개인정보처리방침{' '}
           <span className="m-1">|</span>
