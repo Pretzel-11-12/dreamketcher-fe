@@ -71,13 +71,16 @@ const Header: React.FC = () => {
     <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
       <div className="flex items-center justify-between w-full h-[70px] mx-auto px-5 relative">
         <div className="flex items-center gap-[5px]">
-          <div className="relative w-[24px] h-[24px]" onClick={handleGoBack}>
+          <button
+            className="relative w-[24px] h-[24px] border-0 bg-transparent p-0"
+            onClick={handleGoBack}
+          >
             <Image
               src="/assets/icon/creator-back.png"
-              alt="creator logo"
+              alt="뒤로 가기"
               fill
             />
-          </div>
+          </button>
           <Link href="/main/default">
             <Image
               src="/assets/images/d-studio-logo.png"
