@@ -99,11 +99,17 @@ const EpisodeFooter = ({
         <div className="w-[720px] h-[34px] flex items-center text-sm text-[#3F3F3F] gap-3 justify-between">
           <div className="flex gap-5 items-center">
             <div
-              className="cursor-pointer items-center flex gap-2"
+              className={`cursor-pointer items-center flex gap-2 ${
+                isMenuOpen ? 'text-brand-yellow' : ''
+              }`}
               onClick={handleMenuClick}
             >
               <Image
-                src="/assets/icon/menu.svg"
+                src={
+                  isMenuOpen
+                    ? '/assets/icon/menu-yellow.png'
+                    : '/assets/icon/menu.svg'
+                }
                 alt="menu"
                 width={24}
                 height={24}
