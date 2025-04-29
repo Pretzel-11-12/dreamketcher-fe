@@ -56,7 +56,8 @@ const SeriesSideBar: React.FC<{}> = () => {
         {' '}
         <Image
           src="/assets/icon/info-circle.png"
-          alt="내 작품"
+-         alt="내 작품"
++         alt="도움말"
           width={20}
           height={20}
         />
