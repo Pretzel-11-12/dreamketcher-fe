@@ -2,34 +2,35 @@ type FooterProps = {};
 
 const Footer: React.FC<FooterProps> = () => {
   return (
-    <div className="flex items-center justify-center w-full h-[130px] bg-[#444655] text-white text-[14px] mt-auto">
-      {/* <div className="w-[1024px] mb-[-15px]">
-        <div className="flex flex-row start-1 gap-1 my-[-2px]">
-          <img
-            src={`/assets/images/team-logo.png`}
-            alt="Team Logo"
-            className="h-8 w-8 relative top-[-5px]"
-          />
-          <p>Pretzel</p>
-        </div>
-        <div className="flex flex-row start-1 gap-3 my-[-2px]">
-          <img
-            src={`/assets/images/email.png`}
-            alt="Team Email"
-            className="h-5 w-5 relative top-[-2px] left-[5px] mr-[4px]"
-          />
-          <p>pretzelll9999@gmail.com</p>
-        </div>
-        <div className="flex flex-row start-1 gap-3 my-[10px]">
-          <img
-            src={`/assets/images/tool.png`}
-            alt="Team Info"
-            className="h-5 w-5 relative top-[-2px] left-[5px] mr-[4px]"
-          />
-          <p>andy</p>
-        </div>
-      </div> */}
-      <p>푸터 영역</p>
+    <div className="flex flex-col items-center justify-center w-full h-[160px] bg-[#f9f9f9] mt-auto mx-auto pt-[25px">
+      <p className="text-[#888888] text-[15px] font-medium leading-[120%]">
+        서비스 소개 <span className="m-1">|</span> 개인정보처리방침{' '}
+        <span className="m-1">|</span>
+        서비스이용약관
+      </p>
+      <p className="text-[#c9c9c9] text-[14px] font-medium leading-[120%] mt-[9px]">
+        주소 : 서울특별시 마포구 아산대로길 192 22길{' '}
+        <span className="m-1">|</span> 고객센터 1600-1234{' '}
+        <span className="m-1">|</span>
+        고유번호 : 324-82-005800
+      </p>
+      <div className="flex flex-row items-center justify-center gap-[15px] mt-[35px]">
+        <img
+          src="/assets/icon/x.png"
+          alt="X Logo"
+          className="w-[25px] h-[25px]"
+        />
+        <img
+          src="/assets/icon/youtube.png"
+          alt="Youtube Logo"
+          className="w-[25px] h-[25px]"
+        />
+        <img
+          src="/assets/icon/facebook.png"
+          alt="Facebook Logo"
+          className="w-[25px] h-[25px]"
+        />
+      </div>
     </div>
   );
 };
