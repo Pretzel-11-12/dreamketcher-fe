@@ -6,13 +6,20 @@ import DetailEpisodeList from './DetailEpisodeList';
 
 const EpisodeFooter = ({
   isVisible,
+  setVisible,
   onClickComment,
 }: {
   isVisible: boolean;
+  setVisible: (visible: boolean) => void;
   onClickComment: () => void;
 }) => {
-  const [isDisplay, setDisplay] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible) {
+      setMenuOpen(false);
+    }
+  }, [isVisible]);
 
   const episodeListData = [
     {
@@ -56,9 +63,9 @@ const EpisodeFooter = ({
         scrollPosition <= 300 ||
         scrollPosition + windowHeight >= documentHeight - 300
       ) {
-        setDisplay(true);
+        setVisible(true);
       } else {
-        setDisplay(false);
+        setVisible(false);
       }
     }
   };
@@ -78,22 +85,17 @@ const EpisodeFooter = ({
 
   return (
     <div className="w-full h-fit min-h-[50px]">
-      {isMenuOpen && (
-        <DetailEpisodeList
-          episodeList={episodeListData}
-          isDisplay={isDisplay}
-          isMenuOpen={isMenuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-      )}
+      <DetailEpisodeList
+        episodeList={episodeListData}
+        isMenuOpen={isMenuOpen}
+      />
       <div
-        className="w-full h-[50px] bg-[#FFFFFF] fixed bottom-0 border-t border-[#C9C9C9] flex items-center justify-center transition-opacity duration-300 z-50"
-        style={{
-          opacity: isVisible || isDisplay ? 1 : 0,
-        }}
-        onMouseEnter={() => !isMenuOpen && setDisplay(true)}
+        className={`w-full h-[50px] bg-[#FFFFFF] fixed bottom-0 border-t border-[#C9C9C9] flex items-center justify-center transition-opacity duration-300 z-50 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+        onMouseEnter={() => !isMenuOpen && setVisible(true)}
         onMouseLeave={() =>
-          !isMenuOpen && window.scrollY >= 300 && setDisplay(false)
+          !isMenuOpen && window.scrollY >= 300 && setVisible(false)
         }
       >
         <div className="w-[720px] h-[34px] flex items-center text-sm text-[#3F3F3F] gap-3 justify-between">

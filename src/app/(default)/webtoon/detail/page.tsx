@@ -32,6 +32,33 @@ export default function Detail() {
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
 
+  const episodeListData = [
+    {
+      id: '1',
+      title: '1화',
+      description: '1화 설명',
+      image: '/assets/images/episode-1.jpg',
+    },
+    {
+      id: '2',
+      title: '2화',
+      description: '1화 설명',
+      image: '/assets/images/episode-2.jpg',
+    },
+    {
+      id: '3',
+      title: '3화',
+      description: '1화 설명',
+      image: '/assets/images/episode-3.jpg',
+    },
+    {
+      id: '4',
+      title: '4화',
+      description: '1화 설명',
+      image: '/assets/images/episode-4.jpg',
+    },
+  ];
+
   const { data, isLoading, isError } = useQuery({
     queryKey: [webtoonId, episodeId, 'detail'],
     queryFn: () =>
@@ -143,6 +170,39 @@ export default function Detail() {
             />
           </div>
         </div>
+        <div className="w-full flex items-center justify-center bg-white">
+          <div className="w-[720px] mx-auto flex gap-[21px] items-center justify-between py-[20px] px-[10px] bg-white mb-10 border border-1 border-[#f2f2f2] rounded-[5px]">
+            <Image
+              src="/assets/icon/arrow-up.svg"
+              alt="rightArrow"
+              width={24}
+              height={24}
+              className="cursor-pointer -rotate-90"
+            />
+            <div className="flex gap-[30px]">
+              {episodeListData.map((episode) => (
+                <div key={episode.id}>
+                  <img
+                    src={episode.image}
+                    alt={episode.title}
+                    className="w-[130px] h-[78px]"
+                  />
+                  <p className="text-[14px] text-[#282828] hover:text-brand-yellow mt-[10px]">
+                    {episode.id}화 - {episode.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <Image
+              src="/assets/icon/arrow-up.svg"
+              alt="rightArrow"
+              width={24}
+              height={24}
+              className="cursor-pointer rotate-90"
+            />
+          </div>
+        </div>
+
         {/* divider */}
         <div
           className="w-full h-[15px] bg-[##FAFAFA]"
@@ -244,6 +304,7 @@ export default function Detail() {
       </div>
       <EpisodeFooter
         isVisible={isHeaderVisible}
+        setVisible={setHeaderVisible}
         onClickComment={handleScrollToComment}
       />
     </>
