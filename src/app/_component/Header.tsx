@@ -74,6 +74,7 @@ const Header: React.FC = () => {
             <Image
               src="/assets/images/dreamketcher-text.png"
               alt="logo button"
+              priority
               width={205}
               height={22}
             />

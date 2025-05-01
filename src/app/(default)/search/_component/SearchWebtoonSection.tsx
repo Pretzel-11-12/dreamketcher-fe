@@ -103,11 +103,13 @@ export default function SearchWebtoonSection({
           </div>
         )}
       </div>
-      <Pagination
-        totalPages={searchData.totalPages}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      {searchData.totalPages > 1 && (
+        <Pagination
+          totalPages={searchData.totalPages}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

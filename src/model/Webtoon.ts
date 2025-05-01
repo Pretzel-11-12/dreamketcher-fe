@@ -1,3 +1,6 @@
+import { _Model as __Model } from '@/app/api/fetchWebtoons/model';
+export import Model = __Model;
+
 export interface Webtoon {
   id: number;
   title: string;
@@ -8,7 +11,7 @@ export interface Webtoon {
   averageStar: number;
   numOfStars: number;
   story: string;
-  tags?: string[];
+  tags: Model.Tag[];
 }
 
 export interface MyWebtoon {

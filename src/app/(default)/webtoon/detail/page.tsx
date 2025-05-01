@@ -32,6 +32,33 @@ export default function Detail() {
   const webtoonId = searchParams.get('titleId')!;
   const episodeId = searchParams.get('no')!;
 
+  const episodeListData = [
+    {
+      id: '1',
+      title: '1화',
+      description: '1화 설명',
+      image: '/assets/images/episode-1.jpg',
+    },
+    {
+      id: '2',
+      title: '2화',
+      description: '1화 설명',
+      image: '/assets/images/episode-2.jpg',
+    },
+    {
+      id: '3',
+      title: '3화',
+      description: '1화 설명',
+      image: '/assets/images/episode-3.jpg',
+    },
+    {
+      id: '4',
+      title: '4화',
+      description: '1화 설명',
+      image: '/assets/images/episode-4.jpg',
+    },
+  ];
+
   const { data, isLoading, isError } = useQuery({
     queryKey: [webtoonId, episodeId, 'detail'],
     queryFn: () =>
@@ -143,6 +170,39 @@ export default function Detail() {
             />
           </div>
         </div>
+        <div className="w-full flex items-center justify-center bg-white">
+          <div className="w-[720px] mx-auto flex gap-[21px] items-center justify-between py-[20px] px-[10px] bg-white mb-10 border border-1 border-[#f2f2f2] rounded-[5px]">
+            <Image
+              src="/assets/icon/arrow-up.svg"
+              alt="rightArrow"
+              width={24}
+              height={24}
+              className="cursor-pointer -rotate-90"
+            />
+            <div className="flex gap-[30px]">
+              {episodeListData.map((episode) => (
+                <div key={episode.id}>
+                  <img
+                    src={episode.image}
+                    alt={episode.title}
+                    className="w-[130px] h-[78px]"
+                  />
+                  <p className="text-[14px] text-[#282828] hover:text-brand-yellow mt-[10px]">
+                    {episode.id}화 - {episode.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <Image
+              src="/assets/icon/arrow-up.svg"
+              alt="rightArrow"
+              width={24}
+              height={24}
+              className="cursor-pointer rotate-90"
+            />
+          </div>
+        </div>
+
         {/* divider */}
         <div
           className="w-full h-[15px] bg-[##FAFAFA]"
@@ -157,7 +217,8 @@ export default function Detail() {
             <div className="h-full w-full flex flex-col pb-18 gap-1">
               <div
                 className="h-[132px] p-5 border border-[#F2F2F2] rounded-md"
-                ref={commentRef}>
+                ref={commentRef}
+              >
                 <div className="text-base/[19px] text-[#282828] font-medium pb-[15px]">
                   작가의 말
                 </div>
@@ -210,13 +271,13 @@ export default function Detail() {
                   <p>이번 화의 댓글이 아직 없습니다.</p>
                   <p>첫 댓글을 남겨보세요.</p>
                 </div>
-              ) :
+              ) : (
                 <div className="flex flex-col">
-                {result?.map((comment) => (
-                  <CommentItemGroup item={comment} key={comment.id} />
-                ))}
-              </div>
-              }
+                  {result?.map((comment) => (
+                    <CommentItemGroup item={comment} key={comment.id} />
+                  ))}
+                </div>
+              )}
             </div>
 
             {totalElements > 10 && !showAllComments && (
@@ -243,7 +304,9 @@ export default function Detail() {
       </div>
       <EpisodeFooter
         isVisible={isHeaderVisible}
-        onClickComment={handleScrollToComment}/>
+        setVisible={setHeaderVisible}
+        onClickComment={handleScrollToComment}
+      />
     </>
   );
 }

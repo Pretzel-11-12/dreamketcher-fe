@@ -8,12 +8,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import CoverImage from '@/app/_component/CoverImage';
 import Toast from '@/app/_component/Toast';
-
-export enum Tag {
-  SCARED = '괴담',
-  ROMANCE = '로맨스',
-  HORROR = '호러',
-}
+import TagList from '@/app/(default)/search/_component/TagList';
 
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
@@ -113,13 +108,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             <div> {genreName}</div>
           </div>
           <div className="text-sm text-[#3f3f3f]">{webtoonStory}</div>
-          <div className="text-sm flex gap-1">
-            {tags.map((v) => (
-              <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
-                {v.content}
-              </div>
-            ))}
-          </div>
+          <TagList tags={tags} />
           <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
             <Button
               props={{

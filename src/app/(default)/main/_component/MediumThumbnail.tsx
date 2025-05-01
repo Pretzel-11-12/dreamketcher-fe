@@ -12,7 +12,7 @@ type MediumThumbnailProps = {
 };
 
 const MediumThumbnail: React.FC<MediumThumbnailProps> = ({ webtoon, w, h }) => {
-  const temporalTags = ['무협/사극', '사이다', '세계관', '성장'];
+  const temporalTags = webtoon.tags || [];
   const router = useRouter();
 
   const handleTitleClick = (e: React.MouseEvent) => {
