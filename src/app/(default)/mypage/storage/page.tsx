@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import RecentWorks from '../_component/RecentWorks';
-import FavoriteWebtoons from '../_component/FavoriteWebtoons';
 import Comments from '../_component/Comments';
 import { useRouter, useSearchParams } from 'next/navigation';
+import BookShelf from '@/app/(default)/mypage/_component/BookShelf/BookShelf';
 
 export default function StoragePage() {
   const router = useRouter();
@@ -32,7 +32,7 @@ export default function StoragePage() {
   }, [tabFromQuery]);
 
   return (
-    <div className="mt-[70px] min-h-screen">
+    <div className="mt-[70px] h-full min-h-screen">
       <h1 className="text-xl font-semibold pt-[21px] mb-4">보관함</h1>
       <div className="flex -ml-6 -mr-[23px] pl-6 pr-[23px] border-b border-b-line">
         {tabs.map((tab) => (
@@ -51,7 +51,7 @@ export default function StoragePage() {
       </div>
       <div>
         {selectedTab === 'recent' && <RecentWorks />}
-        {selectedTab === 'favorite' && <FavoriteWebtoons />}
+        {selectedTab === 'favorite' && <BookShelf />}
         {selectedTab === 'comments' && <Comments />}
       </div>
     </div>
