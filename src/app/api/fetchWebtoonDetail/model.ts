@@ -6,7 +6,7 @@ export namespace _Model {
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
-    AuthorNickname: string;
+    authorNickname: string;
     interestCount: number;
     genreName: string;
     tags: Tag[];
@@ -64,7 +64,7 @@ export namespace _Model {
 
   export interface EpisodeDetail {
     authorNote: string;
-    authorNickname: string;
+    authorName: string;
     authorImage: string;
     content: string[];
     id: number;
@@ -75,7 +75,7 @@ export namespace _Model {
     genre: string;
     title: string;
     viewCount: number;
-    interestCount: number;
+    likeCount: number;
     averageStar: number;
   }
 }
