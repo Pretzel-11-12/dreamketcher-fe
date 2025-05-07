@@ -127,8 +127,11 @@ export default function Backoffice() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">상세 사유</label>
+              <label htmlFor="suspension-reason" className="text-sm font-medium">
+                상세 사유
+              </label>
               <textarea
+                id="suspension-reason"
                 className="w-full min-h-[100px] p-2 border rounded-md"
                 placeholder="상세 사유를 입력하세요"
               ></textarea>
