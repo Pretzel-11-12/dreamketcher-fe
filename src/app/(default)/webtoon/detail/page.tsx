@@ -114,10 +114,10 @@ export default function Detail() {
         id: parseInt(webtoonId),
         image: data.webtoonThumbnail || '',
         title: data.webtoonTitle || '',
-        writer: data.authorName || '',
+        writer: data.authorNickname || '',
         episodeCount: parseInt(episodeId),
         averageRating: data.averageStar || 0,
-        stars: data.likeCount || 0,
+        stars: data.interestCount || 0,
         genre: data.genre || '',
         lastViewedAt: parseInt(episodeId),
       });
@@ -224,7 +224,7 @@ export default function Detail() {
                 </div>
                 <WriterInfoItem
                   authorImage={data?.authorImage || ''}
-                  name={data?.authorName || ''}
+                  name={data?.authorNickname || ''}
                   story={data?.authorNote || ''}
                 />
               </div>

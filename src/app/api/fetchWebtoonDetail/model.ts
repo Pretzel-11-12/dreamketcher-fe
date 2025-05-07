@@ -64,7 +64,7 @@ export namespace _Model {
 
   export interface EpisodeDetail {
     authorNote: string;
-    authorName: string;
+    authorNickname: string;
     authorImage: string;
     content: string[];
     id: number;
@@ -75,7 +75,7 @@ export namespace _Model {
     genre: string;
     title: string;
     viewCount: number;
-    likeCount: number;
+    interestCount: number;
     averageStar: number;
   }
 }
