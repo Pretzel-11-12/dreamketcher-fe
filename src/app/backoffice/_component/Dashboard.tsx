@@ -155,14 +155,6 @@ export default function Dashboard() {
       };
       reportChart.setOption(reportOption);
 
-  useEffect(() => {
-    if (reportChartRef.current) {
-      const reportChart = echarts.init(reportChartRef.current);
-      const reportOption = {
-        // 옵션 설정...
-      };
-      reportChart.setOption(reportOption);
-
       // 동일한 함수 참조를 사용해 add/remove
       const handleResize = () => {
         reportChart.resize();
@@ -174,8 +166,6 @@ export default function Dashboard() {
         reportChart.dispose();
         window.removeEventListener('resize', handleResize);
       };
-    }
-  }, []);
     }
   }, []);
 
