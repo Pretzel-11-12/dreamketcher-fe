@@ -5,18 +5,7 @@ import WorkItem from './WorkItem';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
-
-export interface Webtoon {
-  id: number;
-  title: string;
-  thumbnail: string;
-  author: string;
-  story: string;
-  episodeCount: number;
-  avgStar: number;
-  numOfStars: number;
-  genre: string;
-}
+import { MyWebtoon } from '@/model/Webtoon';
 
 const MyWork: React.FC = () => {
   const router = useRouter();
@@ -49,6 +38,26 @@ const MyWork: React.FC = () => {
     },
   });
 
+  // 연재 웹툰(IN_SERIES + NEW) 가져오기
+  const {
+    data: allData,
+    isLoading: isAllLoading,
+    isError: isAllError,
+  } = useQuery({
+    queryKey: ['creatorsWebtoon', 'all'],
+    queryFn: async () => {
+      const data = await fetchCreatorWebtoon.getCreatorsWebtoons({
+        query: { status: '' as 'IN_SERIES' },
+      });
+
+      return {
+        content: {
+          result: data.content.result,
+        },
+      };
+    },
+  });
+
   // 완결 웹툰(FINISH) 가져오기
   const { data: completedData } = useQuery({
     queryKey: ['creatorsWebtoon', 'completed'],
@@ -58,11 +67,12 @@ const MyWork: React.FC = () => {
 
   // 연재 웹툰과 완결 웹툰 개수
   const ongoingWorkCount = ongoingData?.content.result.length || 0;
+  const allWorkCount = allData?.content.result.length || 0;
   const completedWorkCount = completedData?.content.result.length || 0;
 
   // 현재 선택된 탭의 데이터
   const works = isOngoing
-    ? ongoingData?.content.result || []
+    ? allData?.content.result || []
     : completedData?.content.result || [];
 
   // 탭 클릭 시 URL 변경
@@ -78,7 +88,7 @@ const MyWork: React.FC = () => {
           {
             label: '내 연재 웹툰',
             type: 'ongoing' as const,
-            count: ongoingWorkCount,
+            count: allWorkCount,
           },
           {
             label: '내 완결 웹툰',
@@ -126,7 +136,7 @@ const MyWork: React.FC = () => {
         )
       ) : (
         <div className="space-y-4">
-          {works.map((work: Webtoon) => (
+          {works.map((work: MyWebtoon) => (
             <WorkItem key={work.id} {...work} />
           ))}
         </div>

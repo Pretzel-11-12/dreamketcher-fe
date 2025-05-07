@@ -17,6 +17,15 @@ const webtoonThumbnails: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     story: 'asdf',
+    tags: [
+      { id: 1, content: '로맨스' },
+      { id: 2, content: '스릴러' },
+      { id: 3, content: '공포' },
+      { id: 4, content: '액션' },
+      { id: 5, content: '스포츠' },
+      { id: 6, content: '개그' },
+      { id: 7, content: '소년' },
+    ],
   },
   {
     id: 2,
@@ -28,6 +37,12 @@ const webtoonThumbnails: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     story: 'asdf',
+    tags: [
+      { id: 1, content: '로맨스' },
+      { id: 2, content: '스릴러' },
+      { id: 3, content: '공포' },
+      { id: 4, content: '액션' },
+    ],
   },
   {
     id: 3,
@@ -39,6 +54,12 @@ const webtoonThumbnails: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     story: 'asdf',
+    tags: [
+      { id: 1, content: '로맨스' },
+      { id: 2, content: '스릴러' },
+      { id: 3, content: '공포' },
+      { id: 4, content: '액션' },
+    ],
   },
   {
     id: 4,
@@ -50,6 +71,12 @@ const webtoonThumbnails: IWebtoon[] = [
     averageStar: 4.1,
     numOfStars: 200,
     story: 'asdf',
+    tags: [
+      { id: 1, content: '로맨스' },
+      { id: 2, content: '스릴러' },
+      { id: 3, content: '공포' },
+      { id: 4, content: '액션' },
+    ],
   },
   {
     id: 5,
@@ -61,6 +88,12 @@ const webtoonThumbnails: IWebtoon[] = [
     averageStar: 0,
     numOfStars: 0,
     story: 'asdf',
+    tags: [
+      { id: 1, content: '로맨스' },
+      { id: 2, content: '스릴러' },
+      { id: 3, content: '공포' },
+      { id: 4, content: '액션' },
+    ],
   },
 ];
 

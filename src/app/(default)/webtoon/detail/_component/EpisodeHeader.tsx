@@ -20,7 +20,18 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, isVisible }) => {
 
   const handleScroll = () => {
     if (!isManualToggle) {
-      setDisplay(window.scrollY <= 300);
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      if (
+        scrollPosition <= 300 ||
+        scrollPosition + windowHeight >= documentHeight - 300
+      ) {
+        setDisplay(true);
+      } else {
+        setDisplay(false);
+      }
     }
   };
 

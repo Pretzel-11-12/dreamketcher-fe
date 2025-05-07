@@ -1,18 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { _Model } from '@/app/api/fetchWebtoons/model';
 import WriterComponent from './WriterComponent';
 import { getSearchWebtoonsByAuthor } from '@/app/api/fetchWebtoons/getSearchResult';
 interface SearchWriterSectionProps {
   keyword: string;
-}
-
-interface Writer {
-  name: string;
-  profileImage: string;
-  authorNickname: string;
-  representativeWorkTitle: string;
-  workCount: number;
 }
 
 export default function SearchWriterSection({
@@ -46,7 +39,7 @@ export default function SearchWriterSection({
         <p className="ml-2 text-sm text-gray-500">총 {searchData.length}개</p>
       </div>
       <div className="flex flex-col">
-        {data.map((writer: Writer, index: number) => (
+        {data.map((writer: _Model.IWriter, index: number) => (
           <WriterComponent key={index} writer={writer} keyword={keyword} />
         ))}
       </div>

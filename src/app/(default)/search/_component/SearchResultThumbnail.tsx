@@ -17,7 +17,12 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
   keyword,
 }) => {
   const router = useRouter();
-  const temporalTags = ['무협/사극', '사이다', '세계관', '성장'];
+  const temporalTags = [
+    { id: 1, content: '무협/사극' },
+    { id: 2, content: '사이다' },
+    { id: 3, content: '세계관' },
+    { id: 4, content: '성장' },
+  ];
 
   const tempClickHandler = () => {
     router.push(`/webtoon/list?id=${webtoon.id}`);
@@ -25,16 +30,15 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
 
   return (
     <div className="flex flex-col gap-5">
-      <div
-        className="flex w-full h-[150px] cursor-pointer gap-[18px]"
-        onClick={tempClickHandler}
-      >
-        <CoverImage
-          alt={'Search webtoon thumbnail'}
-          src={webtoon.thumbnail}
-          height={150}
-          width={100}
-        />
+      <div className="flex w-full h-[150px] cursor-pointer gap-[18px]">
+        <div className="w-[100px] h-[150px]" onClick={tempClickHandler}>
+          <CoverImage
+            alt={'Search webtoon thumbnail'}
+            src={webtoon.thumbnail}
+            height={150}
+            width={100}
+          />
+        </div>
         <div className="flex flex-col text-xs gap-[3px] mt-[1px] max-w-[752px]">
           <p className="text-[18px] mb-[3px] leading-[normal]">
             {highlightKeyword(webtoon.title, keyword)}
@@ -56,7 +60,7 @@ const SearchResultThumbnail: React.FC<SearchResultThumbnailProps> = ({
           <p className="text-[14px] text-[#3f3f3f] mb-[4px] whitespace-normal line-clamp-1">
             {highlightKeyword(webtoon.story, keyword)}
           </p>
-          <TagList tags={temporalTags} keyword={keyword} />
+          <TagList tags={webtoon.tags} keyword={keyword} />
         </div>
       </div>
     </div>

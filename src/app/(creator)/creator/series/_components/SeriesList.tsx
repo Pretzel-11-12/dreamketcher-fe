@@ -2,12 +2,10 @@
 
 import _ from 'lodash';
 import SeriesCardItem from './SeriesCardItem';
-import Button from '@/app/_component/Button';
 import Link from 'next/link';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import SeriesCategorySelector from './SeriesCategorySelector';
 import Image from 'next/image';
 
 const headers = [
@@ -52,14 +50,14 @@ const SeriesList = () => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-[20px] px-[30px] py-[16px]">
+      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5">
         <Link
           className="p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border border-dashed"
           href="/creator/series/new"
         >
           <div className="flex flex-col w-full h-full items-center justify-center">
             <Image
-              src="/assets/images/plus.svg"
+              src="/assets/icon/plus-gray.png"
               alt="plus"
               width={40}
               height={40}

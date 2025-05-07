@@ -1,3 +1,6 @@
+import { _Model as __Model } from '@/app/api/fetchWebtoons/model';
+export import Model = __Model;
+
 export interface Webtoon {
   id: number;
   title: string;
@@ -8,14 +11,14 @@ export interface Webtoon {
   averageStar: number;
   numOfStars: number;
   story: string;
-  tags?: string[];
+  tags: Model.Tag[];
 }
 
 export interface MyWebtoon {
   id: number;
   title: string;
   thumbnail: string;
-  author: string;
+  authorNickname: string;
   story: string;
   episodeCount: number;
   avgStar: number;
@@ -45,4 +48,17 @@ export interface RecentWatchedWebtoon {
   stars: number;
   lastViewedAt: number;
   genre: string;
+}
+
+export interface UserWebtoon {
+  id: number;
+  title: string;
+  thumbnail: string;
+  authorNickname: string;
+  story: string;
+  episodeCount: number;
+  avgStar: number;
+  numOfStars: number;
+  genre: string;
+  commentCount: number;
 }

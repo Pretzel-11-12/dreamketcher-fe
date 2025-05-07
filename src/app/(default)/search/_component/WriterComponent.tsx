@@ -1,16 +1,9 @@
 import { highlightKeyword } from '@/app/util/highlightKeyword';
+import { _Model } from '@/app/api/fetchWebtoons/model';
 import React from 'react';
 
-interface Writer {
-  name: string;
-  profileImage: string;
-  authorNickname: string;
-  representativeWorkTitle: string;
-  workCount: number;
-}
-
 interface WriterComponentProps {
-  writer: Writer;
+  writer: _Model.IWriter;
   keyword: string;
 }
 

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchMainSectionHeader from './SearchMainSectionHeader';
 import SearchResultThumbnail from './SearchResultThumbnail';
 import SearchDropdown from './SearchDropdown';
@@ -21,6 +21,10 @@ export default function SearchWebtoonSection({
 }: SearchWebtoonSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [keyword]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [
@@ -54,6 +58,12 @@ export default function SearchWebtoonSection({
 
   return (
     <div className="flex flex-col gap-[15px]">
+      {isError && (
+        <div className="p-4 text-red-500 bg-red-50 rounded">
+          검색 결과를 불러오는 중 오류가 발생했습니다. 잠시 후 다시
+          시도해주세요.
+        </div>
+      )}
       <div className="flex items-end">
         <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
           작품
@@ -93,11 +103,13 @@ export default function SearchWebtoonSection({
           </div>
         )}
       </div>
-      <Pagination
-        totalPages={searchData.totalPages}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      {searchData.totalPages > 1 && (
+        <Pagination
+          totalPages={searchData.totalPages}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

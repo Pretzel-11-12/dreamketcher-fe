@@ -8,12 +8,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import CoverImage from '@/app/_component/CoverImage';
 import Toast from '@/app/_component/Toast';
-
-export enum Tag {
-  SCARED = '괴담',
-  ROMANCE = '로맨스',
-  HORROR = '호러',
-}
+import TagList from '@/app/(default)/search/_component/TagList';
 
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
@@ -27,7 +22,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     interestCount,
     webtoonStory,
     genreName,
-    AuthorNickname,
+    authorNickname,
     tags,
   } = webtoon;
 
@@ -107,19 +102,13 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             {webtoonTitle}
           </div>
           <div className="flex gap-[5px] items-center text-[16px] text-[#888]">
-            <div className="text-[#3f3f3f]">{AuthorNickname}</div>
+            <div className="text-[#3f3f3f]">{authorNickname}</div>
             <div className="text-[#888] mr-[7px]">글/ 그림</div>
             <div className="mr-[7px]">|</div>
             <div> {genreName}</div>
           </div>
           <div className="text-sm text-[#3f3f3f]">{webtoonStory}</div>
-          <div className="text-sm flex gap-1">
-            {tags.map((v) => (
-              <div className="bg-brand-gray rounded-sm px-2 py-0.5 text-[#888888] text-xs">
-                {v.content}
-              </div>
-            ))}
-          </div>
+          <TagList tags={tags} />
           <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
             <Button
               props={{

@@ -10,6 +10,11 @@ export namespace _Model {
     totalElements: number;
   }
 
+  export interface Tag {
+    id: number;
+    content: string;
+  }
+
   export interface IWriter {
     id: number;
     name: string;
@@ -18,6 +23,11 @@ export namespace _Model {
     authorNickname: string;
     representativeWorkTitle: string;
     workCount: number;
+  }
+
+  export interface SearchTagResponse {
+    content: string;
+    webtoons: WebtoonDetailUnit[];
   }
 
   export interface WebtoonDetailUnit {
@@ -32,6 +42,7 @@ export namespace _Model {
     currentPage: number;
     totalPages: number;
     episodes: EpisodeUnit[];
+    tags: { id: number; content: string }[];
   }
 
   export interface EpisodeUnit {

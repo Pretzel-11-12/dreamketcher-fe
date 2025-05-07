@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import '../../globals.css';
 
-import Footer from '@/app/_component/Footer';
-import '@mdi/font/css/materialdesignicons.min.css';
 import RQProvider from '@/app/_component/RQProvider';
 import Header from './_component/Header';
 import { Suspense } from 'react';

@@ -51,7 +51,7 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           width={166}
           height={249}
         />
-        <div className="absolute top-[4px] left-[4px] flex gap-[2px]">
+        <div className="absolute top-[6px] left-[6px] flex gap-[2px]">
           {isNew && <NewBadge />}
           {ranking && <RankingBadge rank={ranking} />}
         </div>
