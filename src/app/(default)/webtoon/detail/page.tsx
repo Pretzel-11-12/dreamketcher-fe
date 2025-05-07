@@ -165,7 +165,7 @@ export default function Detail() {
             <EpisodeButtonGroup
               webtoonId={webtoonId}
               episodeId={episodeId}
-              likeCount={data?.likeCount || 0}
+              likeCount={data?.interestCount || 0}
               averageStar={data?.averageStar || 0}
             />
           </div>
