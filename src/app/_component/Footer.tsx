@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             className="w-[25px] h-[25px]"
           />
           <img
-            src="/assets/icon/Youtube.png"
+            src="/assets/icon/YouTube.png"
             alt="Youtube Logo"
             className="w-[25px] h-[25px]"
           />
