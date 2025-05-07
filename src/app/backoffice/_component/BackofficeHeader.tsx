@@ -81,7 +81,7 @@ const BackofficeHeader: React.FC = () => {
               style={{ height: 'auto' }}
             />
           </Link>
-          <Link href="/creator/backoffice" className="pl-[5px]">
+          <Link href="/backoffice" className="pl-[5px]">
             <p className="text-brand-blue text-[20px]">Backoffice</p>
           </Link>
         </div>
