@@ -25,9 +25,9 @@ export default function Sidebar({ activePage, setActivePage }: SidebarProps) {
 
   return (
     <aside
-      className={`bg-[#2B3A67] text-white w-${
-        sidebarOpen ? '64' : '16'
-      } transition-all duration-300 shadow-lg`}
+      className={`bg-[#2B3A67] text-white transition-all duration-300 shadow-lg ${
+        sidebarOpen ? 'w-64' : 'w-16'
+      }`}
     >
       <div className="py-4 flex justify-end w-full">
         <Button
