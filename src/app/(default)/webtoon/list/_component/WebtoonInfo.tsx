@@ -22,7 +22,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     interestCount,
     webtoonStory,
     genreName,
-    AuthorNickname,
+    authorNickname,
     tags,
   } = webtoon;
 
@@ -102,7 +102,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
             {webtoonTitle}
           </div>
           <div className="flex gap-[5px] items-center text-[16px] text-[#888]">
-            <div className="text-[#3f3f3f]">{AuthorNickname}</div>
+            <div className="text-[#3f3f3f]">{authorNickname}</div>
             <div className="text-[#888] mr-[7px]">글/ 그림</div>
             <div className="mr-[7px]">|</div>
             <div> {genreName}</div>

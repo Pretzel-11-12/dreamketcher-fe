@@ -6,7 +6,7 @@ export namespace _Model {
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
-    AuthorNickname: string;
+    authorNickname: string;
     interestCount: number;
     genreName: string;
     tags: Tag[];

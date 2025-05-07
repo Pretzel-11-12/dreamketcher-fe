@@ -87,13 +87,15 @@ const Header: React.FC = () => {
             <div className="relative flex text-black gap-[20px] items-center">
               {id ? (
                 <>
-                  <Image
-                    src="/assets/icon/bell.svg"
-                    alt="noti button"
-                    width={34}
-                    height={34}
-                    className="cursor-pointer"
-                  />
+                  <Link href="/alarm">
+                    <Image
+                      src="/assets/icon/bell.svg"
+                      alt="noti button"
+                      width={34}
+                      height={34}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                   <Image
                     src={imageUrl || '/assets/images/profile-default.png'}
                     alt="profile button"
