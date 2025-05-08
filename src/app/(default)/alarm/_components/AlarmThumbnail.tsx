@@ -90,7 +90,7 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
           <div className="flex flex-col text-xs justify-between">
             <div className="flex flex-col gap-[10px]">
               <p
-                className={`text-[18px] leading-[normal] font-medium ${
+                className={`text-[18px] leading-[normal] font-medium hover:underline ${
                   alarm.isRead ? 'text-[#888888]' : 'text-titleBlack'
                 }`}
               >
