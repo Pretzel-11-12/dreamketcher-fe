@@ -85,13 +85,6 @@ export default function AlarmMainSection() {
             </div>
           )}
         </div>
-        {alarmData.length > 1 && (
-          <Pagination
-            totalPages={Math.ceil(alarmData.length / 10)}
-            currentPage={1}
-            onPageChange={() => {}}
-          />
-        )}
       </div>
     </div>
   );
