@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
@@ -7,6 +7,13 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
   const [title, setTitle] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
+
+  useEffect(() => {
+    if (isOpen) {
+      setTitle('');
+      setIsPrivate(false);
+    }
+  }, [isOpen]); // isOpen 값이 변경될 때마다 초기화
 
   const handleTitleChange = (value: string) => {
     if (value.length <= maxLength) {
@@ -22,6 +29,22 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
   const handleToggle = () => {
     setIsPrivate(!isPrivate);
   };
+
+  // name or title 정해지면 수정
+  // const mutation = useMutation(postBookShelfFolder, {
+  //   onSuccess: (data) => {
+  //     console.log('책장 폴더 생성 성공:', data);
+  //     // 모달 닫기 또는 책장 목록 업데이트 등
+  //     onClose();
+  //   },
+  //   onError: (error) => {
+  //     console.error('책장 폴더 생성 실패:', error);
+  //   },
+  // });
+  //
+  // const handleCreateFolder = () => {
+  //   mutation.mutate({ name });
+  // };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
