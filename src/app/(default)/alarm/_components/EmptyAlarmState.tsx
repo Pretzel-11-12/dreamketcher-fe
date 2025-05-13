@@ -19,7 +19,7 @@ export default function EmptyAlarmState({
       {(selectedCategory === '내소식' || selectedCategory === '업데이트') && (
         <a
           href="/"
-          className="text-white px-[60px] text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
+          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
         >
           드림케쳐 홈에서 웹툰 즐기기
         </a>
@@ -27,7 +27,7 @@ export default function EmptyAlarmState({
       {selectedCategory === '내작품' && (
         <a
           href="/creator/series"
-          className="text-white px-[60px] text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
+          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
         >
           드림케쳐 작업실 바로가기
         </a>
