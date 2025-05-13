@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function EmptyAlarmState({
@@ -16,11 +17,6 @@ export default function EmptyAlarmState({
           <p>드림캐쳐 홈에서 재밌는 웹툰을 만들어보세요.</p>
         )}
       </div>
-// At the top of src/app/(default)/alarm/_components/EmptyAlarmState.tsx
-import Link from 'next/link';
-
-…
-
       {(selectedCategory === '내소식' || selectedCategory === '업데이트') && (
         <Link
           href="/"
@@ -29,7 +25,7 @@ import Link from 'next/link';
           드림케쳐 홈에서 웹툰 즐기기
         </Link>
       )}
-…
+      …
       {selectedCategory === '내작품' && (
         <Link
           href="/creator/series"
