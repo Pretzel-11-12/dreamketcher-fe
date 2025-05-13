@@ -9,7 +9,7 @@ const MypageHeader: React.FC = () => {
   const router = useRouter();
 
   const isMypageActive = pathname === '/mypage' || pathname === '/mypage/edit';
-  const isStorageActive = pathname === '/mypage/storage';
+  const isStorageActive = pathname === '/mypage/storage' || pathname.startsWith('/mypage/storage/bookShelf');
 
   return (
     <aside className="w-[282px] h-full flex flex-col items-start pr-[24px] border-r border-r-line pt-[105px]">
