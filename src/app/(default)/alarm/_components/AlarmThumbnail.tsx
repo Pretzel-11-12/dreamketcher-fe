@@ -71,12 +71,16 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         <div className="relative flex w-full h-[160px] cursor-pointer gap-[30px] py-5">
           {alarm.imgUrl ? (
             <div className="relative w-[80px] h-[120px] rounded-[5px] overflow-hidden">
-              <Image alt={'Search webtoon thumbnail'} src={alarm.imgUrl} fill />
+              <Image
+                alt={`${alarm.title} 웹툰 썸네일`}
+                src={alarm.imgUrl}
+                fill
+              />
             </div>
           ) : (
             <div className="relative w-[80px] h-[80px] my-auto overflow-hidden">
               <Image
-                alt={'Search webtoon thumbnail'}
+                alt="알림 기본 아이콘"
                 src={'/assets/images/alarm-default.png'}
                 fill
               />
