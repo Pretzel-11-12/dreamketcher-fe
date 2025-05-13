@@ -112,12 +112,13 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         {!alarm.isRead && (
           <button
             className="w-6 h-6 rounded-full"
+            aria-label="읽음으로 표시"
             onClick={() => markAsRead(alarm.id)}
             onMouseEnter={() => setIsReadButtonHovered(true)}
             onMouseLeave={() => setIsReadButtonHovered(false)}
           >
             <Image
-              alt={'Search webtoon thumbnail'}
+              alt="읽음 표시 아이콘"
               src={
                 isReadButtonHovered
                   ? '/assets/icon/tick-circle-yellow.png'
@@ -130,12 +131,13 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         )}
         <button
           className="w-6 h-6 rounded-full"
+          aria-label="알림 삭제"
           onClick={() => removeAlarm(alarm.id)}
           onMouseEnter={() => setIsRemoveButtonHovered(true)}
           onMouseLeave={() => setIsRemoveButtonHovered(false)}
         >
           <Image
-            alt={'Search webtoon thumbnail'}
+            alt="삭제 아이콘"
             src={
               isRemoveButtonHovered
                 ? '/assets/icon/close-circle-yellow.png'
