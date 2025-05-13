@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import useAuthStore from '@/app/store/authStore';
+import Modal from '@/app/_component/Modal';
+import LoginModal from './LoginModal';
 
 const categories: { name: string; path: string }[] = [
   { name: '전체', path: '' },
@@ -15,6 +18,8 @@ const CategorySelector: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { id } = useAuthStore();
 
   useEffect(() => {
     if (pathname === '/main/finish') {
@@ -29,6 +34,17 @@ const CategorySelector: React.FC = () => {
   const handleCategoryClick = (categoryName: string, path: string) => {
     setSelectedCategory(categoryName);
     router.push(`/main/${path}`);
+  };
+
+  const handleStudioClick = () => {
+    // 로그인 상태 확인
+    if (!id) {
+      // 로그인되지 않은 경우 모달 표시
+      setIsLoginModalOpen(true);
+    } else {
+      // 로그인된 경우 작업실로 이동
+      router.push('/creator/series');
+    }
   };
 
   return (
@@ -51,9 +67,9 @@ const CategorySelector: React.FC = () => {
           ))}
         </div>
         <div className="flex justify-center md:justify-end w-full md:w-auto">
-          <Link
+          <button
             className="w-[125px] h-[39px] flex items-center justify-center bg-brand-yellow text-white rounded-[5px]"
-            href="/creator/series"
+            onClick={handleStudioClick}
           >
             <Image
               src={'/assets/icon/studio.png'}
@@ -63,9 +79,15 @@ const CategorySelector: React.FC = () => {
               className="mr-[5px]"
             />
             작업실
-          </Link>
+          </button>
         </div>
       </div>
+
+      {/* 로그인 필요 모달 */}
+      <LoginModal
+        isLoginModalOpen={isLoginModalOpen}
+        setIsLoginModalOpen={setIsLoginModalOpen}
+      />
     </div>
   );
 };
