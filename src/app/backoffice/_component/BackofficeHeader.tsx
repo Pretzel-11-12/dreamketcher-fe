@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
-import ProfileModal from '@/app/modal/_component/ProfileModal';
+import AdminProfileModal from '@/app/modal/_component/AdminProfileModal';
 import { useRouter } from 'next/navigation';
+import { fetchProfile } from '@/app/api/auth/fetchProfile';
 
 const DEFAULT_USER_INFO = {
   id: 0,
@@ -16,6 +16,43 @@ const DEFAULT_USER_INFO = {
 };
 
 const BackofficeHeader: React.FC = () => {
+  const { id, imageUrl, setUserInfo } = useAuthStore();
+  useEffect(() => {
+    const handleFetchUserInfo = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+
+      // 액세스 토큰이 없으면 비로그인 상태로 처리
+      if (!accessToken) {
+        console.log('No access token found. User is not logged in.');
+        setUserInfo(DEFAULT_USER_INFO);
+        return;
+      }
+
+      try {
+        const userInfo = await fetchProfile();
+        setUserInfo({
+          id: userInfo.id,
+          nickname: userInfo.nickname || '',
+          businessEmail: userInfo.businessEmail || '',
+          imageUrl: userInfo.imageUrl,
+          shortIntroduction: userInfo.shortIntroduction || '',
+        });
+      } catch (err) {
+        // 에러가 FetchError 객체일 경우에만 상태 코드 확인
+        if (err instanceof Response && err.status === 401) {
+          console.warn(
+            'Unauthorized access. Setting user to default (not logged in).'
+          );
+          setUserInfo(DEFAULT_USER_INFO);
+        } else {
+          // 401 외의 에러는 그대로 처리
+          console.error('Failed to fetch user info:', err);
+        }
+      }
+    };
+
+    handleFetchUserInfo();
+  }, [setUserInfo]);
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -30,42 +67,6 @@ const BackofficeHeader: React.FC = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const { id, imageUrl, setUserInfo } = useAuthStore();
-
-  //   useEffect(() => {
-  //     const handleFetchUserInfo = async () => {
-  //       const accessToken = localStorage.getItem('accessToken');
-
-  //       if (!accessToken) {
-  //         console.log('No access token found. User is not logged in.');
-  //         setUserInfo(DEFAULT_USER_INFO);
-  //         router.push('/login');
-  //         return;
-  //       }
-
-  //       try {
-  //         const userInfo = await fetchProfile();
-  //         setUserInfo({
-  //           id: userInfo.id,
-  //           nickname: userInfo.nickname || '',
-  //           businessEmail:
-  //             userInfo.businessEmail || '비즈니스 이메일을 등록해주세요',
-  //           imageUrl: userInfo.imageUrl,
-  //           shortIntroduction:
-  //             userInfo.shortIntroduction || '한줄소개를 작성해주세요',
-  //         });
-  //       } catch (err) {
-  //         console.error('Failed to fetch user info:', err);
-  //         router.push('/login');
-
-  //         // 서버 요청 실패 시 비로그인 상태로 처리
-  //         setUserInfo(DEFAULT_USER_INFO);
-  //       }
-  //     };
-
-  //     handleFetchUserInfo();
-  //   }, [setUserInfo]);
 
   return (
     <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
@@ -112,7 +113,10 @@ const BackofficeHeader: React.FC = () => {
             )}
           </div>
           {isModalOpen && (
-            <ProfileModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <AdminProfileModal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            />
           )}
         </div>
       </div>
