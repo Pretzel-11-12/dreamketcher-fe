@@ -16,14 +16,20 @@ export default function EmptyAlarmState({
           <p>드림캐쳐 홈에서 재밌는 웹툰을 만들어보세요.</p>
         )}
       </div>
+// At the top of src/app/(default)/alarm/_components/EmptyAlarmState.tsx
+import Link from 'next/link';
+
+…
+
       {(selectedCategory === '내소식' || selectedCategory === '업데이트') && (
-        <a
+        <Link
           href="/"
-          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
+          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-[#fa973b] bg-[#fba250]"
         >
           드림케쳐 홈에서 웹툰 즐기기
-        </a>
+        </Link>
       )}
+…
       {selectedCategory === '내작품' && (
         <Link
           href="/creator/series"
