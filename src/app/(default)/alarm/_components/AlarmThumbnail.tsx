@@ -37,7 +37,9 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
   removeAlarm,
 }) => {
   const router = useRouter();
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [isReadButtonHovered, setIsReadButtonHovered] = React.useState(false);
+  const [isRemoveButtonHovered, setIsRemoveButtonHovered] =
+    React.useState(false);
 
   const typeToKorean = {
     UPDATE: '업데이트',
@@ -64,11 +66,7 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
   };
 
   return (
-    <div
-      className="w-full flex justify-between items-center border-b border-[#f2f2f2]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="w-full flex justify-between items-center border-b border-[#f2f2f2]">
       <div className="w-full flex flex-col gap-5">
         <div className="relative flex w-full h-[160px] cursor-pointer gap-[30px] py-5">
           {alarm.imgUrl ? (
@@ -104,7 +102,7 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
                 {alarm.content}
               </p>
             </div>
-            <p className="text-inActive">
+            <p className="text-inActive text-[16px]">
               {calculateDaysAgo(alarm.createdAt)}일 전
             </p>
           </div>
@@ -115,11 +113,13 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
           <button
             className="w-6 h-6 rounded-full"
             onClick={() => markAsRead(alarm.id)}
+            onMouseEnter={() => setIsReadButtonHovered(true)}
+            onMouseLeave={() => setIsReadButtonHovered(false)}
           >
             <Image
               alt={'Search webtoon thumbnail'}
               src={
-                isHovered
+                isReadButtonHovered
                   ? '/assets/icon/tick-circle-yellow.png'
                   : '/assets/icon/tick-circle.png'
               }
@@ -131,11 +131,13 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         <button
           className="w-6 h-6 rounded-full"
           onClick={() => removeAlarm(alarm.id)}
+          onMouseEnter={() => setIsRemoveButtonHovered(true)}
+          onMouseLeave={() => setIsRemoveButtonHovered(false)}
         >
           <Image
             alt={'Search webtoon thumbnail'}
             src={
-              isHovered
+              isRemoveButtonHovered
                 ? '/assets/icon/close-circle-yellow.png'
                 : '/assets/icon/close-circle.png'
             }

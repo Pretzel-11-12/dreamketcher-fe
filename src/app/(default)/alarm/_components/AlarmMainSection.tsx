@@ -1,13 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Alarm, mockAlarmData } from '@/app/mocks/alarm';
-import Pagination from '@/app/_component/Pagination';
 import AlarmThumbnail from './AlarmThumbnail';
 import AlarmMainSectionHeader from './AlarmMainSectionHeader';
+import EmptyAlarmState from './EmptyAlarmState';
 
 export default function AlarmMainSection() {
   const [alarmData, setAlarmData] = useState<Alarm[]>([]);
-
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   useEffect(() => {
     setAlarmData(mockAlarmData);
   }, []);
@@ -41,7 +41,7 @@ export default function AlarmMainSection() {
   const isError = false;
   return (
     <div className="flex flex-col w-full max-w-[1200px] min-h-[calc(100vh-255px)] pt-[30px] pb-[100px]">
-      <div className="flex flex-col gap-[15px]">
+      <div className="flex flex-col">
         {isError && (
           <div className="p-4 text-red-500 bg-red-50 rounded">
             검색 결과를 불러오는 중 오류가 발생했습니다. 잠시 후 다시
@@ -54,13 +54,15 @@ export default function AlarmMainSection() {
           </p>
           <p className="ml-2 text-sm text-gray-500">총 {alarmData.length}개</p>
         </div>
-        <div className="w-full mb-[12px] flex justify-between items-center">
+        <div className="w-full mt-[18px] mb-[12px] flex justify-between items-center">
           <AlarmMainSectionHeader
             markAllAsRead={markAllAsRead}
             clearAllAlarms={clearAllAlarms}
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
           />
         </div>
-        <div className="flex flex-col mb-[10px] min-h-[calc(100vh-560px)]">
+        <div className="flex flex-col min-h-[calc(100vh-560px)]">
           {alarmData.length > 0 ? (
             alarmData.map((alarm) => (
               <AlarmThumbnail
@@ -71,18 +73,7 @@ export default function AlarmMainSection() {
               />
             ))
           ) : (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-sm my-auto gap-[30px]">
-              <div className="flex flex-col text-center text-[#c9c9c9] text-[18px] leading-[25px]">
-                <p>새 알림이 없습니다</p>
-                <p>드림캐쳐 홈에서 재밌는 웹툰을 찾아보세요.</p>
-              </div>
-              <a
-                href="/"
-                className="text-white px-[60px] text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
-              >
-                드림케쳐 홈에서 웹툰 즐기기
-              </a>
-            </div>
+            <EmptyAlarmState selectedCategory={selectedCategory} />
           )}
         </div>
       </div>
