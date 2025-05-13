@@ -25,12 +25,12 @@ export default function EmptyAlarmState({
         </a>
       )}
       {selectedCategory === '내작품' && (
-        <a
+        <Link
           href="/creator/series"
-          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-1-[#fa973b] bg-[#fba250]"
+          className="text-white w-[320px] text-center text-[18px] font-medium py-5 rounded-[10px] border border-[#fa973b] bg-[#fba250]"
         >
           드림케쳐 작업실 바로가기
-        </a>
+        </Link>
       )}
     </div>
   );
