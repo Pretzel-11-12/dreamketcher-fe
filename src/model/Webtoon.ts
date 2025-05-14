@@ -14,6 +14,19 @@ export interface Webtoon {
   tags: Model.Tag[];
 }
 
+export interface RankingWebtoon {
+  id: number;
+  title: string;
+  thumbnail: string;
+  genre: string;
+  member: string;
+  lastEpisode: number;
+  averageStar: number;
+  numOfStars: number;
+  story: string;
+  tags: Model.Tag[];
+}
+
 export interface MyWebtoon {
   id: number;
   title: string;
