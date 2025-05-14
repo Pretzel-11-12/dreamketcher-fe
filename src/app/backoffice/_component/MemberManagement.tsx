@@ -42,7 +42,7 @@ interface UserResponse {
 }
 
 export default function MemberManagement() {
-  const [selectedMember, setSelectedMember] = useState<string | null>(null);
+  const [selectedMember, setSelectedMember] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'all' | 'suspended'>('all');
@@ -66,7 +66,7 @@ export default function MemberManagement() {
   const totalPages = data?.totalPages || 0;
 
   const handleSuspendMember = (memberId: string) => {
-    setSelectedMember(memberId);
+    setSelectedMember(Number(memberId));
     setShowModal(true);
   };
 
@@ -393,7 +393,7 @@ export default function MemberManagement() {
       <SuspensionModal
         showModal={showModal}
         setShowModal={setShowModal}
-        selectedMember={selectedMember}
+        selectedMemberId={selectedMember}
       />
     </div>
   );
