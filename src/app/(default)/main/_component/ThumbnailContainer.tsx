@@ -3,8 +3,6 @@
 import React, { useState } from 'react';
 import { RankingWebtoon } from '@/model/Webtoon';
 import { useQuery } from '@tanstack/react-query';
-import WebtoonSlider from './WebtoonSlider';
-import FilterComponent from './FilterComponent';
 import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
 import { useSearchParams, useRouter } from 'next/navigation';
 import SliderDropdown from './SliderDropdown';
