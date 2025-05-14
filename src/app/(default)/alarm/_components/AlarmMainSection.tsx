@@ -49,12 +49,11 @@ export default function AlarmMainSection() {
           </div>
         )}
         <div className="flex items-end">
-          <p className="text-[18px] font-medium leading-[21px] text-titleBlack">
-            알람
+          <p className="text-[26px] leading-[120%] font-medium text-titleBlack">
+            알림
           </p>
-          <p className="ml-2 text-sm text-gray-500">총 {alarmData.length}개</p>
         </div>
-        <div className="w-full mt-[18px] mb-[12px] flex justify-between items-center">
+        <div className="w-full mt-[27px] flex justify-between items-center">
           <AlarmMainSectionHeader
             markAllAsRead={markAllAsRead}
             clearAllAlarms={clearAllAlarms}
