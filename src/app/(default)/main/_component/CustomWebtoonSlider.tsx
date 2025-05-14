@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Webtoon as IWebtoon } from '@/model/Webtoon';
+import { RankingWebtoon } from '@/model/Webtoon';
 import WebtoonThumbnail from './WebtoonThumbnail';
 
 interface WebtoonSliderProps {
-  webtoons: IWebtoon[];
+  webtoons: RankingWebtoon[];
 }
 
 const CustomWebtoonSlider: React.FC<WebtoonSliderProps> = ({ webtoons }) => {
