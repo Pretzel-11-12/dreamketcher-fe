@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-[160px] bg-white border-t border-baseLine mt-auto mx-auto pt-[25px]">
+      <div className="flex flex-col items-center justify-center w-full h-[200px] bg-white border-t border-baseLine mt-auto mx-auto pt-[25px]">
         <p className="text-[#888888] text-[15px] font-medium leading-[120%]">
           서비스 소개 <span className="m-1">|</span> 개인정보처리방침{' '}
           <span className="m-1">|</span>
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
           <span className="m-1">|</span>
           고유번호 : 324-82-005800
         </p>
-        <div className="flex flex-row items-center justify-center gap-[15px] mt-[35px]">
+        <div className="flex flex-row items-center justify-center gap-[15px] mt-[25px]">
           <img
             src="/assets/icon/X.png"
             alt="X Logo"
