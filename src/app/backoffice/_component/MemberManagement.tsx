@@ -19,6 +19,7 @@ import { TableHead, TableHeader } from '@/components/ui/table';
 import SuspensionModal from './SuspensionModal';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getAdminUsers } from '@/app/api/fetchBackofficeData/getAdminUsers';
+import { postAdminMemberActivate } from '@/app/api/fetchBackofficeData/postAdminMemberActivate';
 
 interface User {
   id: number;
@@ -78,21 +79,8 @@ export default function MemberManagement() {
 
   // 사용자 정지 해제 mutation
   const resumeUserMutation = useMutation({
-    mutationFn: async (userId: string) => {
-      const adminId = 'admin1'; // 예시 ID
-      const response = await fetch(`/admin/users/${userId}/resume`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ adminId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('사용자 정지 해제에 실패했습니다.');
-      }
-
-      return response.json();
+    mutationFn: async (userId: number) => {
+      return await postAdminMemberActivate({ memberId: userId });
     },
     onSuccess: () => {
       // 성공 시 사용자 목록 다시 가져오기
@@ -102,7 +90,7 @@ export default function MemberManagement() {
 
   // 사용자 정지 해제 핸들러
   const handleResumeUser = (userId: string) => {
-    resumeUserMutation.mutate(userId);
+    resumeUserMutation.mutate(Number(userId));
   };
 
   return (
