@@ -126,6 +126,7 @@ export default function MemberManagement() {
             onClick={() =>
               queryClient.invalidateQueries({ queryKey: ['users'] })
             }
+            disabled={true}
           >
             <FontAwesomeIcon icon={faSearch} className="mr-2" />
             검색
