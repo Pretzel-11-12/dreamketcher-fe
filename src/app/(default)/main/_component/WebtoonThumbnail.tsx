@@ -26,8 +26,8 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
     router.push(`/webtoon/list?id=${webtoon.id}`);
   };
 
-  const handleMemberClick = (e: React.MouseEvent) => {
-    router.push(`/member/${webtoon.member}`);
+  const handleAuthorClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.authorNickname}`);
   };
 
   const handleGenreClick = (e: React.MouseEvent) => {
@@ -67,9 +67,9 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           <p className="text-inActive">
             <span
               className="hover:underline cursor-pointer"
-              onClick={handleMemberClick}
+              onClick={handleAuthorClick}
             >
-              {webtoon.member}
+              {webtoon.authorNickname}
             </span>
             {' · '}
             <span
