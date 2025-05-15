@@ -2,12 +2,10 @@
 
 import _ from 'lodash';
 import SeriesCardItem from './SeriesCardItem';
-import Button from '@/app/_component/Button';
 import Link from 'next/link';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import SeriesCategorySelector from './SeriesCategorySelector';
 import Image from 'next/image';
 
 const headers = [
