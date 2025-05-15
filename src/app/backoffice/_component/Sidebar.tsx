@@ -30,7 +30,7 @@ export default function Sidebar({ activePage, setActivePage }: SidebarProps) {
 
       {/* fixed 포지션의 실제 사이드바 */}
       <aside
-        className={`fixed top-[70px] left-0 bg-[#2B3A67] text-white transition-all duration-300 shadow-lg h-screen z-10 ${
+        className={`fixed top-[70px] left-0 bg-[#2F3D5C] text-white transition-all duration-300 shadow-lg h-screen z-10 ${
           sidebarOpen ? 'w-64' : 'w-16'
         }`}
       >
@@ -49,114 +49,128 @@ export default function Sidebar({ activePage, setActivePage }: SidebarProps) {
         </div>
 
         <ScrollArea className="h-[calc(100vh-4rem-70px)]">
-          <nav className="p-4 space-y-1">
-            <Button
-              variant={activePage === 'dashboard' ? 'secondary' : 'ghost'}
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('dashboard')}
-            >
-              <FontAwesomeIcon
-                icon={faChartPie}
-                className="mr-3 w-5 text-center"
-              />
-              {sidebarOpen && <span>대시보드</span>}
-            </Button>
+          <nav className="p-2">
+            <div className="p-2 flex flex-col space-y-1 border border-black rounded-md shadow-md">
+              <Button
+                variant={activePage === 'dashboard' ? 'secondary' : 'ghost'}
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('dashboard')}
+              >
+                <FontAwesomeIcon
+                  icon={faChartPie}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>대시보드</span>}
+              </Button>
 
-            <div className="pt-2 pb-1">
-              {sidebarOpen && (
-                <div className="text-xs text-gray-400 px-3 py-1">작품 관리</div>
-              )}
-              {!sidebarOpen && (
-                <div className="border-t border-gray-700 my-2"></div>
-              )}
+              <div className="pt-2 pb-1">
+                {sidebarOpen && (
+                  <div className="text-xs text-gray-400 px-3 py-1">
+                    작품 관리
+                  </div>
+                )}
+                {!sidebarOpen && (
+                  <div className="border-t border-gray-700 my-2"></div>
+                )}
+              </div>
+
+              <Button
+                variant={activePage === 'webtoonList' ? 'secondary' : 'ghost'}
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('webtoonList')}
+              >
+                <FontAwesomeIcon
+                  icon={faBook}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>웹툰 목록</span>}
+              </Button>
+
+              <Button
+                variant={
+                  activePage === 'approvalManagement' ? 'secondary' : 'ghost'
+                }
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('approvalManagement')}
+              >
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>작품 승인 관리</span>}
+              </Button>
+
+              <div className="pt-2 pb-1">
+                {sidebarOpen && (
+                  <div className="text-xs text-gray-400 px-3 py-1">
+                    신고 관리
+                  </div>
+                )}
+                {!sidebarOpen && (
+                  <div className="border-t border-gray-700 my-2"></div>
+                )}
+              </div>
+
+              <Button
+                variant={
+                  activePage === 'reportManagement' ? 'secondary' : 'ghost'
+                }
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('reportManagement')}
+              >
+                <FontAwesomeIcon
+                  icon={faFlag}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>신고 관리</span>}
+              </Button>
+
+              <div className="pt-2 pb-1">
+                {sidebarOpen && (
+                  <div className="text-xs text-gray-400 px-3 py-1">
+                    회원 관리
+                  </div>
+                )}
+                {!sidebarOpen && (
+                  <div className="border-t border-gray-700 my-2"></div>
+                )}
+              </div>
+
+              <Button
+                variant={
+                  activePage === 'memberManagement' ? 'secondary' : 'ghost'
+                }
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('memberManagement')}
+              >
+                <FontAwesomeIcon
+                  icon={faUsers}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>회원 관리</span>}
+              </Button>
+
+              <div className="pt-2 pb-1">
+                {sidebarOpen && (
+                  <div className="text-xs text-gray-400 px-3 py-1">시스템</div>
+                )}
+                {!sidebarOpen && (
+                  <div className="border-t border-gray-700 my-2"></div>
+                )}
+              </div>
+
+              <Button
+                variant={activePage === 'logManagement' ? 'secondary' : 'ghost'}
+                className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
+                onClick={() => setActivePage('logManagement')}
+              >
+                <FontAwesomeIcon
+                  icon={faHistory}
+                  className="mr-3 w-5 text-center"
+                />
+                {sidebarOpen && <span>로그 관리</span>}
+              </Button>
             </div>
-
-            <Button
-              variant={activePage === 'webtoonList' ? 'secondary' : 'ghost'}
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('webtoonList')}
-            >
-              <FontAwesomeIcon icon={faBook} className="mr-3 w-5 text-center" />
-              {sidebarOpen && <span>웹툰 목록</span>}
-            </Button>
-
-            <Button
-              variant={
-                activePage === 'approvalManagement' ? 'secondary' : 'ghost'
-              }
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('approvalManagement')}
-            >
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="mr-3 w-5 text-center"
-              />
-              {sidebarOpen && <span>작품 승인 관리</span>}
-            </Button>
-
-            <div className="pt-2 pb-1">
-              {sidebarOpen && (
-                <div className="text-xs text-gray-400 px-3 py-1">신고 관리</div>
-              )}
-              {!sidebarOpen && (
-                <div className="border-t border-gray-700 my-2"></div>
-              )}
-            </div>
-
-            <Button
-              variant={
-                activePage === 'reportManagement' ? 'secondary' : 'ghost'
-              }
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('reportManagement')}
-            >
-              <FontAwesomeIcon icon={faFlag} className="mr-3 w-5 text-center" />
-              {sidebarOpen && <span>신고 관리</span>}
-            </Button>
-
-            <div className="pt-2 pb-1">
-              {sidebarOpen && (
-                <div className="text-xs text-gray-400 px-3 py-1">회원 관리</div>
-              )}
-              {!sidebarOpen && (
-                <div className="border-t border-gray-700 my-2"></div>
-              )}
-            </div>
-
-            <Button
-              variant={
-                activePage === 'memberManagement' ? 'secondary' : 'ghost'
-              }
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('memberManagement')}
-            >
-              <FontAwesomeIcon
-                icon={faUsers}
-                className="mr-3 w-5 text-center"
-              />
-              {sidebarOpen && <span>회원 관리</span>}
-            </Button>
-
-            <div className="pt-2 pb-1">
-              {sidebarOpen && (
-                <div className="text-xs text-gray-400 px-3 py-1">시스템</div>
-              )}
-              {!sidebarOpen && (
-                <div className="border-t border-gray-700 my-2"></div>
-              )}
-            </div>
-
-            <Button
-              variant={activePage === 'logManagement' ? 'secondary' : 'ghost'}
-              className={`w-full justify-start text-left !rounded-button whitespace-nowrap`}
-              onClick={() => setActivePage('logManagement')}
-            >
-              <FontAwesomeIcon
-                icon={faHistory}
-                className="mr-3 w-5 text-center"
-              />
-              {sidebarOpen && <span>로그 관리</span>}
-            </Button>
           </nav>
         </ScrollArea>
       </aside>

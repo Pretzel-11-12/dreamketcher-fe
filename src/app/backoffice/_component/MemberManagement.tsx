@@ -132,7 +132,7 @@ export default function MemberManagement() {
             value="all"
             className="!rounded-button whitespace-nowrap"
           >
-            전체 회원
+            활성 회원
           </TabsTrigger>
           <TabsTrigger
             value="suspended"
