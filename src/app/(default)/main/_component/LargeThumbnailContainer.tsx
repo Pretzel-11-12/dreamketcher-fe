@@ -6,99 +6,9 @@ import LargeThumbnail from './LargeThumbnail';
 import TagSelector from './TagSelector';
 import { Webtoon as IWebtoon } from '@/model/Webtoon';
 
-const webtoonThumbnails: IWebtoon[] = [
-  {
-    id: 1,
-    thumbnail: '/assets/images/thumbnail-large-3.jpg',
-    title: 'D등급 학생',
-    member: 'Jane Doe',
-    genre: '일상',
-    lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
-    story: 'asdf',
-    tags: [
-      { id: 1, content: '로맨스' },
-      { id: 2, content: '스릴러' },
-      { id: 3, content: '공포' },
-      { id: 4, content: '액션' },
-      { id: 5, content: '스포츠' },
-      { id: 6, content: '개그' },
-      { id: 7, content: '소년' },
-    ],
-  },
-  {
-    id: 2,
-    thumbnail: '/assets/images/thumbnail-large-4.jpg',
-    title: 'Mystic Adventures',
-    member: 'John Smith',
-    genre: '일상',
-    lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
-    story: 'asdf',
-    tags: [
-      { id: 1, content: '로맨스' },
-      { id: 2, content: '스릴러' },
-      { id: 3, content: '공포' },
-      { id: 4, content: '액션' },
-    ],
-  },
-  {
-    id: 3,
-    thumbnail: '/assets/images/thumbnail-large-5.jpg',
-    title: 'Mystic Adventures',
-    member: 'John Smith',
-    genre: '일상',
-    lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
-    story: 'asdf',
-    tags: [
-      { id: 1, content: '로맨스' },
-      { id: 2, content: '스릴러' },
-      { id: 3, content: '공포' },
-      { id: 4, content: '액션' },
-    ],
-  },
-  {
-    id: 4,
-    thumbnail: '/assets/images/thumbnail-large-6.jpg',
-    title: 'Mystic Adventures',
-    member: 'John Smith',
-    genre: '일상',
-    lastEpisode: 294,
-    averageStar: 4.1,
-    numOfStars: 200,
-    story: 'asdf',
-    tags: [
-      { id: 1, content: '로맨스' },
-      { id: 2, content: '스릴러' },
-      { id: 3, content: '공포' },
-      { id: 4, content: '액션' },
-    ],
-  },
-  {
-    id: 5,
-    thumbnail: '/assets/images/thumbnail-large-7.jpg',
-    title: 'Mystic Adventures',
-    member: 'John Smith',
-    genre: '일상',
-    lastEpisode: 294,
-    averageStar: 0,
-    numOfStars: 0,
-    story: 'asdf',
-    tags: [
-      { id: 1, content: '로맨스' },
-      { id: 2, content: '스릴러' },
-      { id: 3, content: '공포' },
-      { id: 4, content: '액션' },
-    ],
-  },
-];
-
 interface LargeThumbnailContainerProps {
   title: string;
+  webtoonThumbnails: IWebtoon[];
 }
 
 const handleTagClick = () => {
@@ -107,6 +17,7 @@ const handleTagClick = () => {
 
 const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
   title,
+  webtoonThumbnails,
 }) => {
   const [tag, setTag] = useState('로맨스');
   const { nickname } = useAuthStore();
@@ -136,7 +47,7 @@ const LargeThumbnailContainer: React.FC<LargeThumbnailContainerProps> = ({
         ]}
         handleTagClick={setTag}
       />
-      <div className="flex overflow-hidden gap-[8px]">
+      <div className="flex overflow-x-auto gap-[8px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {webtoonThumbnails.length > 0 ? (
           webtoonThumbnails.map((webtoon) => (
             <div key={webtoon.id}>

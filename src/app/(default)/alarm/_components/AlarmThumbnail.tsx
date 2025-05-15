@@ -37,7 +37,9 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
   removeAlarm,
 }) => {
   const router = useRouter();
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [isReadButtonHovered, setIsReadButtonHovered] = React.useState(false);
+  const [isRemoveButtonHovered, setIsRemoveButtonHovered] =
+    React.useState(false);
 
   const typeToKorean = {
     UPDATE: '업데이트',
@@ -64,21 +66,21 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
   };
 
   return (
-    <div
-      className="w-full flex justify-between items-center border-b border-[#f2f2f2]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="w-full flex justify-between items-center border-b border-[#f2f2f2]">
       <div className="w-full flex flex-col gap-5">
         <div className="relative flex w-full h-[160px] cursor-pointer gap-[30px] py-5">
           {alarm.imgUrl ? (
             <div className="relative w-[80px] h-[120px] rounded-[5px] overflow-hidden">
-              <Image alt={'Search webtoon thumbnail'} src={alarm.imgUrl} fill />
+              <Image
+                alt={`${alarm.title} 웹툰 썸네일`}
+                src={alarm.imgUrl}
+                fill
+              />
             </div>
           ) : (
             <div className="relative w-[80px] h-[80px] my-auto overflow-hidden">
               <Image
-                alt={'Search webtoon thumbnail'}
+                alt="알림 기본 아이콘"
                 src={'/assets/images/alarm-default.png'}
                 fill
               />
@@ -90,7 +92,7 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
           <div className="flex flex-col text-xs justify-between">
             <div className="flex flex-col gap-[10px]">
               <p
-                className={`text-[18px] leading-[normal] font-medium ${
+                className={`text-[18px] leading-[normal] font-medium hover:underline ${
                   alarm.isRead ? 'text-[#888888]' : 'text-titleBlack'
                 }`}
               >
@@ -104,7 +106,7 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
                 {alarm.content}
               </p>
             </div>
-            <p className="text-inActive">
+            <p className="text-inActive text-[16px]">
               {calculateDaysAgo(alarm.createdAt)}일 전
             </p>
           </div>
@@ -114,12 +116,15 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         {!alarm.isRead && (
           <button
             className="w-6 h-6 rounded-full"
+            aria-label="읽음으로 표시"
             onClick={() => markAsRead(alarm.id)}
+            onMouseEnter={() => setIsReadButtonHovered(true)}
+            onMouseLeave={() => setIsReadButtonHovered(false)}
           >
             <Image
-              alt={'Search webtoon thumbnail'}
+              alt="읽음 표시 아이콘"
               src={
-                isHovered
+                isReadButtonHovered
                   ? '/assets/icon/tick-circle-yellow.png'
                   : '/assets/icon/tick-circle.png'
               }
@@ -130,12 +135,15 @@ const AlarmThumbnail: React.FC<AlarmThumbnailProps> = ({
         )}
         <button
           className="w-6 h-6 rounded-full"
+          aria-label="알림 삭제"
           onClick={() => removeAlarm(alarm.id)}
+          onMouseEnter={() => setIsRemoveButtonHovered(true)}
+          onMouseLeave={() => setIsRemoveButtonHovered(false)}
         >
           <Image
-            alt={'Search webtoon thumbnail'}
+            alt="삭제 아이콘"
             src={
-              isHovered
+              isRemoveButtonHovered
                 ? '/assets/icon/close-circle-yellow.png'
                 : '/assets/icon/close-circle.png'
             }
