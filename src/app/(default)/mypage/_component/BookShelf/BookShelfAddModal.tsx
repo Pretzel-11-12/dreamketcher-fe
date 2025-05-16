@@ -22,6 +22,12 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
   };
 
   const handleSubmit = () => {
+    const isSubmitDisabled = title.trim() === '';
+    if (isSubmitDisabled) {
+      alert("제목을 입력해주세요.")
+      return;
+    }
+
     onAddShelf(title, isPrivate);
     onClose();
   };
