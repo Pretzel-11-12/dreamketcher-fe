@@ -3,32 +3,32 @@ import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
 
-const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (shelfTitle: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
-  const [title, setTitle] = useState('');
+const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (folderName: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
+  const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
 
   useEffect(() => {
     if (isOpen) {
-      setTitle('');
+      setFolderName('');
       setIsPrivate(false);
     }
   }, [isOpen]); // isOpen 값이 변경될 때마다 초기화
 
-  const handleTitleChange = (value: string) => {
+  const handleFolderNameChange = (value: string) => {
     if (value.length <= maxLength) {
-      setTitle(value);
+      setFolderName(value);
     }
   };
 
   const handleSubmit = () => {
-    const isSubmitDisabled = title.trim() === '';
+    const isSubmitDisabled = folderName.trim() === '';
     if (isSubmitDisabled) {
       alert("제목을 입력해주세요.")
       return;
     }
 
-    onAddShelf(title, isPrivate);
+    onAddShelf(folderName, isPrivate);
     onClose();
   };
 
@@ -49,7 +49,7 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
   // });
   //
   // const handleCreateFolder = () => {
-  //   mutation.mutate({ name });
+  //   mutation.mutate({ folderName });
   // };
 
   return (
@@ -57,11 +57,11 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
       <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-lg">
         <p className="text-xl text-center font-medium mb-4">책장 만들기</p>
         <Input
-          text={title}
+          text={folderName}
           placeholder="기본책장"
           maxLength={10}
-          currentTextLength={title.length}
-          onChange={handleTitleChange}
+          currentTextLength={folderName.length}
+          onChange={handleFolderNameChange}
           height="44px"
         />
         <div className="flex items-center h-[37px] mt-4 mb-4">

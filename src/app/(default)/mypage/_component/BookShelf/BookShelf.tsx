@@ -15,9 +15,9 @@ const BookShelf: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const addBookShelf = (title: string, isPrivate: boolean) => {
+  const addBookShelf = (folderName: string, isPrivate: boolean) => {
     const newShelf = {
-      title,
+      folderName,
       isPrivate,
       webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg', title: 'Webtoon 1' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg', title: 'Webtoon 2' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg', title: 'Webtoon 3' }]
     };
