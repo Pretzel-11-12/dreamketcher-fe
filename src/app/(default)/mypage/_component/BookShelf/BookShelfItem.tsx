@@ -85,7 +85,18 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
       </div>
       <div className="flex mt-2.5">
         <div className="flex flex-col w-[185px] h-[45px]">
-          <p className="text-lg font-medium text-titleBlack">{folderName}</p>
+          <div className="flex">
+            <p className="text-lg font-medium text-titleBlack">{folderName}</p>
+            {isPrivate && (
+              <Image
+                src={'/assets/icon/lock.svg'}
+                alt="lock Icon"
+                width={18}
+                height={18}
+                className="ml-[1px]"
+              />
+            )}
+          </div>
           <p className="text-[#888888]">총 {webtoons.length}권</p>
         </div>
       </div>
