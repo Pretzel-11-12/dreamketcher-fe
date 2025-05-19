@@ -18,7 +18,7 @@ export const deleteBookShelfFolder = async (folderId: string): Promise<void> => 
 
 export const putBookShelfFolder = async (
   folderId: string,
-  webtoonId: string
+  webtoonId: number
 ): Promise<Folder> => {
   return fetchAPI({
     method: 'PUT',
