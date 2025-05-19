@@ -3,26 +3,45 @@ import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
 
-const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (shelfTitle: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
-  const [title, setTitle] = useState('');
+const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (folderName: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
+  const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
 
+  // const { mutate } = useMutation({
+  //   mutationFn: (folderName: string) => postBookShelfFolder(folderName),
+  //   onSuccess: () => {
+  //     alert('책장이 추가되었습니다!');
+  //     onClose();
+  //   },
+  //   onError: (error) => {
+  //     console.error(error);
+  //     alert('책장 추가에 실패했습니다.');
+  //   },
+  // });
+
   useEffect(() => {
     if (isOpen) {
-      setTitle('');
+      setFolderName('');
       setIsPrivate(false);
     }
   }, [isOpen]); // isOpen 값이 변경될 때마다 초기화
 
-  const handleTitleChange = (value: string) => {
+  const handleFolderNameChange = (value: string) => {
     if (value.length <= maxLength) {
-      setTitle(value);
+      setFolderName(value);
     }
   };
 
   const handleSubmit = () => {
-    onAddShelf(title, isPrivate);
+    const isSubmitDisabled = folderName.trim() === '';
+    if (isSubmitDisabled) {
+      alert("제목을 입력해주세요.")
+      return;
+    }
+
+    onAddShelf(folderName, isPrivate);
+    // mutate(folderName);
     onClose();
   };
 
@@ -30,32 +49,16 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
     setIsPrivate(!isPrivate);
   };
 
-  // name or title 정해지면 수정
-  // const mutation = useMutation(postBookShelfFolder, {
-  //   onSuccess: (data) => {
-  //     console.log('책장 폴더 생성 성공:', data);
-  //     // 모달 닫기 또는 책장 목록 업데이트 등
-  //     onClose();
-  //   },
-  //   onError: (error) => {
-  //     console.error('책장 폴더 생성 실패:', error);
-  //   },
-  // });
-  //
-  // const handleCreateFolder = () => {
-  //   mutation.mutate({ name });
-  // };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-lg">
         <p className="text-xl text-center font-medium mb-4">책장 만들기</p>
         <Input
-          text={title}
+          text={folderName}
           placeholder="기본책장"
           maxLength={10}
-          currentTextLength={title.length}
-          onChange={handleTitleChange}
+          currentTextLength={folderName.length}
+          onChange={handleFolderNameChange}
           height="44px"
         />
         <div className="flex items-center h-[37px] mt-4 mb-4">

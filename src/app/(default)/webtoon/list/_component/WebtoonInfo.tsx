@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import CoverImage from '@/app/_component/CoverImage';
 import Toast from '@/app/_component/Toast';
 import TagList from '@/app/(default)/search/_component/TagList';
+import AddToBookShelfModal from '@/app/(default)/webtoon/list/_component/AddToBookShelfModal';
 
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
@@ -26,6 +27,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     tags,
   } = webtoon;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [interest, setInterest] = useState<{
     active: boolean;
     count: number;
@@ -49,7 +51,12 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
     message: '',
   });
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleLikeToggle = async () => {
+    setIsModalOpen(true);
     try {
       if (interest.active) {
         await fetchWebtoonDetail.deleteFavoriteWebtoon({
@@ -153,6 +160,7 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         isVisible={toastState.isVisible}
         onClose={() => setToastState({ isVisible: false, message: '' })}
       />
+      <AddToBookShelfModal isOpen={isModalOpen} onClose={closeModal} webtoonId={webtoonId}/>
     </>
   );
 };
