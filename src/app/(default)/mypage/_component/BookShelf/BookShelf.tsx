@@ -15,11 +15,12 @@ const BookShelf: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  // 임시. 추후 삭제
   const addBookShelf = (folderName: string, isPrivate: boolean) => {
     const newShelf = {
       folderName,
       isPrivate,
-      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg', title: 'Webtoon 1' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg', title: 'Webtoon 2' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg', title: 'Webtoon 3' }]
+      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg' }]
     };
     setBookShelves([...bookShelves, newShelf]);
   };
