@@ -1,4 +1,4 @@
-import { Folder, Webtoon } from './model';
+import { Folder } from './model';
 import { fetchAPI } from '..';
 
 export const postBookShelfFolder = async (folderName: string): Promise<Folder> => {
@@ -29,12 +29,12 @@ export const putBookShelfFolder = async (
 
 export const postWebtoonToBookShelf = async (
   folderId: string,
-  webtoon: Webtoon
+  webtoonId: number
 ): Promise<void> => {
   return fetchAPI({
     method: 'POST',
     endpoint: `/storage/folder/${folderId}/content`,
-    body: webtoon,
+    body: { webtoonId },
   });
 };
 
