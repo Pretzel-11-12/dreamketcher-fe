@@ -1,11 +1,11 @@
 import { Folder, Webtoon } from './model';
 import { fetchAPI } from '..';
 
-export const postBookShelfFolder = async (name: string): Promise<Folder> => {
+export const postBookShelfFolder = async (folderName: string): Promise<Folder> => {
   return fetchAPI({
     method: 'POST',
     endpoint: '/storage/folder',
-    body: { name },
+    body: { folderName },
   })
 };
 
