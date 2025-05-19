@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Folder } from '@/app/api/fetchFolder/model';
 
-const BookShelfItem: React.FC<{ shelf: any }> = ({ shelf }) => {
-  const { title, isPrivate, webtoons, id } = shelf;
+const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
+  const { folderName, isPrivate, webtoons, id } = shelf;
   const router = useRouter();
 
   const [showMenu, setShowMenu] = useState(false);
@@ -56,7 +57,7 @@ const BookShelfItem: React.FC<{ shelf: any }> = ({ shelf }) => {
           {webtoons[0] && (
             <img
               src={webtoons[0].thumbnail}
-              alt={title}
+              alt=""
               className="w-full h-full object-cover object-top"
             />
           )}
@@ -84,7 +85,18 @@ const BookShelfItem: React.FC<{ shelf: any }> = ({ shelf }) => {
       </div>
       <div className="flex mt-2.5">
         <div className="flex flex-col w-[185px] h-[45px]">
-          <p className="text-lg font-medium text-titleBlack">{title}</p>
+          <div className="flex">
+            <p className="text-lg font-medium text-titleBlack">{folderName}</p>
+            {isPrivate && (
+              <Image
+                src={'/assets/icon/lock.svg'}
+                alt="lock Icon"
+                width={18}
+                height={18}
+                className="ml-[1px]"
+              />
+            )}
+          </div>
           <p className="text-[#888888]">총 {webtoons.length}권</p>
         </div>
       </div>

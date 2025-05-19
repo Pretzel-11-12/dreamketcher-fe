@@ -1,12 +1,19 @@
-import { Folder, Webtoon } from './model';
+import { Folder } from './model';
 import { fetchAPI } from '..';
 
-export const postBookShelfFolder = async (name: string): Promise<Folder> => {
+export const postBookShelfFolder = async (folderName: string): Promise<Folder> => {
   return fetchAPI({
     method: 'POST',
     endpoint: '/storage/folder',
-    body: { name },
+    body: { folderName },
   })
+};
+
+export const getBookShelfFolder = async (): Promise<Folder[]> => {
+  return await fetchAPI({
+    method: 'GET',
+    endpoint: '/storage/folder',
+  });
 };
 
 export const deleteBookShelfFolder = async (folderId: string): Promise<void> => {
@@ -18,7 +25,7 @@ export const deleteBookShelfFolder = async (folderId: string): Promise<void> => 
 
 export const putBookShelfFolder = async (
   folderId: string,
-  webtoonId: string
+  webtoonId: number
 ): Promise<Folder> => {
   return fetchAPI({
     method: 'PUT',
@@ -29,12 +36,12 @@ export const putBookShelfFolder = async (
 
 export const postWebtoonToBookShelf = async (
   folderId: string,
-  webtoon: Webtoon
+  webtoonId: number
 ): Promise<void> => {
   return fetchAPI({
     method: 'POST',
     endpoint: `/storage/folder/${folderId}/content`,
-    body: webtoon,
+    body: { webtoonId },
   });
 };
 
