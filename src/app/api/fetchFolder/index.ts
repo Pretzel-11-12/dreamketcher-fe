@@ -9,6 +9,13 @@ export const postBookShelfFolder = async (folderName: string): Promise<Folder> =
   })
 };
 
+export const getBookShelfFolder = async (): Promise<Folder[]> => {
+  return await fetchAPI({
+    method: 'GET',
+    endpoint: '/storage/folder',
+  });
+};
+
 export const deleteBookShelfFolder = async (folderId: string): Promise<void> => {
   return fetchAPI({
     method: 'DELETE',

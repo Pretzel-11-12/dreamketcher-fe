@@ -7,6 +7,12 @@ const BookShelf: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookShelves, setBookShelves] = useState<any[]>([]);
 
+  // TODO : api 완성 이후 주석 해제
+  // const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
+  //   queryKey: ['bookShelves'],
+  //   queryFn: getBookShelfFolder,
+  // });
+
   const handleAddBookShelf = () => {
     setIsModalOpen(true);
   };
