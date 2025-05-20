@@ -2,23 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
+import { useMutation } from '@tanstack/react-query';
+import { postBookShelfFolder } from '@/app/api/fetchFolder';
 
 const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (folderName: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
   const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
 
-  // const { mutate } = useMutation({
-  //   mutationFn: (folderName: string) => postBookShelfFolder(folderName),
-  //   onSuccess: () => {
-  //     alert('책장이 추가되었습니다!');
-  //     onClose();
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //     alert('책장 추가에 실패했습니다.');
-  //   },
-  // });
+  const { mutate } = useMutation({
+    mutationFn: (folderName: string) => postBookShelfFolder(folderName),
+    onSuccess: () => {
+      alert('책장이 추가되었습니다!');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      alert('책장 추가에 실패했습니다.');
+    },
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +43,7 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
     }
 
     onAddShelf(folderName, isPrivate);
-    // mutate(folderName);
+    mutate(folderName);
     onClose();
   };
 
