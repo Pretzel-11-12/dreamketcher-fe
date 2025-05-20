@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import DefaultImage from '@/app/_component/DefaultImage';
 import moment from 'moment';
-import Button from '@/app/_component/Button';
 import { GenreEnum } from '@/app/util/index';
 import Image from 'next/image';
 import CardButton from './CardButton';
@@ -16,9 +15,7 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   item
 ) => {
   const router = useRouter();
-
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
-
   const startedAt = moment(item.startedAt).format('YYYY.MM.DD');
   const genre = GenreEnum[item.genre as keyof typeof GenreEnum];
   return (
@@ -105,7 +102,7 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
             <CardButton
               text="회차 관리"
               onClick={() =>
-                router.push(`/creator/series/new?webtoonId=${item.id}`)
+                router.push(`/creator/episode?webtoonId=${item.id}`)
               }
             />
           </div>
