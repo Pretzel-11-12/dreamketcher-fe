@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
+import { genres } from '@/constants/genres';
 
 export interface SeriesFormInfo
   extends Omit<
@@ -19,16 +20,11 @@ export interface SeriesFormInfo
   tagsInput: string;
 }
 
-const options = [
-  { label: '로맨스', id: '1', subId: 'PURE' },
-  { label: '판타지', id: '2', subId: 'FANTASY' },
-  { label: '무협', id: '3', subId: 'HISTORICAL' },
-  { label: '일상', id: '4', subId: 'DAILY' },
-  { label: '스릴러', id: '5', subId: 'THRILL' },
-  { label: '액션', id: '6', subId: 'ACTION' },
-  { label: '스포츠', id: '7', subId: 'SPORTS' },
-  { label: '개그', id: '8', subId: 'COMIC' },
-];
+const genreOptions = genres.map((genre, index) => ({
+  label: genre.name,
+  id: String(index + 1),
+  subId: genre.param,
+}));
 
 type SeriesFormProp = {
   item?: fetchCreatorWebtoon.Model.CreatorWebtoonDetail;
@@ -47,7 +43,8 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
   useEffect(() => {
     if (!!item) {
-      const genreId = options.find((v) => v.subId === item.genre)?.id || '1';
+      const genreId =
+        genreOptions.find((v) => v.subId === item.genre)?.id || '1';
 
       setWebtoonInfo({
         title: item.title,
@@ -133,7 +130,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
         <RadioButton
           key={webtoonInfo.genreId}
-          options={options}
+          options={genreOptions}
           selectedValue={webtoonInfo.genreId}
           onChange={(id) => setWebtoonInfo((v) => ({ ...v, genreId: id }))}
         />
