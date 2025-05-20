@@ -7,6 +7,12 @@ const BookShelf: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookShelves, setBookShelves] = useState<any[]>([]);
 
+  // TODO : api 완성 이후 주석 해제
+  // const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
+  //   queryKey: ['bookShelves'],
+  //   queryFn: getBookShelfFolder,
+  // });
+
   const handleAddBookShelf = () => {
     setIsModalOpen(true);
   };
@@ -15,11 +21,12 @@ const BookShelf: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const addBookShelf = (title: string, isPrivate: boolean) => {
+  // 임시. 추후 삭제
+  const addBookShelf = (folderName: string, isPrivate: boolean) => {
     const newShelf = {
-      title,
+      folderName,
       isPrivate,
-      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg', title: 'Webtoon 1' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg', title: 'Webtoon 2' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg', title: 'Webtoon 3' }]
+      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg' }]
     };
     setBookShelves([...bookShelves, newShelf]);
   };
