@@ -7,6 +7,8 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import Pagination from '@/app/_component/Pagination';
+import { useState } from 'react';
 
 const headers = [
   '작품',
@@ -21,6 +23,7 @@ const headers = [
 
 const SeriesList = () => {
   const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
   const status = searchParams.get('status')! as
     | 'IN_SERIES'
     | 'FINISH'
@@ -29,10 +32,10 @@ const SeriesList = () => {
     | 'PRE_SERIES';
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['creator-webtoon', status],
+    queryKey: ['creator-webtoon', status, currentPage],
     queryFn: () =>
       fetchCreatorWebtoon.getCreatorsWebtoons({
-        query: { status: status },
+        query: { status: status, page: currentPage - 1, size: 10 },
       }),
   });
 
@@ -49,8 +52,8 @@ const SeriesList = () => {
   const result = data?.content.result || [];
 
   return (
-    <>
-      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5">
+    <div className="flex flex-col gap-4 w-[540px] xl:w-[1040px] justify-center items-center">
+      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5 w-fit">
         <Link
           className="p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border border-dashed"
           href="/creator/series/new"
@@ -74,7 +77,14 @@ const SeriesList = () => {
           <SeriesCardItem {...item} key={item.id} />
         ))}
       </div>
-    </>
+      {data?.content.totalElements && data?.content.totalElements > 10 && (
+        <Pagination
+          totalPages={Math.ceil(data?.content.totalElements / 10)}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      )}
+    </div>
   );
 };
 
