@@ -75,13 +75,9 @@ const Header: React.FC = () => {
             className="relative w-[24px] h-[24px] border-0 bg-transparent p-0"
             onClick={handleGoBack}
           >
-            <Image
-              src="/assets/icon/creator-back.png"
-              alt="뒤로 가기"
-              fill
-            />
+            <Image src="/assets/icon/creator-back.png" alt="뒤로 가기" fill />
           </button>
-          <Link href="/main/default">
+          <Link href="/main">
             <Image
               src="/assets/images/d-studio-logo.png"
               alt="profile button"
