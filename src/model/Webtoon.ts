@@ -19,7 +19,7 @@ export interface RankingWebtoon {
   title: string;
   thumbnail: string;
   genre: string;
-  member: string;
+  authorNickname: string;
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;
