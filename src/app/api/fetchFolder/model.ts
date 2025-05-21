@@ -1,10 +1,8 @@
 export interface Folder {
-  id: string;
+  folderId: string;
   folderName: string;
   isPrivate: boolean;
-  webtoons: Webtoon[];
-  createdAt: string;
-  updatedAt: string;
+  // webtoons: Webtoon[];
 }
 
 export interface Webtoon {
