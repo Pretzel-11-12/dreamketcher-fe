@@ -72,7 +72,7 @@ const BackofficeHeader: React.FC = () => {
     <header className="fixed w-full bg-white z-50 border-b border-[#F2F2F2]">
       <div className="flex items-center justify-between w-full h-[70px] mx-auto px-5 relative">
         <div className="flex items-center gap-[5px]">
-          <Link href="/main/default">
+          <Link href="/main">
             <Image
               src="/assets/images/d-studio-logo.png"
               alt="profile button"
