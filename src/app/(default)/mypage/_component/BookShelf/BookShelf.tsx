@@ -21,16 +21,6 @@ const BookShelf: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // 임시. 추후 삭제
-  const addBookShelf = (folderName: string, isPrivate: boolean) => {
-    const newShelf = {
-      folderName,
-      isPrivate,
-      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg' }]
-    };
-    setBookShelves([...bookShelves, newShelf]);
-  };
-
   return (
     <div className="mt-5">
       <div className="grid grid-cols-4 gap-2.5 mb-4">
@@ -54,7 +44,7 @@ const BookShelf: React.FC = () => {
         ))}
       </div>
 
-      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal} onAddShelf={addBookShelf} />
+      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal}/>
     </div>
 
   );

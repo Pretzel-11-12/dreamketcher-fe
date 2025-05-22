@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 import { postBookShelfFolder } from '@/app/api/fetchFolder';
 
-const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (folderName: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
+const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isOpen, onClose }) => {
   const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
@@ -42,7 +42,6 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
       return;
     }
 
-    onAddShelf(folderName, isPrivate);
     mutate(folderName);
     onClose();
   };
