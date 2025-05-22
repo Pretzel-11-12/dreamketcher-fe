@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import BookShelfAddButton from './BookShelfAddButton';
 import BookShelfAddModal from './BookShelfAddModal';
 import BookShelfItem from './BookShelfItem';
+import { useQuery } from '@tanstack/react-query';
+import { getBookShelfFolder } from '@/app/api/fetchFolder';
+import { Folder } from '@/app/api/fetchFolder/model';
 
 const BookShelf: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bookShelves, setBookShelves] = useState<any[]>([]);
 
-  // TODO : api 완성 이후 주석 해제
-  // const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
-  //   queryKey: ['bookShelves'],
-  //   queryFn: getBookShelfFolder,
-  // });
+  const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
+    queryKey: ['bookShelves'],
+    queryFn: getBookShelfFolder,
+  });
 
   const handleAddBookShelf = () => {
     setIsModalOpen(true);
