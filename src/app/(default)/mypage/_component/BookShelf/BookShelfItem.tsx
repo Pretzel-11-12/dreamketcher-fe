@@ -53,16 +53,18 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
         className="flex w-[210px] h-[165px] rounded cursor-pointer"
         onClick={navigateToDetail}>
         <div className="w-[110px] h-[165px] relative overflow-hidden">
-          {webtoons[0] && (
+          {webtoons?.length > 0 && webtoons[0]?.thumbnail ? (
             <img
               src={webtoons[0].thumbnail}
               alt=""
               className="w-full h-full object-cover object-top"
             />
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
           )}
         </div>
         <div className="flex flex-col w-[100px] h-[165px] gap-[2px] pl-[2px]">
-          {webtoons[1] && (
+          {webtoons?.length > 1 && webtoons[1]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
                 src={webtoons[1].thumbnail}
@@ -70,8 +72,10 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
                 className="w-full h-full object-cover object-top"
               />
             </div>
-          )}
-          {webtoons[2] && (
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
+            )}
+          {webtoons?.length > 2 && webtoons[2]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
                 src={webtoons[2].thumbnail}
@@ -79,6 +83,8 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
                 className="w-full h-full object-cover object-top"
               />
             </div>
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
           )}
         </div>
       </div>
@@ -96,7 +102,7 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
               />
             )}
           </div>
-          <p className="text-[#888888]">총 {webtoons.length}권</p>
+          <p className="text-[#888888]">총 {webtoons?.length}권</p>
         </div>
       </div>
       <div
