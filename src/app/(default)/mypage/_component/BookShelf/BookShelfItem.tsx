@@ -4,16 +4,15 @@ import { useRouter } from 'next/navigation';
 import { Folder } from '@/app/api/fetchFolder/model';
 
 const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
-  const { folderName, isPrivate, webtoons, id } = shelf;
+  const { folderName, isPrivate, webtoons, folderId } = shelf;
   const router = useRouter();
 
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
 
-  // TODO : 추후 shelfId 추가
   function navigateToDetail() {
-    router.push(`/mypage/storage/bookShelf/1`);
+    router.push(`/mypage/storage/bookShelf/${folderId}`);
   }
 
   const toggleMenu = () => {
