@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postBookShelfFolder } from '@/app/api/fetchFolder';
 
 const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isOpen, onClose }) => {
@@ -10,10 +10,15 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: (folderName: string) => postBookShelfFolder(folderName),
     onSuccess: () => {
       alert('책장이 추가되었습니다!');
+      queryClient.invalidateQueries({
+        queryKey: ['bookShelves'],
+      });
       onClose();
     },
     onError: (error) => {
