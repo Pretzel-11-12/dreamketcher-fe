@@ -12,11 +12,8 @@ export default function MainLayout({
   return (
     <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black">
       <QuickMenu />
-      <hr className="border-line border-solid" />
       <CategorySelector />
-      <hr className="border-line border-solid" />
       <GenreSelector />
-      <hr className="border-line border-solid" />
       <div className="w-full flex justify-center">
         <div className="flex w-[1200px]">
           {children}

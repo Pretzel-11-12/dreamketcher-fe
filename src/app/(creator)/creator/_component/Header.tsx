@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
-import ProfileModal from '@/app/modal/_component/ProfileModal';
+import CreatorProfileModal from '@/app/modal/_component/CreatorProfileModal';
 import { useRouter } from 'next/navigation';
 
 const DEFAULT_USER_INFO = {
@@ -123,7 +123,10 @@ const Header: React.FC = () => {
             )}
           </div>
           {isModalOpen && (
-            <ProfileModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <CreatorProfileModal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            />
           )}
         </div>
       </div>

@@ -10,6 +10,11 @@ import moment from 'moment';
 import { GenreEnum } from '@/app/util/index';
 import Image from 'next/image';
 import CardButton from './CardButton';
+import {
+  FavoriteModal,
+  ViewModal,
+  CommentModal,
+} from '@/app/modal/_component/detail-modal';
 
 const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   item
@@ -18,6 +23,11 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
   const startedAt = moment(item.startedAt).format('YYYY.MM.DD');
   const genre = GenreEnum[item.genre as keyof typeof GenreEnum];
+  const [isFavoriteModalOpen, handleFavoriteModalOpen] =
+    useState<boolean>(false);
+  const [isViewModalOpen, handleViewModalOpen] = useState<boolean>(false);
+  const [isCommentModalOpen, handleCommentModalOpen] = useState<boolean>(false);
+
   return (
     <>
       <div className="grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border gap-[15px]">
@@ -58,35 +68,56 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           </div>
 
           <div className="flex flex-col gap-2">
-            <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-              <Image
-                src="/assets/icon/user.png"
-                alt="user"
-                width={17}
-                height={17}
-              />
-              <span>{item.likeCount}</span>
+            <div className="relative text-[16px] text-[#888]">
+              <div
+                className="flex items-center gap-1 w-fit"
+                onMouseEnter={() => handleFavoriteModalOpen(true)}
+                onMouseLeave={() => handleFavoriteModalOpen(false)}
+              >
+                <Image
+                  src="/assets/icon/user.png"
+                  alt="user"
+                  width={17}
+                  height={17}
+                />
+                <span>{item.likeCount}</span>
+                {isFavoriteModalOpen && <FavoriteModal />}
+              </div>
             </div>
 
-            <div className="flex w-full items-center">
-              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-                <Image
-                  src="/assets/icon/eye.png"
-                  alt="eye"
-                  width={17}
-                  height={17}
-                />
-                <span>{item.numOfStars}</span>
+            <div className="flex items-center">
+              <div className="relative w-full text-[16px] text-[#888]">
+                <div
+                  className="flex items-center gap-1 w-fit"
+                  onMouseEnter={() => handleViewModalOpen(true)}
+                  onMouseLeave={() => handleViewModalOpen(false)}
+                >
+                  <Image
+                    src="/assets/icon/eye.png"
+                    alt="eye"
+                    width={17}
+                    height={17}
+                  />
+                  <span>{item.numOfStars}</span>
+                  {isViewModalOpen && <ViewModal />}
+                </div>
               </div>
 
-              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-                <Image
-                  src="/assets/icon/message.png"
-                  alt="message"
-                  width={17}
-                  height={17}
-                />
-                <span>{item.commentCount}</span>
+              <div className="relative w-full text-[16px] text-[#888]">
+                <div
+                  className="flex items-center gap-1 w-fit"
+                  onMouseEnter={() => handleCommentModalOpen(true)}
+                  onMouseLeave={() => handleCommentModalOpen(false)}
+                >
+                  <Image
+                    src="/assets/icon/message.png"
+                    alt="message"
+                    width={17}
+                    height={17}
+                  />
+                  <span>{item.commentCount}</span>
+                  {isCommentModalOpen && <CommentModal />}
+                </div>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ interface SearchWebtoonSectionProps {
 }
 
 const dropdownOptions = [
+  { label: '정확도순', value: 'accuracy' },
   { label: '최근순', value: 'desc' },
   { label: '오래된순', value: 'asc' },
 ];
@@ -21,6 +22,7 @@ export default function SearchWebtoonSection({
 }: SearchWebtoonSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
+  const [dropdownValue, setDropdownValue] = useState('accuracy');
 
   useEffect(() => {
     setCurrentPage(1);
@@ -73,11 +75,11 @@ export default function SearchWebtoonSection({
         </p>
       </div>
       <div className="mb-[12px] flex justify-between items-center">
-        <SearchMainSectionHeader />
+        <SearchMainSectionHeader count={searchData.totalElements} />
         <SearchDropdown
           options={dropdownOptions}
-          selected={sortDirection}
-          onSelect={(value) => setSortDirection(value as 'desc' | 'asc')}
+          selected={dropdownValue}
+          onSelect={(value) => setDropdownValue(value)}
         />
       </div>
       <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">

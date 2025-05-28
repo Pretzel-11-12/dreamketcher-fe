@@ -13,7 +13,6 @@ export default function CreatorMain() {
           </span>
           <SeriesCategorySelector />
         </div>
-
         <SeriesList />
       </div>
     </div>

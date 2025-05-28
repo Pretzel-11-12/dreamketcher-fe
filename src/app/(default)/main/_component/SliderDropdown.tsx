@@ -72,7 +72,7 @@ const SliderDropdown: React.FC<SliderDropdownProps> = ({
 
       {/* 드롭다운 메뉴 */}
       {isOpen && (
-        <div className="absolute z-10 w-[83px] mt-[24px] bg-white border border-baseLine rounded-[5px] shadow-lg">
+        <div className="absolute z-10 w-[83px] mt-[24px] bg-white border border-baseLine rounded-[5px] shadow-custom">
           <div className="">
             {options.map((option) => (
               <div
