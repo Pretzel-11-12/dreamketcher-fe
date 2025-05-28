@@ -43,7 +43,7 @@ export default function SearchTagSection({ tagId }: SearchTagSectionProps) {
           </p>
         </div>
         <div className="mb-[12px] flex justify-between items-center">
-          <SearchMainSectionHeader />
+          <SearchMainSectionHeader count={searchData.webtoons.length} />
         </div>
         <div className="flex flex-col gap-5 mb-[30px] min-h-[calc(100vh-560px)]">
           {searchData.content &&
