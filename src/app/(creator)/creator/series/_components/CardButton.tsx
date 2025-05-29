@@ -7,7 +7,7 @@ export default function CardButton({
 }) {
   return (
     <button
-      className="w-[141px] h-[39px] bg-bgGray border-1 border-baseLine rounded-[5px] text-[16px] text-inActive"
+      className="w-[141px] h-[39px] bg-bgGray border border-baseLine rounded-[5px] text-[16px] text-inActive"
       onClick={onClick}
     >
       {text}
