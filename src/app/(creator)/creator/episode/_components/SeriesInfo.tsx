@@ -32,7 +32,7 @@ const SeriesInfo: React.FC<SeriesInfoProps> = ({
 
       <div className="flex flex-col gap-2 pl-[6px]">
         <Link
-          className="w-[208px] h-[45px] flex items-center justify-center bg-[#F9F9F9] text-[#888888] border border-brand-gray rounded-[5px]"
+          className="w-[208px] h-[45px] flex items-center justify-center bg-bgGray text-[#888888] border border-brand-gray rounded-[5px]"
           href={{
             pathname: '/creator/series/new',
             query: { webtoonId: webtoon.webtoonId },

@@ -40,7 +40,7 @@ export default function CreatorMain() {
   };
 
   return (
-    <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full border-r border-[#F2F2F2] bg-[#F9F9F9]">
+    <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full border-r border-[#F2F2F2] bg-bgGray">
       <SeriesSideBar />
       <div className="flex flex-col p-[30px] gap-[20px] pr-[165px]">
         <span className="text-[20px] font-medium leading-[24px] text-titleBlack">

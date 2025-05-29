@@ -28,7 +28,7 @@ export default {
         inActive: '#888888',
         contentBlack: '#3F3F3F',
         buttonLine: '#FA973B',
-        backgroundGray: '#F9F9F9',
+        bgGray: '#F9F9F9',
         basicGray: '#C9C9C9',
         card: {
           DEFAULT: 'hsl(var(--card))',

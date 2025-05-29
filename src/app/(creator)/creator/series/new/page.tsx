@@ -25,7 +25,7 @@ export default function SeriesNew() {
   return (
     <>
       {isExist ? (
-        <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full bg-[#F9F9F9]">
+        <div className="grid grid-cols-[auto_1fr] mt-[70px] w-full h-full bg-bgGray">
           <SeriesSideBar />
           <div className="flex flex-col w-full p-[30px]">
             <span className="text-[20px] font-medium leading-[24px] text-titleBlack pb-[20px]">

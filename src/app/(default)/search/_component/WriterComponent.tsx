@@ -13,7 +13,7 @@ const WriterComponent: React.FC<WriterComponentProps> = ({
   keyword,
 }) => {
   return (
-    <div className="flex items-center gap-[6px] rounded-md p-[5px] w-full h-[35px] hover:bg-backgroundGray">
+    <div className="flex items-center gap-[6px] rounded-md p-[5px] w-full h-[35px] hover:bg-bgGray">
       <div className="relative w-[25px] h-[25px] rounded-full overflow-hidden">
         <Image
           src={writer.profileImage || '/images/default-profile.png'}
