@@ -63,14 +63,12 @@ const SeriesList = () => {
 
   return (
     <div className="flex-1 flex flex-col justify-between gap-4 w-[540px] xl:w-[1040px]">
-      <div
-        className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5 w-fit"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5 w-fit">
         <Link
           className="p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border border-dashed"
           href="/creator/series/new"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div className="flex flex-col w-full h-full items-center justify-center ml-0">
             {isHovered ? (
