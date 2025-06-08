@@ -10,6 +10,7 @@ import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 import { genres } from '@/constants/genres';
+import PublicationSettings from '../../episode/_components/PublicationSettings';
 
 export interface SeriesFormInfo
   extends Omit<
@@ -40,6 +41,11 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
+  const [publicSetting, setPublicSetting] = useState('public');
+  const [isScheduledEnabled, setIsScheduledEnabled] = useState(true);
+  const [seriesStatus, setSeriesStatus] = useState<'ongoing' | 'completed'>(
+    'ongoing'
+  );
 
   useEffect(() => {
     if (!!item) {
@@ -188,15 +194,33 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-center pb-24">
-        <div>작품 상태</div>
-        <RadioButton
-          options={[
-            { id: 'open', label: '공개' },
-            { id: 'close', label: '비공개' },
-          ]}
-          selectedValue={'open'}
-        />
+      <div className="grid grid-cols-[10rem_1fr] items-center pb-[100px] gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F] self-start">
+          작품 상태
+        </div>
+        <div className="flex flex-col gap-2 w-full min-h-[150px]">
+          <RadioButton
+            options={[
+              { id: 'public', label: '공개' },
+              { id: 'prvate', label: '비공개' },
+            ]}
+            selectedValue={publicSetting}
+            onChange={setPublicSetting}
+          />
+          {publicSetting === 'public' && (
+            <PublicationSettings
+              seriesStatus={seriesStatus}
+              onSeriesStatusChange={setSeriesStatus}
+              isScheduledEnabled={isScheduledEnabled}
+              onScheduledToggle={() =>
+                setIsScheduledEnabled(!isScheduledEnabled)
+              }
+              onTimeChange={(time) => {
+                setWebtoonInfo((v) => ({ ...v, publishedAt: time }));
+              }}
+            />
+          )}
+        </div>
       </div>
 
       <div className="flex justify-center">

@@ -4,7 +4,6 @@ import Button from '@/app/_component/Button';
 import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
-import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
 import { useEffect, useState } from 'react';
 import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,7 +11,7 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
 import moment from 'moment';
 import EpisodeUploader from './EpisodeUploader';
-import VerticalButtonGroup from '@/app/_component/VerticalButtonGroup';
+import PublicationSettings from './PublicationSettings';
 
 export interface EpisodeFormInfo {
   webtoonId: string;
@@ -64,7 +63,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     }
   }, [item]);
 
-  const isExist = !!item;
+  // const isExist = !!item;
   const router = useRouter();
 
   const handleThumbnail = async (file: File | null) => {
@@ -205,44 +204,17 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
             onChange={setPublicSetting}
           />
           {publicSetting === 'public' && (
-            <div className="p-[14px] pr-[70px] rounded-[5px] border border-[#F2F2F2] min-w-[411px] w-fit">
-              <VerticalButtonGroup
-                options={[
-                  { id: 'ongoing', label: '연재' },
-                  { id: 'completed', label: '완결' },
-                ]}
-                selectedValue={seriesStatus}
-                onChange={setSeriesStatus}
-              />
-              <hr className="my-4 border-[#F2F2F2]" />
-              <div className="flex items-center gap-[10px]">
-                <button
-                  onClick={() => setIsScheduledEnabled(!isScheduledEnabled)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    isScheduledEnabled ? 'bg-brand-yellow' : 'bg-gray-300'
-                  }`}
-                >
-                  <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      isScheduledEnabled ? 'translate-x-1' : 'translate-x-6'
-                    }`}
-                  />
-                </button>
-                <span className="text-[15px] font-medium text-[#3F3F3F]">
-                  습작 예약
-                </span>
-              </div>
-
-              {isScheduledEnabled && (
-                <div className="mt-[14px]">
-                  <DateTimeSelector
-                    onChange={(time) => {
-                      setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
-                    }}
-                  />
-                </div>
-              )}
-            </div>
+            <PublicationSettings
+              seriesStatus={seriesStatus}
+              onSeriesStatusChange={setSeriesStatus}
+              isScheduledEnabled={isScheduledEnabled}
+              onScheduledToggle={() =>
+                setIsScheduledEnabled(!isScheduledEnabled)
+              }
+              onTimeChange={(time) => {
+                setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
+              }}
+            />
           )}
         </div>
       </div>
