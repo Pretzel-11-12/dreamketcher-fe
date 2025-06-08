@@ -12,6 +12,7 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
 import moment from 'moment';
 import EpisodeUploader from './EpisodeUploader';
+import VerticalButtonGroup from '@/app/_component/VerticalButtonGroup';
 
 export interface EpisodeFormInfo {
   webtoonId: string;
@@ -45,6 +46,9 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   const searchParams = useSearchParams();
   const no = searchParams.get('no') || String(item?.no);
   const [status, setStatus] = useState<'edit' | 'new'>('new');
+  const [seriesStatus, setSeriesStatus] = useState<'ongoing' | 'completed'>(
+    'ongoing'
+  );
 
   useEffect(() => {
     if (!!item) {
@@ -124,6 +128,8 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   };
 
   const [publicSetting, setPublicSetting] = useState('public');
+  const [isScheduledEnabled, setIsScheduledEnabled] = useState(true);
+
   return (
     <div className="flex flex-col w-full gap-[50px] pb-20">
       <div className="grid grid-cols-[10rem_1fr] items-center gap-[10px]">
@@ -186,23 +192,57 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
       </div>
 
       <div className="grid grid-cols-[10rem_1fr] items-center pb-[300px] gap-[10px]">
-        <div className="font-medium text-[16px] font-[#3F3F3F]">공개 설정</div>
+        <div className="font-medium text-[16px] font-[#3F3F3F] self-start">
+          공개 설정
+        </div>
         <div className="flex flex-col gap-2 w-full">
           <RadioButton
             options={[
               { id: 'public', label: '공개' },
               { id: 'prvate', label: '비공개' },
-              { id: 'scheduled', label: '예약공개' },
             ]}
             selectedValue={publicSetting}
             onChange={setPublicSetting}
           />
-          {publicSetting === 'scheduled' && (
-            <DateTimeSelector
-              onChange={(time) => {
-                setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
-              }}
-            />
+          {publicSetting === 'public' && (
+            <div className="p-[14px] pr-[70px] rounded-[5px] border border-[#F2F2F2] min-w-[411px] w-fit">
+              <VerticalButtonGroup
+                options={[
+                  { id: 'ongoing', label: '연재' },
+                  { id: 'completed', label: '완결' },
+                ]}
+                selectedValue={seriesStatus}
+                onChange={setSeriesStatus}
+              />
+              <hr className="my-4 border-[#F2F2F2]" />
+              <div className="flex items-center gap-[10px]">
+                <button
+                  onClick={() => setIsScheduledEnabled(!isScheduledEnabled)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    isScheduledEnabled ? 'bg-brand-yellow' : 'bg-gray-300'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      isScheduledEnabled ? 'translate-x-1' : 'translate-x-6'
+                    }`}
+                  />
+                </button>
+                <span className="text-[15px] font-medium text-[#3F3F3F]">
+                  습작 예약
+                </span>
+              </div>
+
+              {isScheduledEnabled && (
+                <div className="mt-[14px]">
+                  <DateTimeSelector
+                    onChange={(time) => {
+                      setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
+                    }}
+                  />
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
