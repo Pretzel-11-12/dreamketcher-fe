@@ -27,20 +27,40 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
     useState<boolean>(false);
   const [isViewModalOpen, handleViewModalOpen] = useState<boolean>(false);
   const [isCommentModalOpen, handleCommentModalOpen] = useState<boolean>(false);
-
+  const [isThumbnailModalOpen, handleThumbnailModalOpen] =
+    useState<boolean>(false);
   return (
     <>
       <div className="grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border gap-[15px]">
-        <div
-          onClick={() => router.push(`/webtoon/list?id=${item.id}`)}
-          className="cursor-pointer"
-        >
-          <DefaultImage
-            src={item.thumbnail}
-            height={202}
-            width={135}
-            alt={item.title}
-          />
+        <div>
+          <div
+            className="relative"
+            onMouseEnter={() => handleThumbnailModalOpen(true)}
+            onMouseLeave={() => handleThumbnailModalOpen(false)}
+          >
+            <DefaultImage
+              src={item.thumbnail}
+              height={202}
+              width={135}
+              alt={item.title}
+            />
+            {isThumbnailModalOpen && (
+              <div className="absolute bottom-[8.5px] w-full px-[9px]">
+                <div
+                  className="flex justify-center gap-[5px] px-[10px] py-[7px] bg-[#282828]/50 border-1 border-[#ffffff]/80 rounded-[5px] text-[#ffffff]/80 mx-auto cursor-pointer"
+                  onClick={() => router.push(`/webtoon/list?id=${item.id}`)}
+                >
+                  <span className="text-[14px] font-normal">웹툰에서 보기</span>
+                  <Image
+                    src="/assets/icon/send.svg"
+                    alt="send"
+                    width={15}
+                    height={15}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col w-full h-full justify-between">
