@@ -38,6 +38,23 @@ export interface BeforeFavoriteWebtoon {
   genre: string;
 }
 
+export interface FavoriteWebtoon {
+  folderId: number;
+  folderName: string;
+  content: FavoriteWebtoonContent[];
+  total: number;
+}
+
+export interface FavoriteWebtoonContent {
+  webtoonId: number;
+  title: string;
+  thumbnail: string;
+  authorNickname: string;
+  updatedAt: string;
+  genre: string;
+  episodeCount: number;
+}
+
 export interface RecentWatchedWebtoon {
   id: number;
   image: string;
