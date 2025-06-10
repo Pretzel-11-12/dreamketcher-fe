@@ -26,7 +26,7 @@ export interface MyWebtoon {
   genre: string;
 }
 
-export interface FavoriteWebtoon {
+export interface BeforeFavoriteWebtoon {
   interestedWebtoonId: number;
   webtoonId: number;
   title: string;
