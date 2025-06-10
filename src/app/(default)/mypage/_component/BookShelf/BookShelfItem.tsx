@@ -12,7 +12,7 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
 
 
   function navigateToDetail() {
-    router.push(`/mypage/storage/bookShelf/${folderId}`);
+    router.push(`/mypage/storage/bookShelf?folderId=${folderId}`);
   }
 
   const toggleMenu = () => {
