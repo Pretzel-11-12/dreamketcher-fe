@@ -1,5 +1,6 @@
 import { Folder } from './model';
 import { fetchAPI } from '..';
+import { FavoriteWebtoon } from '@/model/Webtoon';
 
 export const postBookShelfFolder = async (folderName: string): Promise<Folder> => {
   return fetchAPI({
@@ -52,5 +53,14 @@ export const deleteWebtoonFromBookShelf = async (
   return fetchAPI({
     method: 'DELETE',
     endpoint: `/storage/folder/${folderId}/content/${webtoonId}`,
+  });
+};
+
+export const getBookShelfContent = async (
+  folderId: any
+): Promise<FavoriteWebtoon> => {
+  return await fetchAPI({
+    method: 'GET',
+    endpoint: `/storage/folder/${folderId}/content`,
   });
 };
