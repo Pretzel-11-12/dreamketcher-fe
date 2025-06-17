@@ -13,6 +13,8 @@ export interface InputProps {
   containerStyles?: string;
   disable?: boolean;
   maxLength?: number;
+  textColor?: string;
+  fontSize?: string;
 }
 const Input: React.FC<InputProps> = (props) => {
   const {
@@ -26,6 +28,8 @@ const Input: React.FC<InputProps> = (props) => {
     containerStyles = '',
     disable = false,
     maxLength,
+    textColor = '#3F3F3F',
+    fontSize = '14px',
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -60,6 +64,10 @@ const Input: React.FC<InputProps> = (props) => {
         onChange={(e) => onChange?.(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        style={{
+          color: textColor,
+          fontSize: fontSize,
+        }}
       />
       <div className="flex items-center">
         <span className="text-xs pointer-events-none text-[#888888]">
