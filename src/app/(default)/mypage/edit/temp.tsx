@@ -202,9 +202,9 @@ const Temp = () => {
         <Input
           text={tempBusinessEmail}
           placeholder="비즈니스 이메일을 작성해주세요."
-          containerStyles="text-xs"
           onChange={(value) => setTempBusinessEmail(value)}
           height="44px"
+          fontSize="12px"
         />
       </div>
     </div>

@@ -66,6 +66,8 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
           currentTextLength={folderName.length}
           onChange={handleFolderNameChange}
           height="44px"
+          textColor="#282828"
+          fontSize="15px"
         />
         <div className="flex items-center h-[37px] mt-4 mb-4">
           <Image
