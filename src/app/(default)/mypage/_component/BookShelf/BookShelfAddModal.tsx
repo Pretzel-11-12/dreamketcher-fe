@@ -57,8 +57,8 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-lg">
-        <p className="text-xl text-center font-medium mb-4">책장 만들기</p>
+      <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-sm">
+        <p className="text-xl text-[#282828] text-center font-medium mb-4">책장 만들기</p>
         <Input
           text={folderName}
           placeholder="기본책장"
