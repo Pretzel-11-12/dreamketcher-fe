@@ -2,11 +2,12 @@ export interface Folder {
   folderId: string;
   folderName: string;
   isPrivate: boolean;
-  // webtoons: Webtoon[];
+  items: Item[];
 }
 
-export interface Webtoon {
-  id: string;
+export interface Item {
+  webtoonId: string;
   title: string;
   thumbnail: string;
+  authorNickname: string;
 }
