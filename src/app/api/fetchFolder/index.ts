@@ -10,7 +10,7 @@ export const postBookShelfFolder = async (folderName: string): Promise<Folder> =
   })
 };
 
-export const getBookShelfFolder = async (): Promise<Folder[]> => {
+export const getBookShelfFolder = async (): Promise<{ folders: Folder[], total: number }> => {
   return await fetchAPI({
     method: 'GET',
     endpoint: '/storage/folder',

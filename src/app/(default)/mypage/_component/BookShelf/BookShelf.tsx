@@ -12,14 +12,16 @@ const BookShelf: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 11;
 
-  const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
+  const { data, isLoading, isError } = useQuery<{ folders: Folder[], total: number }>({
     queryKey: ['bookShelves'],
     queryFn: getBookShelfFolder,
   });
 
+  const bookShelves = data?.folders || [];
+  const total = data?.total || 0;
+
   const totalPages = Math.ceil(bookShelves.length / itemsPerPage);
 
-  // 현재 페이지에 해당하는 책장들만 슬라이스
   const currentBookShelves = bookShelves.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage

@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Folder } from '@/app/api/fetchFolder/model';
+import OptionButton from '@/app/(creator)/creator/_component/OptionButton';
 
 const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
-  const { folderName, isPrivate, webtoons, folderId } = shelf;
+  const { folderName, isPrivate, items, folderId } = shelf;
   const router = useRouter();
 
   const [showMenu, setShowMenu] = useState(false);
@@ -53,9 +54,9 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
         className="flex w-[210px] h-[165px] rounded cursor-pointer"
         onClick={navigateToDetail}>
         <div className="w-[110px] h-[165px] relative overflow-hidden">
-          {webtoons?.length > 0 && webtoons[0]?.thumbnail ? (
+          {items?.length > 0 && items[0]?.thumbnail ? (
             <img
-              src={webtoons[0].thumbnail}
+              src={items[0].thumbnail}
               alt=""
               className="w-full h-full object-cover object-top"
             />
@@ -64,10 +65,10 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
           )}
         </div>
         <div className="flex flex-col w-[100px] h-[165px] gap-[2px] pl-[2px]">
-          {webtoons?.length > 1 && webtoons[1]?.thumbnail ? (
+          {items?.length > 1 && items[1]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
-                src={webtoons[1].thumbnail}
+                src={items[1].thumbnail}
                 alt=""
                 className="w-full h-full object-cover object-top"
               />
@@ -75,10 +76,10 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
           ) : (
             <div className="w-full h-full bg-[#F9F9F9]" />
             )}
-          {webtoons?.length > 2 && webtoons[2]?.thumbnail ? (
+          {items?.length > 2 && items[2]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
-                src={webtoons[2].thumbnail}
+                src={items[2].thumbnail}
                 alt=""
                 className="w-full h-full object-cover object-top"
               />
@@ -102,7 +103,7 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
               />
             )}
           </div>
-          <p className="text-[#888888]">총 {webtoons?.length}권</p>
+          <p className="text-[#888888]">총 {items?.length}권</p>
         </div>
       </div>
       <div
