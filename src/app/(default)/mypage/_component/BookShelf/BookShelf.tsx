@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import BookShelfAddButton from './BookShelfAddButton';
 import BookShelfAddModal from './BookShelfAddModal';
 import BookShelfItem from './BookShelfItem';
+import { useQuery } from '@tanstack/react-query';
+import { getBookShelfFolder } from '@/app/api/fetchFolder';
+import { Folder } from '@/app/api/fetchFolder/model';
+import Pagination from '@/app/_component/Pagination';
 
 const BookShelf: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bookShelves, setBookShelves] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 11;
 
-  // TODO : api 완성 이후 주석 해제
-  // const { data: bookShelves = [], isLoading, isError } = useQuery<Folder[]>({
-  //   queryKey: ['bookShelves'],
-  //   queryFn: getBookShelfFolder,
-  // });
+  const { data, isLoading, isError } = useQuery<{ folders: Folder[], total: number }>({
+    queryKey: ['bookShelves'],
+    queryFn: getBookShelfFolder,
+  });
+
+  const bookShelves = data?.folders || [];
+  const total = data?.total || 0;
+
+  const totalPages = Math.ceil(bookShelves.length / itemsPerPage);
+
+  const currentBookShelves = bookShelves.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handleAddBookShelf = () => {
     setIsModalOpen(true);
@@ -21,14 +35,8 @@ const BookShelf: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // 임시. 추후 삭제
-  const addBookShelf = (folderName: string, isPrivate: boolean) => {
-    const newShelf = {
-      folderName,
-      isPrivate,
-      webtoons: [{ thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg' }, { thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg' }]
-    };
-    setBookShelves([...bookShelves, newShelf]);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -38,7 +46,7 @@ const BookShelf: React.FC = () => {
           <BookShelfAddButton onClick={handleAddBookShelf} />
         </div>
         {/* 첫 번째 줄에 3개의 책장이 배치 */}
-        {bookShelves.slice(0, 3).map((shelf, index) => (
+        {currentBookShelves.slice(0, 3).map((shelf, index) => (
           <div key={index} className="col-span-1">
             <BookShelfItem shelf={shelf} />
           </div>
@@ -47,16 +55,23 @@ const BookShelf: React.FC = () => {
 
       {/* 그 이후 줄은 4개씩 배치 */}
       <div className="grid grid-cols-4 gap-2.5">
-        {bookShelves.slice(3).map((shelf, index) => (
+        {currentBookShelves.slice(3).map((shelf, index) => (
           <div key={index} className="col-span-1">
             <BookShelfItem shelf={shelf} />
           </div>
         ))}
       </div>
 
-      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal} onAddShelf={addBookShelf} />
-    </div>
+      <div className="mt-5">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
 
+      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
   );
 };
 

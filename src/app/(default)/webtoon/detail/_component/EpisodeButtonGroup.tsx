@@ -48,7 +48,7 @@ const EpisodeButtonGroup: React.FC<EpisodeButtonGroupProp> = (items) => {
 
   return (
     <>
-      <div className="bg-[#fffff] border rounded-md flex w-full h-[100px] hover:cursor-pointer">
+      <div className="bg-[#fffff] border border-[#F2F2F2] rounded-md flex w-full h-[100px] hover:cursor-pointer">
         {episodeButtonItems.map((item, i) => (
           <EpisodeButton
             key={item.text}
