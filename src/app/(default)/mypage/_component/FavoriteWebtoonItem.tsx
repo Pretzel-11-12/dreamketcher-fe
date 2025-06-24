@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/app/_component/Button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FavoriteWebtoon } from '@/model/Webtoon';
+import { BeforeFavoriteWebtoon } from '@/model/Webtoon';
 import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 
-const FavoriteWebtoonItem: React.FC<FavoriteWebtoon> = ({
+const FavoriteWebtoonItem: React.FC<BeforeFavoriteWebtoon> = ({
   webtoonId,
   title,
   thumbnail,

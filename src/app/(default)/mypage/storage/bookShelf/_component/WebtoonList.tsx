@@ -1,8 +1,8 @@
-import { FavoriteWebtoon } from '@/model/Webtoon';
-import WebtoonItem from '@/app/(default)/mypage/storage/bookShelf/[id]/_component/WebtoonItem';
+import { FavoriteWebtoonContent } from '@/model/Webtoon';
+import WebtoonItem from '@/app/(default)/mypage/storage/bookShelf/_component/WebtoonItem';
 
-const WebtoonList = ({ favoriteWebtoons }: { favoriteWebtoons: FavoriteWebtoon[] }) => {
-  if (favoriteWebtoons.length === 0) {
+const WebtoonList = ({ favoriteWebtoons }: { favoriteWebtoons: FavoriteWebtoonContent[] }) => {
+  if (!favoriteWebtoons) {
     return (
       <div className="flex flex-col items-center">
         <p className="text-center text-[#888888] text-lg mt-[100px] font-medium">

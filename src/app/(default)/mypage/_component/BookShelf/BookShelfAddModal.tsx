@@ -2,23 +2,30 @@ import React, { useEffect, useState } from 'react';
 import Modal from '@/app/_component/Modal';
 import Input from '@/app/_component/Input';
 import Image from 'next/image';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postBookShelfFolder } from '@/app/api/fetchFolder';
 
-const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddShelf: (folderName: string, isPrivate: boolean) => void }> = ({ isOpen, onClose, onAddShelf }) => {
+const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isOpen, onClose }) => {
   const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
 
-  // const { mutate } = useMutation({
-  //   mutationFn: (folderName: string) => postBookShelfFolder(folderName),
-  //   onSuccess: () => {
-  //     alert('책장이 추가되었습니다!');
-  //     onClose();
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //     alert('책장 추가에 실패했습니다.');
-  //   },
-  // });
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (folderName: string) => postBookShelfFolder(folderName),
+    onSuccess: () => {
+      alert('책장이 추가되었습니다!');
+      queryClient.invalidateQueries({
+        queryKey: ['bookShelves'],
+      });
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      alert('책장 추가에 실패했습니다.');
+    },
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -40,8 +47,7 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
       return;
     }
 
-    onAddShelf(folderName, isPrivate);
-    // mutate(folderName);
+    mutate(folderName);
     onClose();
   };
 
@@ -51,8 +57,8 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-lg">
-        <p className="text-xl text-center font-medium mb-4">책장 만들기</p>
+      <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-sm">
+        <p className="text-xl text-[#282828] text-center font-medium mb-4">책장 만들기</p>
         <Input
           text={folderName}
           placeholder="기본책장"
@@ -60,6 +66,8 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; onAddS
           currentTextLength={folderName.length}
           onChange={handleFolderNameChange}
           height="44px"
+          textColor="#282828"
+          fontSize="15px"
         />
         <div className="flex items-center h-[37px] mt-4 mb-4">
           <Image

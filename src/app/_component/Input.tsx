@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 export interface InputProps {
   text?: string;
@@ -13,6 +13,8 @@ export interface InputProps {
   containerStyles?: string;
   disable?: boolean;
   maxLength?: number;
+  textColor?: string;
+  fontSize?: string;
 }
 const Input: React.FC<InputProps> = (props) => {
   const {
@@ -26,6 +28,8 @@ const Input: React.FC<InputProps> = (props) => {
     containerStyles = '',
     disable = false,
     maxLength,
+    textColor = '#3F3F3F',
+    fontSize = '14px',
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -38,6 +42,8 @@ const Input: React.FC<InputProps> = (props) => {
       (e.currentTarget as HTMLInputElement).value = value.slice(0, maxLength);
     }
   };
+
+  const currentTextLengthColor = isFocused || active ? '#878787' : '#C9C9C9';
 
   return (
     <div
@@ -60,9 +66,16 @@ const Input: React.FC<InputProps> = (props) => {
         onChange={(e) => onChange?.(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        style={{
+          color: textColor,
+          fontSize: fontSize,
+        }}
       />
       <div className="flex items-center">
-        <span className="text-xs pointer-events-none text-[#888888]">
+        <span
+          className="text-xs pointer-events-none"
+          style={{ color: currentTextLengthColor }}
+        >
           {currentTextLength}
         </span>
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Modal from '@/app/_component/Modal';
 import Image from 'next/image';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getBookShelfFolder, postWebtoonToBookShelf } from '@/app/api/fetchFolder';
+import BookShelfAddModal from '@/app/(default)/mypage/_component/BookShelf/BookShelfAddModal';
 
 const AddToBookShelfModal: React.FC<{
   isOpen: boolean;
@@ -8,24 +11,32 @@ const AddToBookShelfModal: React.FC<{
   webtoonId: number;
 }> = ({ isOpen, onClose, webtoonId }) => {
   const [selectedBookShelf, setSelectedBookShelf] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const folderData = [
-    { folderId: '1', folderName: '기본 책장' },
-    { folderId: '2', folderName: '불과 얼음의 노래' },
-    { folderId: '3', folderName: '로맨스 모음' },
-  ];
+  const { data: folderData } = useQuery({
+    queryKey: ['bookShelves'],
+    queryFn: getBookShelfFolder,
+  });
 
-  // const { mutate } = useMutation({
-  //   mutationFn: (folderId: string) => postWebtoonToBookShelf(folderId, webtoonId),
-  //   onSuccess: () => {
-  //     alert('웹툰이 책장에 추가되었습니다!');
-  //     onClose();
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //     alert('웹툰 추가에 실패했습니다.');
-  //   },
-  // });
+  const { mutate } = useMutation({
+    mutationFn: (folderId: string) => postWebtoonToBookShelf(folderId, webtoonId),
+    onSuccess: () => {
+      alert('웹툰이 책장에 추가되었습니다!');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      alert('웹툰 추가에 실패했습니다.');
+    },
+  });
+
+  const handleAddBookShelf = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -39,8 +50,7 @@ const AddToBookShelfModal: React.FC<{
 
   const handleSubmit = () => {
     if (selectedBookShelf) {
-      // mutate(selectedBookShelf);
-      alert('웹툰이 책장에 추가되었습니다!');
+      mutate(selectedBookShelf);
       onClose();
     } else {
       alert("책장을 선택해주세요.");
@@ -56,7 +66,7 @@ const AddToBookShelfModal: React.FC<{
 
           <button
             className="flex w-full h-[55px] border border-[#C9C9C9] rounded-[5px] items-center justify-center text-lg text-titleBlack"
-            onClick={() => alert('책장 만들기 버튼 클릭')} // TODO : 추후 변경
+            onClick={handleAddBookShelf}
           >
             <Image
               src={"/assets/icon/add.svg"}
@@ -71,7 +81,7 @@ const AddToBookShelfModal: React.FC<{
         {/* 책장 목록 */}
         <div className="mt-[29px]">
           <ul>
-            {folderData.map((folder) => (
+            {folderData?.folders.map((folder) => (
               <li key={folder.folderId} className="relative text-sm text-[#333333] mb-4">
                 <div
                   className="w-full text-left flex items-center"
@@ -118,6 +128,7 @@ const AddToBookShelfModal: React.FC<{
           </button>)}
         </div>
       </div>
+      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal}/>
     </Modal>
   );
 };

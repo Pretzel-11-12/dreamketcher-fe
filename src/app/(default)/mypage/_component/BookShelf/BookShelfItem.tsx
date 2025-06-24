@@ -1,51 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Folder } from '@/app/api/fetchFolder/model';
+import OptionButton from '@/app/(creator)/creator/_component/OptionButton';
+import BookShelfDeleteModal from '@/app/(default)/mypage/_component/BookShelf/BookShelfDeleteModal';
 
 const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
-  const { folderName, isPrivate, webtoons, id } = shelf;
+  const { folderName, isPrivate, items, folderId } = shelf;
   const router = useRouter();
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   const menuRef = useRef<HTMLDivElement>(null);
 
-
-  // TODO : 추후 shelfId 추가
   function navigateToDetail() {
-    router.push(`/mypage/storage/bookShelf/1`);
+    router.push(`/mypage/storage/bookShelf?folderId=${folderId}`);
   }
-
-  const toggleMenu = () => {
-    setShowMenu((prev) => !prev);
-  };
-
-  // 다른 영역 클릭 시 메뉴 닫기
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  // const mutation = useMutation(deleteBookShelfFolder, {
-  //   onSuccess: () => {
-  //     console.log('책장 폴더 삭제 성공');
-  //   },
-  //   onError: (error) => {
-  //     console.error('책장 폴더 삭제 실패:', error);
-  //   },
-  // });
-  //
-  // const handleDeleteFolder = () => {
-  //   mutation.mutate(folderId);
-  // };
 
   return (
     <div
@@ -54,32 +26,38 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
         className="flex w-[210px] h-[165px] rounded cursor-pointer"
         onClick={navigateToDetail}>
         <div className="w-[110px] h-[165px] relative overflow-hidden">
-          {webtoons[0] && (
+          {items?.length > 0 && items[0]?.thumbnail ? (
             <img
-              src={webtoons[0].thumbnail}
+              src={items[0].thumbnail}
               alt=""
               className="w-full h-full object-cover object-top"
             />
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
           )}
         </div>
         <div className="flex flex-col w-[100px] h-[165px] gap-[2px] pl-[2px]">
-          {webtoons[1] && (
+          {items?.length > 1 && items[1]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
-                src={webtoons[1].thumbnail}
+                src={items[1].thumbnail}
                 alt=""
                 className="w-full h-full object-cover object-top"
               />
             </div>
-          )}
-          {webtoons[2] && (
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
+            )}
+          {items?.length > 2 && items[2]?.thumbnail ? (
             <div className="w-[100px] h-[81px] overflow-hidden">
               <img
-                src={webtoons[2].thumbnail}
+                src={items[2].thumbnail}
                 alt=""
                 className="w-full h-full object-cover object-top"
               />
             </div>
+          ) : (
+            <div className="w-full h-full bg-[#F9F9F9]" />
           )}
         </div>
       </div>
@@ -97,35 +75,29 @@ const BookShelfItem: React.FC<{ shelf: Folder }> = ({ shelf }) => {
               />
             )}
           </div>
-          <p className="text-[#888888]">총 {webtoons.length}권</p>
+          <p className="text-[#888888]">총 {items?.length}권</p>
         </div>
       </div>
       <div
         className="absolute right-0 bottom-[15px]"
         ref={menuRef}>
-        <Image
-          src={'/assets/icon/meatballsMenu.svg'}
-          alt="meatballsMenu Icon"
-          width={30}
-          height={30}
-          className="ml-auto px-1 py-1 rounded cursor-pointer hover:bg-[#F2F2F2]"
-          onClick={toggleMenu}
+        <OptionButton
+          items={[
+            {
+              text: '책장 삭제',
+              onClick: () => setIsModalOpen(true),
+            },
+            {
+              text: '책장 비공개',
+              onClick: () => {},
+            },
+          ]}
         />
-
-        {/* 삭제 버튼 메뉴 */}
-        {showMenu && (
-          <div
-            className="absolute right-0 top-5 mt-1 bg-white border border-[#F2F2F2] rounded-lg shadow-sm z-10"
-            style={{ zIndex: 10 }}>
-            <button
-              className="block w-[120px] h-9 text-left px-3 py-2 text-sm text-gray-800 hover:bg-gray-100"
-              // onClick={handleDeleteFolder}
-            >
-              책장 공개
-            </button>
-          </div>
-        )}
       </div>
+      <BookShelfDeleteModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        folderId={folderId}/>
     </div>
   );
 };
