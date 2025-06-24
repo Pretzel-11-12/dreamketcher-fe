@@ -81,7 +81,7 @@ const AddToBookShelfModal: React.FC<{
         {/* 책장 목록 */}
         <div className="mt-[29px]">
           <ul>
-            {folderData?.map((folder) => (
+            {folderData?.folders.map((folder) => (
               <li key={folder.folderId} className="relative text-sm text-[#333333] mb-4">
                 <div
                   className="w-full text-left flex items-center"
