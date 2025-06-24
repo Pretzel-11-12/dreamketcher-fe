@@ -43,6 +43,8 @@ const Input: React.FC<InputProps> = (props) => {
     }
   };
 
+  const currentTextLengthColor = isFocused || active ? '#878787' : '#C9C9C9';
+
   return (
     <div
       className={`flex items-center w-full gap-1 text-sm ${containerStyles} px-4 border bg-white rounded-[5px] focus:outline-none transition-colors duration-200 w-full h-full ${
@@ -70,7 +72,10 @@ const Input: React.FC<InputProps> = (props) => {
         }}
       />
       <div className="flex items-center">
-        <span className="text-xs pointer-events-none text-[#888888]">
+        <span
+          className="text-xs pointer-events-none"
+          style={{ color: currentTextLengthColor }}
+        >
           {currentTextLength}
         </span>
 
