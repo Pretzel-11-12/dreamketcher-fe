@@ -1,7 +1,7 @@
-import { FavoriteWebtoon } from '@/model/Webtoon';
+import { BeforeFavoriteWebtoon } from '@/model/Webtoon';
 import { fetchAPI } from '.';
 
-export const getFavoriteWebtoons = async (): Promise<FavoriteWebtoon[]> => {
+export const getFavoriteWebtoons = async (): Promise<BeforeFavoriteWebtoon[]> => {
   return await fetchAPI({
     method: 'GET',
     endpoint: '/member/favorite',
