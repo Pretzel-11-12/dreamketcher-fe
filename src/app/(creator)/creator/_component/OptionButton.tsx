@@ -1,16 +1,36 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface OptionButtonInfo {
   items: { text: string; onClick: () => void }[];
 }
 const OptionButton: React.FC<OptionButtonInfo> = ({ items }) => {
   const [activeOption, setOption] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current && !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current && !buttonRef.current.contains(event.target as Node)
+      ) {
+        setOption(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="relative">
       <button
+        ref={buttonRef}
         onClick={() => setOption(!activeOption)}
         className="hover:bg-brand-gray rounded-md w-[20px] h-[20px]"
       >
@@ -23,6 +43,7 @@ const OptionButton: React.FC<OptionButtonInfo> = ({ items }) => {
       </button>
       {activeOption && (
         <div
+          ref={menuRef}
           className="absolute right-0 top-9 z-30 w-[110px] h-fit flex flex-col rounded-[10px] border-gray-400/20 border p-[4px] bg-white"
           style={{ boxShadow: '0px 0px 4px 0px rgba(164, 164, 164, 0.12)' }}
         >
