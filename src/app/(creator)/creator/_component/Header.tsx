@@ -100,7 +100,7 @@ const Header: React.FC = () => {
           <div className="relative flex text-black gap-[15px] items-center h-[34px]">
             <button
               className="h-[34px] p-[10px] rounded-[5px] border border-1 border-[#e0e0e0] flex items-center justify-center text-titleBlack text-[14px]"
-              onClick={handleGoBack}
+              onClick={() => router.push('/')}
             >
               작업실 나가기
             </button>

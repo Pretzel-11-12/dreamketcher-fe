@@ -194,7 +194,7 @@ const DateTimeSelector: React.FC<DateTimeSelectorProps> = ({ onChange }) => {
             variant: 'brand-yellow',
             disabled: !isDateSelected || !isTimeSelected,
             containerStyles:
-              'w-full mt-[14px] h-[40px] text-[15px] font-medium text-white disabled:bg-brand-gray',
+              'w-full mt-[14px] h-[40px] text-[15px] font-medium text-white disabled:bg-brand-gray disabled:text-white',
             handleClick: () => {
               setIsConfirm(true);
             },

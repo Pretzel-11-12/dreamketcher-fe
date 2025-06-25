@@ -31,7 +31,7 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
     useState<boolean>(false);
   return (
     <>
-      <div className="grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border gap-[15px]">
+      <div className="relative grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border border-[#F2F2F2] gap-[15px]">
         <div>
           <div
             className="relative"
@@ -45,12 +45,15 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
               alt={item.title}
             />
             {isThumbnailModalOpen && (
-              <div className="absolute bottom-[8.5px] w-full px-[9px]">
+              <div className="absolute inset-0 rounded-[5px] pointer-events-none z-10 bg-[linear-gradient(180deg,_rgba(255,255,255,0)_0%,_#333333_80%,_#333333_100%)] opacity-70" />
+            )}
+            {isThumbnailModalOpen && (
+              <div className="absolute bottom-[8.5px] w-full px-[9px] z-20">
                 <div
-                  className="flex justify-center gap-[5px] px-[10px] py-[7px] bg-[#282828]/50 border-1 border-[#ffffff]/80 rounded-[5px] text-[#ffffff]/80 mx-auto cursor-pointer"
+                  className="flex justify-center gap-[5px] px-[10px] py-[7px] bg-[#282828]/50 border border-white rounded-[5px] text-[#ffffff]/80 mx-auto cursor-pointer"
                   onClick={() => router.push(`/webtoon/list?id=${item.id}`)}
                 >
-                  <span className="text-[14px] font-normal">웹툰에서 보기</span>
+                  <span className="text-[14px] font-medium">웹툰에서 보기</span>
                   <Image
                     src="/assets/icon/send.svg"
                     alt="send"

@@ -31,7 +31,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({
           className="cursor-pointer grid grid-cols-[90px_140px_180px] items-center gap-2"
           onClick={() => {
             router.push(
-              `/creator/episode/new?episodeId=${item.episodeId}&webtoonId=${webtoonInfo.id}`
+              `/creator/episode/new?episodeId=${item.episodeId}&no=${webtoonInfo.id}`
             );
           }}
         >
@@ -55,8 +55,15 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({
         <div className="flex w-full justify-center">
           <OptionButton
             items={[
-              { text: '비공개 전환', onClick: () => {} },
               { text: '회차 삭제', onClick: () => handleOpenModal(true) },
+              {
+                text: '회차 수정',
+                onClick: () => {
+                  router.push(
+                    `/creator/episode/new?episodeId=${item.episodeId}&no=${webtoonInfo.id}`
+                  );
+                },
+              },
             ]}
           />
         </div>
