@@ -1,14 +1,14 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { Webtoon as IWebtoon } from '@/model/Webtoon';
+import { RankingWebtoon } from '@/model/Webtoon';
 import { useRouter } from 'next/navigation';
 import RankingBadge from './RankingBadge';
 import NewBadge from './NewBadge';
 import { genres } from '@/constants/genres';
 import CoverImage from '@/app/_component/CoverImage';
 type WebtoonThumbnailProps = {
-  webtoon: Omit<IWebtoon, 'genre'> & {
+  webtoon: Omit<RankingWebtoon, 'genre'> & {
     genre: (typeof genres)[number]['param'];
   };
   ranking: number;
@@ -26,8 +26,8 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
     router.push(`/webtoon/list?id=${webtoon.id}`);
   };
 
-  const handleMemberClick = (e: React.MouseEvent) => {
-    router.push(`/member/${webtoon.member}`);
+  const handleAuthorClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.authorNickname}`);
   };
 
   const handleGenreClick = (e: React.MouseEvent) => {
@@ -67,9 +67,9 @@ const WebtoonThumbnail: React.FC<WebtoonThumbnailProps> = ({
           <p className="text-inActive">
             <span
               className="hover:underline cursor-pointer"
-              onClick={handleMemberClick}
+              onClick={handleAuthorClick}
             >
-              {webtoon.member}
+              {webtoon.authorNickname}
             </span>
             {' · '}
             <span

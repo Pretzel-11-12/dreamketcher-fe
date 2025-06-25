@@ -12,7 +12,7 @@ const categories: { name: string }[] = [
   { name: '완결' },
 ];
 
-const SearchMainSectionHeader: React.FC = () => {
+const SearchMainSectionHeader: React.FC<{ count: number }> = ({ count }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
@@ -35,7 +35,9 @@ const SearchMainSectionHeader: React.FC = () => {
               }`}
               onClick={() => handleCategoryClick(category.name)}
             >
-              <span>{category.name}</span>
+              <span>
+                {category.name} ({count})
+              </span>
             </button>
           ))}
         </div>

@@ -42,9 +42,9 @@ const SearchDropdown: React.FC<DropdownProps> = ({
     <div className="relative inline-block" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className={`inline-flex justify-between w-[104px] h-[37px] px-[10px] py-[10px] text-sm/[17px] text-[#3F3F3F]
-          ${isOpen ? 'rounded-t-md' : 'rounded-md'}
-          border border-[#F2F2F2] bg-white
+        className={`inline-flex justify-between w-[104px] h-[37px] p-[10px] text-sm/[17px] text-[#3F3F3F]
+          ${isOpen ? 'rounded-t-[5px]' : 'rounded-[5px]'}
+          border border-[#e0e0e0] bg-white
           hover:bg-[#E4EBFF] focus:outline-none`}
       >
         <div>
@@ -52,7 +52,7 @@ const SearchDropdown: React.FC<DropdownProps> = ({
             ? options.find((option) => option.value === selected)?.label
             : 'Select'}
         </div>
-        <div className="mt-[2px]">
+        <div className="my-auto">
           {isOpen ? (
             <Image
               src="/assets/icon/upArrow.svg"

@@ -45,9 +45,9 @@ const TimeSelector: React.FC<TimeSelectorType> = ({
     <>
       <div
         onClick={() => setVisible(!visible)}
-        className={`text-sm bg-white border ${
+        className={`text-sm bg-white border h-[37px] ${
           visible ? 'border-brand-yellow' : 'border-brand-gray'
-        } rounded-md w-[123px] h-full flex justify-center font-normal cursor-pointer items-center`}
+        } rounded-md w-[123px] flex justify-center font-normal cursor-pointer items-center`}
       >
         <span>{formatterTime(time)}</span>
       </div>

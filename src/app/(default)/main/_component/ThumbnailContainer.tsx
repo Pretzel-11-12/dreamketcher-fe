@@ -1,10 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Webtoon as IWebtoon } from '@/model/Webtoon';
+import { RankingWebtoon } from '@/model/Webtoon';
 import { useQuery } from '@tanstack/react-query';
-import WebtoonSlider from './WebtoonSlider';
-import FilterComponent from './FilterComponent';
 import { getWebtoonRanking } from '../../../api/fetchWebtoons/getWebtoonRanking';
 import { useSearchParams, useRouter } from 'next/navigation';
 import SliderDropdown from './SliderDropdown';
@@ -35,7 +33,7 @@ const ThumbnailContainer: React.FC<ThumbnailContainerProps> = ({
     router.push(`?${params.toString()}`);
   };
 
-  const { data, isLoading, isError } = useQuery<IWebtoon[]>({
+  const { data, isLoading, isError } = useQuery<RankingWebtoon[]>({
     queryKey: ['webtoons', 'ranking', type, genre, currentOrder],
     queryFn: () => getWebtoonRanking(type, genre, currentOrder),
     staleTime: 60 * 1000,

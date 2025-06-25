@@ -11,8 +11,8 @@ type LargeThumbnailProps = {
 const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
   const router = useRouter();
 
-  const handleMemberClick = (e: React.MouseEvent) => {
-    router.push(`/member/${webtoon.member}`);
+  const handleAuthorClick = (e: React.MouseEvent) => {
+    router.push(`/member/${webtoon.authorNickname}`);
   };
 
   const handleGenreClick = (e: React.MouseEvent) => {
@@ -47,9 +47,9 @@ const LargeThumbnail: React.FC<LargeThumbnailProps> = ({ webtoon }) => {
         <p className="text-[#888888]">
           <span
             className="hover:underline cursor-pointer"
-            onClick={handleMemberClick}
+            onClick={handleAuthorClick}
           >
-            {webtoon.member}
+            {webtoon.authorNickname}
           </span>
           {' · '}
           <span

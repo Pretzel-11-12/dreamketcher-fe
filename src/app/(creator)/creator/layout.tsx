@@ -18,8 +18,7 @@ export default function RootLayout({
   return (
     <div className={`antialiased flex flex-col min-h-screen`}>
       <RQProvider>
-        <Header />
-        <div className="flex w-full justify-center">
+        <div className="min-h-100vh flex w-full justify-center">
           <div className="text-titleBlack w-full">
             <Suspense>{children}</Suspense>
           </div>

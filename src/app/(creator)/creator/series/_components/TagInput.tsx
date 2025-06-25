@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export interface TagInputProps {
   placeholder?: string;
@@ -25,9 +25,17 @@ const TagInput: React.FC<TagInputProps> = (props) => {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [isComposing, setComposing] = useState(false);
+  const prevInitialTagsRef = useRef<string[]>();
 
   useEffect(() => {
-    setTags(initialTags);
+    // 배열의 실제 내용이 변경되었을 때만 업데이트
+    if (
+      prevInitialTagsRef.current === undefined ||
+      JSON.stringify(prevInitialTagsRef.current) !== JSON.stringify(initialTags)
+    ) {
+      setTags(initialTags);
+      prevInitialTagsRef.current = initialTags;
+    }
   }, [initialTags]);
 
   const addTag = (tag: string) => {

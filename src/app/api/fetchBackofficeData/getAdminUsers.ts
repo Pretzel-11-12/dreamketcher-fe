@@ -1,18 +1,19 @@
-export const getAdminUsers = async () => {
-  const baseUrl = '/api/v1/admin/users';
-
-  const res = await fetch(baseUrl, {
-    next: {
-      tags: ['users', 'admin'],
+export const getAdminUsers = async (
+  status: string,
+  page: number,
+  size: number
+) => {
+  const url = `/api/v1/admin/member?status=${status}&page=${page}&size=${size}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    credentials: 'include',
-    cache: 'no-store',
   });
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
+  if (!response.ok) {
+    throw new Error('사용자 데이터를 가져오는데 실패했습니다.');
   }
 
-  const data = await res.json(); // 전체 데이터를 비동기로 파싱
-  return data.content; // content 부분만 반환
+  return response.json();
 };

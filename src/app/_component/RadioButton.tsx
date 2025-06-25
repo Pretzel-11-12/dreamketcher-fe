@@ -48,7 +48,9 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
 
             <span
               className={`whitespace-nowrap text-[#3F3F3F] ${
-                selected === option.id ? 'font-medium' : 'font-normal'
+                selected === option.id
+                  ? 'font-medium text-brand-yellow'
+                  : 'font-normal'
               }`}
             >
               {option.label}

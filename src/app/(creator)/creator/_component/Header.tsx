@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchProfile } from '@/app/api/auth/fetchProfile';
 import useAuthStore from '@/app/store/authStore';
-import ProfileModal from '@/app/modal/_component/ProfileModal';
+import CreatorProfileModal from '@/app/modal/_component/CreatorProfileModal';
 import { useRouter } from 'next/navigation';
 
 const DEFAULT_USER_INFO = {
@@ -75,13 +75,9 @@ const Header: React.FC = () => {
             className="relative w-[24px] h-[24px] border-0 bg-transparent p-0"
             onClick={handleGoBack}
           >
-            <Image
-              src="/assets/icon/creator-back.png"
-              alt="뒤로 가기"
-              fill
-            />
+            <Image src="/assets/icon/creator-back.png" alt="뒤로 가기" fill />
           </button>
-          <Link href="/main/default">
+          <Link href="/main">
             <Image
               src="/assets/images/d-studio-logo.png"
               alt="profile button"
@@ -104,7 +100,7 @@ const Header: React.FC = () => {
           <div className="relative flex text-black gap-[15px] items-center h-[34px]">
             <button
               className="h-[34px] p-[10px] rounded-[5px] border border-1 border-[#e0e0e0] flex items-center justify-center text-titleBlack text-[14px]"
-              onClick={handleGoBack}
+              onClick={() => router.push('/')}
             >
               작업실 나가기
             </button>
@@ -127,7 +123,10 @@ const Header: React.FC = () => {
             )}
           </div>
           {isModalOpen && (
-            <ProfileModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <CreatorProfileModal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            />
           )}
         </div>
       </div>

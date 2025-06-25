@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
+import { genres } from '@/constants/genres';
+import PublicationSettings from '../../episode/_components/PublicationSettings';
 
 export interface SeriesFormInfo
   extends Omit<
@@ -19,16 +21,11 @@ export interface SeriesFormInfo
   tagsInput: string;
 }
 
-const options = [
-  { label: '로맨스', id: '1', subId: 'PURE' },
-  { label: '판타지', id: '2', subId: 'FANTASY' },
-  { label: '무협', id: '3', subId: 'HISTORICAL' },
-  { label: '일상', id: '4', subId: 'DAILY' },
-  { label: '스릴러', id: '5', subId: 'THRILL' },
-  { label: '액션', id: '6', subId: 'ACTION' },
-  { label: '스포츠', id: '7', subId: 'SPORTS' },
-  { label: '개그', id: '8', subId: 'COMIC' },
-];
+const genreOptions = genres.map((genre, index) => ({
+  label: genre.name,
+  id: String(index + 1),
+  subId: genre.param,
+}));
 
 type SeriesFormProp = {
   item?: fetchCreatorWebtoon.Model.CreatorWebtoonDetail;
@@ -44,10 +41,16 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   });
   const [status, setStatus] = useState<'edit' | 'new'>('new');
   const router = useRouter();
+  const [publicSetting, setPublicSetting] = useState('public');
+  const [isScheduledEnabled, setIsScheduledEnabled] = useState(true);
+  const [seriesStatus, setSeriesStatus] = useState<'ongoing' | 'completed'>(
+    'ongoing'
+  );
 
   useEffect(() => {
     if (!!item) {
-      const genreId = options.find((v) => v.subId === item.genre)?.id || '1';
+      const genreId =
+        genreOptions.find((v) => v.subId === item.genre)?.id || '1';
 
       setWebtoonInfo({
         title: item.title,
@@ -133,7 +136,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
 
         <RadioButton
           key={webtoonInfo.genreId}
-          options={options}
+          options={genreOptions}
           selectedValue={webtoonInfo.genreId}
           onChange={(id) => setWebtoonInfo((v) => ({ ...v, genreId: id }))}
         />
@@ -191,15 +194,33 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-center pb-24">
-        <div>작품 상태</div>
-        <RadioButton
-          options={[
-            { id: 'open', label: '공개' },
-            { id: 'close', label: '비공개' },
-          ]}
-          selectedValue={'open'}
-        />
+      <div className="grid grid-cols-[10rem_1fr] items-center pb-[100px] gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F] self-start">
+          작품 상태
+        </div>
+        <div className="flex flex-col gap-2 w-full min-h-[150px]">
+          <RadioButton
+            options={[
+              { id: 'public', label: '공개' },
+              { id: 'prvate', label: '비공개' },
+            ]}
+            selectedValue={publicSetting}
+            onChange={setPublicSetting}
+          />
+          {publicSetting === 'public' && (
+            <PublicationSettings
+              seriesStatus={seriesStatus}
+              onSeriesStatusChange={setSeriesStatus}
+              isScheduledEnabled={isScheduledEnabled}
+              onScheduledToggle={() =>
+                setIsScheduledEnabled(!isScheduledEnabled)
+              }
+              onTimeChange={(time) => {
+                setWebtoonInfo((v) => ({ ...v, publishedAt: time }));
+              }}
+            />
+          )}
+        </div>
       </div>
 
       <div className="flex justify-center">

@@ -15,6 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
+          rel="stylesheet"
+        />
+      </head>
       <body className={pretendard.className}>{children}</body>
     </html>
   );

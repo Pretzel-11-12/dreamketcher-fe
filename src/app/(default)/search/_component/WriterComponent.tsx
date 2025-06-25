@@ -1,6 +1,7 @@
 import { highlightKeyword } from '@/app/util/highlightKeyword';
 import { _Model } from '@/app/api/fetchWebtoons/model';
 import React from 'react';
+import Image from 'next/image';
 
 interface WriterComponentProps {
   writer: _Model.IWriter;
@@ -12,12 +13,14 @@ const WriterComponent: React.FC<WriterComponentProps> = ({
   keyword,
 }) => {
   return (
-    <div className="flex items-center gap-[6px] rounded-md p-[5px] w-full h-[35px] hover:bg-backgroundGray">
-      <img
-        src={writer.profileImage}
-        alt="프로필 이미지"
-        className="rounded-full w-[25px] h-[25px]"
-      />
+    <div className="flex items-center gap-[6px] rounded-md p-[5px] w-full h-[35px] hover:bg-bgGray">
+      <div className="relative w-[25px] h-[25px] rounded-full overflow-hidden">
+        <Image
+          src={writer.profileImage || '/images/default-profile.png'}
+          alt="프로필 이미지"
+          fill
+        />
+      </div>
       <div className="flex gap-[6px] font-pretendard text-[15px] leading-tight">
         <p className="text-titleBlack">
           {highlightKeyword(writer.authorNickname, keyword)}

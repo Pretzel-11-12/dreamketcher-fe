@@ -4,7 +4,6 @@ import Button from '@/app/_component/Button';
 import Input from '@/app/_component/Input';
 import RadioButton from '@/app/_component/RadioButton';
 import ThumbnailUploader from '../../_component/ThumbnailUploader';
-import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
 import { useEffect, useState } from 'react';
 import { fetchCreatorEpisode } from '@/app/api/fetchCreator';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,6 +11,9 @@ import { fetchWebtoonDetail } from '@/app/api/fetchWebtoonDetail';
 import _ from 'lodash';
 import moment from 'moment';
 import EpisodeUploader from './EpisodeUploader';
+import PublicationSettings from './PublicationSettings';
+import DateTimeSelector from './DateTimeSelector/DateTimeSelector';
+import CicularRadioButton from '@/app/_component/CicularRadioButton';
 
 export interface EpisodeFormInfo {
   webtoonId: string;
@@ -45,6 +47,9 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   const searchParams = useSearchParams();
   const no = searchParams.get('no') || String(item?.no);
   const [status, setStatus] = useState<'edit' | 'new'>('new');
+  const [seriesStatus, setSeriesStatus] = useState<'ongoing' | 'completed'>(
+    'ongoing'
+  );
 
   useEffect(() => {
     if (!!item) {
@@ -60,7 +65,7 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
     }
   }, [item]);
 
-  const isExist = !!item;
+  // const isExist = !!item;
   const router = useRouter();
 
   const handleThumbnail = async (file: File | null) => {
@@ -124,6 +129,8 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
   };
 
   const [publicSetting, setPublicSetting] = useState('public');
+  const [isScheduledEnabled, setIsScheduledEnabled] = useState(true);
+
   return (
     <div className="flex flex-col w-full gap-[50px] pb-20">
       <div className="grid grid-cols-[10rem_1fr] items-center gap-[10px]">
@@ -185,37 +192,45 @@ const EpisodeForm: React.FC<EpisodeResProps> = ({
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-center pb-[300px] gap-[10px]">
-        <div className="font-medium text-[16px] font-[#3F3F3F]">공개 설정</div>
-        <div className="flex flex-col gap-2 w-full">
-          <RadioButton
-            options={[
-              { id: 'public', label: '공개' },
-              { id: 'prvate', label: '비공개' },
-              { id: 'scheduled', label: '예약공개' },
-            ]}
-            selectedValue={publicSetting}
-            onChange={setPublicSetting}
-          />
-          {publicSetting === 'scheduled' && (
-            <DateTimeSelector
-              onChange={(time) => {
-                setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
-              }}
+      <div className="grid grid-cols-[10rem_1fr] items-center gap-[10px]">
+        <div className="font-medium text-[16px] font-[#3F3F3F] self-start">
+          공개 설정
+        </div>
+        <div className="flex flex-col gap-[20px] min-h-[150px]">
+          <div className="w-[720px]">
+            <CicularRadioButton
+              options={[
+                { id: 'public', label: '공개' },
+                { id: 'prvate', label: '비공개' },
+                { id: 'scheduled', label: '예약 공개' },
+              ]}
+              selectedValue={publicSetting}
+              onChange={setPublicSetting}
             />
-          )}
+          </div>
+          <div className="w-[320px]">
+            {publicSetting === 'scheduled' && (
+              <DateTimeSelector
+                onChange={(time) => {
+                  setEpisodeInfo((v) => ({ ...v, publishedAt: time }));
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
-
-      <Button
-        props={{
-          size: 'L',
-          variant: 'brand-yellow',
-          handleClick: handleEpisode,
-        }}
-      >
-        회차 등록하기
-      </Button>
+      <div className="w-full flex justify-center">
+        <Button
+          props={{
+            size: 'L',
+            variant: 'brand-yellow',
+            handleClick: handleEpisode,
+            containerStyles: 'w-[390px]',
+          }}
+        >
+          회차 등록하기
+        </Button>
+      </div>
     </div>
   );
 };

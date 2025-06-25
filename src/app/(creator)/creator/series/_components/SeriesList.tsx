@@ -7,6 +7,8 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import Pagination from '@/app/_component/Pagination';
+import { useState } from 'react';
 
 const headers = [
   '작품',
@@ -21,6 +23,9 @@ const headers = [
 
 const SeriesList = () => {
   const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isHovered, setIsHovered] = useState(false);
+
   const status = searchParams.get('status')! as
     | 'IN_SERIES'
     | 'FINISH'
@@ -29,12 +34,20 @@ const SeriesList = () => {
     | 'PRE_SERIES';
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['creator-webtoon', status],
+    queryKey: ['creator-webtoon', status, currentPage],
     queryFn: () =>
       fetchCreatorWebtoon.getCreatorsWebtoons({
-        query: { status: status },
+        query: { status: status, page: currentPage - 1, size: 10 },
       }),
   });
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   if (isLoading) {
     return <p className="text-gray-500 text-center">로딩 중...</p>;
@@ -49,20 +62,35 @@ const SeriesList = () => {
   const result = data?.content.result || [];
 
   return (
-    <>
-      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5">
+    <div className="flex-1 flex flex-col justify-between gap-4 w-[540px] xl:w-[1040px]">
+      <div className="flex flex-wrap gap-[20px] px-[30px] py-4 pt-5 w-fit">
         <Link
           className="p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border border-dashed"
           href="/creator/series/new"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <div className="flex flex-col w-full h-full items-center justify-center">
-            <Image
-              src="/assets/icon/plus-gray.png"
-              alt="plus"
-              width={40}
-              height={40}
-            />
-            <div className="pt-[10px] text-titleBlack font-medium text-[16px]">
+          <div className="flex flex-col w-full h-full items-center justify-center ml-0">
+            {isHovered ? (
+              <Image
+                src="/assets/icon/plus-gray-hovered.png"
+                alt="plus"
+                width={40}
+                height={40}
+              />
+            ) : (
+              <Image
+                src="/assets/icon/plus-gray.png"
+                alt="plus"
+                width={40}
+                height={40}
+              />
+            )}
+            <div
+              className={`pt-[10px] text-titleBlack font-medium text-[16px] ${
+                isHovered ? 'underline underline-offset-2' : ''
+              }`}
+            >
               새 작품 등록
             </div>
             <div className="text-[#888] font-normal text-[14px]">
@@ -74,7 +102,24 @@ const SeriesList = () => {
           <SeriesCardItem {...item} key={item.id} />
         ))}
       </div>
-    </>
+      {data?.content.totalElements ? (
+        <div className="mb-[46px]">
+          <Pagination
+            totalPages={Math.ceil(data?.content.totalElements / 10)}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      ) : (
+        <div className="mb-[46px]">
+          <Pagination
+            totalPages={1}
+            currentPage={1}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

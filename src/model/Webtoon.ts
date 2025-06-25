@@ -4,9 +4,22 @@ export import Model = __Model;
 export interface Webtoon {
   id: number;
   title: string;
-  member: string;
   thumbnail: string;
   genre: string;
+  authorNickname: string;
+  lastEpisode: number;
+  averageStar: number;
+  numOfStars: number;
+  story: string;
+  tags: Model.Tag[];
+}
+
+export interface RankingWebtoon {
+  id: number;
+  title: string;
+  thumbnail: string;
+  genre: string;
+  authorNickname: string;
   lastEpisode: number;
   averageStar: number;
   numOfStars: number;

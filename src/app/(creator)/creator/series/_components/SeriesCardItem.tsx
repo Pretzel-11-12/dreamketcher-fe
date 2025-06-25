@@ -7,33 +7,63 @@ import { useState } from 'react';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import DefaultImage from '@/app/_component/DefaultImage';
 import moment from 'moment';
-import Button from '@/app/_component/Button';
 import { GenreEnum } from '@/app/util/index';
 import Image from 'next/image';
 import CardButton from './CardButton';
+import {
+  FavoriteModal,
+  ViewModal,
+  CommentModal,
+} from '@/app/modal/_component/detail-modal';
 
 const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
   item
 ) => {
   const router = useRouter();
-
   const [isModalOpen, handleOpenModal] = useState<boolean>(false);
-
   const startedAt = moment(item.startedAt).format('YYYY.MM.DD');
   const genre = GenreEnum[item.genre as keyof typeof GenreEnum];
+  const [isFavoriteModalOpen, handleFavoriteModalOpen] =
+    useState<boolean>(false);
+  const [isViewModalOpen, handleViewModalOpen] = useState<boolean>(false);
+  const [isCommentModalOpen, handleCommentModalOpen] = useState<boolean>(false);
+  const [isThumbnailModalOpen, handleThumbnailModalOpen] =
+    useState<boolean>(false);
   return (
     <>
-      <div className="grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border-brand-gray border gap-[15px]">
-        <div
-          onClick={() => router.push(`/webtoon/list?id=${item.id}`)}
-          className="cursor-pointer"
-        >
-          <DefaultImage
-            src={item.thumbnail}
-            height={202}
-            width={135}
-            alt={item.title}
-          />
+      <div className="relative grid grid-cols-[auto_1fr] p-[20px] bg-white w-[480px] h-[242px] rounded-[10px] border border-[#F2F2F2] gap-[15px]">
+        <div>
+          <div
+            className="relative"
+            onMouseEnter={() => handleThumbnailModalOpen(true)}
+            onMouseLeave={() => handleThumbnailModalOpen(false)}
+          >
+            <DefaultImage
+              src={item.thumbnail}
+              height={202}
+              width={135}
+              alt={item.title}
+            />
+            {isThumbnailModalOpen && (
+              <div className="absolute inset-0 rounded-[5px] pointer-events-none z-10 bg-[linear-gradient(180deg,_rgba(255,255,255,0)_0%,_#333333_80%,_#333333_100%)] opacity-70" />
+            )}
+            {isThumbnailModalOpen && (
+              <div className="absolute bottom-[8.5px] w-full px-[9px] z-20">
+                <div
+                  className="flex justify-center gap-[5px] px-[10px] py-[7px] bg-[#282828]/50 border border-white rounded-[5px] text-[#ffffff]/80 mx-auto cursor-pointer"
+                  onClick={() => router.push(`/webtoon/list?id=${item.id}`)}
+                >
+                  <span className="text-[14px] font-medium">웹툰에서 보기</span>
+                  <Image
+                    src="/assets/icon/send.svg"
+                    alt="send"
+                    width={15}
+                    height={15}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col w-full h-full justify-between">
@@ -61,35 +91,56 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
           </div>
 
           <div className="flex flex-col gap-2">
-            <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-              <Image
-                src="/assets/icon/user.png"
-                alt="user"
-                width={17}
-                height={17}
-              />
-              <span>{item.likeCount}</span>
+            <div className="relative text-[16px] text-[#888]">
+              <div
+                className="flex items-center gap-1 w-fit"
+                onMouseEnter={() => handleFavoriteModalOpen(true)}
+                onMouseLeave={() => handleFavoriteModalOpen(false)}
+              >
+                <Image
+                  src="/assets/icon/user.png"
+                  alt="user"
+                  width={17}
+                  height={17}
+                />
+                <span>{item.likeCount}</span>
+                {isFavoriteModalOpen && <FavoriteModal />}
+              </div>
             </div>
 
-            <div className="flex w-full items-center">
-              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-                <Image
-                  src="/assets/icon/eye.png"
-                  alt="eye"
-                  width={17}
-                  height={17}
-                />
-                <span>{item.numOfStars}</span>
+            <div className="flex items-center">
+              <div className="relative w-full text-[16px] text-[#888]">
+                <div
+                  className="flex items-center gap-1 w-fit"
+                  onMouseEnter={() => handleViewModalOpen(true)}
+                  onMouseLeave={() => handleViewModalOpen(false)}
+                >
+                  <Image
+                    src="/assets/icon/eye.png"
+                    alt="eye"
+                    width={17}
+                    height={17}
+                  />
+                  <span>{item.numOfStars}</span>
+                  {isViewModalOpen && <ViewModal />}
+                </div>
               </div>
 
-              <div className="flex w-full items-center text-[16px] text-[#888] gap-1">
-                <Image
-                  src="/assets/icon/message.png"
-                  alt="message"
-                  width={17}
-                  height={17}
-                />
-                <span>{item.commentCount}</span>
+              <div className="relative w-full text-[16px] text-[#888]">
+                <div
+                  className="flex items-center gap-1 w-fit"
+                  onMouseEnter={() => handleCommentModalOpen(true)}
+                  onMouseLeave={() => handleCommentModalOpen(false)}
+                >
+                  <Image
+                    src="/assets/icon/message.png"
+                    alt="message"
+                    width={17}
+                    height={17}
+                  />
+                  <span>{item.commentCount}</span>
+                  {isCommentModalOpen && <CommentModal />}
+                </div>
               </div>
             </div>
           </div>
@@ -105,7 +156,7 @@ const SeriesCardItem: React.FC<fetchCreatorWebtoon.Model.CreatorWebtoonUnit> = (
             <CardButton
               text="회차 관리"
               onClick={() =>
-                router.push(`/creator/series/new?webtoonId=${item.id}`)
+                router.push(`/creator/episode?webtoonId=${item.id}`)
               }
             />
           </div>

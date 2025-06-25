@@ -11,7 +11,7 @@ const SeriesSideBar: React.FC<{}> = () => {
   const [status, setStatus] = useState('work');
 
   return (
-    <div className="flex flex-col gap-[10px] w-[245px] border-r h-full items-center bg-white min-h-[1200px] border-[#F2F2F2] py-5 px-[22px] text-[16px]">
+    <div className="flex flex-col gap-[10px] w-[245px] border-r h-full items-center bg-white flex-1 border-[#F2F2F2] py-5 px-[22px] text-[16px]">
       <img
         className="w-[90px] h-[90px] rounded-full border border-[#F2F2F2]"
         src={imageUrl || '/assets/images/profile-default.png'}

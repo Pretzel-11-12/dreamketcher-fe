@@ -5,7 +5,7 @@ const EventRomanceWebtoonData = [
   {
     id: 1,
     title: '그렇게 물거품이 되어도',
-    member: '다홍',
+    authorNickname: '다홍',
     thumbnail: '/assets/images/event-webtoon-thumbnail-1.jpg',
     genre: '로맨스',
     lastEpisode: 55,
@@ -23,7 +23,7 @@ const EventRomanceWebtoonData = [
   {
     id: 2,
     title: '조조코믹스',
-    member: '이동건',
+    authorNickname: '이동건',
     thumbnail: '/assets/images/event-webtoon-thumbnail-2.jpg',
     genre: '로맨스',
     lastEpisode: 179,
@@ -45,7 +45,7 @@ const EventFantasyWebtoonData = [
   {
     id: 3,
     title: '99강화나무몽둥이',
-    member: '홍실/지페리',
+    authorNickname: '홍실/지페리',
     thumbnail: '/assets/images/event-webtoon-thumbnail-3.jpg',
     genre: '판타지',
     lastEpisode: 18,
@@ -65,7 +65,7 @@ const EventFantasyWebtoonData = [
   {
     id: 4,
     title: '작두',
-    member: '232/POGO',
+    authorNickname: '232/POGO',
     thumbnail: '/assets/images/event-webtoon-thumbnail-4.jpg',
     genre: '판타지',
     lastEpisode: 24,

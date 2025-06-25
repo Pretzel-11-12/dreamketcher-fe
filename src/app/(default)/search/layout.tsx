@@ -8,9 +8,7 @@ export default function SearchLayout({
 }>) {
   return (
     <div className="flex flex-col items-center mt-[70px] w-full bg-white text-black">
-      <hr className="border-line border-solid" />
       <CategorySelector />
-      <hr className="border-line border-solid" />
       {children}
     </div>
   );

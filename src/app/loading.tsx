@@ -11,14 +11,14 @@ export default function Loading() {
         </div>
 
         {/* 로고 이미지 (있다고 가정) */}
-        <div className="relative w-24 h-8">
+        {/* <div className="relative w-24 h-8">
           <Image
             src="/assets/logo/logo.svg"
             alt="Loading logo"
             fill
             className="object-contain opacity-80"
           />
-        </div>
+        </div> */}
 
         {/* 로딩 텍스트 */}
         <p className="text-white/80 text-sm font-medium animate-pulse">

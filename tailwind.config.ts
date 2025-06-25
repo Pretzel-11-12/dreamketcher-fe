@@ -28,7 +28,7 @@ export default {
         inActive: '#888888',
         contentBlack: '#3F3F3F',
         buttonLine: '#FA973B',
-        backgroundGray: '#F9F9F9',
+        bgGray: '#F9F9F9',
         basicGray: '#C9C9C9',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -73,6 +73,9 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      boxShadow: {
+        custom: '0px 0px 5px 0px rgba(167, 167, 167, 0.10)',
       },
     },
   },
