@@ -18,12 +18,6 @@ const SearchTagResultThumbnail: React.FC<SearchTagResultThumbnailProps> = ({
   tag,
 }) => {
   const router = useRouter();
-  const temporalTags = [
-    { id: 1, content: '무협/사극' },
-    { id: 2, content: '사이다' },
-    { id: 3, content: '세계관' },
-    { id: 4, content: '성장' },
-  ];
 
   const tempClickHandler = () => {
     router.push(`/webtoon/list?id=${webtoon.webtoonId}`);
@@ -41,11 +35,14 @@ const SearchTagResultThumbnail: React.FC<SearchTagResultThumbnailProps> = ({
           />
         </div>
         <div className="flex flex-col text-xs gap-[3px] mt-[1px] max-w-[752px]">
-          <p className="text-[18px] mb-[3px] leading-[normal]">
+          <p
+            className="text-[18px] mb-[3px] leading-[normal] cursor-pointer hover:underline"
+            onClick={tempClickHandler}
+          >
             {highlightKeyword(webtoon.webtoonTitle, tag.content)}
           </p>
           <p className="text-[#888888]">
-            {highlightKeyword(webtoon.AuthorNickname, tag.content)} ·{' '}
+            {highlightKeyword(webtoon.authorNickname, tag.content)} ·{' '}
             {highlightKeyword(webtoon.genreName, tag.content)} ·{' '}
             {webtoon.episode_count}화
           </p>

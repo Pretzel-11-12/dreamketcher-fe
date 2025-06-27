@@ -35,7 +35,7 @@ export namespace _Model {
     webtoonTitle: string;
     webtoonThumbnail: string;
     webtoonStory: string;
-    AuthorNickname: string;
+    authorNickname: string;
     episode_count: number;
     interestCount: number;
     genreName: string;
