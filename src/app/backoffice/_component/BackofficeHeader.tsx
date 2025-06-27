@@ -55,8 +55,8 @@ const BackofficeHeader: React.FC = () => {
   }, [setUserInfo]);
   const router = useRouter();
 
-  const handleGoBack = () => {
-    router.back(); // 이전 페이지로 이동
+  const handleGoMain = () => {
+    router.push('/main');
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,7 +90,7 @@ const BackofficeHeader: React.FC = () => {
           <div className="relative flex text-black gap-[15px] items-center h-[34px]">
             <button
               className="h-[34px] p-[10px] rounded-[5px] border border-1 border-[#e0e0e0] flex items-center justify-center text-titleBlack text-[14px]"
-              onClick={handleGoBack}
+              onClick={handleGoMain}
             >
               관리자 페이지 나가기
             </button>
