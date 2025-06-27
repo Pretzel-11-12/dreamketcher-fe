@@ -68,6 +68,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
   }, [item]);
 
   const handleThumbnail = async (file: File | null) => {
+    console.log('file', file);
     if (file) {
       const isEdit = status === 'edit';
 
@@ -77,12 +78,17 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         if (isEdit && item) {
           formData.append('newThumbnail', file);
           formData.append('oldThumbnail', item.thumbnail);
-          formData.append('folderName', `/webtoon/${item.id}/thumbnail`);
+          formData.append('folderName', `webtoon/${item.id}/thumbnail`);
 
-          await fetchCreatorWebtoon.editWebtoonThumbnail({
+          const s3Url = await fetchCreatorWebtoon.editWebtoonThumbnail({
             formData,
             webtoonId: item.id,
           });
+
+          setWebtoonInfo((v) => ({
+            ...v,
+            thumbnail: s3Url,
+          }));
         } else {
           formData.append('image', file);
           const s3Url = await fetchCreatorWebtoon.postWebtoonThumbnail({

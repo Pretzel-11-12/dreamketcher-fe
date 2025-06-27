@@ -39,7 +39,6 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       onFileSelect(null);
       return;
     }
-    console.log(file.size);
     // 파일 크기
     if (file.size > 1000 * 1024) {
       setError('1MB 미만의 파일을 등록해주세요.');
@@ -52,6 +51,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
     const img = new Image();
     img.onload = () => {
       if (img.width !== width) {
+        setError(`가로 ${width} 사이즈 이미지를 등록해주세요.`);
         if (!height) {
           setError(`가로 ${width} 사이즈 이미지를 등록해주세요.`);
         } else {
@@ -68,6 +68,7 @@ const ThumbnailUploader: React.FC<ThumbnailUploaderProps> = ({
       setError(null);
       setPreview(URL.createObjectURL(file));
       onFileSelect(file);
+      console.log(file);
     };
 
     img.src = URL.createObjectURL(file);
