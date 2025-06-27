@@ -25,8 +25,11 @@ const SearchTagResultThumbnail: React.FC<SearchTagResultThumbnailProps> = ({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex w-full h-[150px] cursor-pointer gap-[18px]">
-        <div className="w-[100px] h-[150px]" onClick={tempClickHandler}>
+      <div className="flex w-full h-[150px] gap-[18px]">
+        <div
+          className="w-[100px] h-[150px] cursor-pointer"
+          onClick={tempClickHandler}
+        >
           <CoverImage
             alt={'Search webtoon thumbnail'}
             src={webtoon.webtoonThumbnail}
