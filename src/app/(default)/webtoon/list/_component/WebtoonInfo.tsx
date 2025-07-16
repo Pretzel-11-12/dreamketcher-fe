@@ -8,8 +8,8 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import CoverImage from '@/app/_component/CoverImage';
 import Toast from '@/app/_component/Toast';
-import TagList from '@/app/(default)/search/_component/TagList';
 import AddToBookShelfModal from '@/app/(default)/webtoon/list/_component/AddToBookShelfModal';
+import WebtoonTagList from './WebtoonTagList';
 
 type webtoonDataProps = {
   webtoon: fetchWebtoonDetail.Model.WebtoonDetail;
@@ -110,12 +110,12 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
           </div>
           <div className="flex gap-[5px] items-center text-[16px] text-[#888]">
             <div className="text-[#3f3f3f]">{authorNickname}</div>
-            <div className="text-[#888] mr-[7px]">글/ 그림</div>
-            <div className="mr-[7px]">|</div>
+            <div className="text-[#888] mr-[7px]">글 / 그림</div>
+            <div className="mr-[7px] text-baseLine">|</div>
             <div> {genreName}</div>
           </div>
           <div className="text-sm text-[#3f3f3f]">{webtoonStory}</div>
-          <TagList tags={tags} />
+          <WebtoonTagList tags={tags} />
           <div className="grid grid-cols-[1fr_1fr] gap-[7px] absolute w-full bottom-0">
             <Button
               props={{
@@ -160,7 +160,12 @@ const WebtoonInfo: React.FC<webtoonDataProps> = ({ webtoon }) => {
         isVisible={toastState.isVisible}
         onClose={() => setToastState({ isVisible: false, message: '' })}
       />
-      <AddToBookShelfModal isOpen={isModalOpen} onClose={closeModal} webtoonId={webtoonId}/>
+      <AddToBookShelfModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        webtoonId={webtoonId}
+        setToastState={setToastState}
+      />
     </>
   );
 };

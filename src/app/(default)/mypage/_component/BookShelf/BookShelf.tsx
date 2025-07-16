@@ -12,7 +12,10 @@ const BookShelf: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 11;
 
-  const { data, isLoading, isError } = useQuery<{ folders: Folder[], total: number }>({
+  const { data, isLoading, isError } = useQuery<{
+    folders: Folder[];
+    total: number;
+  }>({
     queryKey: ['bookShelves'],
     queryFn: getBookShelfFolder,
   });

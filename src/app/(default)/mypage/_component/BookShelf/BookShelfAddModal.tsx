@@ -5,7 +5,11 @@ import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postBookShelfFolder } from '@/app/api/fetchFolder';
 
-const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isOpen, onClose }) => {
+const BookShelfAddModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  setToastState: (state: { isVisible: boolean; message: string }) => void;
+}> = ({ isOpen, onClose, setToastState }) => {
   const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
@@ -15,7 +19,10 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
   const { mutate } = useMutation({
     mutationFn: (folderName: string) => postBookShelfFolder(folderName),
     onSuccess: () => {
-      alert('책장이 추가되었습니다!');
+      setToastState({
+        isVisible: true,
+        message: '책장이 추가되었습니다.',
+      });
       queryClient.invalidateQueries({
         queryKey: ['bookShelves'],
       });
@@ -43,7 +50,7 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
   const handleSubmit = () => {
     const isSubmitDisabled = folderName.trim() === '';
     if (isSubmitDisabled) {
-      alert("제목을 입력해주세요.")
+      alert('제목을 입력해주세요.');
       return;
     }
 
@@ -58,7 +65,9 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-[384px] h-[314px] px-[15px] py-[30px] bg-white rounded-lg shadow-sm">
-        <p className="text-xl text-[#282828] text-center font-medium mb-4">책장 만들기</p>
+        <p className="text-xl text-[#282828] text-center font-medium mb-4">
+          책장 만들기
+        </p>
         <Input
           text={folderName}
           placeholder="기본책장"
@@ -71,8 +80,12 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
         />
         <div className="flex items-center h-[37px] mt-4 mb-4">
           <Image
-            src={isPrivate ? "/assets/icon/tick-circle-checked.svg" : "/assets/icon/tick-circle.svg"}
-            alt={"체크 아이콘"}
+            src={
+              isPrivate
+                ? '/assets/icon/tick-circle-checked.svg'
+                : '/assets/icon/tick-circle.svg'
+            }
+            alt={'체크 아이콘'}
             width={24}
             height={24}
             className={'cursor-pointer'}
@@ -85,8 +98,12 @@ const BookShelfAddModal: React.FC<{ isOpen: boolean; onClose: () => void; }> = (
             className="hidden"
           />
           <div className="ml-[6.5px]">
-            <p className="text-titleBlack text-[15px]/[20px] font-medium">비밀 책장으로 만들기</p>
-            <p className="text-[#888888] text-sm/[17px]">본인 외에 다른 유저는 해당 책장을 볼 수 없습니다.</p>
+            <p className="text-titleBlack text-[15px]/[20px] font-medium">
+              비밀 책장으로 만들기
+            </p>
+            <p className="text-[#888888] text-sm/[17px]">
+              본인 외에 다른 유저는 해당 책장을 볼 수 없습니다.
+            </p>
           </div>
         </div>
         <div className="flex flex-col mt-[20px] gap-2 text-lg font-medium">
