@@ -150,11 +150,7 @@ const AddToBookShelfModal: React.FC<{
           )}
         </div>
       </div>
-      <BookShelfAddModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        setToastState={setToastState}
-      />
+      <BookShelfAddModal isOpen={isModalOpen} onClose={closeModal} />
     </Modal>
   );
 };

@@ -8,8 +8,7 @@ import { postBookShelfFolder } from '@/app/api/fetchFolder';
 const BookShelfAddModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-  setToastState: (state: { isVisible: boolean; message: string }) => void;
-}> = ({ isOpen, onClose, setToastState }) => {
+}> = ({ isOpen, onClose }) => {
   const [folderName, setFolderName] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const maxLength = 10;
@@ -19,10 +18,6 @@ const BookShelfAddModal: React.FC<{
   const { mutate } = useMutation({
     mutationFn: (folderName: string) => postBookShelfFolder(folderName),
     onSuccess: () => {
-      setToastState({
-        isVisible: true,
-        message: '책장이 추가되었습니다.',
-      });
       queryClient.invalidateQueries({
         queryKey: ['bookShelves'],
       });
