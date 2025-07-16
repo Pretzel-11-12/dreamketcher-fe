@@ -39,7 +39,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
   }, [initialTags]);
 
   const addTag = (tag: string) => {
-    const _tag = '#' + tag;
+    const _tag = tag;
     if (tag && !tags.includes(_tag) && tags.length <= 10 && _tag.length <= 7) {
       const updatedTags = [...tags, _tag];
       setTags(updatedTags);
@@ -78,7 +78,6 @@ const TagInput: React.FC<TagInputProps> = (props) => {
             key={tag}
             className="flex items-center gap-1 text-white bg-[#5474CE] border-[#4C68B4] border rounded-[3px] px-[6px] py-[1px] text-[13px]"
           >
-            <span>{tag}</span>
             <button
               type="button"
               className="text-white focus:outline-none"
@@ -86,6 +85,7 @@ const TagInput: React.FC<TagInputProps> = (props) => {
             >
               x
             </button>
+            <span>{tag}</span>
           </div>
         ))}
       </div>

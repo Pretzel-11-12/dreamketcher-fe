@@ -10,7 +10,6 @@ import TagInput from './TagInput';
 import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 import { genres } from '@/constants/genres';
-import PublicationSettings from '../../episode/_components/PublicationSettings';
 import RadioCheckButton from '@/app/_component/RadioCheckButton';
 
 export interface SeriesFormInfo
@@ -146,7 +145,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
         />
       </div>
 
-      <div className="grid grid-cols-[10rem_1fr] items-center">
+      {/* <div className="grid grid-cols-[10rem_1fr] items-center">
         <div>이용가</div>
         <RadioButton
           options={[
@@ -155,7 +154,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           ]}
           selectedValue={'all'}
         />
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-[10rem_1fr] items-start">
         <div>작품 표지</div>
