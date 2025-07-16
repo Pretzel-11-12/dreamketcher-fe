@@ -11,6 +11,7 @@ import { fetchCreatorWebtoon } from '@/app/api/fetchCreator';
 import { useRouter } from 'next/navigation';
 import { genres } from '@/constants/genres';
 import PublicationSettings from '../../episode/_components/PublicationSettings';
+import RadioCheckButton from '@/app/_component/RadioCheckButton';
 
 export interface SeriesFormInfo
   extends Omit<
@@ -202,7 +203,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
           작품 상태
         </div>
         <div className="flex flex-col gap-2 w-full min-h-[150px]">
-          <RadioButton
+          <RadioCheckButton
             options={[
               { id: 'public', label: '공개' },
               { id: 'prvate', label: '비공개' },
@@ -210,7 +211,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
             selectedValue={publicSetting}
             onChange={setPublicSetting}
           />
-          {publicSetting === 'public' && (
+          {/* {publicSetting === 'public' && (
             <PublicationSettings
               seriesStatus={seriesStatus}
               onSeriesStatusChange={setSeriesStatus}
@@ -222,7 +223,7 @@ const SeriesForm: React.FC<SeriesFormProp> = ({ item }) => {
                 setWebtoonInfo((v) => ({ ...v, publishedAt: time }));
               }}
             />
-          )}
+          )} */}
         </div>
       </div>
 

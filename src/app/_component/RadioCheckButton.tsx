@@ -41,11 +41,9 @@ const RadioButton: React.FC<RadioButtonGroupProps> = ({
           />
           <div className="flex gap-[5px] items-center">
             {selected === option.id ? (
-              <div className="w-4 h-4 rounded-full border-[3px] border-brand-yellow bg-brand-yellow flex items-center justify-center">
-                <div className="w-[10px] h-[10px] rounded-full bg-white"></div>
-              </div>
+              <span className="mdi mdi-check-circle text-brand-yellow text-[20px]" />
             ) : (
-              <div className="w-4 h-4 rounded-full border-[1px] border-gray-300 bg-white"></div>
+              <span className="mdi mdi-check-circle-outline text-gray-500/30 text-[20px]" />
             )}
 
             <span
